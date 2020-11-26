@@ -28,7 +28,7 @@
         const form = document.getElementById('permission-form')
 
         const ajaxList = () => {
-            request.get('{{ route('permission.ajax') }}')
+            request.get('{{ route('permissions.ajax') }}')
                 .then(response => document.getElementById('list').innerHTML = response.data)
         }
 

@@ -29,8 +29,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
-                Route::get('ajax', 'PermissionController@ajaxList')->name('permission.ajax');
-                Route::get('checkboxes', 'PermissionController@checkboxesView')->name('permission.checkboxes');
+                Route::get('ajax', 'PermissionController@ajaxList')->name('permissions.ajax');
+                Route::get('checkboxes', 'PermissionController@checkboxesView')->name('permissions.checkboxes');
 
                 Route::post('/', 'PermissionController@create')->name('permissions.create');
                 Route::get('{id}', 'PermissionController@find')->name('permissions.find');

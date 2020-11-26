@@ -104,7 +104,7 @@
 
         }
 
-        const getPermissions = () => request.get('{{ route('permission.checkboxes') }}')
+        const getPermissions = () => request.get('{{ route('permissions.checkboxes') }}')
     </script>
 @endpush
 
