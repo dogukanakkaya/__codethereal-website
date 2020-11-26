@@ -52,7 +52,7 @@ class LoginTest extends FeatureTestBase
             'name' => 'Login Incorrect',
             'rank' => Config::get('constants.rank.admin'),
         ]);
-        $response = $this->from('/login')->post('/login', [
+        $response = $this->from(route('login'))->post(route('login'), [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
