@@ -1,0 +1,11 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/auth/login.css": "/css/auth/login.css",
+    "/css/auth/base.css": "/css/auth/base.css",
+    "/css/permissions/base.css": "/css/permissions/base.css",
+    "/css/users/base.css": "/css/users/base.css",
+    "/css/ce/datatable.css": "/css/ce/datatable.css",
+    "/css/ce/sortable.css": "/css/ce/sortable.css",
+    "/css/ce/toast.css": "/css/ce/toast.css"
+}

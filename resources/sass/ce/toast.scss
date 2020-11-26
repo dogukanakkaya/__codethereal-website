@@ -1,0 +1,130 @@
+// Toast options
+$toast-width: 350px;
+$toast-padding: 1rem;
+$toast-margin-bottom: 1rem;
+
+// Spaces from top-right-bottom-left
+$toast-spaces: 10px;
+
+// Toast status colors
+$toast-success-color: linear-gradient(45deg, #0fd002, #00ab05);
+$toast-error-color: linear-gradient(45deg, #fb0000, #c10000);
+$toast-info-color: linear-gradient(45deg, #02b3d0, #0074ab);
+$toast-warning-color: linear-gradient(45deg, #daab00, #d88c00);
+$toast-default-color: linear-gradient(45deg, #464646, #6d6d6d);
+
+// Font colors and sizes
+$toast-title-color: #fff;
+$toast-title-font-size: 20px;
+$toast-message-color: #fff;
+$toast-message-font-size: 13px;
+$toast-message-line-height: 20px;
+
+// Progress bar
+$progress-color: #000;
+$progress-height: 4px;
+
+.ce-toast-container{
+    width: $toast-width;
+    position: fixed;
+    z-index: 9999;
+    right: $toast-spaces;
+    top: $toast-spaces;
+}
+
+.ce-toast {
+    margin-bottom: $toast-margin-bottom;
+    padding: $toast-padding;
+
+    .close{
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+        opacity: .8;
+        color: #fff;
+
+        &:hover{
+            color: darken(#fff, 5%);
+        }
+
+        i{
+            font-size: 15px;
+        }
+    }
+
+    &.fade{
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s ease-in;
+
+        &.show{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &.slide{
+        right: calc(-1 * #{$toast-width});
+        transition: all .25s ease-in;
+
+        &.show{
+            right: $toast-spaces;
+        }
+    }
+
+    &.zoom{
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all .4s ease;
+
+        &.show{
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    &.success {
+        background: $toast-success-color;
+    }
+
+    &.error {
+        background: $toast-error-color;
+    }
+
+    &.info {
+        background: $toast-info-color;
+    }
+
+    &.warning {
+        background: $toast-warning-color;
+    }
+
+    &.default {
+        background: $toast-default-color;
+    }
+
+    .content {
+        h3 {
+            color: $toast-title-color;
+            font-size: $toast-title-font-size;
+        }
+
+        p {
+            white-space: pre-wrap;
+            line-height: $toast-message-line-height;
+            font-size: $toast-message-font-size;
+            color: $toast-message-color;
+        }
+    }
+
+    .progress{
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: $progress-height;
+        left: 0;
+        background: $progress-color;
+        border-radius: 0;
+    }
+}

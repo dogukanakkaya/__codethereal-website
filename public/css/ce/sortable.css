@@ -1,0 +1,19 @@
+.sortable {
+  cursor: move;
+  margin-top: 20px;
+}
+
+.sortable .dropdown {
+  display: inline-block;
+  float: right;
+}
+
+.sortable .ghost {
+  background-color: #71b6f9;
+}
+
+.sortable .multi-selected {
+  background-color: #f9c7c8;
+  border: solid red 1px !important;
+}
+

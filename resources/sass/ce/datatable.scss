@@ -1,0 +1,43 @@
+@import 'resources/sass/variables';
+
+#ce-datatable_wrapper{
+    .dt-top, .dt-bottom{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dataTables_filter{
+        input[type='search']{
+            outline: none;
+            padding: 5px;
+            margin-left: 5px;
+            border: 1px solid #c5c5c594;
+            border-radius: 2px;
+        }
+    }
+
+    .dataTables_paginate{
+        .paginate_button{
+            padding: .5rem 1rem;
+            cursor: pointer;
+            background-color: #fff;
+            color: $main-color;
+            border: 1px solid #b9b9b978;
+
+            &.disabled{
+                background-color: #e0e0e0a6;
+                color: #636363;
+            }
+
+            &.current{
+                background-color: $main-color;
+                color: #fff;
+            }
+        }
+    }
+
+    .table td{
+        vertical-align: middle;
+        padding: .5rem;
+    }
+}

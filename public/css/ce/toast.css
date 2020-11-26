@@ -1,0 +1,103 @@
+.ce-toast-container {
+  width: 350px;
+  position: fixed;
+  z-index: 9999;
+  right: 10px;
+  top: 10px;
+}
+
+.ce-toast {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.ce-toast .close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+  color: #fff;
+}
+
+.ce-toast .close:hover {
+  color: #f2f2f2;
+}
+
+.ce-toast .close i {
+  font-size: 15px;
+}
+
+.ce-toast.fade {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease-in;
+}
+
+.ce-toast.fade.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ce-toast.slide {
+  right: calc(-1 * 350px);
+  transition: all 0.25s ease-in;
+}
+
+.ce-toast.slide.show {
+  right: 10px;
+}
+
+.ce-toast.zoom {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.ce-toast.zoom.show {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.ce-toast.success {
+  background: linear-gradient(45deg, #0fd002, #00ab05);
+}
+
+.ce-toast.error {
+  background: linear-gradient(45deg, #fb0000, #c10000);
+}
+
+.ce-toast.info {
+  background: linear-gradient(45deg, #02b3d0, #0074ab);
+}
+
+.ce-toast.warning {
+  background: linear-gradient(45deg, #daab00, #d88c00);
+}
+
+.ce-toast.default {
+  background: linear-gradient(45deg, #464646, #6d6d6d);
+}
+
+.ce-toast .content h3 {
+  color: #fff;
+  font-size: 20px;
+}
+
+.ce-toast .content p {
+  white-space: pre-wrap;
+  line-height: 20px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.ce-toast .progress {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  left: 0;
+  background: #000;
+  border-radius: 0;
+}
+

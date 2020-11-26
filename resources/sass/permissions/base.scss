@@ -1,0 +1,36 @@
+// Variables
+@import '../variables';
+
+// Media queries
+@import '../queries';
+
+.role-item{
+    background: white;
+
+    .head{
+        background: linear-gradient(45deg, #5b78e1, #42bace) !important;
+
+        .char{
+            border-radius: 100%;
+            border: 1px solid #ffffff4d;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background: $main-color;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h3{
+            font-size: 16px;
+            color: white;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .actions a{
+            color: white;
+        }
+    }
+}

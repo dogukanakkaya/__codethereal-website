@@ -1,0 +1,145 @@
+// Fonts
+// TODO: get these into local
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/solid.min.css');
+
+@import "mixins";
+
+html[theme='dark-theme']{
+    filter: invert(1) hue-rotate(180deg);
+
+    .image, img, aside, .logo, .black-overlay{
+        filter: invert(1) hue-rotate(180deg);
+    }
+}
+
+#loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-color;
+    color: #fff;
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-weight: bold;
+    font-size: 30vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 999999;
+
+    span {
+        display: inline-block;
+        animation: pulse 0.4s alternate infinite ease-in-out;
+
+        &:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+
+@keyframes pulse {
+    to {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $background-color;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.font-small{
+    font-size: .75rem;
+}
+
+label.required::after{
+    content: '*';
+    color: $danger;
+    margin-left: 2px;
+}
+
+a.active:not(.nav-link) {
+    color: $main-color !important;
+}
+
+a.danger:hover, a.danger:hover i {
+    color: #ff1010 !important;
+}
+
+.border-active-tab a{
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+
+    &.active{
+        border-top: 2px solid $main-color;
+        border-bottom: 2px solid $main-color;
+        background-color: unset!important;
+        color: $main-color!important;
+        border-radius: 0;
+    }
+}
+
+#vanillatoasts-container{
+    z-index: 99;
+}
+
+.black-overlay {
+    background-color: rgba(50, 58, 70, .55);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    z-index: 9998;
+    -webkit-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+.r-0 {
+    right: 0 !important;
+}
+
+.table{
+    width: 100%!important;
+}
+
+.permission-group-checks{
+    padding: 1rem 0;
+    border-bottom: $gray-border;
+
+    .form-check-label{
+        font-size: 12px;
+    }
+}
+
+/* BS Override */
+form label:not(.form-check-label){
+    font-size: .725rem;
+    text-transform: uppercase;
+    color: $gray-color;
+    font-weight: 600;
+}
+/* /BS Override */

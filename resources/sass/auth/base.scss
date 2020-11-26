@@ -1,0 +1,114 @@
+$login-width-lg: 768px;
+$login-width-sm: 300px;
+
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contain{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.box{
+    width: $login-width-lg;
+
+    .alert{
+        background: #ff1a1ac9;
+        text-align: center;
+        padding: 10px;
+        color: white;
+
+        &.error{
+            background: #ff1a1ac9;
+        }
+
+        &.success{
+            background: #14d664;
+        }
+    }
+
+    .logo{
+        text-align: center;
+        padding: 25px 0;
+        background: #c1c1c14a;
+
+        img{
+            width: 400px;
+        }
+    }
+
+    .inner-box{
+        background: #ffffffb5;
+        padding: 25px;
+    }
+
+    form{
+        width: 100%;
+
+        .f-group{
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        label{
+            display: block;
+            margin: 3px 0;
+        }
+
+        input:not([type='submit']):not([type='checkbox']){
+            width: 100%;
+            padding: .4rem .75rem;
+            outline: none;
+            border: 1px solid #ced4da;
+            transition: .25s all;
+
+            &:focus{
+                box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 25%);
+                border-color: #000;
+            }
+        }
+    }
+
+    .auth-btn{
+        text-align: right;
+
+        input{
+            padding: .5rem 1.5rem;
+            background: #000;
+            outline: none;
+            border: 2px solid black;
+            color: white;
+            cursor: pointer;
+            transition: .4s all;
+
+            &:hover{
+                background: transparent;
+                color: #000
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .box{
+        width: $login-width-sm;
+
+        .logo{
+            img{
+                width: 250px;
+            }
+        }
+    }
+}

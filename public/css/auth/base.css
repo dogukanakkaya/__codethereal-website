@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.contain {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.box {
+  width: 768px;
+}
+
+.box .alert {
+  background: #ff1a1ac9;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.box .alert.error {
+  background: #ff1a1ac9;
+}
+
+.box .alert.success {
+  background: #14d664;
+}
+
+.box .logo {
+  text-align: center;
+  padding: 25px 0;
+  background: #c1c1c14a;
+}
+
+.box .logo img {
+  width: 400px;
+}
+
+.box .inner-box {
+  background: #ffffffb5;
+  padding: 25px;
+}
+
+.box form {
+  width: 100%;
+}
+
+.box form .f-group {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.box form label {
+  display: block;
+  margin: 3px 0;
+}
+
+.box form input:not([type=submit]):not([type=checkbox]) {
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  outline: none;
+  border: 1px solid #ced4da;
+  transition: 0.25s all;
+}
+
+.box form input:not([type=submit]):not([type=checkbox]):focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+  border-color: #000;
+}
+
+.box .auth-btn {
+  text-align: right;
+}
+
+.box .auth-btn input {
+  padding: 0.5rem 1.5rem;
+  background: #000;
+  outline: none;
+  border: 2px solid black;
+  color: white;
+  cursor: pointer;
+  transition: 0.4s all;
+}
+
+.box .auth-btn input:hover {
+  background: transparent;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .box {
+    width: 300px;
+  }
+
+  .box .logo img {
+    width: 250px;
+  }
+}
+
