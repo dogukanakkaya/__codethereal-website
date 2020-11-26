@@ -18,7 +18,7 @@
         {{ Form::password('password', ['required' => 'true']) }}
     </div>
     <div class="f-group">
-        {{__('auth.remember_me')}} {{ Form::checkbox('remember_me', 'on') }}
+        {{__('auth.remember_me')}} {{ Form::checkbox('remember', 'on') }}
     </div>
     <a href="{{ route('password.request') }}" class="forgot-password">{{ __('passwords.forgot_password') }}</a>
     <div class="auth-btn">

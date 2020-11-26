@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Menu;
+namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Group extends Model
+class File extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,7 @@ class Group extends Model
      *
      * Table name of model
      */
-    protected $table = 'menu_groups';
+    protected $table = 'files';
 
     /**
      * The attributes that are mass assignable.
@@ -23,11 +23,9 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'path',
+        'name',
+        'size',
+        'extension'
     ];
-
-    public function items()
-    {
-        return $this->hasMany('App\Models\Menu\Item');
-    }
 }

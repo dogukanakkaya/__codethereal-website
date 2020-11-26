@@ -3,34 +3,21 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
+    use AuthenticatesUsers;
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        $remember = $request->get('remember_me') === 'on';
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected string $redirectTo = '/admin';
 
-        if (Auth::attempt($credentials, $remember)) {
-            // Authentication passed, redirect to admin
-            return redirect()->intended('admin');
-        }
-        return back()->withErrors([
-            'errors' => [__('auth.login_failed')]
-        ]);
-    }
-
-    public function logout()
+    public function __construct()
     {
-        Auth::logout();
-        return redirect()->route('login');
+        $this->middleware('guest')->except('logout');
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
+use Tests\Feature\FeatureTestBase;
 
 class UsersTest extends FeatureTestBase
 {
@@ -19,7 +20,7 @@ class UsersTest extends FeatureTestBase
             ]);
     }
 
-    public function testAdminCanSeeUsers()
+    public function test_admin_can_see_users()
     {
         Permission::create(['name' => 'see_users', 'title' => 'X']);
         $this->admin->givePermissionTo('see_users');
@@ -28,13 +29,13 @@ class UsersTest extends FeatureTestBase
         $response->assertOk();
     }
 
-    public function testAdminCannotSeeUsersWithoutPermission()
+    public function test_admin_cannot_see_users_without_permission()
     {
         $response = $this->get(route('users.index'), ['HTTP_REFERER' => route('profile.index')]);
         $response->assertRedirect(route('profile.index'));
     }
 
-    public function testAdminCanCreateAUser()
+    public function test_admin_can_create_a_user()
     {
         Permission::create(['name' => 'create_users', 'title' => 'X']);
         $this->admin->givePermissionTo('create_users');
@@ -46,7 +47,7 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testAdminCannotCreateAUserWithoutPermission()
+    public function test_admin_cannot_create_a_user_without_permission()
     {
         $response = $this->json('POST', route('users.create'), [
             'name' => 'Codethereal',
@@ -57,7 +58,7 @@ class UsersTest extends FeatureTestBase
         ]);
     }
 
-    public function testAdminCanSeeAUser()
+    public function test_admin_can_see_a_user()
     {
         Permission::create(['name' => 'see_users', 'title' => 'X']);
         $this->admin->givePermissionTo('see_users');
@@ -66,13 +67,13 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['email' => $this->admin->email]);
     }
 
-    public function testAdminCannotSeeAUserWithoutPermission()
+    public function test_admin_cannot_see_a_user_without_permission()
     {
         $response = $this->json('GET', route('users.find', ['id' => $this->admin->id]));
         $response->assertJson(['status' => 0]);
     }
 
-    public function testAdminCanUpdateAUser()
+    public function test_admin_can_update_a_user()
     {
         Permission::create(['name' => 'update_users', 'title' => 'X']);
         $this->admin->givePermissionTo('update_users');
@@ -84,7 +85,7 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testAdminCannotUpdateAUserWithoutPermission()
+    public function test_admin_cannot_update_a_user_without_permission()
     {
         $response = $this->json('PUT', route('users.update', ['id' => $this->admin->id]), [
             'name' => 'Codethereal',
@@ -93,7 +94,7 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['status' => 0]);
     }
 
-    public function testAdminCanDeleteAUser()
+    public function test_admin_can_delete_a_user()
     {
         Permission::create(['name' => 'delete_users', 'title' => 'X']);
         $this->admin->givePermissionTo('delete_users');
@@ -102,13 +103,13 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testAdminCannotDeleteAUserWithoutPermission()
+    public function test_admin_cannot_delete_a_user_without_permission()
     {
         $response = $this->json('DELETE', route('users.delete', ['id' => $this->admin->id]));
         $response->assertJson(['status' => 0]);
     }
 
-    public function testAdminCanRestoreAUser()
+    public function test_admin_can_restore_a_user()
     {
         Permission::create(['name' => 'delete_users', 'title' => 'X']);
         $this->admin->givePermissionTo('delete_users');
@@ -117,32 +118,44 @@ class UsersTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testAdminCannotRestoreAUserWithoutPermission()
+    public function test_admin_cannot_restore_a_user_without_permission()
     {
         $response = $this->json('GET', route('users.restore', ['id' => $this->admin->id]));
         $response->assertJson(['status' => 0]);
     }
 
-    public function testAdminCannotOperateADeveloper()
+    public function test_admin_cannot_see_a_developer()
     {
         Permission::create(['name' => 'see_users', 'title' => 'X']);
-        Permission::create(['name' => 'update_users', 'title' => 'X']);
-        Permission::create(['name' => 'delete_users', 'title' => 'X']);
-        $this->admin->givePermissionTo(['see_users', 'update_users', 'delete_users']);
+        $this->admin->givePermissionTo('see_users');
 
-        // Admin can't find developer
         $response = $this->json('GET', route('users.find', ['id' => $this->dev->id]));
         $response->assertJson(['status' => 0]);
+    }
 
-        // Admin can't update developer
+    public function test_admin_cannot_update_a_developer()
+    {
+        Permission::create(['name' => 'update_users', 'title' => 'X']);
+        $this->admin->givePermissionTo('update_users');
+
         $response = $this->json('PUT', route('users.update', ['id' => $this->dev->id]), ['email' => 'i@codethereal.com']);
         $response->assertJson(['status' => 0]);
+    }
 
-        // Admin can't delete developer
+    public function test_admin_cannot_delete_a_developer()
+    {
+        Permission::create(['name' => 'delete_users', 'title' => 'X']);
+        $this->admin->givePermissionTo('delete_users');
+
         $response = $this->json('DELETE', route('users.delete', ['id' => $this->dev->id]));
         $response->assertJson(['status' => 0]);
+    }
 
-        // Admin can't restore developer
+    public function test_admin_cannot_restore_a_developer()
+    {
+        Permission::create(['name' => 'delete_users', 'title' => 'X']);
+        $this->admin->givePermissionTo('delete_users');
+
         $response = $this->json('GET', route('users.restore', ['id' => $this->dev->id]));
         $response->assertJson(['status' => 0]);
     }

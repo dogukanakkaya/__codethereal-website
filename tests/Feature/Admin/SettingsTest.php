@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
+use Tests\Feature\FeatureTestBase;
 
 class SettingsTest extends FeatureTestBase
 {
@@ -19,7 +20,7 @@ class SettingsTest extends FeatureTestBase
             ]);
     }
 
-    public function testAdminCanSeeSettings()
+    public function test_admin_can_see_settings()
     {
         Permission::create(['name' => 'see_settings', 'title' => 'X']);
         $this->admin->givePermissionTo('see_settings');
@@ -28,30 +29,18 @@ class SettingsTest extends FeatureTestBase
         $response->assertOk();
     }
 
-    public function testAdminCannotSeeSettingsWithoutPermission()
+    public function test_admin_cannot_see_settings_without_permission()
     {
         $response = $this->get(route('settings.index'), ['HTTP_REFERER' => route('profile.index')]);
         $response->assertRedirect(route('profile.index'));
     }
 
-    public function testAdminCanUpdateSettings()
+    public function test_admin_can_update_settings()
     {
         Permission::create(['name' => 'update_settings', 'title' => 'X']);
         $this->admin->givePermissionTo('update_settings');
 
-        $response = $this->sendUpdateRequest();
-        $response->assertJson(['status' => 1]);
-    }
-
-    public function testAdminCannotUpdateSettingsWithoutPermission()
-    {
-        $response = $this->sendUpdateRequest();
-        $response->assertJson(['status' => 0]);
-    }
-
-    private function sendUpdateRequest()
-    {
-        return $this->json('PUT', route('settings.update'), [
+        $response = $this->json('PUT', route('settings.update'), [
             'tr' => [
                 'title' => 'Site Baslik',
             ],
@@ -59,5 +48,19 @@ class SettingsTest extends FeatureTestBase
                 'title' => 'Site Title'
             ]
         ]);
+        $response->assertJson(['status' => 1]);
+    }
+
+    public function test_admin_cannot_update_settings_without_permission()
+    {
+        $response = $this->json('PUT', route('settings.update'), [
+            'tr' => [
+                'title' => 'Site Baslik',
+            ],
+            'en' => [
+                'title' => 'Site Title'
+            ]
+        ]);
+        $response->assertJson(['status' => 0]);
     }
 }

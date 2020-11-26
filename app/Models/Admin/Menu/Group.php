@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Menu;
+namespace App\Models\Admin\Menu;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Item extends Model
+class Group extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,7 @@ class Item extends Model
      *
      * Table name of model
      */
-    protected $table = 'menu_items';
+    protected $table = 'menu_groups';
 
     /**
      * The attributes that are mass assignable.
@@ -23,13 +23,11 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'group_id',
-        'parent_id'
+        'title'
     ];
 
-    protected $hidden = [
-        'updated_at',
-        'deleted_at',
-        'created_at'
-    ];
+    public function items()
+    {
+        return $this->hasMany('App\Models\Admin\Menu\Item');
+    }
 }

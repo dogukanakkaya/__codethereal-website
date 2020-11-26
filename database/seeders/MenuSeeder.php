@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menu\Group;
-use App\Models\Menu\Item;
-use App\Models\Menu\ItemTranslation;
+use App\Models\Admin\Menu\Group;
+use App\Models\Admin\Menu\Item;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

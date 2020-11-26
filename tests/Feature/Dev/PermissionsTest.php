@@ -3,7 +3,6 @@
 namespace Tests\Feature\Dev;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Permission;
 use Tests\Feature\FeatureTestBase;
 
 class PermissionsTest extends FeatureTestBase
@@ -20,13 +19,13 @@ class PermissionsTest extends FeatureTestBase
             ]);
     }
 
-    public function testDevCanSeePermissions()
+    public function test_developer_can_see_permissions()
     {
         $response = $this->get(route('permissions.index'));
         $response->assertOk();
     }
 
-    public function testDevCanCreateAPermission()
+    public function test_developer_can_create_permissions()
     {
         $response = $this->json('POST', route('permissions.create'), [
             'name' => 'delete_everything',
@@ -36,7 +35,7 @@ class PermissionsTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testDevCanSeeAPermission()
+    public function test_developer_can_see_a_permission()
     {
         $this->json('POST', route('permissions.create'), [
             'name' => 'delete_everything',
@@ -47,7 +46,7 @@ class PermissionsTest extends FeatureTestBase
         $response->assertJson(['name' => 'delete_everything']);
     }
 
-    public function testDevCanUpdateAPermission()
+    public function test_developer_can_update_a_permission()
     {
         $this->json('POST', route('permissions.create'), [
             'name' => 'delete_everything',
@@ -61,7 +60,7 @@ class PermissionsTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function testDevCanDeleteAPermission()
+    public function test_developer_can_delete_a_permission()
     {
         $this->json('POST', route('permissions.create'), [
             'name' => 'delete_everything',

@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Feature\FeatureTestBase;
 
 class ProfileTest extends FeatureTestBase
 {
@@ -18,13 +19,14 @@ class ProfileTest extends FeatureTestBase
         ]);
     }
 
-    public function testUserCanSeeProfile()
+    public function test_user_can_see_profile()
     {
+        $this->withoutExceptionHandling();
         $response = $this->get(route('profile.index'));
         $response->assertOk();
     }
 
-    public function testUserCanUpdateProfile()
+    public function test_user_can_update_profile()
     {
         $response = $this->json('PUT', route('profile.update'), [
             'name' => 'Codethereal',

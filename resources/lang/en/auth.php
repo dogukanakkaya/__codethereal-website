@@ -17,7 +17,6 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'login' => 'Login',
     'remember_me' => 'Remember me',
-    'login_failed' => 'Your E-Mail or Password is wrong, please try again.',
     'verify_email_text' => 'Please follow the instructions in your e-mail to verify your account',
     'didnt_get_email' => 'You didn\'t get an email? Click the button below to request another one', // w/param
     'resend_email' => 'Resend E-Mail',

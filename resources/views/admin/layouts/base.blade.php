@@ -25,7 +25,7 @@
             <div class="user-profile">
                 <div class="image">
                     @php
-                    $file = App\Models\File::find($user->image);
+                    $file = App\Models\Admin\File::find($user->image);
                     $image = isset($file->path) ? 'storage/' . $file->path : 'img/profile.png';
                     @endphp
                     <img src="{{ asset($image) }}" alt="profile">

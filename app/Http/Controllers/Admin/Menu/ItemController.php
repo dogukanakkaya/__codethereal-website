@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Menu\StoreItem;
-use App\Models\Menu\Group;
-use App\Models\Menu\Item;
+use App\Models\Admin\Menu\Group;
+use App\Models\Admin\Menu\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;

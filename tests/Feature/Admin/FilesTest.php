@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Tests\Feature\FeatureTestBase;
 
 class FilesTest extends FeatureTestBase
 {
@@ -20,7 +21,7 @@ class FilesTest extends FeatureTestBase
             ]);
     }
 
-    public function testFileCanUpload()
+    public function test_admin_can_upload_files()
     {
         Storage::fake('public');
 
@@ -37,7 +38,7 @@ class FilesTest extends FeatureTestBase
         Storage::disk('public')->assertMissing('missing.jpg');
     }
 
-    public function testFileCanDelete()
+    public function test_admin_can_delete_files()
     {
         Storage::fake('public');
 
