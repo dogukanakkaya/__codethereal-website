@@ -4,12 +4,16 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
+
 class FeatureTestBase extends TestCase
 {
+    /**
+     * ! Laravel advices us to use camelcase in tests, but a lot of people would agree snake case is more readable
+     */
+
     use RefreshDatabase;
 
     protected User $admin;
@@ -27,14 +31,14 @@ class FeatureTestBase extends TestCase
 
         $this->admin = User::factory()->create([
             'name' => 'Admin',
-            'rank' => Config::get('constants.rank.admin'),
+            'rank' => config('user.rank.admin'),
             'image' => 0
         ]);
         $this->admin->markEmailAsVerified();
 
         $this->dev = User::factory()->create([
             'name' => 'Developer',
-            'rank' => Config::get('constants.rank.dev'),
+            'rank' => config('user.rank.dev'),
             'image' => 0
         ]);
         $this->dev->assignRole('developer');

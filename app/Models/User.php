@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -79,6 +78,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isDev()
     {
-        return intval($this->rank) === Config::get('constants.rank.dev');
+        return intval($this->rank) === config('user.rank.dev');
     }
 }

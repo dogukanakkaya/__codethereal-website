@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -22,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'doguakkaya27@gmail.com',
             'password' => Hash::make('12345678'),
             'position' => 'Software Developer',
-            'rank' => Config::get('constants.rank.dev'),
+            'rank' => config('user.rank.dev')
         ]);
         $user->markEmailAsVerified();
         $user->assignRole('developer');
@@ -32,7 +30,7 @@ class UserSeeder extends Seeder
             'email' => 'doguakkaya27@hotmail.com',
             'password' => Hash::make('12345678'),
             'position' => '',
-            'rank' => Config::get('constants.rank.admin'),
+            'rank' => config('user.rank.admin')
         ]);
         $userAdmin->markEmailAsVerified();
     }

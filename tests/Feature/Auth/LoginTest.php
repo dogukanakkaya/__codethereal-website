@@ -4,7 +4,6 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Tests\Feature\FeatureTestBase;
 
@@ -35,7 +34,7 @@ class LoginTest extends FeatureTestBase
         $password = '12345678';
         $user = User::factory()->create([
             'name' => 'Login Codethereal',
-            'rank' => Config::get('constants.rank.admin'),
+            'rank' => config('user.rank.admin'),
             'password' => Hash::make($password)
         ]);
         $response = $this->post(route('login'), [
@@ -50,7 +49,7 @@ class LoginTest extends FeatureTestBase
     {
         $user = User::factory()->create([
             'name' => 'Login Incorrect',
-            'rank' => Config::get('constants.rank.admin'),
+            'rank' => config('user.rank.admin')
         ]);
         $response = $this->from(route('login'))->post(route('login'), [
             'email' => $user->email,

@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -23,7 +22,7 @@ class UserController extends Controller
         }
         if ($request->ajax()) {
             $data = User::select('users.id', 'path','users.name','email','position','users.created_at as created_at', 'email_verified_at')
-                ->where('rank', '!=', Config::get('constants.rank.dev'))
+                ->where('rank', '!=', config('user.rank.dev'))
                 ->leftJoin('files', 'files.id', '=', 'users.image')
                 ->latest()
                 ->get();
@@ -80,7 +79,7 @@ class UserController extends Controller
             $user = User::create($data);
 
             // Create user permissions
-            $user->givePermissionTo($request->get('role_permissions'));
+            $user->givePermissionTo(request('role_permissions', []));
 
             // Send an email to user to create a password
             $status = Password::sendResetLink(['email' => $user->email]);
@@ -137,7 +136,7 @@ class UserController extends Controller
             User::where('id', $id)->update($data);
 
             // Sync user permissions with new ones
-            $user->syncPermissions($request->get('role_permissions'));
+            $user->syncPermissions(request('role_permissions', []));
 
             DB::commit();
             return resJson(true);

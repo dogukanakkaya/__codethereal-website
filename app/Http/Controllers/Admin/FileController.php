@@ -28,7 +28,7 @@ class FileController extends Controller
         $name = $file->getClientOriginalName();
         $size = $file->getSize();
         $extension = $file->extension();
-        $folder = $request->get('folder');
+        $folder = request('folder');
 
         // Check allowed extensions
         if (!in_array($file->extension(), $this->allowedExtensions)) {

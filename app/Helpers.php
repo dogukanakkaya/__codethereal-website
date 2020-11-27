@@ -64,7 +64,7 @@ function languages(){
  * @return string
  */
 function mailSubject(string $text){
-    return env('APP_NAME', 'Codethereal') . " // $text";
+    return config('app.name', 'Codethereal') . " // $text";
 }
 
 /**
