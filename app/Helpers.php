@@ -53,7 +53,8 @@ function resJsonUnauthorized()
  *
  * @return \Illuminate\Support\Collection
  */
-function languages(){
+function languages()
+{
     return \Illuminate\Support\Facades\DB::table('languages')->get();
 }
 
@@ -63,7 +64,8 @@ function languages(){
  * @param $text
  * @return string
  */
-function mailSubject(string $text){
+function mailSubject(string $text): string
+{
     return config('app.name', 'Codethereal') . " // $text";
 }
 
@@ -73,9 +75,9 @@ function mailSubject(string $text){
  * @param $id
  * @return bool
  */
-function isOnline(int $id)
+function isOnline(int $id): bool
 {
-    return \Illuminate\Support\Facades\Cache::has('user-is-online-' . $id);
+    return cache()->has('user-is-online-' . $id);
 }
 
 /**
@@ -85,7 +87,8 @@ function isOnline(int $id)
  * @param $key
  * @return mixed|null
  */
-function array_remove(array &$arr, $key) {
+function array_remove(array &$arr, $key)
+{
     $val = $arr[$key] ?? null;
     unset($arr[$key]);
     return $val;
@@ -98,7 +101,8 @@ function array_remove(array &$arr, $key) {
  * @param $dbCols = []
  * @return array
  */
-function buildTree($contents, array $dbCols= [], int $parentId = 0){
+function buildTree($contents, array $dbCols= [], int $parentId = 0): array
+{
     $dbCols['id'] = isset($dbCols['id']) ? $dbCols['id'] : 'id';
     $dbCols['parentId'] = isset($dbCols['parentId']) ? $dbCols['parentId'] : 'parentId';
 
@@ -121,7 +125,8 @@ function buildTree($contents, array $dbCols= [], int $parentId = 0){
  * @param int $parentId
  * @return string
  */
-function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int $parentId = 0){
+function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int $parentId = 0): string
+{
     $htmlTags['start'] = isset($htmlTags['start']) ? $htmlTags['start'] : '<ul>';
     $htmlTags['end'] = isset($htmlTags['end']) ? $htmlTags['end'] : '</ul>';
 
