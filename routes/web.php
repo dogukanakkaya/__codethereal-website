@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
                 Route::post('/', 'PermissionController@create')->name('permissions.create');
                 Route::get('{id}', 'PermissionController@find')->name('permissions.find');
                 Route::put('{id}', 'PermissionController@update')->name('permissions.update');
-                Route::delete('{id}', 'PermissionController@delete')->name('permissions.delete');
+                Route::delete('{id}', 'PermissionController@destroy')->name('permissions.destroy');
             });
         });
     });
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
 
         // Only for ajax operations
         Route::middleware('only.ajax')->group(function (){
-            Route::delete('{id}', 'FileController@delete')->name('files.delete');
+            Route::delete('{id}', 'FileController@destroy')->name('files.destroy');
         });
     });
 
@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
             Route::post('/', 'UserController@create')->name('users.create');
             Route::get('{id}', 'UserController@find')->name('users.find');
             Route::put('{id}', 'UserController@update')->name('users.update');
-            Route::delete('{id}', 'UserController@delete')->name('users.delete');
+            Route::delete('{id}', 'UserController@destroy')->name('users.destroy');
             Route::get('restore/{id}', 'UserController@restore')->name('users.restore');
         });
     });
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
             Route::post('/', 'GroupController@create')->name('menus.create');
             Route::get('{id}', 'GroupController@find')->name('menus.find');
             Route::put('{id}', 'GroupController@update')->name('menus.update');
-            Route::delete('{id}', 'GroupController@delete')->name('menus.delete');
+            Route::delete('{id}', 'GroupController@destroy')->name('menus.destroy');
             Route::get('restore/{id}', 'GroupController@restore')->name('menus.restore');
         });
 
@@ -110,7 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'
                 Route::post('/', 'ItemController@create')->name('menu_items.create');
                 Route::get('{id}', 'ItemController@find')->name('menu_items.find');
                 Route::put('{id}', 'ItemController@update')->name('menu_items.update');
-                Route::delete('{id}', 'ItemController@delete')->name('menu_items.delete');
+                Route::delete('{id}', 'ItemController@destroy')->name('menu_items.destroy');
                 Route::get('restore/{id}', 'ItemController@restore')->name('menu_items.restore');
             });
         });

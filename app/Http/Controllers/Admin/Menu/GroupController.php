@@ -75,7 +75,7 @@ class GroupController extends Controller
         return resJson(Group::where('id', $id)->update($data));
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         if (!Auth::user()->isDev()){
             return resJsonUnauthorized();

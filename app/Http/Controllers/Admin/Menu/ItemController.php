@@ -141,7 +141,7 @@ class ItemController extends Controller
         }
     }
 
-    public function delete(int $groupId, int $itemId)
+    public function destroy(int $groupId, int $itemId)
     {
         if (!Auth::user()->can('delete_menus')){
             return resJsonUnauthorized();

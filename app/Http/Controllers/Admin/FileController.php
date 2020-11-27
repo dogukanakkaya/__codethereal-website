@@ -58,7 +58,7 @@ class FileController extends Controller
         return response()->download("storage/" . $file->path);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         // Find file to delete from disk
         $file = File::find($id);

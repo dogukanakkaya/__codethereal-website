@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Dev;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StorePermission;
+use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -29,12 +29,12 @@ class PermissionController extends Controller
             ->header('Content-Type', 'application/html');
     }
 
-    public function create(StorePermission $request)
+    public function create(PermissionRequest $request)
     {
         return resJson(Permission::create($request->validated()));
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         return resJson(Permission::destroy($id));
     }
@@ -44,7 +44,7 @@ class PermissionController extends Controller
         return Permission::select('name','title','group')->find($id);
     }
 
-    public function update(StorePermission $request, int $id)
+    public function update(PermissionRequest $request, int $id)
     {
         return resJson(Permission::where('id', $id)->update($request->validated()));
     }

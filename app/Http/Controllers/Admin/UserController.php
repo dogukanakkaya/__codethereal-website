@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUser;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +65,7 @@ class UserController extends Controller
         }
     }
 
-    public function create(StoreUser $request)
+    public function create(UserRequest $request)
     {
         if (!Auth::user()->can('create_users')){
             return resJsonUnauthorized();
@@ -117,7 +117,7 @@ class UserController extends Controller
             ->find($id);
     }
 
-    public function update(StoreUser $request, int $id)
+    public function update(UserRequest $request, int $id)
     {
         if (!Auth::user()->can('update_users')){
             return resJsonUnauthorized();
@@ -147,7 +147,7 @@ class UserController extends Controller
         }
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         if (!Auth::user()->can('delete_users')){
             return resJsonUnauthorized();

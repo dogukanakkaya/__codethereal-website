@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProfile;
+use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -18,7 +18,7 @@ class ProfileController extends Controller
         return view('admin.profile.index', $data);
     }
 
-    public function update(StoreProfile $request)
+    public function update(ProfileRequest $request)
     {
         $data = $request->validated();
         $id = Auth::id();

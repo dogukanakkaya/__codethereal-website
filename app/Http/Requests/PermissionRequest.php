@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Auth;
 
-class StoreProfile extends FormRequest
+class PermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +26,9 @@ class StoreProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            //'email' => 'required|email|max:255|unique:users,email,'.Auth::id().',id',
-            'position' => 'max:255',
-            'image' => 'integer',
-            'about' => 'string'
+            'name' => 'required|max:255|unique:permissions',
+            'title' => 'required|max:255',
+            'group' => 'max:255'
         ];
     }
 
@@ -43,11 +40,9 @@ class StoreProfile extends FormRequest
     public function attributes()
     {
         return [
-            'name' => __('users.fullname'),
-            //'email' => __('users.email'),
-            'position' => __('users.position'),
-            'image' => __('users.photo'),
-            'about' => __('users.about')
+            'name' => __('permissions.name'),
+            'title' => __('permissions.title'),
+            'group' => __('permissions.group')
         ];
     }
 
