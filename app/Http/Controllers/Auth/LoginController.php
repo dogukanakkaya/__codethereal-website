@@ -46,4 +46,18 @@ class LoginController extends Controller
             ? new JsonResponse([], 204)
             : redirect(route('login'));
     }
+
+    /**
+     * Required credentials for login
+     *
+     * @return array
+     */
+    protected function credentials()
+    {
+        return [
+            'email' => request('email'),
+            'password' => request('password'),
+            'rank' => [config('user.rank.dev'), config('user.rank.admin')] // Only developers and admins can login to admin
+        ];
+    }
 }
