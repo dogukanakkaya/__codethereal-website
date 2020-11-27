@@ -5,16 +5,17 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
-        <x-breadcrumb :nav="$navigations"/>
-        <div>
-            <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
-            <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i class="fas fa-plus"></i></button>
-        </div>
+    <x-breadcrumb :nav="$navigations"/>
+    <div class="page-actions">
+        <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i
+                class="fas fa-sync fa-spin"></i></button>
+        <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i
+                class="fas fa-plus"></i></button>
     </div>
     <div class="list-area p-4">
         <div class="description">
-            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, fugiat.</p>
+            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus,
+                fugiat.</p>
         </div>
         <x-datatable :url="route('users.index')" :columns="$columns"/>
     </div>
@@ -30,7 +31,7 @@
 
         const __onResponse = response => {
             makeToast(response.data)
-            if(response.data.status){
+            if (response.data.status) {
                 closeModal(modal)
                 $("#user-form-modal").modal('hide') // TODO: jquery to pure js
                 form.reset()
@@ -42,19 +43,19 @@
         form.addEventListener('submit', e => {
             e.preventDefault()
             toggleBtnLoading()
-            const formData = serialize(form, { hash: true })
-            if(updateId > 0){
+            const formData = serialize(form, {hash: true})
+            if (updateId > 0) {
                 const url = '{{ route('users.update', ['id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData)
                     .then(__onResponse)
-            }else{
+            } else {
                 request.post('{{ route('users.create') }}', formData)
                     .then(__onResponse)
             }
         })
 
         const __create = () => {
-            if(updateId > 0){
+            if (updateId > 0) {
                 form.reset()
                 updateId = 0;
                 clearPreview1()
@@ -67,7 +68,7 @@
         }
 
         const __delete = id => {
-            if(confirm('{{ __('global.confirm_delete') }}')){
+            if (confirm('{{ __('global.confirm_delete') }}')) {
                 const url = '{{ route('users.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
@@ -97,7 +98,7 @@
                         document.querySelector('input[name=position]').value = response.data.position
                         document.querySelector('textarea[name=about]').value = response.data.about
                         document.querySelector('input[name=image]').value = response.data.image
-                        if (response.data.image > 0){
+                        if (response.data.image > 0) {
                             // x-dropzone component default index is 1, so we call createPreview1()
                             createPreview1(response.data.image, storage(response.data.path))
                         }

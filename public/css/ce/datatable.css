@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+#ce-datatable_wrapper .dt-body {
+  overflow-x: scroll;
+}
+
 #ce-datatable_wrapper .dataTables_filter input[type=search] {
   outline: none;
   padding: 5px;

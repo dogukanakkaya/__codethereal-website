@@ -5,14 +5,12 @@
 @endpush
 
 @section('content')
-    <div class="page-header">
-        <x-breadcrumb :nav="$navigations"/>
-        <div>
-            <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
-            <button onclick="__create()"
-                    class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
-                <i class="fas fa-plus"></i></button>
-        </div>
+    <x-breadcrumb :nav="$navigations"/>
+    <div class="page-actions">
+        <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
+        <button onclick="__create()"
+                class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
+            <i class="fas fa-plus"></i></button>
     </div>
     <div class="list-area p-4">
         <div class="description">

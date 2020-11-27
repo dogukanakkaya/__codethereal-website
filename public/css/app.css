@@ -11616,11 +11616,14 @@ main .list-area .description p {
   border-bottom: 2px solid #0087ff;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.page-actions {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.page-actions button:not(:last-child) {
+  margin-right: 10px;
 }
 
 @media (max-width: 767px) {

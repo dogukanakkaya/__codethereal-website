@@ -9,7 +9,7 @@
         let dt;
         $(function () {
             dt = $('#ce-datatable').DataTable({
-                dom: '<"dt-top"lf><t><"dt-bottom"ip>',
+                dom: '<"dt-top"lf><"dt-body"t><"dt-bottom"ip>',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ $url }}',

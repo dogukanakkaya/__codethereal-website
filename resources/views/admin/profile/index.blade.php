@@ -1,9 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-    <div class="page-header">
-        <x-breadcrumb :nav="$navigations"/>
-    </div>
+    <x-breadcrumb :nav="$navigations"/>
     <div class="profile">
         <div class="row">
             <div class="col-md-3 col-xs-12">
@@ -24,7 +22,8 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="profile" role="tabpanel">
                             <div class="description">
-                                <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!</p>
+                                <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit. Consequatur, itaque!</p>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -54,7 +53,8 @@
                                         @if($errors->any())
                                             <div class="alert alert-danger mt-2 mb-2">{{ $errors->first() }}</div>
                                         @elseif(Session::has('status'))
-                                            <div class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
+                                            <div
+                                                class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
                                         @endif
 
                                     </div>
@@ -72,7 +72,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12 text-right">
-                                    <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i></button>
+                                    <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +99,7 @@
         const form = document.getElementById('profile-form')
         form.addEventListener('submit', (e) => {
             e.preventDefault()
-            const formData = serialize(form, { hash: true })
+            const formData = serialize(form, {hash: true})
             request.put('{{ route('profile.update') }}', formData)
                 .then(response => makeToast(response.data))
         })

@@ -443,11 +443,14 @@ main {
     }
 }
 
-.page-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.page-actions{
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+
+    button:not(:last-child){
+        margin-right: 10px;
+    }
 }
 
 @include mobile {
