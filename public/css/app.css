@@ -11014,10 +11014,6 @@ a.danger:hover i {
   border-radius: 0;
 }
 
-#vanillatoasts-container {
-  z-index: 99;
-}
-
 .black-overlay {
   background-color: rgba(50, 58, 70, 0.55);
   position: fixed;
@@ -11054,6 +11050,11 @@ form label:not(.form-check-label) {
   text-transform: uppercase;
   color: #5a6a8c;
   font-weight: 600;
+}
+
+form input {
+  font-size: 0.8rem !important;
+  padding: 0.375rem 0.5rem !important;
 }
 
 /* /BS Override */

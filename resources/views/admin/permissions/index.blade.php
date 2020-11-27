@@ -28,6 +28,7 @@
     <script>
         let updateId = 0;
         const form = document.getElementById('permission-form')
+        const modal = '#permission-form-modal'
 
         const ajaxList = () => {
             request.get('{{ route('permissions.ajax') }}')
@@ -37,7 +38,7 @@
         const __onResponse = response => {
             makeToast(response.data)
             if(response.data.status){
-                $("#permissionFormModal").modal('hide') // TODO: jquery to pure js
+                closeModal(modal)
                 form.reset()
                 ajaxList()
             }
@@ -64,7 +65,7 @@
                 form.reset()
                 updateId = 0;
             }
-            $("#permissionFormModal").modal('show') // TODO: jquery to pure js
+            openModal(modal)
         }
 
         const __delete = id => {
@@ -83,7 +84,7 @@
                     for(const [key, value] of Object.entries(response.data)){
                         document.querySelector(`input[name=${key}]`).value = value
                     }
-                    $("#permissionFormModal").modal('show') // TODO: jquery to pure js
+                    openModal(modal)
                 })
         }
     </script>

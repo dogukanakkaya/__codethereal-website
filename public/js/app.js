@@ -52998,7 +52998,6 @@ window.toggleBtnLoading = function () {
 
 
 window.nestedSortableSerialize = function (sortable, sortableGroup) {
-  var t0 = performance.now();
   var serialized = [];
   var children = [].slice.call(sortable.children);
 
@@ -53017,6 +53016,15 @@ window.nestedSortableSerialize = function (sortable, sortableGroup) {
   }
 
   return serialized;
+}; // TODO: jquery to pure js
+
+
+window.openModal = function (selector) {
+  return $(selector).modal('show');
+};
+
+window.closeModal = function (selector) {
+  return $(selector).modal('hide');
 };
 /* /Global functions */
 

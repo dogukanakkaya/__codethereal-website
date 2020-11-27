@@ -5,6 +5,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/solid.min.css');
 
 @import "mixins";
+@import "variables";
 
 html[theme='dark-theme']{
     filter: invert(1) hue-rotate(180deg);
@@ -101,10 +102,6 @@ a.danger:hover, a.danger:hover i {
     }
 }
 
-#vanillatoasts-container{
-    z-index: 99;
-}
-
 .black-overlay {
     background-color: rgba(50, 58, 70, .55);
     position: fixed;
@@ -141,5 +138,10 @@ form label:not(.form-check-label){
     text-transform: uppercase;
     color: $gray-color;
     font-weight: 600;
+}
+
+form input{
+    font-size: .8rem!important;
+    padding: .375rem .5rem!important;
 }
 /* /BS Override */

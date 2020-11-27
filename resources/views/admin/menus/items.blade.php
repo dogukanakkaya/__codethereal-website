@@ -38,6 +38,7 @@
     <script>
         let updateId = 0;
         const form = document.getElementById('menu-item-form')
+        const modal = '#menu-item-form-modal'
 
         const sortableGroup = '.sortable' // Sortable group selector
         const sortables = [];
@@ -76,7 +77,7 @@
         const __onResponse = response => {
             makeToast(response.data)
             if(response.data.status){
-                $("#menuItemFormModal").modal('hide') // TODO: jquery to pure js
+                closeModal(modal)
                 form.reset()
                 ajaxList()
             }
@@ -102,7 +103,7 @@
                 form.reset()
                 updateId = 0;
             }
-            $("#menuItemFormModal").modal('show') // TODO: jquery to pure js
+            openModal(modal)
         }
 
         const __delete = id => {
@@ -150,7 +151,7 @@
                     }
                     */
 
-                    $("#menuItemFormModal").modal('show') // TODO: jquery to pure js
+                    openModal(modal)
                 })
         }
 

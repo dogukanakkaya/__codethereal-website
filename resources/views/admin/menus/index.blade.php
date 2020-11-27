@@ -21,11 +21,12 @@
     <script>
         let updateId = 0;
         const form = document.getElementById('menu-group-form')
+        const modal = '#menu-group-form-modal'
 
         const __onResponse = response => {
             makeToast(response.data)
             if(response.data.status){
-                $("#menuGroupFormModal").modal('hide') // TODO: jquery to pure js
+                closeModal(modal)
                 form.reset()
                 __refresh()
             }
@@ -51,7 +52,7 @@
                 form.reset()
                 updateId = 0;
             }
-            $("#menuGroupFormModal").modal('show') // TODO: jquery to pure js
+            openModal(modal)
         }
 
         const __delete = id => {
@@ -77,7 +78,7 @@
             request.get(url)
                 .then(response => {
                     document.querySelector('input[name=title]').value = response.data.title
-                    $("#menuGroupFormModal").modal('show') // TODO: jquery to pure js
+                    openModal(modal)
                 })
 
         }

@@ -54,7 +54,6 @@ window.toggleBtnLoading = () => {
  * @returns {[]}
  */
 window.nestedSortableSerialize = (sortable, sortableGroup) => {
-    var t0 = performance.now()
     const serialized = [];
     const children = [].slice.call(sortable.children);
     for (let i in children) {
@@ -72,6 +71,11 @@ window.nestedSortableSerialize = (sortable, sortableGroup) => {
     }
     return serialized
 }
+
+// TODO: jquery to pure js
+window.openModal = selector => $(selector).modal('show')
+window.closeModal = selector => $(selector).modal('hide')
+
 /* /Global functions */
 
 

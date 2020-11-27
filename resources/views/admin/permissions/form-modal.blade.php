@@ -1,4 +1,4 @@
-<div class="modal fade" id="permissionFormModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="permission-form-modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         {{ Form::open(['id' => 'permission-form']) }}
         <div class="modal-content">

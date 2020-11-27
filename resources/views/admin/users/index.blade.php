@@ -24,11 +24,13 @@
     <script>
         let updateId = 0;
         const form = document.getElementById('user-form')
+        const modal = '#user-form-modal';
 
         const __onResponse = response => {
             makeToast(response.data)
             if(response.data.status){
-                $("#userFormModal").modal('hide') // TODO: jquery to pure js
+                closeModal(modal)
+                $("#user-form-modal").modal('hide') // TODO: jquery to pure js
                 form.reset()
                 __refresh()
             }
@@ -57,7 +59,7 @@
             }
             getPermissions().then(response => {
                 document.getElementById('user-permissions').innerHTML = response.data
-                $("#userFormModal").modal('show') // TODO: jquery to pure js
+                openModal(modal)
             })
         }
 
@@ -100,7 +102,7 @@
                         response.data.permissions.forEach(permission => {
                             document.querySelector(`input[type=checkbox][value=${permission.name}]`).setAttribute('checked', true)
                         })
-                        $("#userFormModal").modal('show') // TODO: jquery to pure js
+                        openModal(modal)
                     })
             })
 

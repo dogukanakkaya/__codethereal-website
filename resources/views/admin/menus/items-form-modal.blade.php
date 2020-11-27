@@ -1,4 +1,4 @@
-<div class="modal fade" id="menuItemFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="menu-item-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         {{ Form::open(['id' => 'menu-item-form']) }}
         <div class="modal-content">
