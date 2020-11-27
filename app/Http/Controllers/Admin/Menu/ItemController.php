@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Menu\StoreItem;
+use App\Http\Requests\Admin\Menu\StoreItem;
 use App\Models\Admin\Menu\Group;
 use App\Models\Admin\Menu\Item;
 use Carbon\Carbon;

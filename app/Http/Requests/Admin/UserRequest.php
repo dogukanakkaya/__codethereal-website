@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +25,19 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255',
-            //'email' => 'required|email|max:255|unique:users,email,'.Auth::id().',id',
+            'email' => 'required|email|max:255|unique:users',
             'position' => 'max:255',
             'image' => 'integer',
-            'about' => 'string'
+            'about' => 'string',
         ];
+        // If update route
+        if ($this->getMethod() == 'PUT' && $id = $this->route('id')) {
+            // TODO: email updating is not active yet, i'll send confirmations to new and old email too, check that!
+            $rules['email'] = 'required|max:255|email|unique:users,email,'.$id.',id';
+        }
+        return $rules;
     }
 
     /**
@@ -44,10 +49,10 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => __('users.fullname'),
-            //'email' => __('users.email'),
+            'email' => __('users.email'),
             'position' => __('users.position'),
             'image' => __('users.photo'),
-            'about' => __('users.about')
+            'about' => __('users.about'),
         ];
     }
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Menu;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class PermissionRequest extends FormRequest
+class StoreGroup extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,7 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:permissions',
-            'title' => 'required|max:255',
-            'group' => 'max:255'
+            'title' => 'required|max:255'
         ];
     }
 
@@ -40,9 +38,7 @@ class PermissionRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => __('permissions.name'),
-            'title' => __('permissions.title'),
-            'group' => __('permissions.group')
+            'title' => __('menus.group_title'),
         ];
     }
 

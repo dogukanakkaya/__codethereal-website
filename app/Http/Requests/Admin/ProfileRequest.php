@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Menu;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Auth;
 
-class StoreGroup extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +27,11 @@ class StoreGroup extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255'
+            'name' => 'required|max:255',
+            //'email' => 'required|email|max:255|unique:users,email,'.Auth::id().',id',
+            'position' => 'max:255',
+            'image' => 'integer',
+            'about' => 'string'
         ];
     }
 
@@ -38,7 +43,11 @@ class StoreGroup extends FormRequest
     public function attributes()
     {
         return [
-            'title' => __('menus.group_title'),
+            'name' => __('users.fullname'),
+            //'email' => __('users.email'),
+            'position' => __('users.position'),
+            'image' => __('users.photo'),
+            'about' => __('users.about')
         ];
     }
 

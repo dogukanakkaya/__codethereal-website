@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Menu\StoreGroup;
+use App\Http\Requests\Admin\Menu\StoreGroup;
 use App\Models\Admin\Menu\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
