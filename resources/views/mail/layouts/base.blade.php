@@ -43,11 +43,11 @@
         </div>
     </div>
     <div class="mail-info-text text-center">
-        <span>{{ __('mails.info_text') }}</span>
+        <span>{{ __('mail.info_text') }}</span>
         <a href="https://codethereal.com/" target="_blank">
             <img src="{{ asset('img/Logo.png') }}" alt="logo"/>
         </a>
-        <span>{{ __('mails.info_text2') }}</span>
+        <span>{{ __('mail.info_text2') }}</span>
     </div>
 </div>
 </body>

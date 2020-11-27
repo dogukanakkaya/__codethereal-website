@@ -75,6 +75,7 @@ window.nestedSortableSerialize = (sortable, sortableGroup) => {
 // TODO: jquery to pure js
 window.openModal = selector => $(selector).modal('show')
 window.closeModal = selector => $(selector).modal('hide')
+window.changeModalTitle = (selector, title) => $(`${selector} .modal-title`).text(title)
 
 /* /Global functions */
 

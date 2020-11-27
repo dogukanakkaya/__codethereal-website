@@ -22,7 +22,7 @@ class ItemController extends Controller
         }
         $items = $this->groupItems($groupId);
         $data = [
-            'navigations' => [__('menus.items')],
+            'navigations' => [route('menus.index') => __('menus.group'), __('menus.items')],
             'items' => buildTree($items->get(), [
                 'id' => 'item_id',
                 'parentId' => 'parent_id'

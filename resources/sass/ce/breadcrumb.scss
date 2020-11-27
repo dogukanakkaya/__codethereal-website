@@ -1,0 +1,44 @@
+.ce-breadcrumb {
+    position: relative;
+
+    & > ul > li {
+        position: relative;
+        float: left;
+        transform: skewX(-15deg);
+        background-color: #fff;
+        box-shadow: -2px 0px 20px -6px rgba(0,0,0,0.5);
+        z-index: 1;
+        margin-left: -50px;
+        transition: all 0.5s;
+    }
+
+    & > ul > li  > a {
+        display: block;
+        padding: 10px;
+        font-size: 15px;
+        transform: skewX(15deg);
+        text-decoration:none;
+        color: #444;
+        font-weight: 300;
+    }
+
+    & > ul > li:first-child {
+        margin-left: 0;
+    }
+
+    & > ul > li:hover {
+        background-color: #CFD8DC;
+    }
+
+    & > ul > li:last-child {
+        background-color: #78909C;
+    }
+
+    & > ul > li:last-child > a {
+        color: #fff;;
+    }
+
+    & > ul:hover > li {
+        margin-left: 0;
+    }
+}

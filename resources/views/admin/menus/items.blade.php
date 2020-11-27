@@ -5,28 +5,24 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
-
-    <div class="permissions">
-        <div class="pb-3 d-flex justify-content-end">
-            <div>
-            <!--<input class="ce-input" type="search" placeholder="{{ __('global.search') }}...">-->
-                <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
-                <button onclick="__create()"
-                        class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
-                    <i class="fas fa-plus"></i></button>
-            </div>
+    <div class="page-header">
+        <x-breadcrumb :nav="$navigations"/>
+        <div>
+            <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
+            <button onclick="__create()"
+                    class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
+                <i class="fas fa-plus"></i></button>
         </div>
-        <div class="list-area p-4">
-            <div class="description">
-                <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, fugiat.</p>
-            </div>
-            <div id="list">
-                @include('admin.menus.items-ajax-list', ['items' => $items])
-            </div>
-            <div class="text-right mt-3">
-                <button onclick="__saveSequence()" class="btn btn-success">{{ __('global.save') }} <i class="fas fa-save"></i></button>
-            </div>
+    </div>
+    <div class="list-area p-4">
+        <div class="description">
+            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, fugiat.</p>
+        </div>
+        <div id="list">
+            @include('admin.menus.items-ajax-list', ['items' => $items])
+        </div>
+        <div class="text-right mt-3">
+            <button onclick="__saveSequence()" class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i></button>
         </div>
     </div>
 

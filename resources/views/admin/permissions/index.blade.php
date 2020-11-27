@@ -5,20 +5,19 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
-    <div class="permissions">
-        <div class="pb-3 d-flex justify-content-end">
-            <div>
-                <!--<input class="ce-input" type="search" placeholder="{{ __('global.search') }}...">-->
-                    <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
-                <button onclick="__create()"
-                        class="btn btn-success">{{ __('global.add_new', ['name' => __('permissions.permission')]) }}
-                    <i class="fas fa-plus"></i></button>
-            </div>
+    <div class="page-header">
+        <x-breadcrumb :nav="$navigations"/>
+        <div>
+        <!--<input class="ce-input" type="search" placeholder="{{ __('global.search') }}...">-->
+            <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
+            <button onclick="__create()"
+                    class="btn btn-success">{{ __('global.add_new', ['name' => __('permissions.permission')]) }}
+                <i class="fas fa-plus"></i></button>
         </div>
-        <div id="list" class="list-area p-4">
-            @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])
-        </div>
+    </div>
+
+    <div id="list" class="list-area p-4">
+        @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])
     </div>
 
     @include('admin.permissions.form-modal')

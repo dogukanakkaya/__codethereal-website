@@ -10,6 +10,10 @@
 // Utils
 @import 'utils';
 
+// My own
+@import './ce/breadcrumb';
+@import './ce/toast';
+
 .top-container {
     display: inline;
 }
@@ -439,14 +443,11 @@ main {
     }
 }
 
-.page-actions{
-    margin-bottom: 1rem;
+.page-header{
     display: flex;
-    justify-content: flex-end;
-
-    button:not(:last-child){
-        margin-right: 10px;
-    }
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 @include mobile {

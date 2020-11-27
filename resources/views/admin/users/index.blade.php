@@ -5,10 +5,12 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
-    <div class="page-actions">
-        <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
-        <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i class="fas fa-plus"></i></button>
+    <div class="page-header">
+        <x-breadcrumb :nav="$navigations"/>
+        <div>
+            <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
+            <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i class="fas fa-plus"></i></button>
+        </div>
     </div>
     <div class="list-area p-4">
         <div class="description">
@@ -59,6 +61,7 @@
             }
             getPermissions().then(response => {
                 document.getElementById('user-permissions').innerHTML = response.data
+                changeModalTitle(modal, '{{ __('global.add_new', ['name' => __('users.user')]) }}')
                 openModal(modal)
             })
         }
@@ -102,6 +105,7 @@
                         response.data.permissions.forEach(permission => {
                             document.querySelector(`input[type=checkbox][value=${permission.name}]`).setAttribute('checked', true)
                         })
+                        changeModalTitle(modal, `{{ __('global.update') }}: ${response.data.name}`)
                         openModal(modal)
                     })
             })
