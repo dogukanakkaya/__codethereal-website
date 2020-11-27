@@ -99,13 +99,13 @@ class UsersTest extends FeatureTestBase
         Permission::create(['name' => 'delete_users', 'title' => 'X']);
         $this->admin->givePermissionTo('delete_users');
 
-        $response = $this->json('DELETE', route('users.delete', ['id' => $this->admin->id]));
+        $response = $this->json('DELETE', route('users.destroy', ['id' => $this->admin->id]));
         $response->assertJson(['status' => 1]);
     }
 
     public function test_admin_cannot_delete_a_user_without_permission()
     {
-        $response = $this->json('DELETE', route('users.delete', ['id' => $this->admin->id]));
+        $response = $this->json('DELETE', route('users.destroy', ['id' => $this->admin->id]));
         $response->assertJson(['status' => 0]);
     }
 
@@ -147,7 +147,7 @@ class UsersTest extends FeatureTestBase
         Permission::create(['name' => 'delete_users', 'title' => 'X']);
         $this->admin->givePermissionTo('delete_users');
 
-        $response = $this->json('DELETE', route('users.delete', ['id' => $this->dev->id]));
+        $response = $this->json('DELETE', route('users.destroy', ['id' => $this->dev->id]));
         $response->assertJson(['status' => 0]);
     }
 

@@ -67,7 +67,7 @@
 
         const __delete = id => {
             if(confirm('{{ __('global.confirm_delete') }}')){
-                const url = '{{ route('permissions.delete', ['id' => ':id']) }}'.replace(':id', id)
+                const url = '{{ route('permissions.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(__onResponse)
             }

@@ -31,7 +31,7 @@
             const removeFile = (id) => {
                 if (confirm('{{ __('global.confirm_delete') }}')) {
 
-                    const url = '{{ route('files.delete', ['id' => ':id']) }}'.replace(':id', id)
+                    const url = '{{ route('files.destroy', ['id' => ':id']) }}'.replace(':id', id)
 
                     request.delete(url)
                         .then(response => {

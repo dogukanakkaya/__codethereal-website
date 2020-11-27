@@ -48,7 +48,7 @@ class FilesTest extends FeatureTestBase
             'file' => $file,
         ]);
 
-        $response = $this->json('DELETE', route('files.delete', ['id' => 1]));
+        $response = $this->json('DELETE', route('files.destroy', ['id' => 1]));
         $response->assertJson(['status' => 1]);
     }
 }

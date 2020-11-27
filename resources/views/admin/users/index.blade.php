@@ -61,7 +61,7 @@
 
         const __delete = id => {
             if(confirm('{{ __('global.confirm_delete') }}')){
-                const url = '{{ route('users.delete', ['id' => ':id']) }}'.replace(':id', id)
+                const url = '{{ route('users.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
                         res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('global.undo') }}</a>`;

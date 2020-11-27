@@ -67,7 +67,7 @@ class PermissionsTest extends FeatureTestBase
             'title' => 'DELETE ALL',
             'group ' => 'Group'
         ]);
-        $response = $this->json('DELETE', route('permissions.delete', ['id' => 1]));
+        $response = $this->json('DELETE', route('permissions.destroy', ['id' => 1]));
         $response->assertJson(['status' => 1]);
     }
 }
