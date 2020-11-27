@@ -1,11 +1,13 @@
-<nav class="ce-breadcrumb">
-    <ul>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
         @foreach ($navigations as $url => $name)
             @if ($loop->last)
-                <li><a href="javascript:void(0);">{{ $name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $name }}</li>
+            @elseif ($loop->first)
+                <li class="breadcrumb-item"><a href="{{ $url }}"><i class="fas fa-home"></i></a></li>
             @else
-                <li><a href="{{ $url }}">{{ $name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ $url }}">{{ $name }}</a></li>
             @endif
         @endforeach
-    </ul>
+    </ol>
 </nav>

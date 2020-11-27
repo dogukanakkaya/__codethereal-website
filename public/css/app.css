@@ -10921,7 +10921,7 @@ html[theme=dark-theme] .black-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #71b6f9;
+  background-color: #0087ff;
   color: #fff;
   font-family: Consolas, Menlo, Monaco, monospace;
   font-weight: bold;
@@ -10993,7 +10993,7 @@ label.required::after {
 }
 
 a.active:not(.nav-link) {
-  color: #71b6f9 !important;
+  color: #0087ff !important;
 }
 
 a.danger:hover,
@@ -11007,10 +11007,10 @@ a.danger:hover i {
 }
 
 .border-active-tab a.active {
-  border-top: 2px solid #71b6f9;
-  border-bottom: 2px solid #71b6f9;
+  border-top: 2px solid #0087ff;
+  border-bottom: 2px solid #0087ff;
   background-color: unset !important;
-  color: #71b6f9 !important;
+  color: #0087ff !important;
   border-radius: 0;
 }
 
@@ -11059,49 +11059,18 @@ form input {
 
 /* /BS Override */
 
-.ce-breadcrumb {
-  position: relative;
+.breadcrumb-item {
+  align-items: center;
 }
 
-.ce-breadcrumb > ul > li {
-  position: relative;
-  float: left;
-  transform: skewX(-15deg);
-  background-color: #fff;
-  box-shadow: -2px 0px 20px -6px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  margin-left: -50px;
-  transition: all 0.5s;
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "\F054";
+  font-family: "Font Awesome 5 Free";
+  font-size: 11px;
 }
 
-.ce-breadcrumb > ul > li > a {
-  display: block;
-  padding: 10px;
-  font-size: 15px;
-  transform: skewX(15deg);
-  text-decoration: none;
-  color: #444;
-  font-weight: 300;
-}
-
-.ce-breadcrumb > ul > li:first-child {
-  margin-left: 0;
-}
-
-.ce-breadcrumb > ul > li:hover {
-  background-color: #CFD8DC;
-}
-
-.ce-breadcrumb > ul > li:last-child {
-  background-color: #78909C;
-}
-
-.ce-breadcrumb > ul > li:last-child > a {
-  color: #fff;
-}
-
-.ce-breadcrumb > ul:hover > li {
-  margin-left: 0;
+.breadcrumb-item.active {
+  color: #0087ff;
 }
 
 .ce-toast-container {
@@ -11284,7 +11253,7 @@ aside .menus a {
 }
 
 aside .menus a:hover {
-  color: #71b6f9;
+  color: #0087ff;
   text-decoration: none;
 }
 
@@ -11339,7 +11308,7 @@ header .top-right ul a {
 }
 
 header .top-right ul a:hover {
-  color: #71b6f9 !important;
+  color: #0087ff !important;
   transition: 0.25s all;
 }
 
@@ -11353,7 +11322,7 @@ header .top-right .total-notification {
   top: -8px;
   width: 16px;
   height: 16px;
-  background: #71b6f9;
+  background: #0087ff;
   border-radius: 100%;
   line-height: 17px;
   text-align: center;
@@ -11441,7 +11410,7 @@ header .menu-bar .bar3 {
 
 .settings-sidebar .head {
   padding: 1rem 0.5rem;
-  background: #71b6f9;
+  background: #0087ff;
   display: flex;
   justify-content: space-between;
 }
@@ -11533,7 +11502,7 @@ main .list-area .description p {
 .ce-dropzone {
   width: 100%;
   height: 200px;
-  border: 2px dashed #71b6f9 !important;
+  border: 2px dashed #0087ff !important;
 }
 
 @-webkit-keyframes jump {
@@ -11587,7 +11556,7 @@ main .list-area .description p {
 
 .ce-dropzone .dz-message i {
   display: inline-block;
-  color: #71b6f9;
+  color: #0087ff;
   -webkit-animation: jump 2s infinite ease;
           animation: jump 2s infinite ease;
   font-size: 25px;
@@ -11634,7 +11603,7 @@ main .list-area .description p {
 
 .ce-input {
   border: none;
-  border-bottom: 2px solid #71b6f9;
+  border-bottom: 2px solid #0087ff;
   outline: none;
   padding: 7px 0;
   background: unset;
@@ -11643,8 +11612,8 @@ main .list-area .description p {
 .language-tab a.active {
   border-radius: 0;
   background: unset !important;
-  color: #71b6f9 !important;
-  border-bottom: 2px solid #71b6f9;
+  color: #0087ff !important;
+  border-bottom: 2px solid #0087ff;
 }
 
 .page-header {

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\StoreItem;
 use App\Models\Admin\Menu\Group;
 use App\Models\Admin\Menu\Item;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -169,7 +168,7 @@ class ItemController extends Controller
             foreach ($data as $key => $datum) {
                 // I write this with query builder for better performance, there could be a lot of data to be ordered.
                 DB::update('UPDATE menu_items SET updated_at = ?, parent_id = ?, sequence = ? WHERE id = ?;', [
-                    Carbon::now(),
+                    now(),
                     $datum['parent_id'],
                     $key,
                     $datum['item_id']

@@ -16,7 +16,7 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   background-color: #fff;
-  color: #71b6f9;
+  color: #0087ff;
   border: 1px solid #b9b9b978;
 }
 
@@ -26,7 +26,7 @@
 }
 
 #ce-datatable_wrapper .dataTables_paginate .paginate_button.current {
-  background-color: #71b6f9;
+  background-color: #0087ff;
   color: #fff;
 }
 
