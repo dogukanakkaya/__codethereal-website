@@ -20,6 +20,8 @@
             @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])
         </div>
     </div>
+
+    @include('admin.permissions.form-modal')
 @endsection
 
 @push('scripts')
@@ -86,5 +88,3 @@
         }
     </script>
 @endpush
-
-@include('admin.permissions.form-modal')

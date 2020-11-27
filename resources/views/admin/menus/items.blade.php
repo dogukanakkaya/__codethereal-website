@@ -30,7 +30,7 @@
         </div>
     </div>
 
-
+    @include('admin.menus.items-form-modal')
 @endsection
 
 @push('scripts')
@@ -160,5 +160,3 @@
         }
     </script>
 @endpush
-
-@include('admin.menus.items-form-modal')

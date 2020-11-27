@@ -16,6 +16,8 @@
         </div>
         <x-datatable :url="route('users.index')" :columns="$columns"/>
     </div>
+
+    @include('admin.users.form-modal')
 @endsection
 
 @push('scripts')
@@ -107,5 +109,3 @@
         const getPermissions = () => request.get('{{ route('permissions.checkboxes') }}')
     </script>
 @endpush
-
-@include('admin.users.form-modal')

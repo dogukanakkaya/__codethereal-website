@@ -13,6 +13,8 @@
         </div>
         <x-datatable :url="route('menus.index')" :columns="$columns"/>
     </div>
+
+    @include('admin.menus.form-modal')
 @endsection
 
 @push('scripts')
@@ -81,5 +83,3 @@
         }
     </script>
 @endpush
-
-@include('admin.menus.form-modal')
