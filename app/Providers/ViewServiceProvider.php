@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -25,8 +24,8 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\UserComposer');
+        view()->composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\UserComposer');
 
-        View::composer(['admin.settings.index', 'admin.menus.items', 'admin.partials.settings-sidebar'], 'App\View\Composers\LanguagesComposer');
+        view()->composer(['admin.settings.index', 'admin.menus.items', 'admin.partials.settings-sidebar'], 'App\View\Composers\LanguagesComposer');
     }
 }
