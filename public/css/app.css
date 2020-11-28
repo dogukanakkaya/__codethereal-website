@@ -11562,6 +11562,12 @@ main .list-area .description p {
   font-size: 12px;
   color: #5d5d5ddb;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+main .list-area .description i {
+  margin-right: 0.25rem;
 }
 
 .ce-dropzone {

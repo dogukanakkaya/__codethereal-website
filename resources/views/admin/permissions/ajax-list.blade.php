@@ -16,10 +16,10 @@
                         <div class="actions">
                             <a href="javascript:void(0);"
                                onclick="__find({{ $permission->id }})"><i
-                                    class="fas fa-pencil-alt"></i></a>
+                                    class="material-icons-outlined md-18">edit</i></a>
                             <a href="javascript:void(0);"
                                onclick="__delete({{ $permission->id }})"><i
-                                    class="fas fa-trash"></i></a>
+                                    class="material-icons-outlined md-18">delete</i></a>
                         </div>
                     </div>
                 </div>

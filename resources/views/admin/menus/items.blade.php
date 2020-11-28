@@ -7,15 +7,14 @@
 @section('content')
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
-        <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i class="fas fa-sync fa-spin"></i></button>
+        <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i
+                class="material-icons-outlined md-18">sync</i></button>
         <button onclick="__create()"
                 class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
-            <i class="fas fa-plus"></i></button>
+            <i class="material-icons-outlined md-18">add</i></button>
     </div>
     <div class="list-area p-4">
-        <div class="description">
-            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, fugiat.</p>
-        </div>
+        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
         <div id="list">
             @include('admin.menus.items-ajax-list', ['items' => $items])
         </div>
@@ -70,7 +69,7 @@
 
         const __onResponse = response => {
             makeToast(response.data)
-            if(response.data.status){
+            if (response.data.status) {
                 closeModal(modal)
                 form.reset()
                 ajaxList()
@@ -81,19 +80,19 @@
         form.addEventListener('submit', e => {
             e.preventDefault()
             toggleBtnLoading()
-            const formData = serialize(form, { hash: true })
-            if(updateId > 0){
+            const formData = serialize(form, {hash: true})
+            if (updateId > 0) {
                 const url = '{{ route('menu_items.update', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData)
                     .then(__onResponse)
-            }else{
+            } else {
                 request.post('{{ route('menu_items.create', ['groupId' => $groupId]) }}', formData)
                     .then(__onResponse)
             }
         })
 
         const __create = () => {
-            if(updateId > 0){
+            if (updateId > 0) {
                 form.reset()
                 updateId = 0;
             }
@@ -101,7 +100,7 @@
         }
 
         const __delete = id => {
-            if(confirm('{{ __('global.confirm_delete') }}')){
+            if (confirm('{{ __('global.confirm_delete') }}')) {
                 const url = '{{ route('menu_items.destroy', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
@@ -122,7 +121,7 @@
             const url = '{{ route('menu_items.update', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
-                    const { item, translations } = response.data
+                    const {item, translations} = response.data
 
                     document.querySelector(`select[name="item[parent_id]"]`).value = item.parent_id
 
@@ -130,10 +129,10 @@
                     let translation = {}
                     @foreach($languages as $language)
                         translation = translations?.{{ $language->code }}
-                        document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
-                        document.querySelector(`input[name="{{ $language->code }}[url]"]`).value = translation?.url ?? ''
-                        document.querySelector(`input[name="{{ $language->code }}[icon]"]`).value = translation?.icon ?? ''
-                        document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
+                    document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
+                    document.querySelector(`input[name="{{ $language->code }}[url]"]`).value = translation?.url ?? ''
+                    document.querySelector(`input[name="{{ $language->code }}[icon]"]`).value = translation?.icon ?? ''
+                    document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
                     @endforeach
 
                     /*

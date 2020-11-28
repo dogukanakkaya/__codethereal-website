@@ -53162,29 +53162,27 @@ var ceToast = function ceToast(_ref) {
       _ref$progress = _ref.progress,
       progress = _ref$progress === void 0 ? true : _ref$progress,
       _ref$addition = _ref.addition,
-      addition = _ref$addition === void 0 ? '' : _ref$addition,
-      _ref$placement = _ref.placement,
-      placement = _ref$placement === void 0 ? '' : _ref$placement;
-  var iconClass, toastClass;
+      addition = _ref$addition === void 0 ? '' : _ref$addition;
+  var icon, toastClass;
 
   if (status === 1) {
-    iconClass = 'fas fa-check';
+    icon = 'check';
     toastClass = 'success';
   } else if (status === 2) {
-    iconClass = 'fas fa-info-circle';
+    icon = 'info';
     toastClass = 'info';
   } else if (status === 3) {
-    iconClass = 'fas fa-exclamation-triangle';
+    icon = 'warning';
     toastClass = 'warning';
   } else if (status === 0) {
-    iconClass = 'fas fa-times';
+    icon = 'close';
     toastClass = 'error';
   } else {
     toastClass = 'default';
   }
 
   var toastId = document.querySelectorAll('.ce-toast').length;
-  toastEl.insertAdjacentHTML('afterbegin', "\n        <div class=\"ce-toast ".concat(toastClass, " ").concat(transition, " ").concat(placement, "\" data-id=\"").concat(toastId, "\">\n            <div class=\"content\">\n                <h3>").concat(title, " <i class=\"").concat(iconClass, "\"></i></h3>\n                <p>").concat(message, "</p>\n            </div>\n            <a class=\"close\" onclick=\"clearToast(").concat(toastId, ")\"><i class=\"fas fa-times\"></i></a>\n            <div class=\"addition\">").concat(addition, "</div>\n            <div class=\"progress\"></div>\n        </div>\n    ")); // TODO: do not need to use setTimeout
+  toastEl.insertAdjacentHTML('afterbegin', "\n        <div class=\"ce-toast ".concat(toastClass, " ").concat(transition, "\" data-id=\"").concat(toastId, "\">\n            <div class=\"content\">\n                <h3>").concat(title, " <i class=\"material-icons-outlined md-18\">").concat(icon, "</i></h3>\n                <p>").concat(message, "</p>\n            </div>\n            <a class=\"close\" onclick=\"clearToast(").concat(toastId, ")\"><i class=\"material-icons-outlined md-18\">close</i></a>\n            <div class=\"addition\">").concat(addition, "</div>\n            <div class=\"progress\"></div>\n        </div>\n    ")); // TODO: do not need to use setTimeout
 
   setTimeout(function () {
     document.querySelector(".ce-toast[data-id='".concat(toastId, "']")).classList.add('show');

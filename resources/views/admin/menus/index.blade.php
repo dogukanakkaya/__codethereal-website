@@ -7,10 +7,7 @@
         <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('menus.group')]) }} <i class="material-icons-outlined md-18">add</i></button>
     </div>
     <div class="list-area p-4">
-        <div class="description">
-            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus,
-                fugiat.</p>
-        </div>
+        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
         <x-datatable :url="route('menus.index')" :columns="$columns"/>
     </div>
 

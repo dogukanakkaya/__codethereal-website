@@ -1,18 +1,18 @@
 const toastEl = document.querySelector('.ce-toast-container')
 
-export const ceToast = ({status, title, message, transition = 'zoom', timeout = 3500, progress = true, addition = '', placement = ''}) => {
-    let iconClass, toastClass;
+export const ceToast = ({status, title, message, transition = 'zoom', timeout = 3500, progress = true, addition = ''}) => {
+    let icon, toastClass;
     if (status === 1){
-        iconClass = 'fas fa-check'
+        icon = 'check'
         toastClass = 'success';
     }else if(status === 2){
-        iconClass = 'fas fa-info-circle'
+        icon = 'info'
         toastClass = 'info';
     }else if(status === 3){
-        iconClass = 'fas fa-exclamation-triangle'
+        icon = 'warning'
         toastClass = 'warning';
     }else if(status === 0){
-        iconClass = 'fas fa-times'
+        icon = 'close'
         toastClass = 'error';
     }else{
         toastClass = 'default'
@@ -21,12 +21,12 @@ export const ceToast = ({status, title, message, transition = 'zoom', timeout = 
     const toastId = document.querySelectorAll('.ce-toast').length;
 
     toastEl.insertAdjacentHTML('afterbegin', `
-        <div class="ce-toast ${toastClass} ${transition} ${placement}" data-id="${toastId}">
+        <div class="ce-toast ${toastClass} ${transition}" data-id="${toastId}">
             <div class="content">
-                <h3>${title} <i class="${iconClass}"></i></h3>
+                <h3>${title} <i class="material-icons-outlined md-18">${icon}</i></h3>
                 <p>${message}</p>
             </div>
-            <a class="close" onclick="clearToast(${toastId})"><i class="fas fa-times"></i></a>
+            <a class="close" onclick="clearToast(${toastId})"><i class="material-icons-outlined md-18">close</i></a>
             <div class="addition">${addition}</div>
             <div class="progress"></div>
         </div>

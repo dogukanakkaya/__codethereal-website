@@ -93,9 +93,9 @@
                                                 <div class="thumb">
                                                     <img class="w-100" src="${url}" alt="dz-thumb" />
                                                     <div class="preview-actions">
-                                                        <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="fas fa-cloud-download-alt"></i> {{ __('global.download') }}</a>
-                                                        <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove_file') }}"><i class="fas fa-trash"></i> {{ __('dropzone.remove_file') }}</a>
-                                                        <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.show_full') }}"><i class="fas fa-expand-alt"></i> {{ __('dropzone.show_full') }}</a>
+                                                        <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('global.download') }}</a>
+                                                        <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove_file') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove_file') }}</a>
+                                                        <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.show_full') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.show_full') }}</a>
                                                     </div>
                                                 </div>
                                             </div>`)

@@ -34,9 +34,7 @@
                                     $dzIndex2 = $language->code . "2";
                                     ?>
                                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="website-{{ $language->code }}" role="tabpanel">
-                                    <div class="description">
-                                        <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!</p>
-                                    </div>
+                                    @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -76,9 +74,7 @@
                             <div class="tab-content">
                                 @foreach($languages as $key => $language)
                                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="contact-{{ $language->code }}" role="tabpanel">
-                                        <div class="description">
-                                            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!</p>
-                                        </div>
+                                        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -118,9 +114,7 @@
                             <div class="tab-content">
                                 @foreach($languages as $key => $language)
                                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="social-{{ $language->code }}" role="tabpanel">
-                                        <div class="description">
-                                            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!</p>
-                                        </div>
+                                        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">

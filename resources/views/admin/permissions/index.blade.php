@@ -9,10 +9,10 @@
     <div class="page-actions">
     <!--<input class="ce-input" type="search" placeholder="{{ __('global.search') }}...">-->
         <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i
-                class="fas fa-sync fa-spin"></i></button>
+                class="material-icons-outlined md-18">sync</i></button>
         <button onclick="__create()"
                 class="btn btn-success">{{ __('global.add_new', ['name' => __('permissions.permission')]) }}
-            <i class="fas fa-plus"></i></button>
+            <i class="material-icons-outlined md-18">add</i></button>
     </div>
     <div id="list" class="list-area p-4">
         @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])

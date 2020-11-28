@@ -21,10 +21,7 @@
                     {{ Form::open(['id' => 'profile-form']) }}
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="profile" role="tabpanel">
-                            <div class="description">
-                                <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Consequatur, itaque!</p>
-                            </div>
+                            @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
