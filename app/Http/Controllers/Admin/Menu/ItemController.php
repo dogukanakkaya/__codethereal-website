@@ -194,7 +194,8 @@ class ItemController extends Controller
     {
         return Group::find($groupId)
             ->items()
-            ->orderBy('sequence', 'ASC')
+            ->oldest('sequence')
+            ->latest()
             ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
             ->where('language', App::getLocale());
     }
