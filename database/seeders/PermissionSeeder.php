@@ -54,5 +54,28 @@ class PermissionSeeder extends Seeder
             'title' => 'Delete Users'
         ]);
         /* /Users */
+
+        /* Menus */
+        Permission::create([
+            'name' => 'see_menus',
+            'group' => 'menus',
+            'title' => 'See Menus'
+        ]);
+        Permission::create([
+            'name' => 'create_menus',
+            'group' => 'menus',
+            'title' => 'Create Menus'
+        ]);
+        Permission::create([
+            'name' => 'update_menus',
+            'group' => 'menus',
+            'title' => 'Update Menus'
+        ]);
+        Permission::create([
+            'name' => 'delete_menus',
+            'group' => 'menus',
+            'title' => 'Delete Menus'
+        ]);
+        /* /Menus */
     }
 }
