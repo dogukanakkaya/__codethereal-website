@@ -53269,6 +53269,17 @@ var toastProgress = function toastProgress(toastId, width) {
 
 /***/ }),
 
+/***/ "./resources/sass/ce/dropzone.scss":
+/*!*****************************************!*\
+  !*** ./resources/sass/ce/dropzone.scss ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/ce/sortable.scss":
 /*!*****************************************!*\
   !*** ./resources/sass/ce/sortable.scss ***!
@@ -53303,9 +53314,9 @@ var toastProgress = function toastProgress(toastId, width) {
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/auth/login.scss ./resources/sass/auth/base.scss ./resources/sass/permissions/base.scss ./resources/sass/users/base.scss ./resources/sass/ce/datatable.scss ./resources/sass/ce/sortable.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/auth/login.scss ./resources/sass/auth/base.scss ./resources/sass/permissions/base.scss ./resources/sass/users/base.scss ./resources/sass/ce/datatable.scss ./resources/sass/ce/sortable.scss ./resources/sass/ce/dropzone.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53316,7 +53327,8 @@ __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/auth/b
 __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/permissions/base.scss */"./resources/sass/permissions/base.scss");
 __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/users/base.scss */"./resources/sass/users/base.scss");
 __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/ce/datatable.scss */"./resources/sass/ce/datatable.scss");
-module.exports = __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/ce/sortable.scss */"./resources/sass/ce/sortable.scss");
+__webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/ce/sortable.scss */"./resources/sass/ce/sortable.scss");
+module.exports = __webpack_require__(/*! /Users/dogukan/Desktop/codethereal/resources/sass/ce/dropzone.scss */"./resources/sass/ce/dropzone.scss");
 
 
 /***/ })

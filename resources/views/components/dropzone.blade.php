@@ -11,7 +11,7 @@
 
 @once
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/static/dropzone.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
     @endpush
 
     @push('scripts')
