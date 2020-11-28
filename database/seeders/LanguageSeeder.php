@@ -16,7 +16,7 @@ class LanguageSeeder extends Seeder
     {
         DB::table('languages')->insert([
             [
-                'name' => "Türkçe",
+                'name' => "Turkish",
                 'code' => "tr"
             ],
             [

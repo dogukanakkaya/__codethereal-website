@@ -11440,6 +11440,22 @@ header .menu-bar .bar3 {
 
 .settings-sidebar .flag-img {
   width: 25px;
+  height: 15px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.settings-sidebar .theme-language {
+  display: flex;
+}
+
+.settings-sidebar .theme-language li {
+  width: 50%;
+}
+
+.settings-sidebar .theme-language a {
+  display: inline-block;
+  padding: 0.5rem 0;
 }
 
 .user-profile {

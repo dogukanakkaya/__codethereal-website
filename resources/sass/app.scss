@@ -285,6 +285,21 @@ header {
 
     .flag-img{
         width: 25px;
+        height: 15px;
+        object-fit: cover;
+    }
+
+    .theme-language{
+        display: flex;
+
+        li {
+            width: 50%;
+        }
+
+        a{
+            display: inline-block;
+            padding: .5rem 0;
+        }
     }
 }
 

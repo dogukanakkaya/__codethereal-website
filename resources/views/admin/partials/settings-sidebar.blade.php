@@ -20,11 +20,11 @@
                 </div>
             </div>
         </div>
-        <div class="theme-language">
-            <ul>
+        <div>
+            <ul class="theme-language">
                 @foreach($languages as $language)
                     <li>
-                        <a href="{{ route('users.index') }}" class="{{ app()->getLocale() === $language->code ? 'active' : '' }}">
+                        <a href="{{ LaravelLocalization::getLocalizedURL($language->code) }}" class="{{ app()->getLocale() === $language->code ? 'active' : '' }}">
                             <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt=""> {{ $language->name }}
                         </a>
                     </li>

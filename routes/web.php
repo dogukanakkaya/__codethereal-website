@@ -28,7 +28,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     // Auth Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
 
-    // Authenticated users route group
+    // Admin Authenticated users route group
     Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
         Route::get('/', 'HomeController@index')->name('admin.home');
 
@@ -128,6 +128,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             });
         });
 
+    });
+
+    // Website routes
+    Route::prefix('/')->group(function (){
+        Route::get('/', function (){
+            return 'Hello from website';
+        });
     });
 
 });
