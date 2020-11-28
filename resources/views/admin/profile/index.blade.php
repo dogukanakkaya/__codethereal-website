@@ -72,8 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 text-right">
-                                    <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
-                                    </button>
+                                    {{ Form::save() }}
                                 </div>
                             </div>
                         </div>
@@ -99,9 +98,13 @@
         const form = document.getElementById('profile-form')
         form.addEventListener('submit', (e) => {
             e.preventDefault()
+            toggleBtnLoading()
             const formData = serialize(form, {hash: true})
             request.put('{{ route('profile.update') }}', formData)
-                .then(response => makeToast(response.data))
+                .then(response => {
+                    toggleBtnLoading()
+                    makeToast(response.data)
+                })
         })
     </script>
 @endpush

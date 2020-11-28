@@ -62,12 +62,8 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('global.close') }} <i
-                        class="fas fa-times"></i></button>
-                <button type="submit" class="btn btn-primary">
-                    <span class="btn-enabled">{{ __('global.save') }} <i class="fas fa-save"></i></span>
-                    <span class="btn-disabled d-none">{{ __('global.loading') }} <i class="fas fa-spinner fa-spin"></i></span>
-                </button>
+                {{ Form::closeBtn(['data-dismiss' => 'modal']) }}
+                {{ Form::save() }}
             </div>
         </div>
         {{ Form::close() }}

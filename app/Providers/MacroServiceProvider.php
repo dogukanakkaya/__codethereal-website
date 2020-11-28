@@ -24,13 +24,19 @@ class MacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Render html without escaping
-        $html = new HtmlString('<button type="submit" class="btn btn-primary">
+        \Form::macro('save', function() {
+            return new HtmlString('<button type="submit" class="btn btn-primary">
                         <span class="btn-enabled">'. __("global.save") .' <i class="material-icons-outlined md-18">save</i></span>
                         <span class="btn-disabled d-none">'. __("global.loading") .' <i class="material-icons-outlined md-18">timeline</i></span>
                     </button>');
-        \Form::macro('save', function() use($html) {
-            return $html;
+        });
+
+        \Form::macro('closeBtn', function($options) {
+            $opt = '';
+            foreach ($options as $key => $value) {
+                $opt .= $key.'="' . $value . '"';
+            }
+            return new HtmlString('<button type="button" class="btn btn-danger" '.$opt.'>'. __("global.close") .' <i class="material-icons-outlined md-18">close</i></button>');
         });
     }
 }
