@@ -16,18 +16,15 @@ class ItemController extends Controller
 {
     public function index(int $groupId)
     {
-        if (!Auth::user()->can('see_menus')){
+        if (!Auth::user()->can('see_menus')) {
             return back();
         }
-        $items = $this->groupItems($groupId);
         $data = [
             'navigations' => [route('menus.index') => __('menus.group'), __('menus.items')],
-            'items' => buildTree($items->get(), [
-                'id' => 'item_id',
-                'parentId' => 'parent_id'
-            ]),
+            'items' => $this->treeItems($groupId),
+            'actions' => $this->actions(),
             'groupId' => $groupId,
-            'parents' => $items->pluck('title', 'menu_items.id')->toArray() // Data of selectable menu parent
+            'parents' => $this->groupItems($groupId)->pluck('title', 'menu_items.id')->toArray() // Data of selectable menu parent
         ];
         return view('admin.menus.items', $data);
     }
@@ -40,21 +37,21 @@ class ItemController extends Controller
      */
     public function ajaxList(int $groupId)
     {
-        if (!Auth::user()->can('see_menus')){
+        if (!Auth::user()->can('see_menus')) {
             return resJsonUnauthorized();
         }
-        $items = buildTree($this->groupItems($groupId)->get(), [
-            'id' => 'item_id',
-            'parentId' => 'parent_id'
-        ]);
+        $data = [
+            'items' => $this->treeItems($groupId),
+            'actions' => $this->actions()
+        ];
         return response()
-            ->view('admin.menus.items-ajax-list', ['items' => $items], 200)
+            ->view('admin.menus.items-ajax-list', $data, 200)
             ->header('Content-Type', 'application/html');
     }
 
     public function create(StoreItem $request, $groupId)
     {
-        if (!Auth::user()->can('create_menus')){
+        if (!Auth::user()->can('create_menus')) {
             return resJsonUnauthorized();
         }
         $data = $request->validated();
@@ -87,7 +84,7 @@ class ItemController extends Controller
 
     public function find(int $groupId, int $itemId)
     {
-        if (!Auth::user()->can('see_menus')){
+        if (!Auth::user()->can('see_menus')) {
             return resJsonUnauthorized();
         }
         // TODO: We'll check that for better way for multi language operations (without model relations)
@@ -98,7 +95,7 @@ class ItemController extends Controller
             ->where('item_id', $itemId)
             ->get()
             ->keyBy('language')
-            ->transform(function($i) {
+            ->transform(function ($i) {
                 // Remove language keys, i needed it only to make a keyBy on collection
                 unset($i->language);
                 return $i;
@@ -112,7 +109,7 @@ class ItemController extends Controller
 
     public function update(StoreItem $request, int $groupId, int $itemId)
     {
-        if (!Auth::user()->can('update_menus')){
+        if (!Auth::user()->can('update_menus')) {
             return resJsonUnauthorized();
         }
         $data = $request->validated();
@@ -142,7 +139,7 @@ class ItemController extends Controller
 
     public function destroy(int $groupId, int $itemId)
     {
-        if (!Auth::user()->can('delete_menus')){
+        if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
         return resJson(Item::destroy($itemId));
@@ -150,7 +147,7 @@ class ItemController extends Controller
 
     public function restore(int $groupId, int $itemId)
     {
-        if (!Auth::user()->can('delete_menus')){
+        if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
         return resJson(Item::withTrashed()->find($itemId)->restore());
@@ -158,7 +155,7 @@ class ItemController extends Controller
 
     public function saveSequence(Request $request)
     {
-        if (!Auth::user()->can('update_menus')){
+        if (!Auth::user()->can('update_menus')) {
             return resJsonUnauthorized();
         }
         $data = $request->all();
@@ -176,7 +173,7 @@ class ItemController extends Controller
             }
             DB::commit();
             return resJson(true);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             echo $e->getMessage();
             DB::rollBack();
             return resJson(false);
@@ -198,5 +195,32 @@ class ItemController extends Controller
             ->latest()
             ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
             ->where('language', App::getLocale());
+    }
+
+    /**
+     * Return builded items
+     *
+     * @param $groupId
+     * @return array
+     */
+    private function treeItems($groupId)
+    {
+        return buildTree($this->groupItems($groupId)->get(), [
+            'id' => 'item_id',
+            'parentId' => 'parent_id'
+        ]);
+    }
+
+    /**
+     * Actions for menu items
+     *
+     * @return \string[][]
+     */
+    private function actions()
+    {
+        return [
+            ['title' => '<i class="fas fa-pencil-alt fa-fw"></i> ' . __('global.update'), 'onclick' => '__find({value})'],
+            ['title' => '<i class="fas fa-trash fa-fw"></i> ' . __('global.delete'), 'onclick' => '__delete({value})']
+        ];
     }
 }
