@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="inner-box">
-    {{ Form::open(['action' => 'App\Http\Controllers\Auth\LoginController@login']) }}
+    {{ Form::open(['route' => 'login']) }}
     <div class="f-group">
         {{ Form::label('email', __('users.email')) }}
         {{ Form::email('email', '', ['required' => 'true']) }}
