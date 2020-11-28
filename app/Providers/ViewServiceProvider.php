@@ -27,6 +27,6 @@ class ViewServiceProvider extends ServiceProvider
         // Using class based composers...
         View::composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\UserComposer');
 
-        View::composer(['admin.settings.index', 'admin.menus.items'], 'App\View\Composers\LanguagesComposer');
+        View::composer(['admin.settings.index', 'admin.menus.items', 'admin.partials.settings-sidebar'], 'App\View\Composers\LanguagesComposer');
     }
 }

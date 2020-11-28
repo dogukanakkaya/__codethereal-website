@@ -20,5 +20,16 @@
                 </div>
             </div>
         </div>
+        <div class="theme-language">
+            <ul>
+                @foreach($languages as $language)
+                    <li>
+                        <a href="{{ route('users.index') }}" class="{{ app()->getLocale() === $language->code ? 'active' : '' }}">
+                            <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt=""> {{ $language->name }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
 </div>

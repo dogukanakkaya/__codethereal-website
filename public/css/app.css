@@ -11438,6 +11438,10 @@ header .menu-bar .bar3 {
   border: 1px solid #dee2e6;
 }
 
+.settings-sidebar .flag-img {
+  width: 25px;
+}
+
 .user-profile {
   padding: 1rem 0;
   text-align: center;
