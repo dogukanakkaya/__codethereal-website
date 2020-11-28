@@ -12,8 +12,6 @@
                        aria-selected="false">{{ __('settings.contact') }}</a>
                     <a class="nav-link" data-toggle="pill" href="#social" role="tab"
                        aria-selected="false">{{ __('settings.social') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#google" role="tab"
-                       aria-selected="false">{{ __('settings.google') }}</a>
                 </div>
             </div>
             <div class="col-12">
@@ -65,8 +63,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 text-right">
-                                            <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
-                                            </button>
+                                            {{ Form::save() }}
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +108,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 text-right">
-                                                <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
-                                                </button>
+                                                {{ Form::save() }}
                                             </div>
                                         </div>
                                     </div>
@@ -145,38 +141,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 text-right">
-                                                <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="google" role="tabpanel">
-                            <div class="nav nav-pills mb-3 language-tab" role="tablist">
-                                @foreach($languages as $language)
-                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill" href="#google-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
-                                @endforeach
-                            </div>
-                            <div class="tab-content">
-                                @foreach($languages as $key => $language)
-                                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="google-{{ $language->code }}" role="tabpanel">
-                                        <div class="description">
-                                            <p><i class="fas fa-info-circle"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    {{ Form::label("$language->code[analytics]", __('settings.analytics')) }}
-                                                    {{ Form::text("$language->code[analytics]", $settings[$language->code]['analytics'] ?? '', ['class' => 'form-control']) }}
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-right">
-                                                <button type="submit" class="btn btn-primary">
-                                                    <span class="btn-enabled">{{ __('global.save') }} <i class="material-icons-outlined md-18">save</i></span>
-                                                    <span class="btn-disabled d-none">{{ __('global.loading') }} <i class="fas fa-spinner fa-spin"></i></span>
-                                                </button>
+                                                {!! Form::save() !!}
                                             </div>
                                         </div>
                                     </div>
@@ -196,9 +161,13 @@
         const form = document.getElementById('setting-form')
         form.addEventListener('submit', (e) => {
             e.preventDefault()
+            toggleBtnLoading()
             const formData = serialize(form, { hash: true })
             request.put('{{ route('settings.update') }}', formData)
-                .then(response => makeToast(response.data))
+                .then(response => {
+                    toggleBtnLoading()
+                    makeToast(response.data)
+                })
         })
     </script>
 @endpush

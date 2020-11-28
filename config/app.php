@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LanguageServiceProvider::class,
-        App\Providers\ViewServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         // 3rd party service providers
