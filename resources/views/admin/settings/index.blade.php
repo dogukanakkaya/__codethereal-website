@@ -62,9 +62,6 @@
                                                 <x-dropzone :index="$dzIndex2" :file-id="$settings[$language->code]['logo_dark'] ?? 0" folder="/" :input-name="$logo_dark"/>
                                             </div>
                                         </div>
-                                        <div class="col-12 text-right">
-                                            {{ Form::save() }}
-                                        </div>
                                     </div>
                                 </div>
                                 @endforeach
@@ -107,9 +104,6 @@
                                                     {{ Form::text("$language->code[map_code]", $settings[$language->code]['map_code'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-right">
-                                                {{ Form::save() }}
-                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -140,14 +134,15 @@
                                                     {{ Form::text("$language->code[github]", $settings[$language->code]['github'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-right">
-                                                {!! Form::save() !!}
-                                            </div>
+
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12 text-right">
+                        {{ Form::save() }}
                     </div>
                     {{ Form::close() }}
                 </div>
