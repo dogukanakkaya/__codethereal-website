@@ -9,6 +9,11 @@
  */
 function isActive($url, $class = 'active'): string
 {
+    if (is_array($url)) {
+        $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);
+    } else{
+        $url = app()->getLocale() . "/" . $url;
+    }
     return request()->is($url) ? $class : '';
 }
 
