@@ -9043,8 +9043,8 @@ form label:not(.form-check-label) {
 }
 
 form input {
-  font-size: 0.8rem !important;
-  padding: 0.375rem 0.5rem !important;
+  font-size: 0.825rem !important;
+  padding: 0.4rem 0.5rem !important;
 }
 
 /* /BS Override */

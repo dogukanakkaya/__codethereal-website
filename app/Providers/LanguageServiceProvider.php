@@ -23,7 +23,8 @@ class LanguageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $languages = languages();
+        $languages = \Schema::hasTable('languages') ? languages() : [];
+
         foreach ($languages as $language) {
             $supportedLocales[$language->code] = [
                 'name' => $language->name,

@@ -18,6 +18,8 @@ class PermissionSeeder extends Seeder
         Role::create([
             'name' => 'developer'
         ]);
+
+        /* Settings */
         Permission::create([
             'name' => 'see_settings',
             'group' => 'settings',
@@ -28,5 +30,29 @@ class PermissionSeeder extends Seeder
             'group' => 'settings',
             'title' => 'Update Settings'
         ]);
+        /* /Settings */
+
+        /* Users */
+        Permission::create([
+            'name' => 'see_users',
+            'group' => 'users',
+            'title' => 'See Users'
+        ]);
+        Permission::create([
+            'name' => 'create_users',
+            'group' => 'users',
+            'title' => 'Create Users'
+        ]);
+        Permission::create([
+            'name' => 'update_users',
+            'group' => 'users',
+            'title' => 'Update Users'
+        ]);
+        Permission::create([
+            'name' => 'delete_users',
+            'group' => 'users',
+            'title' => 'Delete Users'
+        ]);
+        /* /Users */
     }
 }

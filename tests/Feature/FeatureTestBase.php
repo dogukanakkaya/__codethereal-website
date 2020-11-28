@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -28,6 +29,8 @@ class FeatureTestBase extends TestCase
         Role::create([
             'name' => 'developer'
         ]);
+
+        config()->set('laravellocalization.hideDefaultLocaleInURL', true);
 
         $this->admin = User::factory()->create([
             'name' => 'Admin',
