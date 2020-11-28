@@ -176,6 +176,7 @@ return [
         App\Providers\LanguageServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\MacroServiceProvider::class,
 
         // 3rd party service providers
         Spatie\Permission\PermissionServiceProvider::class,
