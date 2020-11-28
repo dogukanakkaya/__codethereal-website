@@ -4,21 +4,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class ResetAll extends Command
+class Deploy extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'reset';
+    protected $signature = 'deploy';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Resets everything and build again from scratch';
+    protected $description = 'All commands that needs to be run after setup';
 
     /**
      * Create a new command instance.
@@ -40,6 +40,8 @@ class ResetAll extends Command
         $this->call('ce:clear');
         $this->call('migrate:fresh');
         $this->call('db:seed');
+        $this->call('storage:link');
+        $this->call('test');
         return 0;
     }
 }
