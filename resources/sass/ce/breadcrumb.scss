@@ -5,9 +5,8 @@
 }
 
 .breadcrumb-item + .breadcrumb-item::before{
-    content: '\f054';
-    font-family: 'Font Awesome 5 Free';
-    font-size: 11px;
+    font-family: 'Material Icons';
+    content: "chevron_right";
 }
 
 .breadcrumb-item.active{

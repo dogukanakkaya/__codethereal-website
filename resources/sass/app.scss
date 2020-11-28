@@ -67,8 +67,8 @@ aside {
         }
 
         .has-dropdown > a::after {
-            content: "\f105";
-            font-family: "Font Awesome 5 Free";
+            // Chevron down icon
+
             position: absolute;
             color: $menu-item-color;
             right: 15px;
@@ -81,7 +81,7 @@ aside {
         a {
             color: $menu-item-color;
             display: block;
-            padding: 10px 20px;
+            padding: .6rem 1.5rem;
             position: relative;
             font-size: 14px;
             font-weight: 400;
@@ -94,11 +94,8 @@ aside {
 
             i {
                 display: inline-block;
-                line-height: 1.0625rem;
-                margin: 0 10px 0 3px;
+                margin: 0 .75rem 0 .5rem;
                 text-align: center;
-                vertical-align: middle;
-                width: 20px;
             }
         }
     }
@@ -119,6 +116,7 @@ header {
     label[for='menu-toggle'] {
         transition: margin-left .25s ease-in;
         margin: 0;
+        cursor: pointer;
     }
 
     .top-right {
@@ -145,16 +143,12 @@ header {
                     transition: .25s all;
                 }
             }
-
-            i {
-                font-size: 18px;
-            }
         }
 
         .total-notification {
             position: absolute;
-            right: 7px;
-            top: -8px;
+            right: 11px;
+            top: -5px;
             width: 16px;
             height: 16px;
             background: $main-color;
@@ -174,36 +168,10 @@ header {
 
             &::after {
                 // TODO: not working
-                content: "\f002";
-                font-family: "Font Awesome 5 Free";
-                font-weight: 600;
+                content: "search";
+                font-family: 'Material Icons';
             }
         }
-    }
-
-    .menu-bar {
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .menu-bar .bar1 {
-        width: 20px;
-    }
-
-    .menu-bar .bar2 {
-        width: 35px;
-    }
-
-    .menu-bar .bar3 {
-        width: 20px;
-        margin-left: auto !important;
-    }
-
-    .menu-bar .bar1, .menu-bar .bar2, .menu-bar .bar3 {
-        height: 2px;
-        background-color: #000;
-        margin: 6px 0;
-        transition: 0.4s;
     }
 }
 
@@ -221,22 +189,6 @@ header {
 
         & ~ main {
             margin-left: $aside-width;
-        }
-    }
-
-    &:not(:checked) {
-        & + .top-container header {
-            .menu-bar .bar1 {
-                transform: rotate(45deg) translate(9px, -10px);
-                width: 25px;
-            }
-        }
-
-        & + .top-container header {
-            .menu-bar .bar3 {
-                transform: rotate(-45deg) translate(2px, 3px);
-                width: 25px;
-            }
         }
     }
 }
@@ -401,7 +353,6 @@ main {
             display: inline-block;
             color: $main-color;
             animation: jump 2s infinite ease;
-            font-size: 25px;
         }
     }
 

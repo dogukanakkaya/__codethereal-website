@@ -35,10 +35,10 @@
                 </div>
                 <div class="buttons mt-3">
                     @if (Route::has('profile.index'))
-                        <a href="{{ route('profile.index') }}"><i class="fas fa-cog"></i></a>
+                        <a href="{{ route('profile.index') }}"><i class="material-icons-outlined md-18">settings</i></a>
                     @endif
                     @if (Route::has('logout'))
-                            <a href="javascript:void(0);" class="danger" onclick="document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i></a>
+                            <a href="javascript:void(0);" class="danger" onclick="document.getElementById('logout-form').submit();"><i class="material-icons-outlined md-18">exit_to_app</i></a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
@@ -49,23 +49,23 @@
                 <ul>
                     <li class="seperator">{{ __('global.general') }}</li>
                     <li>
-                        <a href="{{ route('admin.home') }}" class="{{ isActive('admin') }}"><i class="fas fa-brain"></i> {{ __('global.home') }}</a>
+                        <a href="{{ route('admin.home') }}" class="{{ isActive('admin') }}"><i class="material-icons-outlined md-18">home</i> {{ __('global.home') }}</a>
                     </li>
                     @can('see_settings')
                     <li>
-                        <a href="{{ route('settings.index') }}"  class="{{ isActive('admin/settings') }}"><i class="fas fa-cogs"></i> Settings</a>
+                        <a href="{{ route('settings.index') }}"  class="{{ isActive('admin/settings') }}"><i class="material-icons-outlined md-18">settings</i> Settings</a>
                     </li>
                     @endcan
                     <li>
-                        <a href="{{ route('users.index') }}" class="{{ isActive('admin/users') }}"><i class="fas fa-users"></i> Users</a>
+                        <a href="{{ route('users.index') }}" class="{{ isActive('admin/users') }}"><i class="material-icons-outlined md-18">people_alt</i> Users</a>
                     </li>
                     <li>
-                        <a href="{{ route('menus.index') }}" class="{{ isActive(['admin/menus', 'admin/menus/*/items']) }}"><i class="fas fa-bars"></i> Menus</a>
+                        <a href="{{ route('menus.index') }}" class="{{ isActive(['admin/menus', 'admin/menus/*/items']) }}"><i class="material-icons-outlined md-18">menu</i> Menus</a>
                     </li>
                     @if($user->isDev())
                     <li class="seperator">{{ __('global.developer') }}</li>
                     <li>
-                        <a href="{{ url('admin/dev/permissions') }}" class="{{ isActive('admin/dev/permissions') }}"><i class="fas fa-user-tag"></i> Permissions</a>
+                        <a href="{{ url('admin/dev/permissions') }}" class="{{ isActive('admin/dev/permissions') }}"><i class="material-icons-outlined md-18">security</i> Permissions</a>
                     </li>
                     @endif
                     <!--
@@ -89,11 +89,7 @@
     </aside>
     <header>
         <label for="menu-toggle">
-            <div class="menu-bar">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
+            <i class="material-icons-outlined md-36">menu</i>
         </label>
         <div class="top-right">
             <ul>
@@ -102,13 +98,13 @@
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-bell"></i>
+                        <i class="material-icons-outlined">notifications</i>
                     </a>
                     <span class="total-notification">9</span>
                 </li>
                 <li>
                     <a href="javascript:void(0);" onclick="toggleThemeSettings()">
-                        <i class="fas fa-cog"></i>
+                        <i class="material-icons-outlined">settings</i>
                     </a>
                 </li>
             </ul>

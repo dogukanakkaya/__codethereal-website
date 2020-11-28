@@ -1,6 +1,6 @@
 <div id="dz-{{ $index }}" class="dropzone ce-dropzone mb-3">
     <div class="dz-default dz-message">
-        <i class="fas fa-cloud-upload-alt"></i>
+        <i class="material-icons-outlined md-36">cloud_upload</i>
         <h3>{{ __('dropzone.title') }}</h3>
         <p>({{ __('dropzone.description') }})</p>
     </div>

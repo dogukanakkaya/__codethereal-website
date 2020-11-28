@@ -173,7 +173,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 text-right">
-                                                <button class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <span class="btn-enabled">{{ __('global.save') }} <i class="material-icons-outlined md-18">save</i></span>
+                                                    <span class="btn-disabled d-none">{{ __('global.loading') }} <i class="fas fa-spinner fa-spin"></i></span>
                                                 </button>
                                             </div>
                                         </div>
