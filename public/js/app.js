@@ -52952,6 +52952,10 @@ var setHtmlTheme = function setHtmlTheme(theme) {
   return document.querySelector('html').setAttribute('theme', theme);
 };
 
+var withZeros = function withZeros(time) {
+  return time < 10 ? "0" + time : time;
+};
+
 window.addEventListener('DOMContentLoaded', function () {
   // If user is in tablet just close menu at start
   var mediaQuery = window.matchMedia('(max-width: 767px)');
@@ -52959,6 +52963,12 @@ window.addEventListener('DOMContentLoaded', function () {
   if (mediaQuery.matches) {
     document.getElementById('menu-toggle').removeAttribute('checked');
   }
+
+  var liveTimeEl = document.querySelector('.live-time span');
+  setInterval(function () {
+    var d = new Date();
+    liveTimeEl.textContent = withZeros(d.getHours()) + ":" + withZeros(d.getMinutes()) + ":" + withZeros(d.getSeconds());
+  }, 1000);
 });
 window.addEventListener('load', function () {
   // Remove loader

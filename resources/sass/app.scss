@@ -130,6 +130,11 @@ header {
             display: flex;
             align-items: center;
 
+            .live-time{
+                font-size: 23px;
+                display: inline-block;
+            }
+
             li {
                 position: relative;
                 padding: 0 1rem;

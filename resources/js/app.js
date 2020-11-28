@@ -7,6 +7,7 @@ import { STORAGE_PREFIX } from "./config";
 
 /* Global functions */
 const setHtmlTheme = theme => document.querySelector('html').setAttribute('theme', theme);
+const withZeros = time => time < 10 ? "0" + time : time;
 
 window.addEventListener('DOMContentLoaded', () => {
     // If user is in tablet just close menu at start
@@ -14,6 +15,12 @@ window.addEventListener('DOMContentLoaded', () => {
     if (mediaQuery.matches) {
         document.getElementById('menu-toggle').removeAttribute('checked')
     }
+
+    const liveTimeEl = document.querySelector('.live-time span');
+    setInterval(() => {
+        const d = new Date();
+        liveTimeEl.textContent = withZeros(d.getHours()) + ":" + withZeros(d.getMinutes()) + ":" + withZeros(d.getSeconds());
+    }, 1000);
 })
 
 window.addEventListener('load', () => {

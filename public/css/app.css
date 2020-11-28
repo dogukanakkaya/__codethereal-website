@@ -11380,6 +11380,11 @@ header .top-right ul {
   align-items: center;
 }
 
+header .top-right ul .live-time {
+  font-size: 23px;
+  display: inline-block;
+}
+
 header .top-right ul li {
   position: relative;
   padding: 0 1rem;

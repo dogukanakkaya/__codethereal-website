@@ -94,6 +94,9 @@
         <div class="top-right">
             <ul>
                 <li>
+                    <a class="live-time" href="javascript:void(0);"><i class="material-icons-outlined">timer</i> <span>{{ now()->format('H:i:s') }}</span></a>
+                </li>
+                <li>
                     <input type="search" placeholder="{{ __('global.search') }}...">
                 </li>
                 <li>
