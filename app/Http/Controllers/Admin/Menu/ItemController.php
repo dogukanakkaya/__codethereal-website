@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Menu\StoreItem;
 use App\Models\Admin\Menu\Group;
 use App\Models\Admin\Menu\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -19,12 +18,13 @@ class ItemController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return back();
         }
+        $groupItems = $this->groupItems($groupId);
         $data = [
             'navigations' => [route('menus.index') => __('menus.group'), __('menus.items')],
-            'items' => $this->treeItems($groupId),
+            'items' => $this->treeItems($groupItems),
             'actions' => $this->actions(),
             'groupId' => $groupId,
-            'parents' => $this->groupItems($groupId)->pluck('title', 'menu_items.id')->toArray() // Data of selectable menu parent
+            'parents' => $groupItems->pluck('title', 'menu_items.id')->toArray() // Data of selectable menu parent
         ];
         return view('admin.menus.items', $data);
     }
@@ -41,7 +41,7 @@ class ItemController extends Controller
             return resJsonUnauthorized();
         }
         $data = [
-            'items' => $this->treeItems($groupId),
+            'items' => $this->treeItems($this->groupItems($groupId)),
             'actions' => $this->actions()
         ];
         return response()
@@ -194,18 +194,19 @@ class ItemController extends Controller
             ->oldest('sequence')
             ->latest()
             ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
-            ->where('language', App::getLocale());
+            ->where('language', app()->getLocale())
+            ->get();
     }
 
     /**
      * Return builded items
      *
-     * @param $groupId
+     * @param $items
      * @return array
      */
-    private function treeItems($groupId)
+    private function treeItems($items)
     {
-        return buildTree($this->groupItems($groupId)->get(), [
+        return buildTree($items, [
             'id' => 'item_id',
             'parentId' => 'parent_id'
         ]);
