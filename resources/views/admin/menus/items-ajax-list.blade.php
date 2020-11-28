@@ -5,7 +5,7 @@
     'start' => '<div class="list-group sortable" data-parent-id="{parentId}">',
     'end' => '</div>',
 
-    'childStart' => '<div data-sortable-id="{value}" class="list-group-item">{title}' . $dropdown,
+    'childStart' => '<div data-sortable-id="{value}" class="list-group-item">{title} ' . $dropdown,
     'childEnd' => '</div>',
 ], [
     'id' => 'item_id',

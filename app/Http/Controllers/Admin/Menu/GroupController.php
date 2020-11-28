@@ -21,14 +21,14 @@ class GroupController extends Controller
             return Datatables::of($data)
                 ->addColumn('action', function($row){
                     $actions = [
-                        ['title' => '<i class="fas fa-eye fa-fw"></i> ' . __('global.detail'), 'onclick' => 'window.location.href = "'.route('menu_items.index', ['groupId' => $row->id]).'"']
+                        ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('global.detail'), 'onclick' => 'window.location.href = "'.route('menu_items.index', ['groupId' => $row->id]).'"']
                     ];
 
                     // Only developer can delete and update menu groups
                     if (Auth::user()->isDev()){
                         array_push($actions,
-                            ['title' => '<i class="fas fa-pencil-alt fa-fw"></i> ' . __('global.update'), 'onclick' => '__find('.$row->id.')'],
-                            ['title' => '<i class="fas fa-trash fa-fw"></i> ' . __('global.delete'), 'onclick' => '__delete('.$row->id.')'],
+                            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find('.$row->id.')'],
+                            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete('.$row->id.')'],
                         );
                     }
                     return view('admin.partials.dropdown', ['actions' => $actions]);

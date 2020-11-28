@@ -20,7 +20,7 @@
             @include('admin.menus.items-ajax-list', ['items' => $items])
         </div>
         <div class="text-right mt-3">
-            <button onclick="__saveSequence()" class="btn btn-primary">{{ __('global.save') }} <i class="fas fa-save"></i></button>
+            {{ Form::save(['onclick' => '__saveSequence()']) }}
         </div>
     </div>
 
@@ -150,6 +150,7 @@
         }
 
         const __saveSequence = () => {
+            toggleBtnLoading()
             request.put('{{ route('menu_items.save_sequence', ['groupId' => $groupId]) }}', nestedSortableSerialize(sortableRoot, sortableGroup))
                 .then(__onResponse)
         }

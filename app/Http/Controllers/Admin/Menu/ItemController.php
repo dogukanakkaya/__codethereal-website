@@ -220,8 +220,8 @@ class ItemController extends Controller
     private function actions()
     {
         return [
-            ['title' => '<i class="fas fa-pencil-alt fa-fw"></i> ' . __('global.update'), 'onclick' => '__find({value})'],
-            ['title' => '<i class="fas fa-trash fa-fw"></i> ' . __('global.delete'), 'onclick' => '__delete({value})']
+            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find({value})'],
+            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete({value})']
         ];
     }
 }

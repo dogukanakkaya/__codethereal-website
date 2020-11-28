@@ -36,8 +36,8 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $actions = [
-                        ['title' => '<i class="fas fa-pencil-alt fa-fw"></i> ' . __('global.update'), 'onclick' => '__find('.$row->id.')'],
-                        ['title' => '<i class="fas fa-trash fa-fw"></i> ' . __('global.delete'), 'onclick' => '__delete('.$row->id.')']
+                        ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find('.$row->id.')'],
+                        ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete('.$row->id.')'],
                     ];
                     return view('admin.partials.dropdown', ['actions' => $actions]);
                 })
