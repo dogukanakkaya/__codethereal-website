@@ -8,7 +8,7 @@
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
         <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i
-                class="material-icons-outlined md-18">sync</i></button>
+                class="material-icons-outlined md-18 spin">sync</i></button>
         <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i
                 class="material-icons-outlined md-18">add</i></button>
     </div>

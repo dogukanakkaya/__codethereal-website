@@ -26,6 +26,7 @@
 @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/spinners";
 //@import "~bootstrap/scss/print";
 
 // Utils
@@ -101,7 +102,8 @@ aside {
 
         a {
             color: $menu-item-color;
-            display: block;
+            display: flex;
+            align-items: center;
             padding: .6rem 1.5rem;
             position: relative;
             font-size: 14px;
@@ -183,6 +185,11 @@ header {
             text-align: center;
             font-size: 11px;
             color: white;
+
+            &.blink{
+                box-shadow: 0 0 5px 2px rgb(0 126 255);
+                animation: blinker 1.25s linear infinite;
+            }
         }
 
         input[type='search'] {

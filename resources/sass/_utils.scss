@@ -48,6 +48,10 @@ html[theme='dark-theme']{
     }
 }
 
+@keyframes blinker {
+    25%{opacity: 0;}
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -143,5 +147,9 @@ form label:not(.form-check-label){
 form input{
     font-size: .825rem!important;
     padding: .4rem .5rem!important;
+}
+
+.spin{
+    animation: spinner-border 2s linear infinite;
 }
 /* /BS Override */

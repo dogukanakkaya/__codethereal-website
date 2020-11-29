@@ -8895,6 +8895,75 @@ a.text-dark:focus {
   visibility: hidden !important;
 }
 
+@-webkit-keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+          animation: spinner-border 0.75s linear infinite;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+@-webkit-keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.spinner-grow {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-animation: spinner-grow 0.75s linear infinite;
+          animation: spinner-grow 0.75s linear infinite;
+}
+
+.spinner-grow-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
 html[theme=dark-theme] {
   filter: invert(1) hue-rotate(180deg);
 }
@@ -8946,6 +9015,18 @@ html[theme=dark-theme] .black-overlay {
   to {
     transform: scale(0.8);
     opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes blinker {
+  25% {
+    opacity: 0;
+  }
+}
+
+@keyframes blinker {
+  25% {
+    opacity: 0;
   }
 }
 
@@ -9045,6 +9126,11 @@ form label:not(.form-check-label) {
 form input {
   font-size: 0.825rem !important;
   padding: 0.4rem 0.5rem !important;
+}
+
+.spin {
+  -webkit-animation: spinner-border 2s linear infinite;
+          animation: spinner-border 2s linear infinite;
 }
 
 /* /BS Override */
@@ -9231,7 +9317,8 @@ aside .menus .dropdown {
 
 aside .menus a {
   color: #fff;
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 0.6rem 1.5rem;
   position: relative;
   font-size: 14px;
@@ -9314,6 +9401,12 @@ header .top-right .total-notification {
   text-align: center;
   font-size: 11px;
   color: white;
+}
+
+header .top-right .total-notification.blink {
+  box-shadow: 0 0 5px 2px #007eff;
+  -webkit-animation: blinker 1.25s linear infinite;
+          animation: blinker 1.25s linear infinite;
 }
 
 header .top-right input[type=search] {

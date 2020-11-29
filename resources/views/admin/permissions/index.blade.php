@@ -9,7 +9,7 @@
     <div class="page-actions">
     <!--<input class="ce-input" type="search" placeholder="{{ __('global.search') }}...">-->
         <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i
-                class="material-icons-outlined md-18">sync</i></button>
+                class="material-icons-outlined md-18 spin">sync</i></button>
         <button onclick="__create()"
                 class="btn btn-success">{{ __('global.add_new', ['name' => __('permissions.permission')]) }}
             <i class="material-icons-outlined md-18">add</i></button>

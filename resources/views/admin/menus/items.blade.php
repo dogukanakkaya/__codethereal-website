@@ -8,7 +8,7 @@
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
         <button class="btn btn-primary" onclick="ajaxList()">{{ __('global.refresh') }} <i
-                class="material-icons-outlined md-18">sync</i></button>
+                class="material-icons-outlined md-18 spin">sync</i></button>
         <button onclick="__create()"
                 class="btn btn-success">{{ __('global.add_new', ['name' => __('menus.item')]) }}
             <i class="material-icons-outlined md-18">add</i></button>

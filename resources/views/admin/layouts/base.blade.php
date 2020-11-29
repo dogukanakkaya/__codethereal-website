@@ -103,7 +103,7 @@
                     <a href="#">
                         <i class="material-icons-outlined">notifications</i>
                     </a>
-                    <span class="total-notification">9</span>
+                    <span class="total-notification {{ true ? 'blink' : '' }}">9</span>
                 </li>
                 <li>
                     <a href="javascript:void(0);" onclick="toggleThemeSettings()">
