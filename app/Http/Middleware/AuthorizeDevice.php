@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Mail;
 class AuthorizeDevice
 {
     /**
-     * @var \App\Authorize
+     * @var Authorize
      */
     private Authorize $authorize;
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -28,8 +28,7 @@ class AuthorizeDevice
             $this->authorize = Authorize::make();
 
             if ($this->authorize->attempt < 1) {
-                Mail::to($request->user())
-                    ->send(new AuthorizeDeviceMail($this->authorize));
+                Mail::to($request->user())->send(new AuthorizeDeviceMail($this->authorize));
                 $this->authorize->increment('attempt');
             }
 

@@ -35,14 +35,11 @@ class AuthorizeController extends Controller
         if (!Authorize::active() && auth()->check()) {
             $authorize = Authorize::make();
 
-            Mail::to($request->user())
-                ->send(new AuthorizeDeviceMail($authorize));
+            Mail::to($request->user())->send(new AuthorizeDeviceMail($authorize));
 
             $authorize->increment('attempt');
 
-            return redirect()->route('authorize')->with([
-                'status' => __('auth.new_email_sent'),
-            ]);
+            return redirect()->route('authorize')->with(['status' => __('auth.new_email_sent')]);
         }
     }
 }

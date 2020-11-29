@@ -25,7 +25,7 @@ Route::get('{locale}', function ($locale) {
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localizationRedirect']], function(){
 
-    // Authentication Routes TODO: add authorize.device middleware to password resets
+    // Authentication Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
 
 

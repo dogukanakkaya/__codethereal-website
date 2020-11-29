@@ -35,15 +35,6 @@ class Authorize extends Model
     ];
 
     /**
-     * @param $query
-     * @return mixed
-     */
-    public function scopeCurrentUser($query)
-    {
-        return $query->where('user_id', Auth::id());
-    }
-
-    /**
      * @param $date
      */
     public function setAuthorizedAtAttribute($date)
@@ -57,14 +48,15 @@ class Authorize extends Model
     public static function active()
     {
         return with(new self)
+            ->where('user_id', Auth::id())
             ->where('ip_address', request()->ip())
             ->where('authorized', true)
-            //->where('authorized_at', '<', now()->addHour())
             ->first();
     }
 
     /**
      * @param $token
+     * @return mixed
      */
     public static function validateToken($token = null)
     {
@@ -81,6 +73,7 @@ class Authorize extends Model
 
             return self::active();
         }
+        return false;
     }
 
     /**
@@ -88,10 +81,14 @@ class Authorize extends Model
      */
     public static function make()
     {
-        return self::firstOrCreate([
-            'ip_address' => request()->ip(),
-            'user_id' => Auth::id(),
-            'expires_at' => now()->addHour()
-        ]);
+        return self::firstOrCreate(
+            [
+                'ip_address' => request()->ip(),
+                'user_id' => Auth::id(),
+            ],
+            [
+                'expires_at' => now()->addHour()
+            ]
+        );
     }
 }
