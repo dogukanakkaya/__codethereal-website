@@ -65,13 +65,11 @@ class Authorize extends Model
             ->first();
 
         if ($query) {
-            $query->update([
+            return $query->update([
                 'authorized' => true,
                 'authorized_at' => now(),
                 'token' => NULL
             ]);
-
-            return self::active();
         }
         return false;
     }

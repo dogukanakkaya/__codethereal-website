@@ -5,9 +5,9 @@
  *
  * @param $url
  * @param string $class
- * @return string
+ * @return mixed
  */
-function isActive($url, $class = 'active'): string
+function isActive($url, $class = 'active')
 {
     if (is_array($url)) {
         $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);

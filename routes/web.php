@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::get('{locale}', function ($locale) {
-    if (!in_array($locale, languages()->pluck('code')->toArray())) {
-        app()->setLocale('en');
-    }else{
-        app()->setLocale($locale);
-    }
-});
-*/
-
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localizationRedirect']], function(){
 
     // Authentication Routes
@@ -30,16 +20,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
     // Authorize Routes
-    Route::group(['middleware' => ['auth', 'unauthorized']], function () {
+    Route::group(['middleware' => ['authorize', 'unauthorized']], function () {
+        // Only unauthorized users (with given ip, location and browser info) can access to this routes, authorized users do not need to authorize their accounts so they can't access to this routes.
         Route::get('authorize', 'App\Http\Controllers\Auth\AuthorizeController@index')->name('authorize');
         Route::get('authorize/{token}', 'App\Http\Controllers\Auth\AuthorizeController@verify')->name('authorize.verify');
         Route::post('authorize/resend', 'App\Http\Controllers\Auth\AuthorizeController@resend')->name('authorize.resend');
     });
 
 
-
     // Admin Authenticated users route group
-    Route::group(['prefix' => 'admin', 'middleware' => ['authorized', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
         Route::get('/', 'HomeController@index')->name('admin.home');
 
         // Only developer routes

@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorized')->only('login');
+        $this->middleware('authorize')->only('login');
         $this->middleware('guest')->except('logout');
     }
 
@@ -33,6 +33,7 @@ class LoginController extends Controller
         return [
             'email' => request('email'),
             'password' => request('password'),
+            //'remember_me' => request('remember_me'),
             'rank' => [config('user.rank.dev'), config('user.rank.admin')] // Only developers and admins can login to admin
         ];
     }
