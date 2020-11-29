@@ -100,6 +100,38 @@ function array_remove(array &$arr, $key)
 }
 
 /**
+ * Returns needed agent data
+ *
+ * @param null $userAgent
+ * @return array
+ */
+function agent($userAgent = null)
+{
+    $agent = new \Jenssegers\Agent\Agent(null, $userAgent);
+    $platform = $agent->platform();
+    $browser = $agent->browser();
+    return [
+        'platform' => $platform ?? null,
+        'browser' => $browser ?? null,
+        'platform_version' => $agent->version($platform) ?? null,
+        'browser_version' => $agent->version($browser) ?? null,
+        'device' => $agent->device($userAgent) ?? null
+    ];
+}
+
+function location($ip, $fields = array('country', 'city'))
+{
+    $fetchFields = implode(',', $fields);
+    $ipApi = json_decode(file_get_contents("http://ip-api.com/json/$ip?fields=$fetchFields"));
+    $data = [];
+    foreach ($fields as $field) {
+        $data[$field] = $ipApi->{$field} ?? null;
+    }
+    return $data;
+
+}
+
+/**
  * buildTree function ordering the contents with their parentId cols, and returns an array with this order
  * @param $contents
  * @param $parentId = 0

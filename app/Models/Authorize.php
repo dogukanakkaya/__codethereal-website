@@ -31,6 +31,7 @@ class Authorize extends Model
         'platform_version',
         'browser',
         'browser_version',
+        'device',
         'location',
         'attempt',
         'authorized_at',
@@ -50,8 +51,14 @@ class Authorize extends Model
      */
     public static function active()
     {
+        $info = self::getAuthorizeInformation();
+
         return self::where('user_id', Auth::id())
-            ->where('ip_address', request()->ip())
+            ->where('ip_address', $info['ip_address'])
+            ->where('platform', $info['platform'])
+            ->where('browser', $info['browser'])
+            ->where('device', $info['device'])
+            ->where('location', $info['location'])
             ->where('authorized', 1)
             ->first();
     }
@@ -81,38 +88,44 @@ class Authorize extends Model
      */
     public static function make()
     {
-        $agent = new \Jenssegers\Agent\Agent();
-
-        $platform = $agent->platform();
-        $platformVersion = $agent->version($platform);
-        $browser = $agent->browser();
-        $browserVersion = $agent->version($browser);
-
-        $ipAddress = request()->ip();
-        if (app()->environment('local', 'testing')){
-            $ipApi = json_decode(file_get_contents("http://ip-api.com/json/81.215.237.239?fields=country,city"));
-        }else{
-            $ipApi = json_decode(file_get_contents("http://ip-api.com/json/$ipAddress?fields=country,city"));
-        }
-
-        $country = $ipApi->country ?? '';
-        $city = $ipApi->city ?? '';
-        $location = $country."-".$city;
+        $info = self::getAuthorizeInformation();
 
         return self::firstOrCreate(
             [
-                'ip_address' => $ipAddress,
-                'platform' => $platform,
-                'platform_version' => $platformVersion,
-                'browser' => $browser,
-                'browser_version' => $browserVersion,
-                'location' => $location,
-                'user_id' => Auth::id(),
+                'ip_address' => $info['ip_address'],
+                'platform' => $info['platform'],
+                'platform_version' => $info['platform_version'],
+                'browser' => $info['browser'],
+                'browser_version' => $info['browser_version'],
+                'device' => $info['device'],
+                'location' => $info['location'],
+                'user_id' => $info['user_id']
             ],
             [
                 'expires_at' => now()->addHour(),
                 'token' => Str::random(64)
             ]
+        );
+    }
+
+    private static function getAuthorizeInformation()
+    {
+        $ip = request()->ip();
+        $userAgent = request()->server('HTTP_USER_AGENT');
+        $agent = agent($userAgent);
+
+        // If testing do not send request to find location every time.
+        if (app()->environment('testing', 'local')){
+            $location = ['country' => 'Turkey', 'city' => 'Istanbul'];
+        }else{
+            $location = location($ip);
+        }
+        return array_merge(
+            $agent,
+            $location,
+            ['ip_address' => $ip],
+            ['location' => $location['country'] . "-" . $location['city']],
+            ['user_id' => Auth::id()]
         );
     }
 }

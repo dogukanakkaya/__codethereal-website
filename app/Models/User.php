@@ -85,11 +85,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         Authorize::create([
             'ip_address' => '127.0.0.1',
-            'platform' => 'Platform',
-            'platform_version' => 'Platform Version',
-            'browser' => 'Browser',
-            'browser_version' => 'Browser Version',
-            'location' => 'Location',
+            'platform' => 'OS X',
+            'platform_version' => '11_0_0',
+            'browser' => 'Chrome',
+            'browser_version' => '86.0.42.40.198',
+            'device' => 'Macintosh',
+            'location' => 'Turkey-Istanbul',
             'user_id' => $this->id,
             'authorized' => 1,
             'authorized_at' => now()

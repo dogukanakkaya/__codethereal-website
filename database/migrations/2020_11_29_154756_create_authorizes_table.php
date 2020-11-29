@@ -23,6 +23,7 @@ class CreateAuthorizesTable extends Migration
             $table->string('platform_version')->nullable();
             $table->string('browser')->nullable();
             $table->string('browser_version')->nullable();
+            $table->string('device')->nullable();
             $table->string('location')->nullable();
             $table->tinyInteger('attempt')->default(0)->nullable();
             $table->timestamp('authorized_at')->nullable();

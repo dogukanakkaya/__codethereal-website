@@ -17,7 +17,7 @@ class FilesTest extends FeatureTestBase
 
         $this->actingAs($this->admin)
             ->withHeaders([
-                'X-Requested-With' => 'XMLHttpRequest',
+                'X-Requested-With' => 'XMLHttpRequest'
             ]);
     }
 

@@ -26,6 +26,10 @@ class FeatureTestBase extends TestCase
 
         $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
+        $this->withHeaders([
+            "HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+        ]);
+
         Role::create([
             'name' => 'developer'
         ]);
