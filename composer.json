@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "cbschuld/browser.php": "^1.9",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -18,6 +19,7 @@
         "laravelcollective/html": "^6.2",
         "mcamara/laravel-localization": "^1.6",
         "spatie/laravel-permission": "^3.17",
+        "stevebauman/location": "^5.2",
         "yajra/laravel-datatables-oracle": "^9.14"
     },
     "require-dev": {

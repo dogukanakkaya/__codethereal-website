@@ -9368,23 +9368,25 @@ header .top-right {
 header .top-right ul {
   display: flex;
   align-items: center;
+  max-width: 100%;
 }
 
-header .top-right ul .live-time {
+header .top-right .live-time {
   font-size: 23px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
-header .top-right ul li {
+header .top-right li {
   position: relative;
   padding: 0 1rem;
 }
 
-header .top-right ul a {
+header .top-right a {
   color: #5a6a8c;
 }
 
-header .top-right ul a:hover {
+header .top-right a:hover {
   color: #0087ff !important;
   transition: 0.25s all;
 }
@@ -9419,7 +9421,7 @@ header .top-right input[type=search] {
 
 header .top-right input[type=search]::after {
   content: "search";
-  font-family: "Material Icons";
+  font-family: "Material Icons Outlined";
 }
 
 #menu-toggle {
@@ -9602,6 +9604,23 @@ main .list-area .description i {
 
   header {
     z-index: 11;
+  }
+
+  header .top-right input[type=search] {
+    padding: 0.5rem;
+    font-size: 12px;
+  }
+
+  header .top-right li {
+    padding: 0 0.4rem;
+  }
+
+  header .top-right .live-time {
+    font-size: 12px;
+  }
+
+  header .top-right .total-notification {
+    right: 2px;
   }
 
   aside {

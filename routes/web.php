@@ -28,8 +28,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     // Auth Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
 
+    # Authorize
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('authorize', 'App\Http\Controllers\Auth\AuthorizeController@index')->name('authorize');
+        Route::get('authorize/{token}', 'App\Http\Controllers\Auth\AuthorizeController@verify')->name('authorize.verify');
+        Route::post('authorize/resend', 'App\Http\Controllers\Auth\AuthorizeController@resend')->name('authorize.resend');
+    });
+
+
+
+
     // Admin Authenticated users route group
-    Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
         Route::get('/', 'HomeController@index')->name('admin.home');
 
         // Only developer routes

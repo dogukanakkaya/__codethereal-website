@@ -24,6 +24,11 @@
         .click-button{margin: 10px 0;text-align: center;}
         .click-button a{background: linear-gradient(45deg,var(--main-color),#00b8ff63);outline: none;border: none;color:white;padding: 7px 15px;display: block;}
         .text-center{text-align:center;}
+        .text-bold{font-weight: bold;}
+        .text-dark{color: #5A5858;}
+        .text-gray{color: #767678;}
+        .list-type{margin: 1rem 0;}
+        .list-type p{margin: 0;}
         @media only screen and (max-width: 690px) {
             .content-body{font-size: 11px;line-height: 18px;}
             .logo img {width: 85px !important;line-height: 0;}

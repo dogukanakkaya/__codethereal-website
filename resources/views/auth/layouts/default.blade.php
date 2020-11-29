@@ -18,18 +18,8 @@
             <div class="alert error">
                 <p>{{$errors->first()}}</p>
             </div>
-        @elseif(session()->has('status') && !request()->is('login'))
-            @php
-                // If session has status but active route is not login, redirect to login with status
-                session()->flash('status', session('status'));
-            @endphp
-            <script>window.location.href = '{{ route('login') }}'</script>
-        @elseif(session()->has('resent') && !request()->is('login'))
-            @php
-                // If session has resent but active route is not login, redirect to login with status
-                session()->flash('status', __('auth.verify_email_text'));
-            @endphp
-            <script>window.location.href = '{{ route('login') }}'</script>
+        @elseif(session()->has('resent'))
+            <div class="alert success" role="alert">{{ session('resent') }}</div>
         @elseif(session()->has('status'))
             <div class="alert success" role="alert">{{ session('status') }}</div>
         @endif
