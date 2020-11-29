@@ -7,5 +7,7 @@
     "/css/users/base.css": "/css/users/base.css",
     "/css/ce/datatable.css": "/css/ce/datatable.css",
     "/css/ce/sortable.css": "/css/ce/sortable.css",
-    "/css/ce/dropzone.css": "/css/ce/dropzone.css"
+    "/css/ce/dropzone.css": "/css/ce/dropzone.css",
+    "/js/static/dropzone.min.js": "/js/static/dropzone.min.js",
+    "/js/static/sortable.min.js": "/js/static/sortable.min.js"
 }
