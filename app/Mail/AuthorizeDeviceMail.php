@@ -29,24 +29,6 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
         $this->authorize = $authorize;
     }
 
-    private function setLocation()
-    {
-        $location = Location::get($this->authorize->ip_address);
-
-        $country = $location->countryName ?? '';
-        $city = $location->cityName ?? '';
-
-        $this->authorize->location = $country . " / " . $city;
-
-        return $this;
-    }
-
-    public function saveAuthorize()
-    {
-        $this->authorize->token = Str::random(64);
-        $this->authorize->save();
-    }
-
     /**
      * Build the message.
      *
@@ -54,9 +36,6 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $this->setLocation()
-            ->saveAuthorize();
-
         return $this
             ->view('mail.auth.authorize')
             ->with(['authorize' => $this->authorize]);

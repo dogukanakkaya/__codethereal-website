@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Authorize extends Model
 {
@@ -109,7 +110,8 @@ class Authorize extends Model
                 'user_id' => Auth::id(),
             ],
             [
-                'expires_at' => now()->addHour()
+                'expires_at' => now()->addHour(),
+                'token' => Str::random(64)
             ]
         );
     }
