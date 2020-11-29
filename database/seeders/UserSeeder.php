@@ -15,15 +15,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
+        $userDev = User::create([
             'name' => 'Doğukan Akkaya',
             'email' => 'doguakkaya27@gmail.com',
             'password' => Hash::make('12345678'),
             'position' => 'Software Developer',
             'rank' => config('user.rank.dev')
         ]);
-        $user->markEmailAsVerified();
-        $user->assignRole('developer');
+        $userDev->markEmailAsVerified();
+        $userDev->markAsAuthorized();
+        $userDev->assignRole('developer');
 
         $userAdmin = User::create([
             'name' => 'Doğu Admin',
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'rank' => config('user.rank.admin')
         ]);
         $userAdmin->markEmailAsVerified();
+        $userAdmin->markAsAuthorized();
 
         $userBasic = User::create([
             'name' => 'Doğu Basic',
@@ -42,5 +44,6 @@ class UserSeeder extends Seeder
             'rank' => config('user.rank.basic')
         ]);
         $userBasic->markEmailAsVerified();
+        $userBasic->markAsAuthorized();
     }
 }

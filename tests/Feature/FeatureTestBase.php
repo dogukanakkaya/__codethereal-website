@@ -38,6 +38,7 @@ class FeatureTestBase extends TestCase
             'image' => 0
         ]);
         $this->admin->markEmailAsVerified();
+        $this->admin->markAsAuthorized();
 
         $this->dev = User::factory()->create([
             'name' => 'Developer',
@@ -46,5 +47,6 @@ class FeatureTestBase extends TestCase
         ]);
         $this->dev->assignRole('developer');
         $this->dev->markEmailAsVerified();
+        $this->dev->markAsAuthorized();
     }
 }

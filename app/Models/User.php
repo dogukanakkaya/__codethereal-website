@@ -80,4 +80,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return intval($this->rank) === config('user.rank.dev');
     }
+
+    public function markAsAuthorized()
+    {
+        Authorize::create([
+            'ip_address' => '127.0.0.1',
+            'platform' => 'Platform',
+            'platform_version' => 'Platform Version',
+            'browser' => 'Browser',
+            'browser_version' => 'Browser Version',
+            'location' => 'Location',
+            'user_id' => $this->id,
+            'authorized' => 1,
+            'authorized_at' => now()
+        ]);
+    }
 }

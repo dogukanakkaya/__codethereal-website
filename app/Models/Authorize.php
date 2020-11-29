@@ -52,7 +52,7 @@ class Authorize extends Model
     {
         return self::where('user_id', Auth::id())
             ->where('ip_address', request()->ip())
-            ->where('authorized', true)
+            ->where('authorized', 1)
             ->first();
     }
 
