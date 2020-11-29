@@ -16,7 +16,7 @@ class CreateAuthorizesTable extends Migration
         Schema::create('authorizes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->boolean('authorized')->default(0);
+            $table->boolean('authorized')->default(false);
             $table->string('token')->nullable();
             $table->string('ip_address')->nullable();
             $table->string('browser')->nullable();

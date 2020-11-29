@@ -63,24 +63,6 @@ class Authorize extends Model
     }
 
     /**
-     * @return mixed
-     */
-    public function resetAttempt()
-    {
-        $this->update(['attempt' => 0]);
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function noAttempt()
-    {
-        return $this->attempt < 1;
-    }
-
-    /**
      * @param $token
      */
     public static function validateToken($token = null)
@@ -93,6 +75,7 @@ class Authorize extends Model
             $query->update([
                 'authorized' => true,
                 'authorized_at' => now(),
+                'token' => NULL
             ]);
 
             return self::active();
@@ -106,18 +89,7 @@ class Authorize extends Model
     {
         return self::firstOrCreate([
             'ip_address' => request()->ip(),
-            'authorized' => false,
             'user_id' => Auth::id(),
         ]);
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function inactive()
-    {
-        $query = self::active();
-
-        return $query ? null : true;
     }
 }

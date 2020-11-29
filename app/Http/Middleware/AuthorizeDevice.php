@@ -24,13 +24,12 @@ class AuthorizeDevice
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Authorize::inactive() && auth()->check()) {
+        if (!Authorize::active() && auth()->check()) {
             $this->authorize = Authorize::make();
 
-            if ($this->authorize->noAttempt()) {
+            if ($this->authorize->attempt < 1) {
                 Mail::to($request->user())
                     ->send(new AuthorizeDeviceMail($this->authorize));
-
                 $this->authorize->increment('attempt');
             }
 
@@ -51,14 +50,6 @@ class AuthorizeDevice
 
     private function timeout()
     {
-        $waiting = $this->authorize
-            ->created_at
-            ->addMinutes(15);
-
-        if (now() >= $waiting) {
-            return true;
-        }
-
-        return false;
+        return now() >= $this->authorize->created_at->addMinutes(15);
     }
 }

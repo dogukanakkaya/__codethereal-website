@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Browser;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ use Stevebauman\Location\Facades\Location;
  * Class AuthorizeDevice
  * @package App\Mail
  */
-class AuthorizeDeviceMail extends Mailable
+class AuthorizeDeviceMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

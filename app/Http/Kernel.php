@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'dev' => Middleware\Developer::class,
         'online' => Middleware\UserOnline::class,
         'only.ajax' => Middleware\OnlyAjax::class,
-        'authorize' => Middleware\AuthorizeDevice::class,
+        'authorize.device' => Middleware\AuthorizeDevice::class,
 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

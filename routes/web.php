@@ -25,7 +25,7 @@ Route::get('{locale}', function ($locale) {
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localizationRedirect']], function(){
 
-    // Auth Routes
+    // Auth Routes TODO: add authorize.device middleware to password resets
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
 
     # Authorize
@@ -39,7 +39,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
     // Admin Authenticated users route group
-    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => ['authorize.device', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
         Route::get('/', 'HomeController@index')->name('admin.home');
 
         // Only developer routes

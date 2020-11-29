@@ -15,12 +15,10 @@ class AuthorizeController extends Controller
         return view('auth.authorize');
     }
 
-    public function verify($token = null)
+    public function verify($token)
     {
         if (Authorize::validateToken($token)) {
-            return redirect()->route('admin.home')->with([
-                'status' => 'Awesome ! you are now authorized !',
-            ]);
+            return redirect()->route('admin.home');
         }
 
         return redirect()->route('login')->withErrors(['token' => 'Time expired for token!']);
@@ -34,8 +32,8 @@ class AuthorizeController extends Controller
      */
     public function resend(Request $request)
     {
-        if (Authorize::inactive() && auth()->check()) {
-            $authorize = Authorize::make()->resetAttempt();
+        if (!Authorize::active() && auth()->check()) {
+            $authorize = Authorize::make();
 
             Mail::to($request->user())
                 ->send(new AuthorizeDeviceMail($authorize));
