@@ -3,22 +3,23 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
-class Deploy extends Command
+class ClearStorage extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'deploy';
+    protected $signature = 'storage:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'All commands that needs to be run after setup';
+    protected $description = 'Clears the storage directory';
 
     /**
      * Create a new command instance.
@@ -37,12 +38,14 @@ class Deploy extends Command
      */
     public function handle()
     {
-        $this->call('ce:clear');
-        $this->call('migrate:fresh');
-        $this->call('db:seed');
-        $this->call('storage:link');
-        $this->call('storage:clear');
-        $this->call('test');
+        $ignoreFiles = ['public/.gitignore'];
+        $files = Storage::allFiles('public');
+        foreach ($files as $key => $file) {
+            if (in_array($file, $ignoreFiles)){
+                unset($files[$key]);
+            }
+        }
+        Storage::delete($files);
         return 0;
     }
 }
