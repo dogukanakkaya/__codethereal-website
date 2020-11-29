@@ -36,11 +36,11 @@ class AuthorizeDevice
                 auth()->guard()->logout();
                 $request->session()->invalidate();
 
-                return redirect()->route('login')->withErrors(['status' => 'You are logged out of system, please follow the link we sent before 10 minutes to authorize your device, the link will be valid with same IP for 1 hour.']);
+                return redirect()->route('login')->withErrors(['status' => __('auth.authorize_logged_out', ['sent_before' => 10, 'valid_for' => 1])]);
             }
 
-            // Infinite redirect problem. If we are not in authorize route, then redirect to authorize
-            if (!isActive('authorize', true)){
+            // Infinite redirect problem. If we are not in authorize or something under authorize route, then redirect to authorize
+            if (!isActive(['authorize', 'authorize/*'], true)){
                 return redirect()->route('authorize');
             }
         }
@@ -49,6 +49,6 @@ class AuthorizeDevice
 
     private function timeout()
     {
-        return now() >= $this->authorize->created_at->addSeconds(20);
+        return now() >= $this->authorize->created_at->addMinutes(10);
     }
 }

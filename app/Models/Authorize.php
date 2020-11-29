@@ -26,8 +26,10 @@ class Authorize extends Model
         'authorized',
         'token',
         'ip_address',
+        'platform',
+        'platform_version',
         'browser',
-        'os',
+        'browser_version',
         'location',
         'attempt',
         'authorized_at',
@@ -47,8 +49,7 @@ class Authorize extends Model
      */
     public static function active()
     {
-        return with(new self)
-            ->where('user_id', Auth::id())
+        return self::where('user_id', Auth::id())
             ->where('ip_address', request()->ip())
             ->where('authorized', true)
             ->first();
@@ -79,9 +80,20 @@ class Authorize extends Model
      */
     public static function make()
     {
+        $agent = new \Jenssegers\Agent\Agent();
+
+        $platform = $agent->platform();
+        $platformVersion = $agent->version($platform);
+        $browser = $agent->browser();
+        $browserVersion = $agent->version($browser);
+
         return self::firstOrCreate(
             [
                 'ip_address' => request()->ip(),
+                'platform' => $platform,
+                'platform_version' => $platformVersion,
+                'browser' => $browser,
+                'browser_version' => $browserVersion,
                 'user_id' => Auth::id(),
             ],
             [

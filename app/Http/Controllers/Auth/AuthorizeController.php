@@ -20,14 +20,13 @@ class AuthorizeController extends Controller
         if (Authorize::validateToken($token)) {
             return redirect()->route('admin.home');
         }
-
-        return redirect()->route('login')->withErrors(['token' => 'Time expired for token!']);
+        return redirect()->route('login')->withErrors(['token' => __('auth.authorize_token_expired')]);
     }
 
     /**
      * Get the needed authorization credentials from the request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function resend(Request $request)

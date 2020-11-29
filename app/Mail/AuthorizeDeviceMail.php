@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use Browser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -30,19 +29,21 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
         $this->authorize = $authorize;
     }
 
-    public function saveAuthorize()
+    private function setLocation()
     {
-        $browser = new Browser();
-        $location = Location::get('81.215.237.239');//TODO: $this->authorize->ip_address
+        $location = Location::get($this->authorize->ip_address);
 
         $country = $location->countryName ?? '';
         $city = $location->cityName ?? '';
 
-        $this->authorize->token = Str::random(64);
-        $this->authorize->os = $browser->getPlatform();
-        $this->authorize->browser = $browser->getBrowser();
         $this->authorize->location = $country . " / " . $city;
 
+        return $this;
+    }
+
+    public function saveAuthorize()
+    {
+        $this->authorize->token = Str::random(64);
         $this->authorize->save();
     }
 
@@ -53,7 +54,8 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $this->saveAuthorize();
+        $this->setLocation()
+            ->saveAuthorize();
 
         return $this
             ->view('mail.auth.authorize')
