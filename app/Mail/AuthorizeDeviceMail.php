@@ -10,10 +10,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 
-/**
- * Class AuthorizeDevice
- * @package App\Mail
- */
 class AuthorizeDeviceMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
@@ -34,53 +30,19 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
         $this->authorize = $authorize;
     }
 
-    /**
-     * @return mixed
-     */
-    public function setBrowser()
-    {
-        $browser = new Browser();
-        $this->authorize->browser = $browser->getBrowser();
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function setToken()
-    {
-        $this->authorize->token = Str::random(64);
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function setLocation()
-    {
-        $location = Location::get('81.215.237.239');//$this->authorize->ip_address
-        $country = $location->countryName ?? '';
-        $city = $location->cityName ?? '';
-        $this->authorize->location = $country . " / " . $city;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function setPlatform()
-    {
-        $browser = new Browser();
-        $this->authorize->os = $browser->getPlatform();
-
-        return $this;
-    }
-
     public function saveAuthorize()
     {
+        $browser = new Browser();
+        $location = Location::get('81.215.237.239');//TODO: $this->authorize->ip_address
+
+        $country = $location->countryName ?? '';
+        $city = $location->cityName ?? '';
+
+        $this->authorize->token = Str::random(64);
+        $this->authorize->os = $browser->getPlatform();
+        $this->authorize->browser = $browser->getBrowser();
+        $this->authorize->location = $country . " / " . $city;
+
         $this->authorize->save();
     }
 
@@ -91,12 +53,7 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $this
-            ->setBrowser()
-            ->setToken()
-            ->setLocation()
-            ->setPlatform()
-            ->saveAuthorize();
+        $this->saveAuthorize();
 
         return $this
             ->view('mail.auth.authorize')

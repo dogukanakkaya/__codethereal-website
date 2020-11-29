@@ -30,7 +30,8 @@ class Authorize extends Model
         'os',
         'location',
         'attempt',
-        'authorized_at'
+        'authorized_at',
+        'expires_at'
     ];
 
     /**
@@ -58,7 +59,7 @@ class Authorize extends Model
         return with(new self)
             ->where('ip_address', request()->ip())
             ->where('authorized', true)
-            ->where('authorized_at', '<', now()->addHour())
+            //->where('authorized_at', '<', now()->addHour())
             ->first();
     }
 
@@ -67,9 +68,9 @@ class Authorize extends Model
      */
     public static function validateToken($token = null)
     {
-        $query = self::where([
-            'token' => $token,
-        ])->first();
+        $query = self::where('token', $token)
+            ->where('expires_at', '>', now())
+            ->first();
 
         if ($query) {
             $query->update([
@@ -90,6 +91,7 @@ class Authorize extends Model
         return self::firstOrCreate([
             'ip_address' => request()->ip(),
             'user_id' => Auth::id(),
+            'expires_at' => now()->addHour()
         ]);
     }
 }

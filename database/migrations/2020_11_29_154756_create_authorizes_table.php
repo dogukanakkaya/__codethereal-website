@@ -24,6 +24,7 @@ class CreateAuthorizesTable extends Migration
             $table->string('location')->nullable();
             $table->tinyInteger('attempt')->default(0)->nullable();
             $table->timestamp('authorized_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
