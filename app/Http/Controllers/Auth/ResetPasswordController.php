@@ -35,6 +35,11 @@ class ResetPasswordController extends Controller
      */
     protected string $redirectTo = RouteServiceProvider::HOME;
 
+    public function __construct()
+    {
+        $this->middleware('authorized');
+    }
+
     public function reset(Request $request)
     {
         $validator = Validator::make($request->all(), [
