@@ -18,7 +18,6 @@ return [
     'login' => 'Login',
     'remember_me' => 'Remember me',
     'verify_email_text' => 'Please follow the instructions in your e-mail to verify your account',
-    'didnt_get_email' => 'You didn\'t get an email? Click the button below to request another one', // w/ param
     'resend_email' => 'Resend E-Mail',
     'new_email_sent' => 'We have sent you a new e-mail. Please check your inbox',
     'verify_email' => 'Verify E-Mail',

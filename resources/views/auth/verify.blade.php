@@ -5,7 +5,6 @@
 @section('content')
     <div class="inner-box">
         <p>{{ __('auth.verify_email_text') }} </p>
-        <p>{{ __('auth.didnt_get_email') }}</p>
         {{ Form::open(['route' => 'verification.resend']) }}
             <div class="auth-btn">
                 {{ Form::submit(__('auth.resend_email')) }}

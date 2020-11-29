@@ -93,7 +93,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'location' => 'Turkey-Istanbul',
             'user_id' => $this->id,
             'authorized' => 1,
-            'authorized_at' => now()
+            'authorized_at' => now(),
+            'attempt' => 1
         ]);
     }
 }
