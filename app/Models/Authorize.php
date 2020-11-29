@@ -87,13 +87,25 @@ class Authorize extends Model
         $browser = $agent->browser();
         $browserVersion = $agent->version($browser);
 
+        $ipAddress = request()->ip();
+        if (app()->environment('local', 'testing')){
+            $ipApi = json_decode(file_get_contents("http://ip-api.com/json/81.215.237.239?fields=country,city"));
+        }else{
+            $ipApi = json_decode(file_get_contents("http://ip-api.com/json/$ipAddress?fields=country,city"));
+        }
+
+        $country = $ipApi->country ?? '';
+        $city = $ipApi->city ?? '';
+        $location = $country."-".$city;
+
         return self::firstOrCreate(
             [
-                'ip_address' => request()->ip(),
+                'ip_address' => $ipAddress,
                 'platform' => $platform,
                 'platform_version' => $platformVersion,
                 'browser' => $browser,
                 'browser_version' => $browserVersion,
+                'location' => $location,
                 'user_id' => Auth::id(),
             ],
             [

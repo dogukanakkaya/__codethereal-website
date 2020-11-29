@@ -19,7 +19,6 @@
         "laravelcollective/html": "^6.2",
         "mcamara/laravel-localization": "^1.6",
         "spatie/laravel-permission": "^3.17",
-        "stevebauman/location": "^5.2",
         "yajra/laravel-datatables-oracle": "^9.14"
     },
     "require-dev": {
