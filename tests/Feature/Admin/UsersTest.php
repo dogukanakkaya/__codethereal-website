@@ -53,9 +53,7 @@ class UsersTest extends FeatureTestBase
             'name' => 'Codethereal',
             'email' => 'i@codethereal.com'
         ]);
-        $response->assertJson([
-            'status' => 0,
-        ]);
+        $response->assertJson(['status' => 0]);
     }
 
     public function test_admin_can_see_a_user()
