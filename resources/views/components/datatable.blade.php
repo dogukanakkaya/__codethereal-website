@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ asset('css/ce/datatable.css') }}">
 @endpush
 
-<table class="table table-striped table-hover" id="ce-datatable"></table>
+<table class="table table-hover" id="ce-datatable"></table>
 
 @push('scripts')
     <script>

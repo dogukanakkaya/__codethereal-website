@@ -3,7 +3,7 @@
 }
 
 .role-item .head {
-  background: linear-gradient(45deg, #5b78e1, #42bace) !important;
+  background: linear-gradient(45deg, #ff1818, #ff8f00) !important;
 }
 
 .role-item .head .char {
@@ -12,7 +12,7 @@
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #1d68a7;
+  background: #ff7700;
   text-align: center;
   color: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);

@@ -22,7 +22,6 @@ class ProfileTest extends FeatureTestBase
 
     public function test_profile_form_displays()
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('profile.index'));
         $response->assertOk();
     }
@@ -35,7 +34,7 @@ class ProfileTest extends FeatureTestBase
         $response->assertJson(['status' => 1]);
     }
 
-    public function test_profile_name_is_required()
+    public function test_profile_name_field_is_required()
     {
         $response = $this->json('PUT', route('profile.update'), [
             'name' => '',
@@ -43,7 +42,7 @@ class ProfileTest extends FeatureTestBase
         $response->assertJson(['status' => 0]);
     }
 
-    public function test_profile_name_must_be_max_255_character_length()
+    public function test_profile_name_field_must_be_max_255_character_length()
     {
         $response = $this->json('PUT', route('profile.update'), [
             'name' => Str::random(256),
@@ -51,7 +50,7 @@ class ProfileTest extends FeatureTestBase
         $response->assertJson(['status' => 0]);
     }
 
-    public function test_profile_position_must_be_max_255_character_length()
+    public function test_profile_position_field_must_be_max_255_character_length()
     {
         $response = $this->json('PUT', route('profile.update'), [
             'name' => 'Codethereal',
@@ -60,11 +59,20 @@ class ProfileTest extends FeatureTestBase
         $response->assertJson(['status' => 0]);
     }
 
-    public function test_profile_image_must_be_integer()
+    public function test_profile_image_field_must_be_integer()
     {
         $response = $this->json('PUT', route('profile.update'), [
             'name' => 'Codethereal',
-            'image' => "string_value"
+            'image' => 'string_value'
+        ]);
+        $response->assertJson(['status' => 0]);
+    }
+
+    public function test_profile_about_field_must_be_string()
+    {
+        $response = $this->json('PUT', route('profile.update'), [
+            'name' => 'Codethereal',
+            'about' => 1
         ]);
         $response->assertJson(['status' => 0]);
     }
