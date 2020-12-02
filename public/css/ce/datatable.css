@@ -17,7 +17,7 @@
 }
 
 #ce-datatable_wrapper .dataTables_paginate .paginate_button {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
   cursor: pointer;
   background-color: #fff;
   color: #ff7700;
@@ -25,13 +25,21 @@
 }
 
 #ce-datatable_wrapper .dataTables_paginate .paginate_button.disabled {
-  background-color: #e0e0e0a6;
+  background-color: #fff;
   color: #636363;
 }
 
 #ce-datatable_wrapper .dataTables_paginate .paginate_button.current {
-  background-color: #ff7700;
   color: #fff;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#ce-datatable_wrapper .dataTables_paginate a {
+  color: rgba(0, 0, 0, 0.95) !important;
+}
+
+#ce-datatable_wrapper .dataTables_paginate a:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
 #ce-datatable_wrapper .table tbody tr:hover {

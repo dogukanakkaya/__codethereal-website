@@ -28,7 +28,7 @@ class UserController extends Controller
                 ->get();
             return Datatables::of($data)
                 ->editColumn('path', function(User $user) {
-                    $path = isset($user->path) ? asset('storage/' . $user->path) : asset("img/profile.png");
+                    $path = isset($user->path) ? asset('storage/' . $user->path) : asset("img/profile.webp");
                     return '<img src="'.$path.'" class="profile-img" alt="profile"/>';
                 })
                 ->editColumn('email_verified_at', function(User $user) {

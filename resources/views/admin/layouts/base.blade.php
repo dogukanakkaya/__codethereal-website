@@ -25,9 +25,9 @@
                 <div class="image">
                     @php
                     $file = App\Models\Admin\File::find($user->image);
-                    $image = isset($file->path) ? 'storage/' . $file->path : 'img/profile.png';
+                    $image = isset($file->path) ? 'storage/' . $file->path : 'img/profile.webp';
                     @endphp
-                    <img src="{{ asset($image) }}" alt="profile">
+                    <a href="{{ route('profile.index') }}"><img src="{{ asset($image) }}" alt="profile"></a>
                 </div>
                 <div class="info">
                     <a href="{{ route('profile.index') }}" class="{{ isActive('admin/profile') }}">{{ $user->name }}</a>
