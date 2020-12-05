@@ -8964,6 +8964,147 @@ a.text-dark:focus {
   height: 1rem;
 }
 
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-heading {
+  color: inherit;
+}
+
+.alert-link {
+  font-weight: 700;
+}
+
+.alert-dismissible {
+  padding-right: 3.85rem;
+}
+
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0.75rem 1.25rem;
+  color: inherit;
+}
+
+.alert-primary {
+  color: #155285;
+  background-color: #d4ecff;
+  border-color: #c3e4ff;
+}
+
+.alert-primary hr {
+  border-top-color: #aad9ff;
+}
+
+.alert-primary .alert-link {
+  color: #0e3759;
+}
+
+.alert-secondary {
+  color: #383d41;
+  background-color: #e2e3e5;
+  border-color: #d6d8db;
+}
+
+.alert-secondary hr {
+  border-top-color: #c8cbcf;
+}
+
+.alert-secondary .alert-link {
+  color: #202326;
+}
+
+.alert-success {
+  color: #017331;
+  background-color: #ccf8df;
+  border-color: #b8f6d2;
+}
+
+.alert-success hr {
+  border-top-color: #a1f3c4;
+}
+
+.alert-success .alert-link {
+  color: #01401b;
+}
+
+.alert-info {
+  color: #385d7a;
+  background-color: #e2f0fb;
+  border-color: #d6e9f9;
+}
+
+.alert-info hr {
+  border-top-color: #c0ddf6;
+}
+
+.alert-info .alert-link {
+  color: #284257;
+}
+
+.alert-warning {
+  color: #857b26;
+  background-color: #fffbdb;
+  border-color: #fffacc;
+}
+
+.alert-warning hr {
+  border-top-color: #fff8b3;
+}
+
+.alert-warning .alert-link {
+  color: #5d561b;
+}
+
+.alert-danger {
+  color: #850808;
+  background-color: #ffcfcf;
+  border-color: #ffbcbc;
+}
+
+.alert-danger hr {
+  border-top-color: #ffa3a3;
+}
+
+.alert-danger .alert-link {
+  color: #550505;
+}
+
+.alert-light {
+  color: #818182;
+  background-color: #fefefe;
+  border-color: #fdfdfe;
+}
+
+.alert-light hr {
+  border-top-color: #ececf6;
+}
+
+.alert-light .alert-link {
+  color: #686868;
+}
+
+.alert-dark {
+  color: #1b1e21;
+  background-color: #d6d8d9;
+  border-color: #c6c8ca;
+}
+
+.alert-dark hr {
+  border-top-color: #b9bbbe;
+}
+
+.alert-dark .alert-link {
+  color: #040505;
+}
+
 html[theme=dark-theme] {
   filter: invert(1) hue-rotate(180deg);
 }

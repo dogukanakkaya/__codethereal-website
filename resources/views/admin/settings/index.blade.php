@@ -51,13 +51,13 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 {{ Form::label(__('settings.logo_white')) }}
-                                                <x-dropzone :index="$dzIndex" :file-id="$settings[$language->code]['logo_white'] ?? 0" folder="/" :input-name="$logo_white"/>
+                                                <x-dropzone :index="$dzIndex" :file-id="$settings[$language->code]['logo_white'] ?? 0" :input-name="$logo_white"/>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 {{ Form::label(__('settings.logo_dark')) }}
-                                                <x-dropzone :index="$dzIndex2" :file-id="$settings[$language->code]['logo_dark'] ?? 0" folder="/" :input-name="$logo_dark"/>
+                                                <x-dropzone :index="$dzIndex2" :file-id="$settings[$language->code]['logo_dark'] ?? 0" :input-name="$logo_dark"/>
                                             </div>
                                         </div>
                                     </div>

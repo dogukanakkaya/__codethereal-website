@@ -2,21 +2,15 @@
 
 namespace App\Mail;
 
+use App\Models\Authorize;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Str;
-use Stevebauman\Location\Facades\Location;
 
 class AuthorizeDeviceMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-
-    /**
-     * @var mixed
-     */
-    protected $authorize;
 
     /**
      * Create a new message instance.
@@ -24,10 +18,7 @@ class AuthorizeDeviceMail extends Mailable implements ShouldQueue
      * @param $authorize
      * @return void
      */
-    public function __construct($authorize)
-    {
-        $this->authorize = $authorize;
-    }
+    public function __construct(protected Authorize $authorize) {}
 
     /**
      * Build the message.

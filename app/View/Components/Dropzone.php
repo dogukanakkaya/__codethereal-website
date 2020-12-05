@@ -3,34 +3,30 @@
 namespace App\View\Components;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 
 class Dropzone extends Component
 {
-    public $index;
-    private int $fileId;
-    public int $maxFiles;
-    public $file;
-    public string $folder;
-    public string $inputName;
+    public object|null $file;
 
     /**
      * Create a new component instance.
      *
-     * @param $folder
-     * @param $inputName
-     * @param int $index
+     * @param string|int $index
+     * @param string $folder
      * @param int $fileId
      * @param int $maxFiles
+     * @param string $inputName
      */
-    public function __construct($folder, $inputName, $index = 1, $fileId = 0, $maxFiles = 1)
+    public function __construct(
+        public string $inputName,
+        public string $folder = "/",
+        public string|int $index = 1,
+        private int $fileId = 0,
+        public int $maxFiles = 1,
+
+    )
     {
-        $this->index = $index;
-        $this->fileId = $fileId;
-        $this->folder = $folder;
-        $this->maxFiles = $maxFiles;
-        $this->inputName = $inputName;
         $this->file = DB::table('files')->where('id', $fileId)->first();
     }
 
