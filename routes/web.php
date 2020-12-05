@@ -136,6 +136,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
                 //Route::post('/', 'UserController@create')->name('users.create');
                 //Route::get('{id}', 'UserController@find')->name('users.find');
                 //Route::put('{id}', 'UserController@update')->name('users.update');

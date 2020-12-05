@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/users/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contents/base.css') }}">
 @endpush
 
 @section('content')
@@ -14,10 +14,8 @@
     </div>
     <div class="list-area p-4">
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
-        {{-- <x-datatable :url="route('users.index')" :columns="$columns"/> --}}
+        <x-datatable :url="route('contents.datatable')" :columns="$columns"/>
     </div>
-
-    @include('admin.users.form-modal')
 @endsection
 
 @push('scripts')

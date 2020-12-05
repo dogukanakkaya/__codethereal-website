@@ -38,13 +38,13 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                {{ Form::label("$language->code[title]", __('settings.title'), ['class' => 'required']) }}
+                                                {{ Form::label("$language->code[title]", __('settings.title')) }}
                                                 {{ Form::text("$language->code[title]", $settings[$language->code]['title'] ?? '', ['class' => 'form-control']) }}
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                {{ Form::label("$language->code[description]", __('settings.description'), ['class' => 'required']) }}
+                                                {{ Form::label("$language->code[description]", __('settings.description')) }}
                                                 {{ Form::textarea("$language->code[description]", $settings[$language->code]['description'] ?? '', ['class' => 'form-control']) }}
                                             </div>
                                         </div>
