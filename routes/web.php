@@ -90,6 +90,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::get('datatable', 'UserController@datatable')->name('users.datatable');
                 Route::post('/', 'UserController@create')->name('users.create');
                 Route::get('{id}', 'UserController@find')->name('users.find');
                 Route::put('{id}', 'UserController@update')->name('users.update');
@@ -104,6 +105,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::get('datatable', 'GroupController@datatable')->name('menus.datatable');
                 Route::post('/', 'GroupController@create')->name('menus.create');
                 Route::get('{id}', 'GroupController@find')->name('menus.find');
                 Route::put('{id}', 'GroupController@update')->name('menus.update');
@@ -125,6 +127,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::delete('{id}', 'ItemController@destroy')->name('menu_items.destroy');
                     Route::get('restore/{id}', 'ItemController@restore')->name('menu_items.restore');
                 });
+            });
+        });
+
+        // Users page
+        Route::prefix('contents')->group(function (){
+            Route::get('/', 'ContentController@index')->name('contents.index');
+
+            // Only for ajax operations
+            Route::middleware('only.ajax')->group(function (){
+                //Route::post('/', 'UserController@create')->name('users.create');
+                //Route::get('{id}', 'UserController@find')->name('users.find');
+                //Route::put('{id}', 'UserController@update')->name('users.update');
+                //Route::delete('{id}', 'UserController@destroy')->name('users.destroy');
+                //Route::get('restore/{id}', 'UserController@restore')->name('users.restore');
             });
         });
 

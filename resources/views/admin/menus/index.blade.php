@@ -8,7 +8,7 @@
     </div>
     <div class="list-area p-4">
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
-        <x-datatable :url="route('menus.index')" :columns="$columns"/>
+        <x-datatable :url="route('menus.datatable')" :columns="$columns"/>
     </div>
 
     @include('admin.menus.form-modal')

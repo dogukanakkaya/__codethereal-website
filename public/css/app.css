@@ -9437,7 +9437,7 @@ aside .menus {
 }
 
 aside .menus .seperator {
-  padding: 10px 20px;
+  padding: 0.5rem 1.25rem;
   letter-spacing: 0.05em;
   pointer-events: none;
   cursor: default;

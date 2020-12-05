@@ -70,7 +70,7 @@
                     <li class="seperator">{{ __('global.cms') }}</li>
                     @can('see_contents')
                         <li>
-                            <a href="{{ route('menus.index') }}" class="{{ isActive('admin/contents') }}"><i class="material-icons-outlined md-18">layers</i> Contents</a>
+                            <a href="{{ route('contents.index') }}" class="{{ isActive('admin/contents') }}"><i class="material-icons-outlined md-18">layers</i> Contents</a>
                         </li>
                     @endcan
 

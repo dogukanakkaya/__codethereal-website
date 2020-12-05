@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+#ce-datatable_wrapper .dt-bottom {
+  margin: 1rem 0;
+}
+
 #ce-datatable_wrapper .dt-body {
   overflow-x: scroll;
 }
@@ -17,7 +21,7 @@
 }
 
 #ce-datatable_wrapper .dataTables_paginate .paginate_button {
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   background-color: #fff;
   color: #ff4824;
@@ -64,7 +68,7 @@
 
 #ce-datatable_wrapper .table td {
   vertical-align: middle;
-  padding: 0.25rem;
+  padding: 0.25rem 0.75rem;
   font-weight: 500;
   font-size: 13px;
 }

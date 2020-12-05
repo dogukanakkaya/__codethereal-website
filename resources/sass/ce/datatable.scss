@@ -6,6 +6,10 @@
         justify-content: space-between;
     }
 
+    .dt-bottom{
+        margin: 1rem 0;
+    }
+
     .dt-body{
         overflow-x: scroll;
     }
@@ -22,7 +26,7 @@
 
     .dataTables_paginate{
         .paginate_button{
-            padding: .75rem 1.25rem;
+            padding: .5rem 1rem;
             cursor: pointer;
             background-color: #fff;
             color: $main-color;
@@ -75,7 +79,7 @@
 
         td{
             vertical-align: middle;
-            padding: .25rem;
+            padding: .25rem .75rem;
             font-weight: 500;
             font-size: 13px;
         }
