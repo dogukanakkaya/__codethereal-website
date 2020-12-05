@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ContentRequest;
 use App\Models\Admin\Content;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContentController extends Controller
@@ -66,6 +68,26 @@ class ContentController extends Controller
             return resJsonUnauthorized();
         }
         $data = $request->validated();
-        dd($data);
+
+        $contentData = array_remove($data, 'content');
+
+        DB::beginTransaction();
+        try {
+            $content = Content::create($contentData);
+
+            // Loop with every language
+            foreach ($data as $language => $values) {
+                $values['language'] = $language;
+                $values['content_id'] = $content->id;
+                $values['url'] = Str::slug($values['title']);
+                DB::table('content_translations')->insert($values);
+            }
+
+            DB::commit();
+            return resJson(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return resJson(false);
+        }
     }
 }

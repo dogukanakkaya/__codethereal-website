@@ -19,12 +19,15 @@
                         <div class="tab-pane fade show active" id="general" role="tabpanel">
                             <div class="nav nav-pills mb-3 language-tab" role="tablist">
                                 @foreach($languages as $language)
-                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill" href="#general-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill"
+                                       href="#general-{{ $language->code }}" role="tab"
+                                       aria-selected="true">{{ strtoupper($language->code) }}</a>
                                 @endforeach
                             </div>
                             <div class="tab-content">
                                 @foreach($languages as $key => $language)
-                                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="general-{{ $language->code }}" role="tabpanel">
+                                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+                                         id="general-{{ $language->code }}" role="tabpanel">
                                         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
@@ -45,14 +48,32 @@
                                                     {{ Form::textarea("$language->code[full]", '', ['class' => 'form-control rich-editor', 'rows' => 25]) }}
                                                 </div>
                                             </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        {{ Form::hidden("$language->code[active]", 0) }}
+                                                        {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
+                                                        {{ Form::label("$language->code[active]", __('contents.active'), ['class' => 'custom-control-label']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        {{ Form::hidden("$language->code[searchable]", 0) }}
+                                                        {{ Form::checkbox("$language->code[searchable]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[searchable]"]) }}
+                                                        {{ Form::label("$language->code[searchable]", __('contents.searchable'), ['class' => 'custom-control-label']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
                                 <div class="row pt-3 border-top">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            {{ Form::label("item[parent_id]", __('contents.parent_content')) }}
-                                            {{ Form::select("item[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
+                                            {{ Form::label("content[parent_id]", __('contents.parent_content')) }}
+                                            {{ Form::select("content[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +105,10 @@
 @push('scripts')
     <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
+        const form = document.getElementById('content-form')
+
         tinymce.init({
-            selector:'textarea.rich-editor',
+            selector: 'textarea.rich-editor',
             width: '100%',
             height: 500,
             statusbar: false,
@@ -96,32 +119,48 @@
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect  | link | image  | removeformat ',
             images_upload_url: "",
             images_upload_handler: function (blobInfo, success, failure) {
-                var xhr, formData;
-                xhr = new XMLHttpRequest();
-                xhr.withCredentials = false;
-                xhr.open('POST', "");
+                var xhr, formData
+                xhr = new XMLHttpRequest()
+                xhr.withCredentials = false
+                xhr.open('POST', "")
                 xhr.onload = function () {
-                    var json;
+                    var json
                     if (xhr.status != 200) {
-                        failure('HTTP Error: ' + xhr.status);
-                        return;
+                        failure('HTTP Error: ' + xhr.status)
+                        return false
                     }
-                    json = JSON.parse(xhr.responseText);
+                    json = JSON.parse(xhr.responseText)
                     if (!json || typeof json.location != 'string') {
-                        failure('Invalid JSON: ' + xhr.responseText);
-                        return;
+                        failure('Invalid JSON: ' + xhr.responseText)
+                        return false
                     }
-                    success(json.location);
+                    success(json.location)
                 };
-                formData = new FormData();
-                formData.append('file', blobInfo.blob(), blobInfo.filename());
-                xhr.send(formData);
+                formData = new FormData()
+                formData.append('file', blobInfo.blob(), blobInfo.filename())
+                xhr.send(formData)
             },
             setup: function (editor) {
                 editor.on('change', function () {
-                    editor.save();
-                });
+                    editor.save()
+                })
             }
-        });
+        })
+
+        const __onResponse = response => {
+            makeToast(response.data)
+            if (response.data.status) {
+                form.reset()
+            }
+            toggleBtnLoading()
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            toggleBtnLoading()
+            const formData = serialize(form, {hash: true})
+            request.post('{{ route('contents.store') }}', formData)
+                .then(__onResponse)
+        })
     </script>
 @endpush

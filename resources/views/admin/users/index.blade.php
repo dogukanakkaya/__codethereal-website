@@ -30,7 +30,6 @@
             makeToast(response.data)
             if (response.data.status) {
                 closeModal(modal)
-                $("#user-form-modal").modal('hide') // TODO: jquery to pure js
                 form.reset()
                 __refresh()
             }
