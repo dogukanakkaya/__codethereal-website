@@ -70,7 +70,7 @@
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
-            border-bottom: none;
+            border-bottom: $gray-border;
 
             &:hover{
                 color: rgba(0, 0, 0, 0.54);
@@ -82,6 +82,7 @@
             padding: .25rem .75rem;
             font-weight: 500;
             font-size: 13px;
+            border-bottom: $gray-border;
         }
     }
 }

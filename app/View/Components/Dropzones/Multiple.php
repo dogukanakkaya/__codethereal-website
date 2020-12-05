@@ -12,19 +12,19 @@ class Multiple extends Component
     /**
      * Create a new component instance.
      *
-     * @param string|int $index
-     * @param string $folder
-     * @param int $fileId
      * @param string $inputName
+     * @param string $folder
+     * @param string|int $index
+     * @param array $fileIds
      */
     public function __construct(
         public string $inputName,
         public string $folder = "/",
         public string|int $index = 1,
-        private int $fileId = 0,
+        private array $fileIds = [],
     )
     {
-        $this->files = DB::table('files')->where('id', $fileId)->get();
+        $this->files = DB::table('files')->whereIn('id', $fileIds)->get();
     }
 
     /**

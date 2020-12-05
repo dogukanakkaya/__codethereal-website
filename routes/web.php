@@ -59,6 +59,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::get('find/{id}', 'FileController@find')->name('files.find');
                 Route::delete('{id}', 'FileController@destroy')->name('files.destroy');
             });
         });

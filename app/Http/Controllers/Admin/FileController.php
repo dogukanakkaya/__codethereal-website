@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\File;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,9 +21,9 @@ class FileController extends Controller
 {
     private array $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'zip');
 
-    public function upload(Request $request)
+    public function upload()
     {
-        $file = $request->file('file');
+        $file = request()->file('file');
         $name = $file->getClientOriginalName();
         $size = $file->getSize();
         $extension = $file->extension();
@@ -58,6 +57,11 @@ class FileController extends Controller
         return response()->download("storage/" . $file->path);
     }
 
+    public function find(int $id)
+    {
+        return File::find($id);
+    }
+
     public function destroy(int $id)
     {
         // Find file to delete from disk
@@ -70,6 +74,5 @@ class FileController extends Controller
         $diskDelete = true; // Do not delete from disk (soft delete) Storage::disk('public')->delete($file->path);
 
         return resJson($dbDelete && $diskDelete);
-
     }
 }

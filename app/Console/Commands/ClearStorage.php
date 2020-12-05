@@ -46,6 +46,7 @@ class ClearStorage extends Command
             }
         }
         Storage::delete($files);
+        $this->info('Storage cleared successfully.');
         return 0;
     }
 }

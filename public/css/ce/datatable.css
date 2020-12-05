@@ -59,7 +59,7 @@
   font-weight: 600;
   font-size: 13px;
   cursor: pointer;
-  border-bottom: none;
+  border-bottom: 1px solid #c5c4c4ad;
 }
 
 #ce-datatable_wrapper .table th:hover {
@@ -71,5 +71,6 @@
   padding: 0.25rem 0.75rem;
   font-weight: 500;
   font-size: 13px;
+  border-bottom: 1px solid #c5c4c4ad;
 }
 

@@ -7,9 +7,14 @@
 </div>
 <div class="row ce-previews" id="preview-{{ $index }}"></div>
 
-<input type="hidden" name="{{ $inputName }}" value="{{ isset($file->id) ? $file->id : 0 }}">
+@foreach($languages as $language)
+<input type="hidden" name="{{ $language->code }}[{{ $inputName }}]" value="0">
+@endforeach
 
 @once
+    @push('toEnd')
+        @include('admin.partials.edit-image-modal')
+    @endpush
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
@@ -24,11 +29,10 @@
             Dropzone.prototype.defaultOptions.dictInvalidFileType = '{{ __('dropzone.file_extension_unallowed') }}'
             Dropzone.prototype.defaultOptions.dictCancelUpload = '{{ __('dropzone.cancel_upload') }}'
             Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = '{{ __('dropzone.cancel_upload_confirm') }}'
-            Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files', ['max' => '1']) }}'
+            Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files') }}'
 
             const removeFile = id => {
                 if (confirm('{{ __('global.confirm_delete') }}')) {
-
                     const url = '{{ route('files.destroy', ['id' => ':id']) }}'.replace(':id', id)
 
                     request.delete(url)
@@ -41,8 +45,15 @@
                 }
             }
 
-            const updateImage = id => {
-                //openModal('#image-form-modal')
+            const editFile = id => {
+                const url = '{{ route('files.find', ['id' => ':id']) }}'.replace(':id', id)
+                fileId = id
+
+                request.get(url)
+                    .then(response => {
+                        openModal('#image-form-modal')
+                    })
+
             }
 
             const objectFitToggle = el => {
@@ -80,13 +91,13 @@
         }
 
         const createPreview{{ $index }} = (id, url) => {
-            const value = document.querySelector('input[name="{{ $inputName }}"]').value
-            if (parseInt(value) === 0){
-                document.querySelector('input[name="{{ $inputName }}"]').value = id
-            }else{
-                document.querySelector('input[name="{{ $inputName }}"]').value += "|" + id
-            }
-
+            @foreach($languages as $language)
+                if (parseInt(document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value) === 0){
+                    document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value = id
+                }else{
+                    document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value += `|${id}`
+                }
+            @endforeach
 
             const downloadUrl = '{{ route('files.download', ['id' => ':id']) }}'.replace(':id', id)
 
@@ -97,7 +108,7 @@
                         <img class="w-100" src="${url}" alt="dz-thumb" />
                         <div class="preview-actions">
                             <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('global.download') }}</a>
-                            <a href="javascript:void(0);" onclick="updateImage(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('global.update') }}</a>
+                            <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('global.update') }}</a>
                             <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove_file') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove_file') }}</a>
                             <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.show_full') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.show_full') }}</a>
                         </div>
@@ -107,7 +118,7 @@
 
         @if (isset($files))
             @foreach($files as $file)
-                createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}');
+            createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}');
             @endforeach
         @endif
     </script>

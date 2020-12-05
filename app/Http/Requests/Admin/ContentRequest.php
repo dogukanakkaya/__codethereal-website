@@ -41,6 +41,7 @@ class ContentRequest extends FormRequest
                 $rules[$language->code . '.full'] = '';
                 $rules[$language->code . '.icon'] = 'max:255';
                 $rules[$language->code . '.active'] = 'integer';
+                $rules[$language->code . '.files'] = 'string';
             }
         }
         return $rules;
@@ -70,6 +71,7 @@ class ContentRequest extends FormRequest
                 $attributes[$language->code . '.full'] = __('contents.full') . " - $upperLang";
                 $attributes[$language->code . '.icon'] = __('contents.icon') . " - $upperLang";
                 $attributes[$language->code . '.active'] = __('contents.active') . " - $upperLang";
+                $attributes[$language->code . '.files'] = __('contents.files') . " - $upperLang";
             }
         }
         return $attributes;

@@ -32,7 +32,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    {{ Form::label("$language->code[title]", __('contents.title')) }}
+                                                    {{ Form::label("$language->code[title]", __('contents.title'), ['class' => 'required']) }}
                                                     {{ Form::text("$language->code[title]", '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <x-dropzones.multiple index="1" file-id="0" input-name="files" max-files="100"/>
+                                            <x-dropzones.multiple index="1" input-name="files" folder="contents"/>
                                         </div>
                                     </div>
                                 </div>
@@ -117,26 +117,19 @@
             paste_as_text: true,
             contextmenu: "link image imagetools table spellchecker ",
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect  | link | image  | removeformat ',
-            images_upload_url: "",
+            images_upload_url: "{{ route('files.upload') }}",
             images_upload_handler: function (blobInfo, success, failure) {
-                var xhr, formData
-                xhr = new XMLHttpRequest()
+                // TODO: convert to axios
+                const xhr = new XMLHttpRequest()
                 xhr.withCredentials = false
-                xhr.open('POST', "")
+                xhr.open('POST', "{{ route('files.upload') }}")
                 xhr.onload = function () {
-                    var json
-                    if (xhr.status != 200) {
-                        failure('HTTP Error: ' + xhr.status)
-                        return false
-                    }
-                    json = JSON.parse(xhr.responseText)
-                    if (!json || typeof json.location != 'string') {
-                        failure('Invalid JSON: ' + xhr.responseText)
-                        return false
-                    }
-                    success(json.location)
+                    const response = JSON.parse(xhr.responseText)
+                    success(response.path)
                 };
-                formData = new FormData()
+                const formData = new FormData()
+                formData.append('folder', 'tinymce')
+                formData.append('_token', '{{ csrf_token() }}')
                 formData.append('file', blobInfo.blob(), blobInfo.filename())
                 xhr.send(formData)
             },

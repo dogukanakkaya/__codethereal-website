@@ -7,7 +7,7 @@
 </div>
 <div class="row ce-previews" id="preview-{{ $index }}"></div>
 
-<input type="hidden" name="{{ $inputName }}" value="{{ isset($file->id) ? $file->id : 0 }}">
+<input type="hidden" name="{{ $inputName }}" value="0">
 
 @once
     @push('styles')
