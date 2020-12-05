@@ -59,7 +59,19 @@ class FileController extends Controller
 
     public function find(int $id)
     {
-        return File::find($id);
+        $translations = File::select('title', 'alt', 'active', 'type', 'language')
+            ->where('files.id', $id)
+            ->leftJoin('file_translations', 'file_translations.file_id', '=', 'files.id')
+            ->get()
+            ->keyBy('language')
+            ->transform(function ($i) {
+                // Remove language keys, i needed it only to make a keyBy on collection
+                unset($i->language);
+                return $i;
+            });
+        return response()->json([
+            'translations' => $translations
+        ]);
     }
 
     public function destroy(int $id)

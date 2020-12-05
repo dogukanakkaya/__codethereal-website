@@ -21,8 +21,6 @@
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                                  id="form-{{ $language->code }}" role="tabpanel">
                                 <div class="row">
-
-                                    {{--
                                     <div class="col-12">
                                         <div class="form-group">
                                             {{ Form::label("$language->code[file_title]", __('title')) }}
@@ -35,8 +33,6 @@
                                             {{ Form::text("$language->code[file_alt]", '', ['class' => 'form-control']) }}
                                         </div>
                                     </div>
-                                    --}}
-
                                     <div class="col-12">
                                         <div class="form-group">
                                             <div class="custom-control custom-switch">

@@ -7,9 +7,7 @@
 </div>
 <div class="row ce-previews" id="preview-{{ $index }}"></div>
 
-@foreach($languages as $language)
-<input type="hidden" name="{{ $language->code }}[{{ $inputName }}]" value="0">
-@endforeach
+<input type="hidden" name="{{ $inputName }}" value="0">
 
 @once
     @push('toEnd')
@@ -47,10 +45,19 @@
 
             const editFile = id => {
                 const url = '{{ route('files.find', ['id' => ':id']) }}'.replace(':id', id)
-                fileId = id
 
                 request.get(url)
                     .then(response => {
+                        const {translations} = response.data
+
+                        // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
+                        let translation = {}
+                        @foreach($languages as $language)
+                            translation = translations?.{{ $language->code }}
+                        document.querySelector(`input[name="{{ $language->code }}[file_title]"]`).value = translation?.title ?? ''
+                        document.querySelector(`input[name="{{ $language->code }}[file_alt]"]`).value = translation?.alt ?? ''
+                        document.querySelector(`input[type=checkbox][name="{{ $language->code }}[file_active]"]`).checked = parseInt(translation?.active ?? 0) === 1
+                        @endforeach
                         openModal('#image-form-modal')
                     })
 
@@ -91,13 +98,11 @@
         }
 
         const createPreview{{ $index }} = (id, url) => {
-            @foreach($languages as $language)
-                if (parseInt(document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value) === 0){
-                    document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value = id
-                }else{
-                    document.querySelector('input[name="{{ $language->code }}[{{ $inputName }}]"]').value += `|${id}`
-                }
-            @endforeach
+            if (parseInt(document.querySelector('input[name="{{ $inputName }}"]').value) === 0) {
+                document.querySelector('input[name="{{ $inputName }}"]').value = id
+            } else {
+                document.querySelector('input[name="{{ $inputName }}"]').value += `|${id}`
+            }
 
             const downloadUrl = '{{ route('files.download', ['id' => ':id']) }}'.replace(':id', id)
 
@@ -116,10 +121,10 @@
                 </div>`)
         }
 
-        @if (isset($files))
-            @foreach($files as $file)
-            createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}');
-            @endforeach
-        @endif
+            @forelse($files as $file)
+                createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}')
+            @empty
+
+            @endforelse
     </script>
 @endpush
