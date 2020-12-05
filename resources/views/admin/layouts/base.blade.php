@@ -56,12 +56,24 @@
                         <a href="{{ route('settings.index') }}"  class="{{ isActive('admin/settings') }}"><i class="material-icons-outlined md-18">settings</i> Settings</a>
                     </li>
                     @endcan
+                    @can('see_users')
                     <li>
                         <a href="{{ route('users.index') }}" class="{{ isActive('admin/users') }}"><i class="material-icons-outlined md-18">people_alt</i> Users</a>
                     </li>
+                    @endcan
+                    @can('see_menus')
                     <li>
                         <a href="{{ route('menus.index') }}" class="{{ isActive(['admin/menus', 'admin/menus/*/items']) }}"><i class="material-icons-outlined md-18">menu</i> Menus</a>
                     </li>
+                    @endcan
+
+                    <li class="seperator">{{ __('global.cms') }}</li>
+                    @can('see_contents')
+                        <li>
+                            <a href="{{ route('menus.index') }}" class="{{ isActive('admin/contents') }}"><i class="material-icons-outlined md-18">layers</i> Contents</a>
+                        </li>
+                    @endcan
+
                     @if($user->isDev())
                     <li class="seperator">{{ __('global.developer') }}</li>
                     <li>

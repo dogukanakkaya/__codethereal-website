@@ -3,6 +3,7 @@
 return [
     'home' => 'Home',
     'settings' => 'Settings',
+    'cms' => 'CMS',
     'theme_settings' => 'Theme Settings',
     'theme' => 'Theme',
     'light_theme' => 'Light Theme',

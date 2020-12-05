@@ -20,7 +20,7 @@
   padding: 0.75rem 1.25rem;
   cursor: pointer;
   background-color: #fff;
-  color: #ff7700;
+  color: #ff4824;
   border: 1px solid #b9b9b978;
 }
 
@@ -52,8 +52,8 @@
 
 #ce-datatable_wrapper .table th {
   color: rgba(0, 0, 0, 0.87);
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
   border-bottom: none;
 }
@@ -64,7 +64,7 @@
 
 #ce-datatable_wrapper .table td {
   vertical-align: middle;
-  padding: 0.5rem;
+  padding: 0.25rem;
   font-weight: 500;
   font-size: 13px;
 }

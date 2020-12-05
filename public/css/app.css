@@ -8980,7 +8980,7 @@ html[theme=dark-theme] .black-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ff7700;
+  background-color: #ff4824;
   color: #fff;
   font-family: Consolas, Menlo, Monaco, monospace;
   font-weight: bold;
@@ -9065,7 +9065,7 @@ label.required::after {
 }
 
 a.active:not(.nav-link) {
-  color: #ff7700 !important;
+  color: #ff4824 !important;
 }
 
 a.danger:hover,
@@ -9079,10 +9079,10 @@ a.danger:hover i {
 }
 
 .border-active-tab a.active {
-  border-top: 2px solid #ff7700;
-  border-bottom: 2px solid #ff7700;
+  border-top: 2px solid #ff4824;
+  border-bottom: 2px solid #ff4824;
   background-color: unset !important;
-  color: #ff7700 !important;
+  color: #ff4824 !important;
   border-radius: 0;
 }
 
@@ -9146,7 +9146,7 @@ form input {
 }
 
 .breadcrumb-item.active {
-  color: #ff7700;
+  color: #ff4824;
 }
 
 .ce-toast-container {
@@ -9328,7 +9328,7 @@ aside .menus a {
 }
 
 aside .menus a:hover {
-  color: #ff7700;
+  color: #ff4824;
   text-decoration: none;
 }
 
@@ -9388,7 +9388,7 @@ header .top-right a {
 }
 
 header .top-right a:hover {
-  color: #ff7700 !important;
+  color: #ff4824 !important;
   transition: 0.25s all;
 }
 
@@ -9398,7 +9398,7 @@ header .top-right .total-notification {
   top: -5px;
   width: 16px;
   height: 16px;
-  background: #ff7700;
+  background: #ff4824;
   border-radius: 100%;
   line-height: 17px;
   text-align: center;
@@ -9407,7 +9407,7 @@ header .top-right .total-notification {
 }
 
 header .top-right .total-notification.blink {
-  box-shadow: 0 0 5px 2px #ff7700;
+  box-shadow: 0 0 5px 2px #ff4824;
   -webkit-animation: blinker 1.25s linear infinite;
           animation: blinker 1.25s linear infinite;
 }
@@ -9454,7 +9454,7 @@ header .top-right input[type=search]::after {
 
 .settings-sidebar .head {
   padding: 1rem 0.5rem;
-  background: #ff7700;
+  background: #ff4824;
   display: flex;
   justify-content: space-between;
 }
@@ -9571,7 +9571,7 @@ main .list-area .description i {
 
 .ce-input {
   border: none;
-  border-bottom: 2px solid #ff7700;
+  border-bottom: 2px solid #ff4824;
   outline: none;
   padding: 7px 0;
   background: unset;
@@ -9580,8 +9580,8 @@ main .list-area .description i {
 .language-tab a.active {
   border-radius: 0;
   background: unset !important;
-  color: #ff7700 !important;
-  border-bottom: 2px solid #ff7700;
+  color: #ff4824 !important;
+  border-bottom: 2px solid #ff4824;
 }
 
 .page-actions {
