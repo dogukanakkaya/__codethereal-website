@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Menu;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class StoreItem extends FormRequest
+class ContentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class StoreItem extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreItem extends FormRequest
     {
         $reqData = $this->all();
         $rules = [
-            'item.parent_id' => 'required|integer',
+            'content.parent_id' => 'required|integer',
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -37,7 +37,8 @@ class StoreItem extends FormRequest
 
             if(isset($data['active']) && intval($data['active']) === 1){
                 $rules[$language->code . '.title'] = 'required|max:255';
-                $rules[$language->code . '.url'] = 'max:255';
+                $rules[$language->code . '.description'] = 'max:400';
+                $rules[$language->code . '.full'] = '';
                 $rules[$language->code . '.icon'] = 'max:255';
                 $rules[$language->code . '.active'] = 'integer';
             }
@@ -54,7 +55,7 @@ class StoreItem extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'item.parent_id' => __('menus.item_parent'),
+            'content.parent_id' => __('contents.parent_content'),
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -64,10 +65,11 @@ class StoreItem extends FormRequest
                 continue;
 
             if(isset($data['active']) && intval($data['active']) === 1){
-                $attributes[$language->code . '.title'] = __('menus.item_title') . " - $upperLang";
-                $attributes[$language->code . '.url'] = __('menus.item_url') . " - $upperLang";
-                $attributes[$language->code . '.icon'] = __('menus.item_icon') . " - $upperLang";
-                $attributes[$language->code . '.active'] = __('menus.item_active') . " - $upperLang";
+                $attributes[$language->code . '.title'] = __('contents.title') . " - $upperLang";
+                $attributes[$language->code . '.description'] = __('contents.description') . " - $upperLang";
+                $attributes[$language->code . '.full'] = __('contents.full') . " - $upperLang";
+                $attributes[$language->code . '.icon'] = __('contents.icon') . " - $upperLang";
+                $attributes[$language->code . '.active'] = __('contents.active') . " - $upperLang";
             }
         }
         return $attributes;

@@ -11,7 +11,7 @@ class Clear extends Command
      *
      * @var string
      */
-    protected $signature = 'ce:clear {--cache}';
+    protected $signature = 'ce:clear {--cache} {--storage}';
 
     /**
      * The console command description.
@@ -38,6 +38,7 @@ class Clear extends Command
     public function handle()
     {
         $cache = $this->option('cache');
+        $storage = $this->option('storage');
 
         // Clear everything laravel provides us
         $this->call('optimize:clear');
@@ -53,6 +54,11 @@ class Clear extends Command
 
             // Cache 3rd party libraries
             $this->call('route:trans:cache');
+        }
+
+        // Clear storage
+        if($storage){
+            $this->call('storage:clear');
         }
 
         return 0;

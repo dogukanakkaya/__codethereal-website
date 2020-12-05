@@ -26,13 +26,13 @@
                             </div>
                             <div class="tab-content">
                                 @foreach($languages as $key => $language)
-                                    <?php
+                                    @php
                                     $logo_white = "$language->code[logo_white]";
                                     $logo_dark = "$language->code[logo_dark]";
 
                                     $dzIndex = $language->code . "1";
                                     $dzIndex2 = $language->code . "2";
-                                    ?>
+                                    @endphp
                                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="website-{{ $language->code }}" role="tabpanel">
                                     @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                     <div class="row">

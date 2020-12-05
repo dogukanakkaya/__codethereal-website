@@ -38,7 +38,7 @@ class UserController extends Controller
     public function datatable()
     {
         if (!Auth::user()->can('see_users')) {
-            return back();
+            return resJsonUnauthorized();
         }
         $data = User::select('users.id', 'path', 'users.name', 'email', 'position', 'users.created_at as created_at', 'email_verified_at')
             ->where('rank', '!=', config('user.rank.dev'))

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Menu\StoreGroup;
+use App\Http\Requests\Admin\Menu\GroupRequest;
 use App\Models\Admin\Menu\Group;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -30,7 +30,7 @@ class GroupController extends Controller
     public function datatable()
     {
         if (!Auth::user()->can('see_menus')) {
-            return back();
+            return resJsonUnauthorized();
         }
         $data = Group::latest()->withCount('items')->get();
         return Datatables::of($data)
@@ -52,7 +52,7 @@ class GroupController extends Controller
             ->make(true);
     }
 
-    public function create(StoreGroup $request)
+    public function create(GroupRequest $request)
     {
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
@@ -69,7 +69,7 @@ class GroupController extends Controller
         return Group::find($id);
     }
 
-    public function update(StoreGroup $request, int $id)
+    public function update(GroupRequest $request, int $id)
     {
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();

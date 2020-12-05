@@ -10,5 +10,6 @@
     "/css/ce/sortable.css": "/css/ce/sortable.css",
     "/css/ce/dropzone.css": "/css/ce/dropzone.css",
     "/js/static/dropzone.min.js": "/js/static/dropzone.min.js",
-    "/js/static/sortable.min.js": "/js/static/sortable.min.js"
+    "/js/static/sortable.min.js": "/js/static/sortable.min.js",
+    "/plugins/tinymce/tinymce.min.js": "/plugins/tinymce/tinymce.min.js"
 }

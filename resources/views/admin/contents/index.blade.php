@@ -9,7 +9,7 @@
     <div class="page-actions">
         <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i
                 class="material-icons-outlined md-18 spin">sync</i></button>
-        <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('contents.content')]) }} <i
+        <button class="btn btn-success" onclick="window.location.href = '{{ route('contents.create') }}'">{{ __('global.add_new', ['name' => __('contents.content')]) }} <i
                 class="material-icons-outlined md-18">add</i></button>
     </div>
     <div class="list-area p-4">

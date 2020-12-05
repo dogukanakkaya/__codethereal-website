@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Menu\StoreItem;
+use App\Http\Requests\Admin\Menu\ItemRequest;
 use App\Models\Admin\Menu\Group;
 use App\Models\Admin\Menu\Item;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -24,16 +26,16 @@ class ItemController extends Controller
             'items' => $this->treeItems($groupItems),
             'actions' => $this->actions(),
             'groupId' => $groupId,
-            'parents' => $groupItems->pluck('title', 'menu_items.id')->toArray() // Data of selectable menu parent
+            'parents' => $groupItems->pluck('title', 'item_id')->toArray() // Data of selectable menu parent
         ];
         return view('admin.menus.items', $data);
     }
 
     /**
-     * We do not have datatable on permissions, so we just return a view
+     * We do not have datatable on menu items, so we just return a view
      *
      * @param int $groupId
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @return JsonResponse|Response
      */
     public function ajaxList(int $groupId)
     {
@@ -49,7 +51,7 @@ class ItemController extends Controller
             ->header('Content-Type', 'application/html');
     }
 
-    public function create(StoreItem $request, $groupId)
+    public function create(ItemRequest $request, int $groupId)
     {
         if (!Auth::user()->can('create_menus')) {
             return resJsonUnauthorized();
@@ -107,7 +109,7 @@ class ItemController extends Controller
         ], 200);
     }
 
-    public function update(StoreItem $request, int $groupId, int $itemId)
+    public function update(ItemRequest $request, int $groupId, int $itemId)
     {
         if (!Auth::user()->can('update_menus')) {
             return resJsonUnauthorized();
@@ -174,7 +176,6 @@ class ItemController extends Controller
             DB::commit();
             return resJson(true);
         } catch (\Exception $e) {
-            echo $e->getMessage();
             DB::rollBack();
             return resJson(false);
         }
@@ -204,7 +205,7 @@ class ItemController extends Controller
      * @param $items
      * @return array
      */
-    private function treeItems($items)
+    private function treeItems($items): array
     {
         return buildTree($items, [
             'id' => 'item_id',
@@ -215,9 +216,9 @@ class ItemController extends Controller
     /**
      * Actions for menu items
      *
-     * @return \string[][]
+     * @return string[][]
      */
-    private function actions()
+    private function actions(): array
     {
         return [
             ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find({value})'],
