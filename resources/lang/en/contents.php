@@ -8,5 +8,7 @@ return [
     'full' => 'Full Content',
     'files' => 'Files',
     'general' => 'General',
-    'parent_content' => 'Parent Content'
+    'parent_content' => 'Parent Content',
+    'active' => 'Active',
+    'searchable' => 'Searchable'
 ];

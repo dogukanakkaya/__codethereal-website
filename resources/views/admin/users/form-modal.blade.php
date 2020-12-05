@@ -37,7 +37,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             {{ Form::label(__('users.photo')) }}
-                            <x-dropzone folder="user-profiles" input-name="image"/>
+                            <x-dropzones.single folder="user-profiles" input-name="image"/>
                         </div>
                     </div>
                     <div class="col-12">

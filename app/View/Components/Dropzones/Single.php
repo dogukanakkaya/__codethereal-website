@@ -1,11 +1,11 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Dropzones;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
-class Dropzone extends Component
+class Single extends Component
 {
     public object|null $file;
 
@@ -15,7 +15,6 @@ class Dropzone extends Component
      * @param string|int $index
      * @param string $folder
      * @param int $fileId
-     * @param int $maxFiles
      * @param string $inputName
      */
     public function __construct(
@@ -23,8 +22,6 @@ class Dropzone extends Component
         public string $folder = "/",
         public string|int $index = 1,
         private int $fileId = 0,
-        public int $maxFiles = 1,
-
     )
     {
         $this->file = DB::table('files')->where('id', $fileId)->first();
@@ -37,6 +34,6 @@ class Dropzone extends Component
      */
     public function render()
     {
-        return view('components.dropzone');
+        return view('components.dropzones.single');
     }
 }

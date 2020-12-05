@@ -145,6 +145,7 @@
 </script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('scripts')
+@stack('toEnd')
 
 </body>
 </html>

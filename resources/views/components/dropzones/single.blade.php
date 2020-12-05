@@ -25,10 +25,7 @@
             Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = '{{ __('dropzone.cancel_upload_confirm') }}'
             Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files', ['max' => '1']) }}'
 
-            // If there is one file make col-12, if there is 2 make col-6 else make col-4
-            const gridCol = "{{ $maxFiles === 1 ? 12 : ($maxFiles === 2 ? 6 : 4) }}"
-
-            const removeFile = (id) => {
+            const removeFile = id => {
                 if (confirm('{{ __('global.confirm_delete') }}')) {
 
                     const url = '{{ route('files.destroy', ['id' => ':id']) }}'.replace(':id', id)
@@ -43,7 +40,7 @@
                 }
             }
 
-            const objectFitToggle = (el) => {
+            const objectFitToggle = el => {
                 const img = el.closest('div').previousElementSibling
                 img.style.objectFit = img.style.objectFit === 'contain' ? 'cover' : 'contain';
             }
@@ -61,7 +58,7 @@
             },
             maxFilesize: 5,
             acceptedFiles: 'image/*',
-            maxFiles: {{ $maxFiles }},
+            maxFiles: 1,
             addRemoveLinks: true,
             init: function () {
                 this.on("success", function (file, response) {
@@ -80,16 +77,14 @@
 
         const createPreview{{ $index }} = (id, url) => {
             // If max file is 1, every time new file dropped, clearPreview, then append.
-            if ({{ $maxFiles }} === 1){
-                clearPreview{{ $index }}()
-            }
+            clearPreview{{ $index }}()
             document.querySelector('input[name="{{ $inputName }}"]').value = id
 
             const downloadUrl = '{{ route('files.download', ['id' => ':id']) }}'.replace(':id', id)
 
             const preview{{ $index }} = document.getElementById('preview-{{ $index }}')
             preview{{ $index }}.insertAdjacentHTML('afterbegin',
-                `<div class="col-${gridCol}">
+                `<div class="col-12">
                                                 <div class="thumb">
                                                     <img class="w-100" src="${url}" alt="dz-thumb" />
                                                     <div class="preview-actions">

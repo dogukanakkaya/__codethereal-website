@@ -50,8 +50,7 @@
                                         @if($errors->any())
                                             <div class="alert alert-danger mt-2 mb-2">{{ $errors->first() }}</div>
                                         @elseif(Session::has('status'))
-                                            <div
-                                                class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
+                                            <div class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
                                         @endif
 
                                     </div>
@@ -65,7 +64,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         {{ Form::label(__('users.photo')) }}
-                                        <x-dropzone :file-id="$user->image" folder="user-profiles" input-name="image"/>
+                                        <x-dropzones.single :file-id="$user->image" folder="user-profiles" input-name="image"/>
                                     </div>
                                 </div>
                                 <div class="col-12 text-right">

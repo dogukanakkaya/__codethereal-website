@@ -59,7 +59,7 @@ class ContentController extends Controller
                 ->get()
                 ->pluck('title', 'id')->toArray()
         ];
-        return view('admin.contents.add', $data);
+        return view('admin.contents.create', $data);
     }
 
     public function store(ContentRequest $request)

@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <x-dropzone index="1" file-id="0" input-name="files" max-files="100"/>
+                                            <x-dropzones.multiple index="1" file-id="0" input-name="files" max-files="100"/>
                                         </div>
                                     </div>
                                 </div>
