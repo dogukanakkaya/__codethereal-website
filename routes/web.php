@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [/*'localeCookieRedirect',*/'localizationRedirect']], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect','localizationRedirect']], function(){
 
     // Authentication Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);

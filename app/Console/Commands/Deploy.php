@@ -38,11 +38,10 @@ class Deploy extends Command
     public function handle()
     {
         $this->call('key:generate');
-        $this->call('ce:clear');
+        $this->call('ce:clear --storage');
         $this->call('migrate:fresh');
         $this->call('db:seed');
         $this->call('storage:link');
-        $this->call('storage:clear');
         $this->call('test');
         return 0;
     }
