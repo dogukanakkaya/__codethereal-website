@@ -56,7 +56,6 @@ body {
     margin: 0;
     padding: 0;
     background-color: $background-color;
-
 }
 
 a {
@@ -128,13 +127,8 @@ a.danger:hover, a.danger:hover i {
     width: 100%!important;
 }
 
-.permission-group-checks{
-    padding: 1rem 0;
-    border-bottom: $gray-border;
-
-    .form-check-label{
-        font-size: 12px;
-    }
+.spin{
+    animation: spinner-border 2s linear infinite;
 }
 
 /* BS Override */
@@ -148,9 +142,5 @@ form label:not(.form-check-label){
 form input{
     font-size: .825rem!important;
     padding: .4rem .5rem!important;
-}
-
-.spin{
-    animation: spinner-border 2s linear infinite;
 }
 /* /BS Override */

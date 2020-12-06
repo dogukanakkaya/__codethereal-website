@@ -9,10 +9,8 @@
 <input type="hidden" name="{{ $inputName }}" value="0">
 
 @once
-
-
     @push('toEnd')
-        @include('admin.partials.edit-image-modal')
+        @include('admin.partials.edit-file-modal')
     @endpush
 
     @push('styles')
@@ -26,8 +24,9 @@
                 const sortable = new Sortable(document.querySelector('.sortable'), {
                     animation: 150,
                     dataIdAttr: "data-file-id",
-                    onChange: () => {
+                    onUpdate: () => {
                         request.put('{{ route('files.save_sequence') }}', sortable.toArray())
+                        .then(response => makeToast(response.data))
                     },
                 });
             </script>
@@ -37,7 +36,7 @@
             Dropzone.autoDiscover = false
             Dropzone.prototype.defaultOptions.dictRemoveFile = '{{ __('dropzone.remove_file') }}'
             Dropzone.prototype.defaultOptions.dictFileTooBig = '{{ __('dropzone.file_too_big') }}'
-            Dropzone.prototype.defaultOptions.dictInvalidFileType = '{{ __('dropzone.file_extension_unallowed') }}'
+            Dropzone.prototype.defaultOptions.dictInvalidFileType = '{{ __('dropzone.file_extension_not_allowed') }}'
             Dropzone.prototype.defaultOptions.dictCancelUpload = '{{ __('dropzone.cancel_upload') }}'
             Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = '{{ __('dropzone.cancel_upload_confirm') }}'
             Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files', ['max' => $maxFiles]) }}'
@@ -57,11 +56,16 @@
             }
 
             const clearPreview = id => {
-                const inputEl = document.querySelector(`[data-file-id='${id}'] + input`)
+                // Get input of which given file id belongs to
+                const inputEl = document.querySelector(`[data-file-id='${id}']`).closest('.ce-previews').nextSibling
                 if (inputEl){
                     inputEl.value = inputEl.value.replace(id, '').replace('|', '')
+
+                    // If no image left in dropzone then change input value to 0
+                    if (!inputEl.value) inputEl.value = 0
                 }
 
+                // Clear preview of image
                 const preview = document.querySelector(`[data-file-id='${id}']`)
                 if (preview){
                     preview.remove()

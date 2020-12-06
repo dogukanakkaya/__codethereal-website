@@ -26,6 +26,8 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/ce/sortable.scss', 'public/css/ce')
     .sass('resources/sass/ce/dropzone.scss', 'public/css/ce');
 
+mix.copyDirectory('resources/img', 'public/img');
+
 mix.copyDirectory('node_modules/tinymce/icons', 'public/plugins/tinymce/icons');
 mix.copyDirectory('node_modules/tinymce/plugins', 'public/plugins/tinymce/plugins');
 mix.copyDirectory('node_modules/tinymce/skins', 'public/plugins/tinymce/skins');

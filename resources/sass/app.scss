@@ -33,10 +33,6 @@
 // Utils
 @import 'utils';
 
-// My own global scss
-@import './ce/breadcrumb';
-@import './ce/toast';
-
 .top-container {
     display: inline;
 }
@@ -383,6 +379,19 @@ main {
 
     button:not(:last-child){
         margin-right: 10px;
+    }
+}
+
+.breadcrumb-item{
+    align-items: center;
+
+    & + .breadcrumb-item::before{
+        font-family: 'Material Icons';
+        content: 'chevron_right';
+    }
+
+    &.active{
+        color: $main-color;
     }
 }
 

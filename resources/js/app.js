@@ -1,7 +1,7 @@
 // TODO: check all window object definitions imported including
 import './bootstrap'
 import 'datatables.net'
-import { ceToast } from './toast'
+import ceToast from './ce/toast'
 import { STORAGE_PREFIX } from "./constants";
 
 window.serialize = require('form-serialize');
@@ -46,9 +46,7 @@ window.toggleThemeSettings = () => {
     document.querySelector('.black-overlay').classList.toggle('d-block')
 }
 
-/*
- Find submit types and toggle them loading
- */
+// Find submit types and toggle them loading
 window.toggleBtnLoading = () => {
     document.querySelector('[type=submit]').toggleAttribute('disabled')
     document.querySelector('[type=submit] .btn-enabled').classList.toggle('d-none')

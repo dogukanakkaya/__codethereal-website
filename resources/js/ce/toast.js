@@ -1,6 +1,7 @@
+import '../../sass/ce/toast.scss'
 const toastEl = document.querySelector('.ce-toast-container')
 
-export const ceToast = ({status, title, message, transition = 'zoom', timeout = 3500, progress = true, addition = ''}) => {
+const ceToast = ({status, title, message, transition = 'zoom', timeout = 3500, progress = true, addition = ''}) => {
     let icon, toastClass;
     if (status === 1){
         icon = 'check'
@@ -61,5 +62,10 @@ window.clearToast = (toastId) => {
         toast.remove()
     }, 500)
 }
-const clearAll = () => toastEl.querySelectorAll('*').forEach(n => n.remove())
-const toastProgress = (toastId, width) => document.querySelector(`.ce-toast[data-id='${toastId}']`).querySelector('.progress').style.width = width + "%"
+//const clearAll = () => toastEl.querySelectorAll('*').forEach(n => n.remove())
+const toastProgress = (toastId, width) => {
+    const toast = document.querySelector(`.ce-toast[data-id='${toastId}']`)
+    if (toast) toast.querySelector('.progress').style.width = width + "%"
+}
+
+export default ceToast
