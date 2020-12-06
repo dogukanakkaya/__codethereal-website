@@ -7,7 +7,7 @@
  * @param string $class
  * @return mixed
  */
-function isActive($url, $class = 'active')
+function isActive($url, $class = 'active'): mixed
 {
     if (is_array($url)) {
         $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);
@@ -119,7 +119,14 @@ function agent($userAgent = null)
     ];
 }
 
-function location($ip, $fields = array('country', 'city'))
+/**
+ * Find location by ip from an api
+ *
+ * @param $ip
+ * @param string[] $fields
+ * @return array
+ */
+function location($ip, $fields = array('country', 'city')): array
 {
     $fetchFields = implode(',', $fields);
     $ipApi = json_decode(file_get_contents("http://ip-api.com/json/$ip?fields=$fetchFields"));
@@ -128,7 +135,35 @@ function location($ip, $fields = array('country', 'city'))
         $data[$field] = $ipApi->{$field} ?? null;
     }
     return $data;
+}
 
+/**
+ * Merge existing and new html attributes together
+ *
+ * @param $existAttrs
+ * @param $newAttrs
+ * @return string
+ */
+function mergeHtmlAttributes($existAttrs, $newAttrs): string
+{
+    $attributes = '';
+
+    // Merge all of them together, and unset attributes that merged
+    foreach ($existAttrs as $key => $value) {
+        if (in_array($key, array_keys($newAttrs))){
+            $attributes .= $key.'="' . $value . ' ' . $newAttrs[$key] . '"';
+            unset($newAttrs[$key]);
+        }else{
+            $attributes .= $key.'="' . $value . '"';
+        }
+    }
+
+    // Add attributes that should not be merged (i already unset it from array if merge needed)
+    foreach ($newAttrs as $key => $value) {
+        $attributes .= $key.'="' . $value . '"';
+    }
+
+    return $attributes;
 }
 
 /**

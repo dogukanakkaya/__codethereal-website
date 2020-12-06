@@ -21,8 +21,8 @@ return [
     'confirm_delete' => 'Are you sure to delete?',
     'general' => 'General',
     'developer' => 'Developer',
-    'add_new' => 'Add new :name', // w/ param
     'search' => 'Search',
+    'add_new' => 'Add new :name', // w/ param
     'close' => 'Close',
     'created_at' => 'Created At',
     'refresh' => 'Refresh',
@@ -30,8 +30,8 @@ return [
     'actions' => 'Actions',
     'update' => 'Update',
     'delete' => 'Delete',
-    'yes' => 'Yes',
-    'no' => 'No',
+    'detail' => 'Detail',
     'undo' => 'Undo',
-    'detail' => 'Detail'
+    'yes' => 'Yes',
+    'no' => 'No'
 ];

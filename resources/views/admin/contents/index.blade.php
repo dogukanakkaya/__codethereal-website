@@ -7,8 +7,7 @@
 @section('content')
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
-        <button class="btn btn-primary" onclick="__refresh()">{{ __('global.refresh') }} <i
-                class="material-icons-outlined md-18 spin">sync</i></button>
+        {{ Form::refresh(['onclick' => '__refresh()']) }}
         <button class="btn btn-success" onclick="window.location.href = '{{ route('contents.create') }}'">{{ __('global.add_new', ['name' => __('contents.content')]) }} <i
                 class="material-icons-outlined md-18">add</i></button>
     </div>
