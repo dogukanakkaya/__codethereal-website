@@ -71,13 +71,14 @@ class ItemController extends Controller
             foreach ($data as $language => $values) {
                 $values['language'] = $language;
                 $values['item_id'] = $item->id;
-                $values['url'] = empty($values['url']) ? Str::slug($values['title']) : $values['url'];
+                $values['url'] = empty($values['url']) ? Str::slug($values['title'] ?? '') : $values['url'] ?? '';
                 DB::table('menu_item_translations')->insert($values);
             }
 
             DB::commit();
             return resJson(true);
         } catch (\Exception $e) {
+            echo $e->getMessage();
             DB::rollBack();
             return resJson(false);
         }
@@ -123,7 +124,7 @@ class ItemController extends Controller
 
             // Loop with every language
             foreach ($data as $language => $values) {
-                $values['url'] = empty($values['url']) ? Str::slug($values['title']) : $values['url'];
+                $values['url'] = empty($values['url']) ? Str::slug($values['title'] ?? '') : $values['url'] ?? '';
                 DB::table('menu_item_translations')
                     ->where('item_id', $itemId)
                     ->where('language', $language)

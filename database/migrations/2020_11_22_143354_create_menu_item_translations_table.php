@@ -16,8 +16,8 @@ class CreateMenuItemTranslationsTable extends Migration
         Schema::create('menu_item_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->constrained('menu_items');
-            $table->string('title');
-            $table->string('url');
+            $table->string('title')->nullable();
+            $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->char('language', 3);
             $table->boolean('active')->default(1);

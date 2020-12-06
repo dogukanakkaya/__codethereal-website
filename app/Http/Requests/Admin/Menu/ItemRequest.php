@@ -32,14 +32,15 @@ class ItemRequest extends FormRequest
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
 
+            $rules[$language->code . '.url'] = 'max:255';
+            $rules[$language->code . '.icon'] = 'max:255';
+            $rules[$language->code . '.active'] = 'integer';
+
             if (isset($data['active']) && intval($data['active']) === 0)
-                continue;
+                $rules[$language->code . '.title'] = 'max:255';
 
             if(isset($data['active']) && intval($data['active']) === 1){
                 $rules[$language->code . '.title'] = 'required|max:255';
-                $rules[$language->code . '.url'] = 'max:255';
-                $rules[$language->code . '.icon'] = 'max:255';
-                $rules[$language->code . '.active'] = 'integer';
             }
         }
         return $rules;
