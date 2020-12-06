@@ -50,20 +50,20 @@ class MacroServiceProvider extends ServiceProvider
 
         \Form::macro('refresh', function (array $attributes = []) {
             $existAttrs = [
-                'class' => 'btn btn-primary'
+                'class' => 'ce-btn primary'
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button ' . $mergedAttrs . '>' . __("global.refresh") . ' <i class="material-icons-outlined md-18 spin">sync</i></button>');
+            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-36 spin">sync</i></button>');
         });
 
         \Form::macro('addNew', function (array $attributes = []) {
             $existAttrs = [
-                'class' => 'btn btn-success'
+                'class' => 'ce-btn success'
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button '.$mergedAttrs.'>'. __('global.add_new') .'<i class="material-icons-outlined md-18">add</i></button>');
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-36">add</i></button>');
         });
     }
 }
