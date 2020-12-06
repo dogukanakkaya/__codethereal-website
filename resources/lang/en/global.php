@@ -22,7 +22,7 @@ return [
     'general' => 'General',
     'developer' => 'Developer',
     'search' => 'Search',
-    'add_new' => 'Add new :name', // w/ param
+    'add_new' => 'Add new',
     'close' => 'Close',
     'created_at' => 'Created At',
     'refresh' => 'Refresh',

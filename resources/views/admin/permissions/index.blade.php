@@ -8,9 +8,7 @@
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
         {{ Form::refresh(['onclick' => 'ajaxList()']) }}
-        <button onclick="__create()"
-                class="btn btn-success">{{ __('global.add_new', ['name' => __('permissions.permission')]) }}
-            <i class="material-icons-outlined md-18">add</i></button>
+        {{ Form::addNew(['onclick' => '__create()']) }}
     </div>
     <div id="list" class="list-area p-4">
         @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])

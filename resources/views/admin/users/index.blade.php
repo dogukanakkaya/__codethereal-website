@@ -8,8 +8,7 @@
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
         {{ Form::refresh(['onclick' => '__refresh()']) }}
-        <button class="btn btn-success" onclick="__create()">{{ __('global.add_new', ['name' => __('users.user')]) }} <i
-                class="material-icons-outlined md-18">add</i></button>
+        {{ Form::addNew(['onclick' => '__create()']) }}
     </div>
     <div class="list-area p-4">
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
@@ -57,7 +56,7 @@
             }
             getPermissions().then(response => {
                 document.getElementById('user-permissions').innerHTML = response.data
-                changeModalTitle(modal, '{{ __('global.add_new', ['name' => __('users.user')]) }}')
+                changeModalTitle(modal, '{{ __('global.add_new') }}')
                 openModal(modal)
             })
         }

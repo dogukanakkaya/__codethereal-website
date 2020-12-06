@@ -52,7 +52,7 @@ class ContentController extends Controller
             return back();
         }
         $data = [
-            'navigations' => [route('contents.index') => __('contents.contents'), __('global.add_new', ['name' => __('contents.content')])],
+            'navigations' => [route('contents.index') => __('contents.contents'), __('global.add_new')],
             'parents' => Content::select('contents.id', 'title', 'created_at')
                 ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
                 ->where('language', app()->getLocale())

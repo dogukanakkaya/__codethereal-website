@@ -56,5 +56,14 @@ class MacroServiceProvider extends ServiceProvider
 
             return new HtmlString('<button ' . $mergedAttrs . '>' . __("global.refresh") . ' <i class="material-icons-outlined md-18 spin">sync</i></button>');
         });
+
+        \Form::macro('addNew', function (array $attributes = []) {
+            $existAttrs = [
+                'class' => 'btn btn-success'
+            ];
+            $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
+
+            return new HtmlString('<button '.$mergedAttrs.'>'. __('global.add_new') .'<i class="material-icons-outlined md-18">add</i></button>');
+        });
     }
 }
