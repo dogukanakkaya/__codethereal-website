@@ -2,6 +2,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/ce/sortable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/menus/base.css') }}">
 @endpush
 
 @section('content')
@@ -111,7 +112,7 @@
         }
 
         const __undoDelete = id => {
-            const url = '{{ route('menu_items.update', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', id)
+            const url = '{{ route('menu_items.restore', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(__onResponse)
         }

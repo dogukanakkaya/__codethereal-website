@@ -6,6 +6,7 @@
     "/css/permissions/base.css": "/css/permissions/base.css",
     "/css/users/base.css": "/css/users/base.css",
     "/css/contents/base.css": "/css/contents/base.css",
+    "/css/menus/base.css": "/css/menus/base.css",
     "/css/ce/datatable.css": "/css/ce/datatable.css",
     "/css/ce/sortable.css": "/css/ce/sortable.css",
     "/css/ce/dropzone.css": "/css/ce/dropzone.css",

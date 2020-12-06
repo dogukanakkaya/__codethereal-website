@@ -18,6 +18,7 @@ class Dropzone extends Component
      * @param string|int $index
      * @param array|int $fileId
      * @param int|null $maxFiles
+     * @param bool $sortable
      */
     #[NoReturn]
     public function __construct(
@@ -25,7 +26,8 @@ class Dropzone extends Component
         public string $folder = "/",
         public string|int $index = 1,
         private array|int $fileId = [],
-        public int|null $maxFiles = null
+        public int|null $maxFiles = null,
+        public bool $sortable = false
     )
     {
         $this->files = DB::table('files')->whereIn('id', (array)$fileId)->get();

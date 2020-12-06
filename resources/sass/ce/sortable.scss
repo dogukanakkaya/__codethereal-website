@@ -1,14 +1,6 @@
 @import 'resources/sass/variables';
 
 .sortable {
-    cursor: move;
-    margin-top: 20px;
-
-    .dropdown{
-        display: inline-block;
-        float: right;
-    }
-
     .ghost {
         background-color: $main-color;
     }
@@ -16,6 +8,5 @@
     .multi-selected {
         background-color: #f9c7c8;
         border: solid red 1px !important;
-
     }
 }

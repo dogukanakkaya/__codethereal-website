@@ -1,0 +1,13 @@
+@import 'resources/sass/variables';
+
+.sortable {
+    &.list-group{
+        cursor: move;
+        margin-top: 20px;
+    }
+
+    .dropdown{
+        display: inline-block;
+        float: right;
+    }
+}

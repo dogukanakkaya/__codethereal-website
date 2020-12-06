@@ -1,13 +1,3 @@
-.sortable {
-  cursor: move;
-  margin-top: 20px;
-}
-
-.sortable .dropdown {
-  display: inline-block;
-  float: right;
-}
-
 .sortable .ghost {
   background-color: #ff4824;
 }

@@ -70,6 +70,15 @@
   padding: 0.25rem;
 }
 
+.ce-previews.sortable .thumb {
+  cursor: move;
+  transition: filter 0.25s;
+}
+
+.ce-previews.sortable .thumb:hover {
+  filter: contrast(0.5);
+}
+
 .ce-previews .thumb {
   position: relative;
   margin-bottom: 1rem;

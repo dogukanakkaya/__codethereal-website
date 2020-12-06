@@ -5,21 +5,35 @@
         <p>({{ __('dropzone.description') }})</p>
     </div>
 </div>
-<div class="row ce-previews" id="preview-{{ $index }}">
+<div class="row ce-previews {{ $sortable ? 'sortable' : '' }}" id="preview-{{ $index }}">
 
     <input type="hidden" name="{{ $inputName }}" value="0">
 </div>
 
 @once
+
+
     @push('toEnd')
         @include('admin.partials.edit-image-modal')
     @endpush
 
     @push('styles')
+        @if($sortable)
+            <link rel="stylesheet" href="{{ asset('css/ce/sortable.css') }}">
+        @endif
         <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
     @endpush
 
     @push('scripts')
+        @if($sortable)
+            <script src="{{ asset('js/static/sortable.min.js') }}"></script>
+            <script>
+                new Sortable(document.querySelector('.sortable'), {
+                    animation: 150,
+                    ghostClass: 'blue-background-class'
+                });
+            </script>
+        @endif
         <script src="{{ asset('js/static/dropzone.min.js') }}"></script>
         <script>
             Dropzone.autoDiscover = false
@@ -82,10 +96,16 @@
             imageForm.addEventListener('submit', e => {
                 e.preventDefault()
 
+                toggleBtnLoading()
                 const url = '{{ route('files.update', ['id' => ':id']) }}'.replace(':id', fileId)
                 request.put(url, serialize(imageForm, { hash: true }))
                     .then(response => {
-                        console.log(response)
+                        makeToast(response.data)
+                        if (response.data.status) {
+                            closeModal('#image-form-modal')
+                            imageForm.reset()
+                        }
+                        toggleBtnLoading()
                     })
             })
 

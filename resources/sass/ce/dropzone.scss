@@ -51,6 +51,17 @@
 }
 
 .ce-previews {
+    &.sortable {
+        .thumb {
+            cursor: move;
+            transition: filter .25s;
+
+            &:hover{
+                filter: contrast(.5);
+            }
+        }
+    }
+
     .thumb {
         position: relative;
         margin-bottom: 1rem;

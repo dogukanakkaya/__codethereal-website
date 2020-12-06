@@ -20,6 +20,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/permissions/base.scss', 'public/css/permissions')
     .sass('resources/sass/users/base.scss', 'public/css/users')
     .sass('resources/sass/contents/base.scss', 'public/css/contents')
+    .sass('resources/sass/menus/base.scss', 'public/css/menus')
     .sass('resources/sass/ce/datatable.scss', 'public/css/ce')
     .sass('resources/sass/ce/sortable.scss', 'public/css/ce')
     .sass('resources/sass/ce/dropzone.scss', 'public/css/ce');
