@@ -25,10 +25,21 @@
                                 @endforeach
                             </div>
                             <div class="tab-content">
+                                @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ Form::label("content[parent_id]", __('contents.parent_content')) }}
+                                            {{ Form::select("content[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-top mb-3"></div>
+
                                 @foreach($languages as $key => $language)
                                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                                          id="general-{{ $language->code }}" role="tabpanel">
-                                        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -69,14 +80,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                <div class="row pt-3 border-top">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            {{ Form::label("content[parent_id]", __('contents.parent_content')) }}
-                                            {{ Form::select("content[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="files" role="tabpanel">

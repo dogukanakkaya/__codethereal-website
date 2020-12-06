@@ -85,7 +85,7 @@ class ContentController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }

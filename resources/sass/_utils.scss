@@ -131,6 +131,13 @@ a.danger:hover, a.danger:hover i {
     animation: spinner-border 2s linear infinite;
 }
 
+.main-color-line{
+    width: 75px;
+    height: 2px;
+    background: $main-color;
+    margin: 0 auto 20px auto;
+}
+
 /* BS Override */
 form label:not(.form-check-label){
     font-size: .725rem;

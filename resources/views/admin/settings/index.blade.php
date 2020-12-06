@@ -25,6 +25,8 @@
                                 @endforeach
                             </div>
                             <div class="tab-content">
+                                @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
                                 @foreach($languages as $key => $language)
                                     @php
                                     $logo_white = "$language->code[logo_white]";
@@ -34,7 +36,7 @@
                                     $dzIndex2 = $language->code . "2";
                                     @endphp
                                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="website-{{ $language->code }}" role="tabpanel">
-                                    @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -72,9 +74,10 @@
                                 @endforeach
                             </div>
                             <div class="tab-content">
+                                @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
                                 @foreach($languages as $key => $language)
                                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="contact-{{ $language->code }}" role="tabpanel">
-                                        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -112,9 +115,10 @@
                                 @endforeach
                             </div>
                             <div class="tab-content">
+                                @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
                                 @foreach($languages as $key => $language)
                                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="social-{{ $language->code }}" role="tabpanel">
-                                        @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">

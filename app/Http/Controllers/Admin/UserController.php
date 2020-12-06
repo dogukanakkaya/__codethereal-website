@@ -92,7 +92,7 @@ class UserController extends Controller
                 return resJson(true);
             }
             return resJson(false);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
@@ -143,7 +143,7 @@ class UserController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }

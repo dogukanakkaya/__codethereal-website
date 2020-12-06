@@ -77,8 +77,7 @@ class ItemController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
@@ -133,7 +132,7 @@ class ItemController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
@@ -175,7 +174,7 @@ class ItemController extends Controller
             }
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
