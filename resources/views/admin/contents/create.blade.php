@@ -105,8 +105,6 @@
 @push('scripts')
     <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
-        const form = document.getElementById('content-form')
-
         tinymce.init({
             selector: 'textarea.rich-editor',
             width: '100%',
@@ -115,23 +113,20 @@
             //language: "tr_TR",
             plugins: 'image code paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern code',
             paste_as_text: true,
-            contextmenu: "link image imagetools table spellchecker ",
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect  | link | image  | removeformat ',
-            images_upload_url: "{{ route('files.upload') }}",
+            contextmenu: 'link image imagetools table spellchecker',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | link | image | removeformat ',
             images_upload_handler: function (blobInfo, success, failure) {
-                // TODO: convert to axios
-                const xhr = new XMLHttpRequest()
-                xhr.withCredentials = false
-                xhr.open('POST', "{{ route('files.upload') }}")
-                xhr.onload = function () {
-                    const response = JSON.parse(xhr.responseText)
-                    success(response.path)
-                };
-                const formData = new FormData()
-                formData.append('folder', 'tinymce')
-                formData.append('_token', '{{ csrf_token() }}')
-                formData.append('file', blobInfo.blob(), blobInfo.filename())
-                xhr.send(formData)
+                const tinymceImageFormData = new FormData();
+                tinymceImageFormData.append('file', blobInfo.blob(), blobInfo.filename());
+                tinymceImageFormData.append('folder', 'tinymce')
+                tinymceImageFormData.append('_token', '{{ csrf_token() }}')
+                request.post('{{ route('files.upload') }}', tinymceImageFormData)
+                    .then(function (response) {
+                        success(response.data.path);
+                    })
+                    .catch(function (err) {
+                        failure('HTTP Error: ' + err.message);
+                    });
             },
             setup: function (editor) {
                 editor.on('change', function () {
@@ -139,6 +134,8 @@
                 })
             }
         })
+
+        const form = document.getElementById('content-form')
 
         const __onResponse = response => {
             makeToast(response.data)
