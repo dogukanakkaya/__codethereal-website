@@ -140,6 +140,11 @@
 
 <div class="ce-toast-container"></div>
 
+<div class="quick-alert">
+    <div class="icon"><i class="material-icons-outlined md-24">warning</i></div>
+    <div class="text"><p></p></div>
+</div>
+
 @stack('toEnd')
 <script>
     const asset = (path) => `{{ asset('') }}${path}`

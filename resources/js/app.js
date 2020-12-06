@@ -100,7 +100,18 @@ request.interceptors.response.use((response) => response, (error) => {
         message: error.message
     })
     toggleBtnLoading()
-});
+})
+
+window.bottomAlert = ({ text, timeout = null }) => {
+    const quickAlert = document.querySelector('.quick-alert')
+    quickAlert.classList.add('show')
+    quickAlert.querySelector('.text p').textContent = text
+    if (timeout){
+        setTimeout(() => {
+            quickAlert.classList.remove('show')
+        }, timeout)
+    }
+}
 
 // TODO: jquery to pure js
 window.openModal = selector => $(selector).modal('show')
