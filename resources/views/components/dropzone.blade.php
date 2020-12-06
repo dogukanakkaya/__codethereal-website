@@ -1,3 +1,9 @@
+@once
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
+    @endpush
+@endonce
+
 <div id="dz-{{ $index }}" class="dropzone ce-dropzone mb-3">
     <div class="dz-default dz-message">
         <i class="material-icons-outlined md-36">cloud_upload</i>
@@ -11,10 +17,6 @@
 @once
     @push('toEnd')
         @include('admin.partials.edit-file-modal')
-    @endpush
-
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
     @endpush
 
     @push('scripts')
