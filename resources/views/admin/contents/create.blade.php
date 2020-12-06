@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <x-dropzones.multiple index="1" input-name="content[files]" folder="contents"/>
+                                            <x-dropzone index="1" input-name="content[files]" folder="contents"/>
                                         </div>
                                     </div>
                                 </div>

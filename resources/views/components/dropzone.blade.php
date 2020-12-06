@@ -5,9 +5,10 @@
         <p>({{ __('dropzone.description') }})</p>
     </div>
 </div>
-<div class="row ce-previews" id="preview-{{ $index }}"></div>
+<div class="row ce-previews" id="preview-{{ $index }}">
 
-<input type="hidden" name="{{ $inputName }}" value="0">
+    <input type="hidden" name="{{ $inputName }}" value="0">
+</div>
 
 @once
     @push('toEnd')
@@ -27,7 +28,7 @@
             Dropzone.prototype.defaultOptions.dictInvalidFileType = '{{ __('dropzone.file_extension_unallowed') }}'
             Dropzone.prototype.defaultOptions.dictCancelUpload = '{{ __('dropzone.cancel_upload') }}'
             Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = '{{ __('dropzone.cancel_upload_confirm') }}'
-            Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files') }}'
+            Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files', ['max' => $maxFiles]) }}'
 
             const removeFile = id => {
                 if (confirm('{{ __('global.confirm_delete') }}')) {
@@ -37,9 +38,21 @@
                         .then(response => {
                             makeToast(response.data)
                             if (response.data.status) {
-                                clearPreview{{ $index }}()
+                                clearPreview(id)
                             }
                         })
+                }
+            }
+
+            const clearPreview = id => {
+                const inputEl = document.querySelector(`[data-file-id='${id}'] ~ input`)
+                if (inputEl){
+                    inputEl.value = inputEl.value.replace(id, '').replace('|', '')
+                }
+
+                const preview = document.querySelector(`[data-file-id='${id}']`)
+                if (preview){
+                    preview.remove()
                 }
             }
 
@@ -103,13 +116,6 @@
             }
         });
 
-        const clearPreview{{ $index }} = () => {
-            document.querySelector('input[name="{{ $inputName }}"]').value = 0
-
-            const preview{{ $index }} = document.getElementById('preview-{{ $index }}')
-            preview{{ $index }}.querySelectorAll('*').forEach(n => n.remove());
-        }
-
         const createPreview{{ $index }} = (id, url) => {
             if (parseInt(document.querySelector('input[name="{{ $inputName }}"]').value) === 0) {
                 document.querySelector('input[name="{{ $inputName }}"]').value = id
@@ -121,7 +127,7 @@
 
             const preview{{ $index }} = document.getElementById('preview-{{ $index }}')
             preview{{ $index }}.insertAdjacentHTML('afterbegin',
-                `<div class="col-4">
+                `<div class="col-{{ $maxFiles === 1 ? 12 : 4 }}" data-file-id="${id}">
                     <div class="thumb">
                         <img class="w-100" src="${url}" alt="dz-thumb" />
                         <div class="preview-actions">

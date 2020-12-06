@@ -52927,8 +52927,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js");
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(datatables_net__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _setups__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setups */ "./resources/js/setups.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./config */ "./resources/js/config.js");
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./resources/js/constants.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -52946,6 +52946,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+window.serialize = __webpack_require__(/*! form-serialize */ "./node_modules/form-serialize/index.js");
+window.makeToast = _toast__WEBPACK_IMPORTED_MODULE_2__["ceToast"];
 /* Global functions */
 
 var setHtmlTheme = function setHtmlTheme(theme) {
@@ -52973,13 +52975,13 @@ window.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', function () {
   // Remove loader
   document.getElementById('loader').remove();
-  var theme = localStorage.getItem("".concat(_config__WEBPACK_IMPORTED_MODULE_3__["STORAGE_PREFIX"], "_theme")) || 'light-theme';
+  var theme = localStorage.getItem("".concat(_constants__WEBPACK_IMPORTED_MODULE_3__["STORAGE_PREFIX"], "_theme")) || 'light-theme';
   document.getElementById(theme).setAttribute('checked', true);
   setHtmlTheme(theme);
 }); // Set theme
 
 window.toggleTheme = function (theme) {
-  localStorage.setItem("".concat(_config__WEBPACK_IMPORTED_MODULE_3__["STORAGE_PREFIX"], "_theme"), theme);
+  localStorage.setItem("".concat(_constants__WEBPACK_IMPORTED_MODULE_3__["STORAGE_PREFIX"], "_theme"), theme);
   setHtmlTheme(theme);
 }; // Open the theme settings sidebar
 
@@ -53026,8 +53028,29 @@ window.nestedSortableSerialize = function (sortable, sortableGroup) {
   }
 
   return serialized;
-}; // TODO: jquery to pure js
+}; // Axios
 
+
+window.request = axios.create({
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status <= 450;
+  }
+});
+request.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  makeToast({
+    status: 0,
+    title: 'Error',
+    message: error.message
+  });
+  toggleBtnLoading();
+}); // TODO: jquery to pure js
 
 window.openModal = function (selector) {
   return $(selector).modal('show');
@@ -53089,10 +53112,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/config.js":
-/*!********************************!*\
-  !*** ./resources/js/config.js ***!
-  \********************************/
+/***/ "./resources/js/constants.js":
+/*!***********************************!*\
+  !*** ./resources/js/constants.js ***!
+  \***********************************/
 /*! exports provided: STORAGE_PREFIX */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -53100,43 +53123,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORAGE_PREFIX", function() { return STORAGE_PREFIX; });
 var STORAGE_PREFIX = 'ce';
-
-/***/ }),
-
-/***/ "./resources/js/setups.js":
-/*!********************************!*\
-  !*** ./resources/js/setups.js ***!
-  \********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
-
-window.serialize = __webpack_require__(/*! form-serialize */ "./node_modules/form-serialize/index.js");
-window.makeToast = _toast__WEBPACK_IMPORTED_MODULE_0__["ceToast"]; // Axios
-
-window.request = axios.create({
-  timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status <= 450;
-  }
-});
-request.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  makeToast({
-    status: 0,
-    title: 'Error',
-    message: error.message
-  });
-  toggleBtnLoading();
-});
 
 /***/ }),
 

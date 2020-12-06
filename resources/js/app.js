@@ -1,9 +1,11 @@
 // TODO: check all window object definitions imported including
 import './bootstrap'
 import 'datatables.net'
-import './setups'
+import { ceToast } from './toast'
+import { STORAGE_PREFIX } from "./constants";
 
-import { STORAGE_PREFIX } from "./config";
+window.serialize = require('form-serialize');
+window.makeToast = ceToast
 
 /* Global functions */
 const setHtmlTheme = theme => document.querySelector('html').setAttribute('theme', theme);
@@ -78,6 +80,27 @@ window.nestedSortableSerialize = (sortable, sortableGroup) => {
     }
     return serialized
 }
+
+// Axios
+window.request = axios.create({
+    timeout: 30000,
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+    },
+    validateStatus: function (status) {
+        return status >= 200 && status <= 450;
+    },
+});
+
+request.interceptors.response.use((response) => response, (error) => {
+    makeToast({
+        status: 0,
+        title: 'Error',
+        message: error.message
+    })
+    toggleBtnLoading()
+});
 
 // TODO: jquery to pure js
 window.openModal = selector => $(selector).modal('show')
