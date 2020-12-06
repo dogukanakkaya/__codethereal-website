@@ -43,8 +43,12 @@
                 }
             }
 
+            let fileId
+            const imageForm = document.getElementById('image-form')
+
             const editFile = id => {
                 const url = '{{ route('files.find', ['id' => ':id']) }}'.replace(':id', id)
+                fileId = id
 
                 request.get(url)
                     .then(response => {
@@ -56,12 +60,21 @@
                             translation = translations?.{{ $language->code }}
                         document.querySelector(`input[name="{{ $language->code }}[file_title]"]`).value = translation?.title ?? ''
                         document.querySelector(`input[name="{{ $language->code }}[file_alt]"]`).value = translation?.alt ?? ''
-                        document.querySelector(`input[type=checkbox][name="{{ $language->code }}[file_active]"]`).checked = parseInt(translation?.active ?? 0) === 1
+                        document.querySelector(`input[type=checkbox][name="{{ $language->code }}[file_active]"]`).checked = parseInt(translation?.active ?? 1) === 1
                         @endforeach
                         openModal('#image-form-modal')
                     })
-
             }
+
+            imageForm.addEventListener('submit', e => {
+                e.preventDefault()
+
+                const url = '{{ route('files.update', ['id' => ':id']) }}'.replace(':id', fileId)
+                request.put(url, serialize(imageForm, { hash: true }))
+                    .then(response => {
+                        console.log(response)
+                    })
+            })
 
             const objectFitToggle = el => {
                 const img = el.closest('div').previousElementSibling

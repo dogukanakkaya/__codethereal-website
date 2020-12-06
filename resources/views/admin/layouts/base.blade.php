@@ -140,13 +140,13 @@
 
 <div class="ce-toast-container"></div>
 
+@stack('toEnd')
 <script>
     const asset = (path) => `{{ asset('') }}${path}`
     const storage = (path) => `{{ asset('storage') }}/${path}`
 </script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('scripts')
-@stack('toEnd')
 
 </body>
 </html>

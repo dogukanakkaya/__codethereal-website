@@ -74,6 +74,37 @@ class FileController extends Controller
         ]);
     }
 
+    public function update(int $id)
+    {
+        $reqData = request()->json()->all();
+
+        DB::beginTransaction();
+        try {
+            // Loop every language
+            foreach (languages() as $language) {
+                // Get active language's data
+                $data = $reqData[$language->code];
+
+                DB::table('file_translations')->updateOrInsert(
+                    [
+                        "file_id" => $id,
+                        "language" => $language->code
+                    ],
+                    [
+                        'title' => $data['file_title'] ?? '',
+                        'alt' => $data['file_alt'] ?? '',
+                        'active' => $data['file_active'] ?? ''
+                    ]
+                );
+            }
+            DB::commit();
+            return resJson(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return resJson(false);
+        }
+    }
+
     public function destroy(int $id)
     {
         // Find file to delete from disk

@@ -96,7 +96,7 @@
                                             </div>`)
         }
 
-        @if (isset($file) && $file !== NULL)
+        @if (isset($file))
             createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}');
         @endif
     </script>

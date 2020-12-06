@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localizationRedirect']], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [/*'localeCookieRedirect',*/'localizationRedirect']], function(){
 
     // Authentication Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
@@ -60,6 +60,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
                 Route::get('find/{id}', 'FileController@find')->name('files.find');
+                Route::put('{id}', 'FileController@update')->name('files.update');
                 Route::delete('{id}', 'FileController@destroy')->name('files.destroy');
             });
         });
