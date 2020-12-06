@@ -59,6 +59,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [/*'
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::put('save-sequence', 'FileController@saveSequence')->name('files.save_sequence');
+
                 Route::get('find/{id}', 'FileController@find')->name('files.find');
                 Route::put('{id}', 'FileController@update')->name('files.update');
                 Route::delete('{id}', 'FileController@destroy')->name('files.destroy');

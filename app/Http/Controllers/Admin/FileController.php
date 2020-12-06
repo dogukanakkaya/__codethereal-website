@@ -74,6 +74,29 @@ class FileController extends Controller
         ]);
     }
 
+    public function saveSequence()
+    {
+        $data = request()->all();
+
+        DB::beginTransaction();
+        try {
+            foreach ($data as $key => $value) {
+                // I write this with query builder for better performance, there could be a lot of data to be ordered.
+                DB::update('UPDATE files SET updated_at = ?, sequence = ? WHERE id = ?;', [
+                    now(),
+                    $key,
+                    $value
+                ]);
+            }
+
+            DB::commit();
+            return resJson(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return resJson(false);
+        }
+    }
+
     public function update(int $id)
     {
         $reqData = request()->json()->all();

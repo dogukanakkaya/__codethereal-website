@@ -155,12 +155,12 @@ class ItemController extends Controller
         return resJson(Item::withTrashed()->find($itemId)->restore());
     }
 
-    public function saveSequence(Request $request)
+    public function saveSequence()
     {
         if (!Auth::user()->can('update_menus')) {
             return resJsonUnauthorized();
         }
-        $data = $request->all();
+        $data = request()->all();
 
         DB::beginTransaction();
         try {

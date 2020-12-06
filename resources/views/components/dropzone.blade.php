@@ -5,10 +5,8 @@
         <p>({{ __('dropzone.description') }})</p>
     </div>
 </div>
-<div class="row ce-previews {{ $sortable ? 'sortable' : '' }}" id="preview-{{ $index }}">
-
-    <input type="hidden" name="{{ $inputName }}" value="0">
-</div>
+<div class="row ce-previews {{ $sortable ? 'sortable' : '' }}" id="preview-{{ $index }}"></div>
+<input type="hidden" name="{{ $inputName }}" value="0">
 
 @once
 
@@ -18,9 +16,6 @@
     @endpush
 
     @push('styles')
-        @if($sortable)
-            <link rel="stylesheet" href="{{ asset('css/ce/sortable.css') }}">
-        @endif
         <link rel="stylesheet" href="{{ asset('css/ce/dropzone.css') }}"/>
     @endpush
 
@@ -28,9 +23,12 @@
         @if($sortable)
             <script src="{{ asset('js/static/sortable.min.js') }}"></script>
             <script>
-                new Sortable(document.querySelector('.sortable'), {
+                const sortable = new Sortable(document.querySelector('.sortable'), {
                     animation: 150,
-                    ghostClass: 'blue-background-class'
+                    dataIdAttr: "data-file-id",
+                    onChange: () => {
+                        request.put('{{ route('files.save_sequence') }}', sortable.toArray())
+                    },
                 });
             </script>
         @endif
@@ -59,7 +57,7 @@
             }
 
             const clearPreview = id => {
-                const inputEl = document.querySelector(`[data-file-id='${id}'] ~ input`)
+                const inputEl = document.querySelector(`[data-file-id='${id}'] + input`)
                 if (inputEl){
                     inputEl.value = inputEl.value.replace(id, '').replace('|', '')
                 }

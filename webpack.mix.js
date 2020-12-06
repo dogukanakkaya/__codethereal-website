@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .copy('resources/js/static/dropzone.min.js', 'public/js/static')
     .copy('resources/js/static/sortable.min.js', 'public/js/static')
+    //.copyDirectory('resources/fonts', 'public/fonts')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/auth/login.scss', 'public/css/auth')
     .sass('resources/sass/auth/base.scss', 'public/css/auth')
