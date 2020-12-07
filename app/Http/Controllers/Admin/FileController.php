@@ -31,12 +31,12 @@ class FileController extends Controller
 
         // Check allowed extensions
         if (!in_array($file->extension(), $this->allowedExtensions)) {
-            return redirect()->back()->withErrors([__('global.file_extension_unallowed')]);
+            return redirect()->back()->withErrors([__('dropzone.file_extension_not_allowed')]);
         }
 
         $path = $file->store($folder, ['disk' => 'public']);
 
-        $insert = File::create([
+        $file = File::create([
             'path' => $path,
             'name' => $name,
             'size' => $size,
@@ -44,11 +44,11 @@ class FileController extends Controller
         ]);
 
         $data = [
-            'id' => DB::getPdo()->lastInsertId(),
+            'id' => $file->id,
             'path' => asset('storage/' . $path)
         ];
 
-        return resJson($insert, $data);
+        return resJson($file, $data);
     }
 
     public function download(int $id)

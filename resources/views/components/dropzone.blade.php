@@ -36,7 +36,7 @@
         <script src="{{ asset('js/static/dropzone.min.js') }}"></script>
         <script>
             Dropzone.autoDiscover = false
-            Dropzone.prototype.defaultOptions.dictRemoveFile = '{{ __('dropzone.remove_file') }}'
+            Dropzone.prototype.defaultOptions.dictRemoveFile = '{{ __('dropzone.remove') }}'
             Dropzone.prototype.defaultOptions.dictFileTooBig = '{{ __('dropzone.file_too_big') }}'
             Dropzone.prototype.defaultOptions.dictInvalidFileType = '{{ __('dropzone.file_extension_not_allowed') }}'
             Dropzone.prototype.defaultOptions.dictCancelUpload = '{{ __('dropzone.cancel_upload') }}'
@@ -151,14 +151,14 @@
 
             const preview{{ $index }} = document.getElementById('preview-{{ $index }}')
             preview{{ $index }}.insertAdjacentHTML('afterbegin',
-                `<div class="col-{{ $maxFiles === 1 ? 12 : 4 }}" data-file-id="${id}">
+                `<div class="col-md-{{ $maxFiles === 1 ? 12 : 3 }}" data-file-id="${id}">
                     <div class="thumb">
                         <img class="w-100" src="${url}" alt="dz-thumb" />
                         <div class="preview-actions">
                             <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('global.download') }}</a>
                             <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('global.update') }}</a>
-                            <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove_file') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove_file') }}</a>
-                            <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.show_full') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.show_full') }}</a>
+                            <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove') }}</a>
+                            <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.expand') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.expand') }}</a>
                         </div>
                     </div>
                 </div>`)

@@ -37,12 +37,20 @@ class SettingController extends Controller
         DB::beginTransaction();
         try {
             // Loop every language
+            //$upsertData = [];
             foreach (languages() as $language) {
                 // Get active language's data
                 $data = $reqData[$language->code];
 
                 // Loop every data for active language and update or create
                 foreach ($data as $key => $value) {
+                    /*
+                    $upsertData[] = [
+                        'name' => $key,
+                        'language' => $language->code,
+                        'value' => $value
+                    ];
+                    */
                     DB::table('settings')->updateOrInsert(
                         [
                             "name" => $key,
@@ -54,6 +62,9 @@ class SettingController extends Controller
                     );
                 }
             }
+            // TODO: change updateOrInsert with upsert to make faster queries
+            //DB::upsert($upsertData, ['name', 'language'], ['value']);
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {

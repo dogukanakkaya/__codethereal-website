@@ -49,11 +49,6 @@ class ResetPasswordController extends Controller
         if ($validator->fails()){
             return back()->withErrors(['error' => __('validation.custom_required')]);
         }
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
