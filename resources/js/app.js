@@ -44,8 +44,6 @@ window.toggleTheme = (theme = null) => {
         }
     }else{
         localStorage.setItem(`${STORAGE_PREFIX}_theme`, theme)
-        document.querySelectorAll(`.theme-color img:not([alt='${theme}'])`).forEach(themeImg => themeImg.classList.remove('active'))
-        document.querySelector(`[alt='${theme}']`).classList.add('active')
         setHtmlTheme(theme)
     }
 }
