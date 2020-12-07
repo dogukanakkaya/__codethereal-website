@@ -50,7 +50,8 @@
                                         @if($errors->any())
                                             <div class="alert alert-danger mt-2 mb-2">{{ $errors->first() }}</div>
                                         @elseif(Session::has('status'))
-                                            <div class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
+                                            <div
+                                                class="alert alert-success mt-2 mb-2">{{ Session::get('status') }}</div>
                                         @endif
 
                                     </div>
@@ -64,7 +65,8 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         {{ Form::label(__('users.photo')) }}
-                                        <x-dropzone :file-id="$user->image" folder="user-profiles" input-name="image" max-files="1"/>
+                                        <x-dropzone :file-id="$user->image" folder="user-profiles" input-name="image"
+                                                    max-files="1"/>
                                     </div>
                                 </div>
                                 <div class="col-12 text-right">
@@ -73,7 +75,28 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="theme" role="tabpanel">
-                            <p>{{ __('global.coming_soon', ['name' => __('global.theme_settings')]) }}</p>
+                            @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+                            <div class="row theme-color">
+                                <div class="col-md-3 item mb-5">
+                                    <img onclick="toggleTheme('light-theme')" src="{{ asset('img/light-theme.png') }}" alt="light-theme" class="w-100 mb-3">
+                                </div>
+                                <div class="col-md-3 item mb-5">
+                                    <img onclick="toggleTheme('dark-theme')" src="{{ asset('img/dark-theme.png') }}" alt="dark-theme" class="w-100 mb-3">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="theme-language">
+                                        @foreach($languages as $language)
+                                            <li>
+                                                <a href="{{ LaravelLocalization::getLocalizedURL($language->code) }}" class="{{ app()->getLocale() === $language->code ? 'active' : '' }}">
+                                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt=""> {{ $language->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="notes" role="tabpanel">
                             <p>{{ __('global.coming_soon', ['name' => __('global.notes')]) }}</p>

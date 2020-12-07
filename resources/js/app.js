@@ -30,14 +30,24 @@ window.addEventListener('load', () => {
     document.getElementById('loader').remove()
 
     const theme = localStorage.getItem(`${STORAGE_PREFIX}_theme`) || 'light-theme'
-    document.getElementById(theme).setAttribute('checked', true)
-    setHtmlTheme(theme)
+    toggleTheme(theme)
 })
 
 // Set theme
-window.toggleTheme = (theme) => {
-    localStorage.setItem(`${STORAGE_PREFIX}_theme`, theme)
-    setHtmlTheme(theme)
+window.toggleTheme = (theme = null) => {
+    const activeTheme = localStorage.getItem(`${STORAGE_PREFIX}_theme`)
+    if (!theme){
+        if (activeTheme === 'light-theme'){
+            toggleTheme('dark-theme')
+        }else{
+            toggleTheme('light-theme')
+        }
+    }else{
+        localStorage.setItem(`${STORAGE_PREFIX}_theme`, theme)
+        document.querySelectorAll(`.theme-color img:not([alt='${theme}'])`).forEach(themeImg => themeImg.classList.remove('active'))
+        document.querySelector(`[alt='${theme}']`).classList.add('active')
+        setHtmlTheme(theme)
+    }
 }
 
 // Open the theme settings sidebar

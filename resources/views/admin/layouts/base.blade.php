@@ -113,10 +113,15 @@
                     <input type="search" placeholder="{{ __('global.search') }}...">
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="javascript:void(0);">
                         <i class="material-icons-outlined">notifications</i>
                     </a>
                     <span class="total-notification {{ true ? 'blink' : '' }}">9</span>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="toggleTheme()">
+                        <i class="material-icons-outlined">nights_stay</i>
+                    </a>
                 </li>
                 <li>
                     <a href="javascript:void(0);" onclick="toggleThemeSettings()">
