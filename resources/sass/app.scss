@@ -373,13 +373,13 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 70px;
-        width: 70px;
+        height: 45px;
+        width: 45px;
         border-radius: 50%;
         border: none;
-        transition-duration: .5s;
-        transform: rotateX(45deg);
-        box-shadow: 0px 10px 5px rgba(0, 0, 0, .3);
+        transition-duration: 0.5s;
+        transform: rotateX(35deg);
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
         cursor: pointer;
         color: #fff;
 
@@ -402,6 +402,10 @@ main {
 
         &.danger{
             background-color: $red;
+        }
+
+        &.dark{
+            background-color: #000;
         }
 
         &:not(:last-child){

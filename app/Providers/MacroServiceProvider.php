@@ -54,16 +54,16 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-36 spin">sync</i></button>');
+            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-24">sync</i></button>');
         });
 
         \Form::macro('addNew', function (array $attributes = []) {
             $existAttrs = [
-                'class' => 'ce-btn success'
+                'class' => 'ce-btn dark'
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-36">add</i></button>');
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24">add</i></button>');
         });
     }
 }

@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
     "/css/auth/login.css": "/css/auth/login.css",
     "/css/auth/base.css": "/css/auth/base.css",
     "/css/permissions/base.css": "/css/permissions/base.css",
@@ -11,6 +12,5 @@
     "/css/ce/dropzone.css": "/css/ce/dropzone.css",
     "/js/static/dropzone.min.js": "/js/static/dropzone.min.js",
     "/js/static/sortable.min.js": "/js/static/sortable.min.js",
-    "/plugins/tinymce/tinymce.min.js": "/plugins/tinymce/tinymce.min.js",
-    "/css/app.css": "/css/app.css"
+    "/plugins/tinymce/tinymce.min.js": "/plugins/tinymce/tinymce.min.js"
 }
