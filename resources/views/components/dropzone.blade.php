@@ -156,7 +156,7 @@
                         <img class="w-100" src="${url}" alt="dz-thumb" />
                         <div class="preview-actions">
                             <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('global.download') }}</a>
-                            <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('buttons.update') }}</a>
+                            <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('global.update') }}</a>
                             <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove_file') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove_file') }}</a>
                             <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.show_full') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.show_full') }}</a>
                         </div>

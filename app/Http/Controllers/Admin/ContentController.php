@@ -68,20 +68,36 @@ class ContentController extends Controller
             return resJsonUnauthorized();
         }
         $data = $request->validated();
-
         $contentData = array_remove($data, 'content');
+
+        $files = array_remove($contentData, 'files');
+        $fileIds = explode('|', $files);
 
         DB::beginTransaction();
         try {
+            // Create Content
             $content = Content::create($contentData);
 
-            // Loop with every language
+            // Create Content Languages
+            $translationsData = [];
             foreach ($data as $language => $values) {
-                $values['language'] = $language;
-                $values['content_id'] = $content->id;
-                $values['url'] = Str::slug($values['title']);
-                DB::table('content_translations')->insert($values);
+                $translationsData[] = array_merge($values, [
+                    'language' => $language,
+                    'content_id' => $content->id,
+                    'url' => Str::slug($values['title'])
+                ]);
             }
+            DB::table('content_translations')->insert($translationsData);
+
+            // Create Content Files
+            $filesData = [];
+            foreach ($fileIds as $fileId) {
+                $filesData[] = [
+                    'content_id' => $content->id,
+                    'file_id' => $fileId
+                ];
+            }
+            DB::table('content_files')->insert($filesData);
 
             DB::commit();
             return resJson(true);

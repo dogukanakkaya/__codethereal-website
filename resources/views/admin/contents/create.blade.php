@@ -151,7 +151,7 @@
         form.addEventListener('submit', e => {
             e.preventDefault()
             toggleBtnLoading()
-            const formData = serialize(form, {hash: true})
+            const formData = serialize(form, {hash: true, empty: true})
             request.post('{{ route('contents.store') }}', formData)
                 .then(__onResponse)
         })
