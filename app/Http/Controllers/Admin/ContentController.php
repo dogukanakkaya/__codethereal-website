@@ -71,7 +71,7 @@ class ContentController extends Controller
         $contentData = array_remove($data, 'content');
 
         $files = array_remove($contentData, 'files');
-        $fileIds = explode('|', $files);
+        $fileIds = $files !== '0' ? explode('|', $files) : [];
 
         DB::beginTransaction();
         try {
@@ -79,17 +79,19 @@ class ContentController extends Controller
             $content = Content::create($contentData);
 
             // Create Content Languages
-            $translationsData = [];
+            // Collect all data in one array to make faster sql queries
+            $translationData = [];
             foreach ($data as $language => $values) {
-                $translationsData[] = array_merge($values, [
+                $translationData[] = array_merge($values, [
                     'language' => $language,
                     'content_id' => $content->id,
                     'url' => Str::slug($values['title'])
                 ]);
             }
-            DB::table('content_translations')->insert($translationsData);
+            DB::table('content_translations')->insert($translationData);
 
             // Create Content Files
+            // Collect all data in one array to make faster sql queries
             $filesData = [];
             foreach ($fileIds as $fileId) {
                 $filesData[] = [

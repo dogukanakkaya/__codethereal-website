@@ -67,13 +67,17 @@ class ItemController extends Controller
         try {
             $item = Item::create($itemData);
 
-            // Loop with every language
+            // Create Menu Item Languages
+            // Collect all data in one array to make faster sql queries
+            $translationData = [];
             foreach ($data as $language => $values) {
-                $values['language'] = $language;
-                $values['item_id'] = $item->id;
-                $values['url'] = empty($values['url']) ? Str::slug($values['title'] ?? '') : $values['url'] ?? '';
-                DB::table('menu_item_translations')->insert($values);
+                $translationData[] = array_merge($values, [
+                    'language' => $language,
+                    'item_id' => $item->id,
+                    'url' => empty($values['url']) ? Str::slug($values['title'] ?? '') : $values['url'] ?? ''
+                ]);
             }
+            DB::table('menu_item_translations')->insert($translationData);
 
             DB::commit();
             return resJson(true);
@@ -105,7 +109,7 @@ class ItemController extends Controller
         return response()->json([
             'item' => $item,
             'translations' => $translations
-        ], 200);
+        ]);
     }
 
     public function update(ItemRequest $request, int $groupId, int $itemId)

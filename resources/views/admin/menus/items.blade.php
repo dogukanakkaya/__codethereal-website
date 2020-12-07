@@ -78,7 +78,7 @@
         form.addEventListener('submit', e => {
             e.preventDefault()
             toggleBtnLoading()
-            const formData = serialize(form, {hash: true})
+            const formData = serialize(form, {hash: true, empty: true})
             if (updateId > 0) {
                 const url = '{{ route('menu_items.update', ['groupId' => $groupId, 'id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData)
