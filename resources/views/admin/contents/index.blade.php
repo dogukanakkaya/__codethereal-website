@@ -14,10 +14,33 @@
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
         <x-datatable :url="route('contents.datatable')" :columns="$columns"/>
     </div>
+
+    @include('admin.contents.form-modal')
 @endsection
 
 @push('scripts')
     <script>
-        const __create = () => window.location.href = '{{ route('contents.create') }}'
+        const form = document.getElementById('content-form')
+        const modal = '#content-form-modal'
+
+        const __create = () => {
+            openModal(modal)
+        }
+
+        const __onResponse = response => {
+            makeToast(response.data)
+            if (response.data.status) {
+                form.reset()
+            }
+            toggleBtnLoading()
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            toggleBtnLoading()
+            const formData = serialize(form, {hash: true, empty: true})
+            request.post('{{ route('contents.create') }}', formData)
+                .then(__onResponse)
+        })
     </script>
 @endpush

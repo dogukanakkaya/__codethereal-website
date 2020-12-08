@@ -23,7 +23,12 @@ class ContentController extends Controller
                 ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
                 ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at')],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
-            ]
+            ],
+            'parents' => Content::select('contents.id', 'title', 'created_at')
+                ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
+                ->where('language', app()->getLocale())
+                ->get()
+                ->pluck('title', 'id')->toArray()
         ];
         return view('admin.contents.index', $data);
     }
@@ -46,30 +51,19 @@ class ContentController extends Controller
             ->make(true);
     }
 
-    public function create()
-    {
-        if (!Auth::user()->can('create_contents')) {
-            return back();
-        }
-        $data = [
-            'navigations' => [route('contents.index') => __('contents.contents'), __('global.add_new')],
-            'parents' => Content::select('contents.id', 'title', 'created_at')
-                ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
-                ->where('language', app()->getLocale())
-                ->get()
-                ->pluck('title', 'id')->toArray()
-        ];
-        return view('admin.contents.create', $data);
-    }
-
-    public function store(ContentRequest $request)
+    public function create(ContentRequest $request)
     {
         if (!Auth::user()->can('create_contents')) {
             return resJsonUnauthorized();
         }
         $data = $request->validated();
+        echo "<pre>";
+            print_r($data);
+        echo "</pre>";
+        exit;
         $contentData = array_remove($data, 'content');
 
+        // Get and unset files from content data and if it's not 0 then explode it from | character to add database each one
         $files = array_remove($contentData, 'files');
         $fileIds = $files !== '0' ? explode('|', $files) : [];
 
