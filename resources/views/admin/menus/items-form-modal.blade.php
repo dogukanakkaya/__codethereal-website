@@ -42,8 +42,8 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <div class="custom-control custom-switch">
-                                                {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
                                                 {{ Form::hidden("$language->code[active]", 0) }}
+                                                {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
                                                 {{ Form::label("$language->code[active]", __('menus.item_active'), ['class' => 'custom-control-label']) }}
                                             </div>
                                         </div>

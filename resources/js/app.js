@@ -4,7 +4,8 @@ import 'datatables.net'
 import ceToast from './ce/toast'
 import { STORAGE_PREFIX } from "./constants";
 
-window.serialize = require('form-serialize');
+// TODO: i needed to modify this to return 0 on empty checkbox so i copy core files and change the line
+window.serialize = require('./static/form-serialize');
 window.makeToast = ceToast
 
 /* Global functions */
