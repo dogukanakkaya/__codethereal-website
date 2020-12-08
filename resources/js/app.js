@@ -126,6 +126,29 @@ document.querySelectorAll('.has-dd').forEach(dd => {
     })
 })
 
+/* Draggable setup */
+const draggables = document.querySelectorAll('.draggable');
+let initX, initY, mousePressX, mousePressY;
+
+draggables.forEach(draggable => {
+    draggable.addEventListener('mousedown', function (e){
+        initX = this.offsetLeft;
+        initY = this.offsetTop;
+        mousePressX = e.clientX;
+        mousePressY = e.clientY;
+        this.addEventListener('mousemove', repositionElement, false);
+
+        window.addEventListener('mouseup', () => {
+            draggable.removeEventListener('mousemove', repositionElement, false);
+        }, false);
+    })
+})
+function repositionElement(e) {
+    this.style.left = initX + e.clientX - mousePressX + 'px';
+    this.style.top = initY + e.clientY - mousePressY + 'px';
+}
+/* /Draggable setup */
+
 // TODO: jquery to pure js
 window.openModal = selector => $(selector).modal('show')
 window.closeModal = selector => $(selector).modal('hide')

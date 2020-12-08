@@ -366,6 +366,8 @@ main {
 }
 
 .language-tab {
+    justify-content: flex-end;
+
     a.active {
         border-radius: 0;
         background: unset !important;

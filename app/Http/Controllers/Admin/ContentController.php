@@ -57,10 +57,6 @@ class ContentController extends Controller
             return resJsonUnauthorized();
         }
         $data = $request->validated();
-        echo "<pre>";
-            print_r($data);
-        echo "</pre>";
-        exit;
         $contentData = array_remove($data, 'content');
 
         // Get and unset files from content data and if it's not 0 then explode it from | character to add database each one

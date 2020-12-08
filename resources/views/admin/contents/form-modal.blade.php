@@ -1,4 +1,4 @@
-<div class="modal fade" id="content-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade draggable" id="content-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         {{ Form::open(['id' => 'content-form']) }}
         <div class="modal-content">
@@ -13,15 +13,15 @@
                     <div class="col-12 d-flex justify-content-between">
                         <div class="nav nav-pills mb-3 border-active-tab" role="tablist">
                             <a class="nav-link active" data-toggle="pill" href="#general" role="tab"
-                               aria-selected="true">{{ __('contents.general') }}</a>
+                               aria-selected="true"><i class="material-icons-outlined">layers</i> {{ __('contents.general') }}</a>
                             <a class="nav-link" data-toggle="pill" href="#files" role="tab"
-                               aria-selected="false">{{ __('contents.files') }}</a>
+                               aria-selected="false"><i class="material-icons-outlined">insert_drive_file</i> {{ __('contents.files') }}</a>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="general" role="tabpanel">
-                                <div class="nav nav-pills mb-3 language-tab" role="tablist">
+                                <div class="nav nav-pills mb-3 language-tab" style="top: -48px;position: absolute;right: 0;" role="tablist">
                                     @foreach($languages as $language)
                                         <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill"
                                            href="#general-{{ $language->code }}" role="tab"
@@ -38,7 +38,6 @@
                                         </div>
                                     </div>
                                     <div class="border-top mb-3"></div>
-
                                     @foreach($languages as $key => $language)
                                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                                              id="general-{{ $language->code }}" role="tabpanel">

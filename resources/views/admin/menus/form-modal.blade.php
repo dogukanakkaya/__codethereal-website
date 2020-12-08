@@ -1,4 +1,4 @@
-<div class="modal fade" id="menu-group-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade draggable" id="menu-group-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         {{ Form::open(['id' => 'menu-group-form']) }}
         <div class="modal-content">

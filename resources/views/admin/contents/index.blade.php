@@ -31,6 +31,8 @@
             makeToast(response.data)
             if (response.data.status) {
                 form.reset()
+                closeModal(modal)
+                __refresh()
             }
             toggleBtnLoading()
         }

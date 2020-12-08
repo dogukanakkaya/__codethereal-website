@@ -141,6 +141,10 @@ a.danger:hover, a.danger:hover i {
     animation: spinner-border 2s linear infinite;
 }
 
+.draggable .modal-header{
+    cursor: move;
+}
+
 /* BS Override */
 form label:not(.form-check-label){
     font-size: .725rem;

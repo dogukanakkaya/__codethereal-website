@@ -1,4 +1,4 @@
-<div class="modal fade" id="user-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade draggable" id="user-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         {{ Form::open(['id' => 'user-form']) }}
         <div class="modal-content">
