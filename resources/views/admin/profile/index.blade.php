@@ -4,19 +4,17 @@
     <x-breadcrumb :nav="$navigations"/>
     <div class="profile">
         <div class="row">
-            <div class="col-md-3 col-xs-12">
+            <div class="col-md-2 col-xs-12">
                 <div class="nav flex-column nav-pills border-active-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" data-toggle="pill" href="#profile" role="tab"
+                    <a class="nav-link right active" data-toggle="pill" href="#profile" role="tab"
                        aria-selected="true">{{ __('users.profile') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#theme" role="tab"
-                       aria-selected="false">{{ __('global.theme') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#notes" role="tab"
+                    <a class="nav-link right" data-toggle="pill" href="#notes" role="tab"
                        aria-selected="false">{{ __('global.notes') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#calendar" role="tab"
+                    <a class="nav-link right" data-toggle="pill" href="#calendar" role="tab"
                        aria-selected="false">{{ __('global.calendar') }}</a>
                 </div>
             </div>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-10 col-xs-12">
                 <div class="list-area p-4">
                     {{ Form::open(['id' => 'profile-form']) }}
                     <div class="tab-content">
@@ -71,30 +69,6 @@
                                 </div>
                                 <div class="col-12 text-right">
                                     {{ Form::save() }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="theme" role="tabpanel">
-                            @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
-                            <div class="row theme-color">
-                                <div class="col-md-3 item mb-5">
-                                    <img onclick="toggleTheme('light-theme')" src="{{ asset('img/light-theme.png') }}" alt="light-theme" class="w-100 mb-3">
-                                </div>
-                                <div class="col-md-3 item mb-5">
-                                    <img onclick="toggleTheme('dark-theme')" src="{{ asset('img/dark-theme.png') }}" alt="dark-theme" class="w-100 mb-3">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <ul class="theme-language">
-                                        @foreach($languages as $language)
-                                            <li>
-                                                <a href="{{ LaravelLocalization::getLocalizedURL($language->code) }}" class="{{ app()->getLocale() === $language->code ? 'active' : '' }}">
-                                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt=""> {{ $language->name }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
                                 </div>
                             </div>
                         </div>

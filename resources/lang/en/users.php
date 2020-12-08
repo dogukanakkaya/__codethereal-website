@@ -12,4 +12,5 @@ return [
     'password' => 'Password',
     'roles' => 'Roles',
     'verified' => 'Verified',
+    'logout' => 'Logout'
 ];

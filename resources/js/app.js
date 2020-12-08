@@ -119,6 +119,12 @@ window.bottomAlert = ({ text, timeout = null }) => {
     }
 }
 
+document.querySelectorAll('.has-dd').forEach(dd => {
+    dd.addEventListener('click', () => {
+        dd.querySelector('.menu-dd').classList.toggle('show')
+    })
+})
+
 // TODO: jquery to pure js
 window.openModal = selector => $(selector).modal('show')
 window.closeModal = selector => $(selector).modal('hide')

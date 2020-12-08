@@ -85,16 +85,23 @@ aside {
             font-weight: 500;
         }
 
-        .has-dropdown > a::after {
-            // Chevron down icon
-
+        .has-dd > a::after {
+            content: 'expand_more';
+            font-family: "Material Icons Outlined";
             position: absolute;
             color: $menu-item-color;
             right: 15px;
         }
 
-        .dropdown {
+        .menu-dd {
             padding-left: 40px;
+            height: 0;
+            overflow: hidden;
+            transition: all .2s ease;
+
+            &.show {
+                height: auto;
+            }
         }
 
         a {
@@ -146,13 +153,17 @@ header {
         align-items: center;
         justify-content: flex-end;
 
+        input[type=search] + a {
+            display: none;
+        }
+
         ul {
             display: flex;
             align-items: center;
             max-width: 100%;
         }
 
-        .live-time{
+        .live-time {
             font-size: 23px;
             display: flex;
             align-items: center;
@@ -160,15 +171,22 @@ header {
 
         li {
             position: relative;
-            padding: 0 1rem;
+
+            & > a {
+                padding: 1rem;
+
+                &:hover {
+                    background-color: rgb(245 113 63 / 10%);
+                }
+            }
         }
 
         a {
             color: $gray-color;
+            transition: all .25s;
 
             &:hover {
                 color: $main-color !important;
-                transition: .25s all;
             }
         }
 
@@ -185,7 +203,7 @@ header {
             font-size: 11px;
             color: white;
 
-            &.blink{
+            &.blink {
                 box-shadow: 0 0 5px 2px $main-color;
                 animation: blinker 1.25s linear infinite;
             }
@@ -204,6 +222,55 @@ header {
                 font-family: 'Material Icons Outlined';
             }
         }
+    }
+
+    .profile {
+        img {
+            width: 36px;
+            height: 36px;
+            border-radius: 100%;
+        }
+
+        span {
+            font-size: .8rem;
+        }
+
+        .dropdown-menu{
+            top: 10px!important;
+        }
+    }
+
+    .language{
+        img{
+            height: 16px;
+        }
+
+        .dropdown-menu {
+            top: 20px!important;
+        }
+    }
+
+    .dropdown-toggle {
+        background-color: unset;
+        outline: none;
+        border: none;
+    }
+
+    .dropdown-toggle::after {
+        content: unset;
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 0.2rem 2rem rgba(0,0,0,.12);
+    }
+
+    .dropdown-item {
+        color: #212529;
+    }
+
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: unset;
     }
 }
 
@@ -260,86 +327,25 @@ header {
     }
 }
 
-.theme-color{
-    .item {
-        img {
-            cursor: pointer;
-            padding: .25rem;
-            background-color: #ebeff2;
-            border: 1px solid #dee2e6;
-        }
-    }
-}
-
-.flag-img{
+.flag-img {
     width: 25px;
     height: 15px;
     object-fit: cover;
-}
-
-.theme-language{
-    display: flex;
-
-    a{
-        display: inline-block;
-        padding-right: .5rem;
-    }
-}
-
-.user-profile {
-    padding: 1rem 0;
-    text-align: center;
-
-    .image {
-        padding: .5rem 0;
-
-        img {
-            width: 100px;
-            height: 100px;
-            border-radius: 100%;
-            object-fit: cover;
-            background: #7373732e;
-            padding: 2px;
-        }
-    }
-
-    .info {
-        padding: .5rem 0;
-
-        a {
-            font-size: 16px;
-            font-weight: 500;
-            color: #fff;
-            letter-spacing: 2px;
-        }
-
-        p {
-            font-size: 13px;
-            color: #a5a5a5;
-        }
-    }
-
-    .buttons {
-        a {
-            padding: 0 .5rem;
-            color: #fff;
-        }
-    }
 }
 
 main {
     transition: margin-left .25s ease-in;
     padding: 2rem;
 
-    .list-area{
+    .list-area {
         background: #fff;
         box-shadow: 0 0 28px rgba(0, 0, 0, 0.09);
 
-        .description{
+        .description {
             margin-bottom: 1rem;
             border-bottom: $gray-border;
 
-            p{
+            p {
                 font-size: 12px;
                 color: #5d5d5ddb;
                 margin-bottom: .5rem;
@@ -347,7 +353,7 @@ main {
                 align-items: center;
             }
 
-            i{
+            i {
                 margin-right: .25rem;
             }
         }
@@ -363,12 +369,12 @@ main {
     }
 }
 
-.page-actions{
+.page-actions {
     margin-bottom: 1rem;
     display: flex;
     justify-content: flex-end;
 
-    button{
+    button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -382,59 +388,59 @@ main {
         cursor: pointer;
         color: #fff;
 
-        &:hover{
+        &:hover {
             transform: scale(1.1);
             box-shadow: none;
         }
 
-        &:focus{
+        &:focus {
             outline: none;
         }
 
-        &.success{
+        &.success {
             background-color: $green;
         }
 
-        &.primary{
+        &.primary {
             background-color: $blue;
         }
 
-        &.danger{
+        &.danger {
             background-color: $red;
         }
 
-        &.dark{
+        &.dark {
             background-color: #000;
         }
 
-        &:not(:last-child){
+        &:not(:last-child) {
             margin-right: 10px;
         }
     }
 }
 
-.breadcrumb-item{
+.breadcrumb-item {
     align-items: center;
 
-    & + .breadcrumb-item::before{
+    & + .breadcrumb-item::before {
         font-family: 'Material Icons';
         content: 'chevron_right';
     }
 
-    &.active{
+    &.active {
         color: $main-color;
     }
 }
 
-.quick-alert{
+.quick-alert {
     display: none;
     position: relative;
 
-    &.show{
+    &.show {
         display: block;
     }
 
-    .icon{
+    .icon {
         position: fixed;
         right: 20px;
         background: $main-color;
@@ -451,7 +457,7 @@ main {
         cursor: pointer;
     }
 
-    &:hover .text{
+    &:hover .text {
         display: block;
         position: fixed;
         right: 25px;
@@ -462,10 +468,10 @@ main {
         box-shadow: 0 0 28px rgba(0, 0, 0, 0.2);
     }
 
-    .text{
+    .text {
         display: none;
 
-        &::after{
+        &::after {
             content: '';
             width: 20px;
             height: 20px;
@@ -477,23 +483,23 @@ main {
         }
     }
 
-    p{
+    p {
         margin: 0;
         font-size: 13px;
         color: $gray-color;
     }
 }
 
-.action-dropdown{
-    button{
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+.action-dropdown {
+    button {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
         padding: .4rem .9rem;
 
-        &:focus, &:active{
-            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)!important;
+        &:focus, &:active {
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
         }
 
-        &::after{
+        &::after {
             vertical-align: middle;
         }
     }
@@ -513,24 +519,27 @@ main {
         }
     }
 
-    header{
+    header {
         z-index: 11;
 
         .top-right {
-            input[type=search]{
+            input[type=search] {
+                display: none;
+            }
+
+            input[type=search] + a {
+                display: block;
+            }
+
+            > a {
                 padding: .5rem;
+            }
+
+            .live-time {
                 font-size: 12px;
             }
 
-            li{
-                padding: 0 .4rem;
-            }
-
-            .live-time{
-                font-size: 12px;
-            }
-
-            .total-notification{
+            .total-notification {
                 right: 2px;
             }
         }

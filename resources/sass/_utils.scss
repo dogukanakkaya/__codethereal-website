@@ -97,6 +97,16 @@ a.danger:hover, a.danger:hover i {
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
 
+    &.right{
+        border-right: 2px solid transparent;
+        &.active{
+            border-right: 2px solid $main-color;
+            border-top: 2px solid transparent;
+            border-bottom: 2px solid transparent;
+        }
+    }
+
+
     &.active{
         border-top: 2px solid $main-color;
         border-bottom: 2px solid $main-color;
@@ -129,13 +139,6 @@ a.danger:hover, a.danger:hover i {
 
 .spin{
     animation: spinner-border 2s linear infinite;
-}
-
-.main-color-line{
-    width: 75px;
-    height: 2px;
-    background: $main-color;
-    margin: 0 auto 20px auto;
 }
 
 /* BS Override */
