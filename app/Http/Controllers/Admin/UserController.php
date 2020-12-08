@@ -51,7 +51,7 @@ class UserController extends Controller
                 return '<img src="' . $path . '" class="profile-img" alt="profile"/>';
             })
             ->editColumn('email_verified_at', function (User $user) {
-                return $user->email_verified_at !== NULL ? '<span class="badge badge-success">' . __('global.yes') . '</span>' : '<span class="badge badge-danger">' . __('global.no') . '</span>';
+                return $user->email_verified_at !== NULL ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
             ->addColumn('action', function ($row) {
                 $actions = [
@@ -61,7 +61,7 @@ class UserController extends Controller
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
             ->addColumn('is_online', function ($row) {
-                return isOnline($row->id) ? '<span class="badge badge-success">' . __('global.yes') . '</span>' : '<span class="badge badge-danger">' . __('global.no') . '</span>';
+                return isOnline($row->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
             ->rawColumns(['path', 'action', 'email_verified_at', 'is_online'])
             ->make(true);

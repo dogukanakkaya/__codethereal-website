@@ -31,7 +31,5 @@ return [
     'update' => 'Update',
     'delete' => 'Delete',
     'detail' => 'Detail',
-    'undo' => 'Undo',
-    'yes' => 'Yes',
-    'no' => 'No'
+    'undo' => 'Undo'
 ];
