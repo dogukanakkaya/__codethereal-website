@@ -173,11 +173,24 @@ header {
             position: relative;
 
             & > a {
-                padding: 1rem;
+                padding: 0 1rem;
+                height: $header-height;
+                line-height: $header-height;
+                display: inline-block;
 
                 &:hover {
                     background-color: rgb(245 113 63 / 10%);
                 }
+            }
+
+            button {
+                padding: 0 .75rem;
+                height: $header-height;
+                line-height: $header-height;
+            }
+
+            button:hover {
+                background-color: rgb(245 113 63 / 10%);
             }
         }
 
@@ -193,7 +206,7 @@ header {
         .total-notification {
             position: absolute;
             right: 11px;
-            top: -5px;
+            top: 11px;
             width: 16px;
             height: 16px;
             background: $main-color;
@@ -234,19 +247,11 @@ header {
         span {
             font-size: .8rem;
         }
-
-        .dropdown-menu{
-            top: 10px!important;
-        }
     }
 
-    .language{
-        img{
+    .language {
+        img {
             height: 16px;
-        }
-
-        .dropdown-menu {
-            top: 20px!important;
         }
     }
 
@@ -262,7 +267,7 @@ header {
 
     .dropdown-menu {
         border: none;
-        box-shadow: 0 0.2rem 2rem rgba(0,0,0,.12);
+        box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, .12);
     }
 
     .dropdown-item {
@@ -536,11 +541,11 @@ main {
             }
 
             .live-time {
-                font-size: 12px;
+                display: none;
             }
 
             .total-notification {
-                right: 2px;
+                right: 10px;
             }
         }
     }
