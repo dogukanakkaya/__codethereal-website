@@ -12,8 +12,8 @@ html[theme='dark-theme']{
 
     .image,
     img,
-    aside.with-bg,
-    aside.with-bg .logo,
+    aside[theme='with-bg'],
+    aside[theme='with-bg'] .logo,
     .black-overlay{
         filter: invert(1) hue-rotate(180deg);
     }

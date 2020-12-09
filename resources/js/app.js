@@ -8,8 +8,9 @@ import { STORAGE_PREFIX } from "./constants";
 window.serialize = require('./static/form-serialize');
 window.makeToast = ceToast
 
-/* Global functions */
-const setHtmlTheme = theme => document.querySelector('html').setAttribute('theme', theme);
+const availableThemeColors = ['light-theme', 'dark-theme']
+const availableSidebarStyles = ['with-bg', 'without-bg']
+
 const withZeros = time => time < 10 ? "0" + time : time;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -30,26 +31,37 @@ window.addEventListener('load', () => {
     // Remove loader
     document.getElementById('loader').remove()
 
-    const theme = localStorage.getItem(`${STORAGE_PREFIX}_theme`) || 'light-theme'
-    toggleTheme(theme)
+    // Theme color, dark or light mode
+    const themeColor = localStorage.getItem(`${STORAGE_PREFIX}_theme_color`) || availableThemeColors[0]
+
+    // Sidebar style, with bg or without bg
+    const sidebarStyle = localStorage.getItem(`${STORAGE_PREFIX}_sidebar_style`) || availableSidebarStyles[0]
+
+    document.getElementById(themeColor).setAttribute('checked', true)
+    document.getElementById(sidebarStyle).setAttribute('checked', true)
+    toggleThemeColor(themeColor)
+    toggleSidebarStyle(sidebarStyle)
 })
 
-// Set theme
-window.toggleTheme = (theme = null) => {
-    const activeTheme = localStorage.getItem(`${STORAGE_PREFIX}_theme`)
+window.toggleThemeColor = (theme = null) => {
+    const activeTheme = localStorage.getItem(`${STORAGE_PREFIX}_theme_color`)
     if (!theme){
-        if (activeTheme === 'light-theme'){
-            toggleTheme('dark-theme')
-        }else{
-            toggleTheme('light-theme')
-        }
+        // If user clicks on night icon to toggle theme color
+        // Find first except activeTheme and toggle it
+        const firstExceptActiveTheme = availableThemeColors.find(themeColor => themeColor !== activeTheme)
+        toggleThemeColor(firstExceptActiveTheme)
     }else{
-        localStorage.setItem(`${STORAGE_PREFIX}_theme`, theme)
-        setHtmlTheme(theme)
+        localStorage.setItem(`${STORAGE_PREFIX}_theme_color`, theme)
+        document.querySelector('html').setAttribute('theme', theme)
     }
 }
 
-// Open the theme settings sidebar
+window.toggleSidebarStyle = (style = null) => {
+    document.querySelector('aside').setAttribute('theme', style)
+    localStorage.setItem(`${STORAGE_PREFIX}_sidebar_style`, style)
+}
+
+// Open the settings sidebar (right)
 window.toggleThemeSettings = () => {
     document.querySelector('.settings-sidebar').classList.toggle('r-0')
     document.querySelector('.black-overlay').classList.toggle('d-block')

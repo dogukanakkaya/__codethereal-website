@@ -37,7 +37,7 @@
     display: inline;
 }
 
-aside:not(.with-bg){
+aside:not([theme='with-bg']){
     background-color: #fff;
     background-image: unset!important;
 
@@ -74,7 +74,7 @@ aside {
         background: transparent;
     }
 
-    &.with-bg .overlay {
+    &[theme='with-bg'] .overlay {
         background-color: rgba(39, 37, 43, 0.86);
         height: 100%;
     }
@@ -351,10 +351,24 @@ header {
     }
 }
 
-.flag-img {
-    width: 25px;
-    height: 15px;
-    object-fit: cover;
+.theme-style{
+    .item {
+        img {
+            cursor: pointer;
+            padding: .25rem;
+            background-color: #ebeff2;
+            border: 1px solid #dee2e6;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        label{
+            margin: 1px 0 0 .5rem;
+        }
+    }
 }
 
 main {

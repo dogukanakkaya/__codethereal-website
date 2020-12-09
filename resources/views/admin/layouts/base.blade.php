@@ -15,7 +15,7 @@
 </div>
 <input type="checkbox" id="menu-toggle" checked/>
 <div class="top-container">
-    <aside class="with-bg" style="background-image: url('{{ asset('img/sidebar-bg.jpg') }}')">
+    <aside theme="with-bg" style="background-image: url('{{ asset('img/sidebar-bg.jpg') }}')">
         <div class="overlay">
             <div class="logo">
                 <a href="">
@@ -120,7 +120,7 @@
                     <span class="total-notification {{ true ? 'blink' : '' }}">9</span>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" onclick="toggleTheme()">
+                    <a href="javascript:void(0);" onclick="toggleThemeColor()">
                         <i class="material-icons-outlined">nights_stay</i>
                     </a>
                 </li>

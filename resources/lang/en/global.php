@@ -8,6 +8,8 @@ return [
     'theme' => 'Theme',
     'light_theme' => 'Light Theme',
     'dark_theme' => 'Dark Theme',
+    'sidebar_with_bg' => 'Sidebar With Background',
+    'sidebar_without_bg' => 'Sidebar Without Background',
     'notes' => 'Notes',
     'calendar' => 'Calendar',
     'coming_soon' => ':name coming soon!', // w/ param
