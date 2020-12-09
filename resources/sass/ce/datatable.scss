@@ -4,6 +4,7 @@
     .dt-top, .dt-bottom{
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .dt-bottom{
@@ -31,6 +32,7 @@
             background-color: #fff;
             color: $main-color;
             border: 1px solid #b9b9b978;
+            display: inline-block;
 
             &.disabled{
                 background-color: #fff;

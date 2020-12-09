@@ -10,7 +10,11 @@
 html[theme='dark-theme']{
     filter: invert(1) hue-rotate(180deg);
 
-    .image, img, aside, .logo, .black-overlay{
+    .image,
+    img,
+    aside.with-bg,
+    aside.with-bg .logo,
+    .black-overlay{
         filter: invert(1) hue-rotate(180deg);
     }
 }

@@ -37,6 +37,26 @@
     display: inline;
 }
 
+aside:not(.with-bg){
+    background-color: #fff;
+    background-image: unset!important;
+
+    .menus {
+        .seperator{
+            color: $menu-seperator-color-without-bg;
+            font-weight: 600;
+        }
+
+        a{
+            color: $menu-item-color-without-bg;
+
+            &:hover{
+                color: darken($menu-item-color-without-bg, 25%);
+            }
+        }
+    }
+}
+
 aside {
     position: fixed;
     left: calc(#{$aside-width} * -1);
@@ -54,7 +74,7 @@ aside {
         background: transparent;
     }
 
-    .overlay {
+    &.with-bg .overlay {
         background-color: rgba(39, 37, 43, 0.86);
         height: 100%;
     }
@@ -81,7 +101,7 @@ aside {
             cursor: default;
             font-size: .65rem;
             text-transform: uppercase;
-            color: #adb5bd;
+            color: $menu-seperator-color-with-bg;
             font-weight: 500;
         }
 
@@ -89,7 +109,6 @@ aside {
             content: 'expand_more';
             font-family: "Material Icons Outlined";
             position: absolute;
-            color: $menu-item-color;
             right: 15px;
         }
 
@@ -105,7 +124,7 @@ aside {
         }
 
         a {
-            color: $menu-item-color;
+            color: $menu-item-color-with-bg;
             display: flex;
             align-items: center;
             padding: .6rem 1.5rem;

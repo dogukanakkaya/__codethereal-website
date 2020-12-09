@@ -15,7 +15,7 @@
 </div>
 <input type="checkbox" id="menu-toggle" checked/>
 <div class="top-container">
-    <aside style="background-image: url('{{ asset('img/sidebar-bg.jpg') }}')">
+    <aside class="with-bg" style="background-image: url('{{ asset('img/sidebar-bg.jpg') }}')">
         <div class="overlay">
             <div class="logo">
                 <a href="">
