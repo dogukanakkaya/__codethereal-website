@@ -6,6 +6,7 @@
 
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -198,7 +199,7 @@ header {
                 display: inline-block;
 
                 &:hover {
-                    background-color: rgb(245 113 63 / 10%);
+                    background-color: rgba($main-color, .1);
                 }
             }
 
@@ -209,7 +210,7 @@ header {
             }
 
             button:hover {
-                background-color: rgb(245 113 63 / 10%);
+                background-color: rgba($main-color, .1);
             }
         }
 
