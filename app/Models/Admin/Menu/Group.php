@@ -29,4 +29,21 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Admin\Menu\Item');
     }
+
+    /**
+     * Find all items of menu group by locale
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function itemsByLocale($id)
+    {
+        return self::find($id)
+            ->items()
+            ->oldest('sequence')
+            ->latest()
+            ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
+            ->where('language', app()->getLocale())
+            ->get();
+    }
 }

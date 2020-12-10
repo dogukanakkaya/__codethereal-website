@@ -20,7 +20,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return back();
         }
-        $groupItems = $this->groupItems($groupId);
+        $groupItems = Group::itemsByLocale($groupId);
         $data = [
             'navigations' => [route('menus.index') => __('menus.group'), __('menus.items')],
             'items' => $this->treeItems($groupItems),
@@ -43,7 +43,7 @@ class ItemController extends Controller
             return resJsonUnauthorized();
         }
         $data = [
-            'items' => $this->treeItems($this->groupItems($groupId)),
+            'items' => $this->treeItems(Group::itemsByLocale($groupId)),
             'actions' => $this->actions()
         ];
         return response()
@@ -183,23 +183,6 @@ class ItemController extends Controller
             return resJson(false);
         }
 
-    }
-
-    /**
-     * Return the group items and it's language with where condition by App locale language
-     *
-     * @param $groupId
-     * @return mixed
-     */
-    private function groupItems($groupId)
-    {
-        return Group::find($groupId)
-            ->items()
-            ->oldest('sequence')
-            ->latest()
-            ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
-            ->where('language', app()->getLocale())
-            ->get();
     }
 
     /**
