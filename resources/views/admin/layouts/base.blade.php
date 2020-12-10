@@ -24,7 +24,7 @@
             </div>
             <div class="menus">
                 <ul>
-                    <li class="seperator">{{ __('global.general') }}</li>
+                    <li class="separator">{{ __('global.general') }}</li>
                     <li>
                         <a href="{{ route('admin.home') }}" class="{{ isActive('admin') }}"><i
                                 class="material-icons-outlined md-18">home</i> {{ __('global.home') }}</a>
@@ -49,7 +49,7 @@
                         </li>
                     @endcan
 
-                    <li class="seperator">{{ __('global.cms') }}</li>
+                    <li class="separator">{{ __('global.cms') }}</li>
                     @can('see_contents')
                         <li>
                             <a href="{{ route('contents.index') }}"
@@ -70,7 +70,7 @@
                     </li>
 
                     @if($user->isDev())
-                        <li class="seperator">{{ __('global.developer') }}</li>
+                        <li class="separator">{{ __('global.developer') }}</li>
                         <li>
                             <a href="{{ url('admin/dev/permissions') }}"
                                class="{{ isActive('admin/dev/permissions') }}"><i class="material-icons-outlined md-18">security</i>

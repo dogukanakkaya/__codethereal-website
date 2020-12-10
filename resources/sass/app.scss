@@ -43,8 +43,8 @@ aside:not([theme='with-bg']){
     background-image: unset!important;
 
     .menus {
-        .seperator{
-            color: $menu-seperator-color-without-bg;
+        .separator{
+            color: $menu-separator-color-without-bg;
             font-weight: 600;
         }
 
@@ -95,14 +95,14 @@ aside {
     .menus {
         padding-top: 20px;
 
-        .seperator {
+        .separator {
             padding: .5rem 1.25rem;
             letter-spacing: .05em;
             pointer-events: none;
             cursor: default;
             font-size: .65rem;
             text-transform: uppercase;
-            color: $menu-seperator-color-with-bg;
+            color: $menu-separator-color-with-bg;
             font-weight: 500;
         }
 
@@ -344,7 +344,6 @@ header {
             border-radius: 100%;
             width: 24px;
             height: 24px;
-            margin-top: -5px;
             display: flex;
             align-items: center;
             justify-content: center;

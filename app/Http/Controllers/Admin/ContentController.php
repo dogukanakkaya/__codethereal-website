@@ -21,33 +21,38 @@ class ContentController extends Controller
             'navigations' => [__('contents.contents')],
             'columns' => [
                 ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
+                ['data' => 'status', 'name' => 'status', 'title' => __('Status')],
+                ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent')],
                 ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at')],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
             ],
-            'parents' => Content::select('contents.id', 'title', 'created_at')
-                ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
-                ->where('language', app()->getLocale())
-                ->get()
-                ->pluck('title', 'id')->toArray()
+            'parents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
         ];
         return view('admin.contents.index', $data);
     }
 
     public function datatable()
     {
-        $data = Content::select('title', 'created_at')
-            ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
-            ->where('language', app()->getLocale())
-            ->get();
+        $data = Content::findAllByLocale('title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
             ->addColumn('action', function ($row) {
                 $actions = [
                     ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $row->id . ')'],
                     ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
                 ];
+                $actions[] = [
+                    'separator' => true,
+                    'title' => $row->active ? '<i class="material-icons-outlined md-18">close</i> ' . __('make_passive') : '<i class="material-icons-outlined md-18">check</i> ' . __('make_active'),
+                ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
-            ->rawColumns(['action'])
+            ->addColumn('status', function ($row) {
+                return $row->active ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+            })
+            ->addColumn('parent', function ($row) {
+                return Content::findOneByLocale($row->parent_id, 'title')->title ?? '';
+            })
+            ->rawColumns(['action', 'status'])
             ->make(true);
     }
 
