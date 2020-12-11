@@ -24,8 +24,8 @@ class FileController extends Controller
     public function upload()
     {
         /**
-         * 1: Normal,
-         * 2: Öne Çıkarılan,
+         * 1: Normal
+         * 2: Öne Çıkarılan
          * 3: Kapak
          * 4: Geniş
          */

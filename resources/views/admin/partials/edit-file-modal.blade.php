@@ -42,6 +42,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ Form::radio("$language->code[file_type]", 1, true) }} {{ Form::label("$language->code[file_type]", __('normal')) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ Form::radio("$language->code[file_type]", 2, false) }} {{ Form::label("$language->code[file_type]", __('onecikarilan')) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ Form::radio("$language->code[file_type]", 3, false) }} {{ Form::label("$language->code[file_type]", __('kapak')) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ Form::radio("$language->code[file_type]", 4, false) }} {{ Form::label("$language->code[file_type]", __('genis')) }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
