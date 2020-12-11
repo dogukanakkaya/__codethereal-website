@@ -23,6 +23,13 @@ class FileController extends Controller
 
     public function upload()
     {
+        /**
+         * 1: Normal,
+         * 2: Öne Çıkarılan,
+         * 3: Kapak
+         * 4: Geniş
+         */
+
         $file = request()->file('file');
         $name = $file->getClientOriginalName();
         $size = $file->getSize();

@@ -149,6 +149,11 @@ a.danger:hover, a.danger:hover i {
     cursor: move;
 }
 
+form:invalid [type='submit']{
+    pointer-events: none;
+    opacity: .4;
+}
+
 /* BS Override */
 form label:not(.form-check-label){
     font-size: .725rem;
