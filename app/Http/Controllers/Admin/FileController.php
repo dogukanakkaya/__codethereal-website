@@ -26,8 +26,7 @@ class FileController extends Controller
         /**
          * 1: Normal
          * 2: Öne Çıkarılan
-         * 3: Kapak
-         * 4: Geniş
+         * 3: Geniş
          */
 
         $file = request()->file('file');
@@ -66,7 +65,8 @@ class FileController extends Controller
 
     public function find(int $id)
     {
-        $translations = File::select('title', 'alt', 'active', 'type', 'language')
+        $file = File::find($id, ['type']);
+        $translations = File::select('title', 'alt', 'active', 'language')
             ->where('files.id', $id)
             ->leftJoin('file_translations', 'file_translations.file_id', '=', 'files.id')
             ->get()
@@ -77,6 +77,7 @@ class FileController extends Controller
                 return $i;
             });
         return response()->json([
+            'file' => $file,
             'translations' => $translations
         ]);
     }
@@ -108,8 +109,12 @@ class FileController extends Controller
     {
         $reqData = request()->json()->all();
 
+        $fileData = array_remove($reqData, 'file');
+
         DB::beginTransaction();
         try {
+            File::where('id', $id)->update($fileData);
+
             // Loop every language
             foreach (languages() as $language) {
                 // Get active language's data

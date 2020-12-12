@@ -83,7 +83,9 @@
 
                 request.get(url)
                     .then(response => {
-                        const {translations} = response.data
+                        const {translations, file} = response.data
+
+                        document.querySelector(`input[type=radio][value="${parseInt(file?.type ?? 1)}"][name="file[type]"]`).checked = true
 
                         // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
                         let translation = {}
@@ -92,7 +94,6 @@
                         document.querySelector(`input[name="{{ $language->code }}[file_title]"]`).value = translation?.title ?? ''
                         document.querySelector(`input[name="{{ $language->code }}[file_alt]"]`).value = translation?.alt ?? ''
                         document.querySelector(`input[type=checkbox][name="{{ $language->code }}[file_active]"]`).checked = parseInt(translation?.active ?? 1) === 1
-                        document.querySelector(`input[type=radio][value="${parseInt(translation?.type ?? 1)}"][name="{{ $language->code }}[file_type]"]`).checked = true
                         @endforeach
                         openModal('#image-form-modal')
                     })

@@ -33,41 +33,34 @@
                                             {{ Form::text("$language->code[file_alt]", '', ['class' => 'form-control']) }}
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                {{ Form::hidden("$language->code[file_active]", 0) }}
+                                                {{ Form::checkbox("$language->code[file_active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[file_active]"]) }}
+                                                {{ Form::label("$language->code[file_active]", __('active'), ['class' => 'custom-control-label']) }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                             <div class="row pt-3 border-top">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <div class="custom-control custom-switch">
-                                            {{ Form::hidden("$language->code[file_active]", 0) }}
-                                            {{ Form::checkbox("$language->code[file_active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[file_active]"]) }}
-                                            {{ Form::label("$language->code[file_active]", __('active'), ['class' => 'custom-control-label']) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        {{ Form::radio("tr[file_type]", 1, true) }} {{ Form::label("tr[file_type]", __('normal')) }}
+                                        {{ Form::radio("file[type]", 1, true, ['id' => 'file-type-1']) }} {{ Form::label("file-type-1", __('normal')) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        {{ Form::radio("tr[file_type]", 2, false) }} {{ Form::label("tr[file_type]", __('onecikarilan')) }}
+                                        {{ Form::radio("file[type]", 2, false, ['id' => 'file-type-2']) }} {{ Form::label("file-type-2", __('onecikarilan')) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        {{ Form::radio("tr[file_type]", 3, false) }} {{ Form::label("tr[file_type]", __('kapak')) }}
+                                        {{ Form::radio("file[type]", 3, false, ['id' => 'file-type-3']) }} {{ Form::label("file-type-3", __('genis')) }}
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        {{ Form::radio("tr[file_type]", 4, false) }} {{ Form::label("tr[file_type]", __('genis')) }}
-                                    </div>
-                                </div>
-                                -->
                             </div>
                     </div>
                 </div>
