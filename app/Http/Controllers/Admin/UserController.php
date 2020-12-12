@@ -48,7 +48,7 @@ class UserController extends Controller
         return Datatables::of($data)
             ->editColumn('path', function (User $user) {
                 $path = isset($user->path) ? asset('storage/' . $user->path) : asset("img/profile.webp");
-                return '<img src="' . $path . '" class="profile-img" alt="profile"/>';
+                return '<img src="' . $path . '" class="table-img" alt="profile"/>';
             })
             ->editColumn('email_verified_at', function (User $user) {
                 return $user->email_verified_at !== NULL ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';

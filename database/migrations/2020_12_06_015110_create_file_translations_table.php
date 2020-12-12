@@ -19,7 +19,6 @@ class CreateFileTranslationsTable extends Migration
             $table->string('title')->nullable();
             $table->string('alt')->nullable();
             $table->boolean('active')->default(1);
-            $table->tinyInteger('type')->default(1);
             $table->char('language', 3);
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ContentRequest;
 use App\Models\Admin\Content;
+use App\Models\Admin\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -20,6 +21,7 @@ class ContentController extends Controller
         $data = [
             'navigations' => [__('contents.contents')],
             'columns' => [
+                ['data' => 'file', 'name' => 'file', 'title' => __('File')],
                 ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
                 ['data' => 'status', 'name' => 'status', 'title' => __('Status')],
                 ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent')],
@@ -33,8 +35,16 @@ class ContentController extends Controller
 
     public function datatable()
     {
-        $data = Content::findAllByLocale('title', 'parent_id', 'active', 'created_at');
+        $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
+            ->addColumn('file', function ($row) {
+                $file = Content::select('path')
+                    ->where('contents.id', $row->id)
+                    ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
+                    ->leftJoin('files', 'files.id', '=', 'content_files.file_id')
+                    ->first();
+                return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
+            })
             ->addColumn('action', function ($row) {
                 $actions = [
                     ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $row->id . ')'],
@@ -52,7 +62,7 @@ class ContentController extends Controller
             ->addColumn('parent', function ($row) {
                 return Content::findOneByLocale($row->parent_id, 'title')->title ?? '';
             })
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['file', 'action', 'status'])
             ->make(true);
     }
 
