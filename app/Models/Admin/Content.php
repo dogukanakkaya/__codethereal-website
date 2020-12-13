@@ -38,12 +38,13 @@ class Content extends Model
      * @param mixed ...$select
      * @return mixed
      */
-    public static function findAllByLocale(...$select)
+    public static function findAllByLocale(...$select): mixed
     {
         return self::select($select)
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
-            ->latest();
+            ->latest()
+            ->get();
     }
 
     /**
@@ -53,12 +54,31 @@ class Content extends Model
      * @param mixed ...$select
      * @return mixed
      */
-    public static function findOneByLocale(int $id, ...$select)
+    public static function findOneByLocale(int $id, ...$select): mixed
     {
         return self::select($select)
             ->where('contents.id', $id)
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->first();
+    }
+
+    /**
+     * Return first file content has
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public static function findContentFile(int $id): mixed
+    {
+        return self::select('path')
+            ->where('contents.id', $id)
+            // TODO: check this out, it's not working, it always returns the type 1
+            ->where(function ($query){
+                $query->where('files.type', 2)->orWhere('files.type', 1);
+            })
+            ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
+            ->leftJoin('files', 'files.id', 'content_files.file_id')
             ->first();
     }
 }

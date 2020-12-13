@@ -28,7 +28,7 @@ class UserController extends Controller
                 ['data' => 'position', 'name' => 'position', 'title' => __('users.position')],
                 ['data' => 'email_verified_at', 'name' => 'verified', 'title' => __('users.verified')],
                 ['data' => 'is_online', 'name' => 'online', 'title' => 'Online'],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at')],
+                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at'), 'searchable' => false],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
             ]
         ];
@@ -53,15 +53,18 @@ class UserController extends Controller
             ->editColumn('email_verified_at', function (User $user) {
                 return $user->email_verified_at !== NULL ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function (User $user) {
                 $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $row->id . ')'],
-                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $user->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $user->id . ')'],
                 ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
-            ->addColumn('is_online', function ($row) {
-                return isOnline($row->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+            ->addColumn('is_online', function (User $user) {
+                return isOnline($user->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+            })
+            ->editColumn('created_at', function (User $user) {
+                return date("Y-m-d H:i:s", strtotime($user->created_at));
             })
             ->rawColumns(['path', 'action', 'email_verified_at', 'is_online'])
             ->make(true);

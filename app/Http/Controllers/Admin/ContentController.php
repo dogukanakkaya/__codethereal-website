@@ -21,11 +21,11 @@ class ContentController extends Controller
         $data = [
             'navigations' => [__('contents.contents')],
             'columns' => [
-                ['data' => 'file', 'name' => 'file', 'title' => __('File')],
-                ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
-                ['data' => 'status', 'name' => 'status', 'title' => __('Status')],
-                ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent')],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at')],
+                ['data' => 'file', 'name' => 'file', 'title' => __('File'), 'orderable' => false, 'searchable' => false],
+                ['data' => 'title', 'name' => 'content_translations.title', 'title' => __('Title')],
+                ['data' => 'status', 'name' => 'status', 'title' => __('Status'), 'searchable' => false],
+                ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent'), 'searchable' => false],
+                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at'), 'searchable' => false],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
             ],
             'parents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
@@ -37,30 +37,25 @@ class ContentController extends Controller
     {
         $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
-            ->addColumn('file', function ($row) {
-                $file = Content::select('path')
-                    ->where('contents.id', $row->id)
-                    // TODO: check this out, it's not working, it always returns the type 1
-                    ->where(function ($query){
-                        $query->where('files.type', 2)->orWhere('files.type', 1);
-                    })
-                    ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
-                    ->leftJoin('files', 'files.id', 'content_files.file_id')
-                    ->first();
+            ->addColumn('file', function (Content $content) {
+                $file = Content::findContentFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function (Content $content) {
                 $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__update(' . $row->id . ')'],
-                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__update(' . $content->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $content->id . ')'],
                 ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
-            ->addColumn('status', function ($row) {
-                return $row->active == 1 ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+            ->addColumn('status', function (Content $content) {
+                return $content->active == 1 ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
-            ->addColumn('parent', function ($row) {
-                return Content::findOneByLocale($row->parent_id, 'title')->title ?? '';
+            ->addColumn('parent', function (Content $content) {
+                return Content::findOneByLocale($content->parent_id, 'title')->title ?? '';
+            })
+            ->editColumn('created_at', function (Content $content) {
+                return date("Y-m-d H:i:s", strtotime($content->created_at));
             })
             ->rawColumns(['file', 'action', 'status'])
             ->make(true);
