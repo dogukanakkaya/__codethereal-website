@@ -34,16 +34,17 @@ class ContentRequest extends FormRequest
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
 
+            $rules[$language->code . '.description'] = 'max:400';
+            $rules[$language->code . '.full'] = '';
+            $rules[$language->code . '.icon'] = 'max:255';
+            $rules[$language->code . '.active'] = 'integer';
+            $rules[$language->code . '.files'] = 'string';
+
             if (isset($data['active']) && intval($data['active']) === 0)
-                continue;
+                $rules[$language->code . '.title'] = 'max:255';
 
             if(isset($data['active']) && intval($data['active']) === 1){
                 $rules[$language->code . '.title'] = 'required|max:255';
-                $rules[$language->code . '.description'] = 'max:400';
-                $rules[$language->code . '.full'] = '';
-                $rules[$language->code . '.icon'] = 'max:255';
-                $rules[$language->code . '.active'] = 'integer';
-                $rules[$language->code . '.files'] = 'string';
             }
         }
         return $rules;

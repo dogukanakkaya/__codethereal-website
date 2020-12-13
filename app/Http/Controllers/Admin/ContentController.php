@@ -57,7 +57,7 @@ class ContentController extends Controller
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
             ->addColumn('status', function ($row) {
-                return $row->active ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+                return $row->active == 1 ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
             ->addColumn('parent', function ($row) {
                 return Content::findOneByLocale($row->parent_id, 'title')->title ?? '';
