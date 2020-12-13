@@ -42,7 +42,7 @@ class Group extends Model
             ->items()
             ->oldest('sequence')
             ->latest()
-            ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', '=', 'menu_items.id')
+            ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', 'menu_items.id')
             ->where('language', app()->getLocale())
             ->get();
     }

@@ -60,17 +60,21 @@
             const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
-                    const {content, translations} = response.data
+                    const {content, translations, files} = response.data
 
                     document.querySelector(`select[name="content[parent_id]"]`).value = content.parent_id
+                    document.querySelector(`input[type=checkbox][name="content[searchable]"]`).checked = parseInt(content.searchable ?? 0) === 1
 
                     // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
                     let translation = {}
                     @foreach($languages as $language)
                         translation = translations?.{{ $language->code }}
                     document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
+                    document.querySelector(`textarea[name="{{ $language->code }}[description]"]`).value = translation?.description ?? ''
+                    tinymce.get('{{ $language->code }}[full]').setContent(translation?.full ?? '')
                     document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
                     @endforeach
+
 
                     /*
                     for(const [language, values] of Object.entries(translations)){

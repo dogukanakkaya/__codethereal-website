@@ -15,7 +15,7 @@
 <input type="hidden" name="{{ $inputName }}" value="0">
 
 @once
-    @push('toEnd')
+    @push('end')
         @include('admin.partials.edit-file-modal')
     @endpush
 

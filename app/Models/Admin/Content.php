@@ -42,7 +42,7 @@ class Content extends Model
     {
         return self::select($select)
             ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->latest();
     }
 
@@ -58,7 +58,7 @@ class Content extends Model
         return self::select($select)
             ->where('contents.id', $id)
             ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', '=', 'contents.id')
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->first();
     }
 }

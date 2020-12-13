@@ -68,7 +68,7 @@ class FileController extends Controller
         $file = File::find($id, ['type']);
         $translations = File::select('title', 'alt', 'active', 'language')
             ->where('files.id', $id)
-            ->leftJoin('file_translations', 'file_translations.file_id', '=', 'files.id')
+            ->leftJoin('file_translations', 'file_translations.file_id', 'files.id')
             ->get()
             ->keyBy('language')
             ->transform(function ($i) {

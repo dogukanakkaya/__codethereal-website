@@ -41,7 +41,7 @@ class ContentController extends Controller
                 $file = Content::select('path')
                     ->where('contents.id', $row->id)
                     ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
-                    ->leftJoin('files', 'files.id', '=', 'content_files.file_id')
+                    ->leftJoin('files', 'files.id', 'content_files.file_id')
                     ->first();
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
@@ -134,9 +134,13 @@ class ContentController extends Controller
                 return $i;
             });
 
+        $files = DB::table('content_files')->where('content_id', $id)->get()->pluck('file_id');
+
+
         return response()->json([
             'content' => $content,
-            'translations' => $translations
+            'translations' => $translations,
+            'files' => $files
         ]);
     }
 }

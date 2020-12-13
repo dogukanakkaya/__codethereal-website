@@ -42,7 +42,7 @@ class UserController extends Controller
         }
         $data = User::select('users.id', 'path', 'users.name', 'email', 'position', 'users.created_at as created_at', 'email_verified_at')
             ->where('rank', '!=', config('user.rank.dev'))
-            ->leftJoin('files', 'files.id', '=', 'users.image')
+            ->leftJoin('files', 'files.id', 'users.image')
             ->latest()
             ->get();
         return Datatables::of($data)
@@ -115,7 +115,7 @@ class UserController extends Controller
         // TODO: remove "pivot" key from permissions array
         return User::with('permissions:id,name')
             ->select('users.id', 'users.name', 'email', 'position', 'about', 'image', 'path')
-            ->leftJoin('files', 'files.id', '=', 'users.image')
+            ->leftJoin('files', 'files.id', 'users.image')
             ->find($id);
     }
 

@@ -22,12 +22,16 @@ class ContentSeeder extends Seeder
             [
                 'content_id' => 1,
                 'title' => 'Content 1 TR',
+                'description' => 'Content 1 Description TR',
+                'full' => '<b>Merhaba dünya</b>',
                 'url' => 'content-1-tr',
                 'language' => 'tr'
             ],
             [
                 'content_id' => 1,
                 'title' => 'Content 1 EN',
+                'description' => 'Content 1 Description EN',
+                'full' => '<b>Hello world</b>',
                 'url' => 'content-1-en',
                 'language' => 'en'
             ]

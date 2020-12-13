@@ -176,7 +176,7 @@
     <div class="text"><p></p></div>
 </div>
 
-@stack('toEnd')
+@stack('end')
 <script>
     const asset = (path) => `{{ asset('') }}${path}`
     const storage = (path) => `{{ asset('storage') }}/${path}`
