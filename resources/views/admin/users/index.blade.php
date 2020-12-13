@@ -52,7 +52,7 @@
             if (updateId > 0) {
                 form.reset()
                 updateId = 0;
-                clearPreview1()
+                clearPreviewFull1()
             }
             getPermissions().then(response => {
                 document.getElementById('user-permissions').innerHTML = response.data
@@ -86,7 +86,6 @@
 
                 request.get(url)
                     .then(response => {
-                        clearPreview1()
                         document.querySelector('input[name=name]').value = response.data.name
                         document.querySelector('input[name=email]').value = response.data.email
                         document.querySelector('input[name=position]').value = response.data.position

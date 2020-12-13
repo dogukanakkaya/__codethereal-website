@@ -28,7 +28,7 @@
                     dataIdAttr: "data-file-id",
                     onUpdate: () => {
                         request.put('{{ route('files.save_sequence') }}', sortable.toArray())
-                        .then(response => makeToast(response.data))
+                            .then(response => makeToast(response.data))
                     },
                 });
             </script>
@@ -60,7 +60,7 @@
             const clearPreview = id => {
                 // Get input of which given file id belongs to
                 const inputEl = document.querySelector(`[data-file-id='${id}']`).closest('.ce-previews').nextSibling
-                if (inputEl){
+                if (inputEl) {
                     inputEl.value = inputEl.value.replace(id, '').replace('|', '')
 
                     // If no image left in dropzone then change input value to 0
@@ -69,7 +69,7 @@
 
                 // Clear preview of image
                 const preview = document.querySelector(`[data-file-id='${id}']`)
-                if (preview){
+                if (preview) {
                     preview.remove()
                 }
             }
@@ -104,7 +104,7 @@
 
                 toggleBtnLoading()
                 const url = '{{ route('files.update', ['id' => ':id']) }}'.replace(':id', fileId)
-                request.put(url, serialize(imageForm, { hash: true }))
+                request.put(url, serialize(imageForm, {hash: true}))
                     .then(response => {
                         makeToast(response.data)
                         if (response.data.status) {
@@ -142,7 +142,19 @@
             }
         });
 
+        // For single file dropzones only, on new file dropped, remove old file and it's id from input
+        @if($maxFiles === 1)
+        const clearPreviewFull{{ $index }} = () => {
+            document.getElementById('preview-{{ $index }}').querySelectorAll('*').forEach(q => q.remove())
+            document.querySelector('input[name="{{ $inputName }}"]').value = 0
+        }
+        @endif
+
         const createPreview{{ $index }} = (id, url) => {
+            @if($maxFiles === 1)
+                clearPreviewFull{{ $index }}()
+            @endif
+
             if (parseInt(document.querySelector('input[name="{{ $inputName }}"]').value) === 0) {
                 document.querySelector('input[name="{{ $inputName }}"]').value = id
             } else {
@@ -166,10 +178,10 @@
                 </div>`)
         }
 
-            @forelse($files as $file)
-                createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}')
-            @empty
+        @forelse($files as $file)
+        createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}')
+        @empty
 
-            @endforelse
+        @endforelse
     </script>
 @endpush
