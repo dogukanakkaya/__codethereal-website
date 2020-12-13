@@ -142,8 +142,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::middleware('only.ajax')->group(function (){
                 Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
                 Route::post('/', 'ContentController@create')->name('contents.create');
-                //Route::get('{id}', 'UserController@find')->name('users.find');
-                //Route::put('{id}', 'UserController@update')->name('users.update');
+                Route::get('{id}', 'ContentController@find')->name('contents.find');
+                Route::put('{id}', 'ContentController@update')->name('contents.update');
                 //Route::delete('{id}', 'UserController@destroy')->name('users.destroy');
                 //Route::get('restore/{id}', 'UserController@restore')->name('users.restore');
             });

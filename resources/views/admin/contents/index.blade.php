@@ -20,10 +20,15 @@
 
 @push('scripts')
     <script>
+        let updateId = 0
         const form = document.getElementById('content-form')
         const modal = '#content-form-modal'
 
         const __create = () => {
+            if (updateId > 0) {
+                form.reset()
+                updateId = 0;
+            }
             openModal(modal)
         }
 
@@ -41,8 +46,51 @@
             e.preventDefault()
             toggleBtnLoading()
             const formData = serialize(form, {hash: true, empty: true})
-            request.post('{{ route('contents.create') }}', formData)
-                .then(__onResponse)
+            if (updateId > 0){
+                const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', updateId)
+                request.put(url, formData).then(__onResponse)
+            }else{
+                request.post('{{ route('contents.create') }}', formData).then(__onResponse)
+            }
         })
+
+        const __update = id => {
+            updateId = id
+
+            const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', id)
+            request.get(url)
+                .then(response => {
+                    const {content, translations} = response.data
+
+                    document.querySelector(`select[name="content[parent_id]"]`).value = content.parent_id
+
+                    // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
+                    let translation = {}
+                    @foreach($languages as $language)
+                        translation = translations?.{{ $language->code }}
+                    document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
+                    document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
+                    @endforeach
+
+                    /*
+                    for(const [language, values] of Object.entries(translations)){
+                        document.querySelector(`input[name="${language}[title]"]`).value = values.title
+                        document.querySelector(`input[name="${language}[url]"]`).value = values.url
+                        document.querySelector(`input[name="${language}[icon]"]`).value = values.icon
+                        document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
+                    }
+                    */
+
+                    openModal(modal)
+                })
+        }
+
+        const __active = id => {
+
+        }
+
+        const __passive = id => {
+
+        }
     </script>
 @endpush

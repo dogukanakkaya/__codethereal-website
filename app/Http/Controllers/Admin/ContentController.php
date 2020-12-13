@@ -47,12 +47,13 @@ class ContentController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $row->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__update(' . $row->id . ')'],
                     ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
                 ];
                 $actions[] = [
                     'separator' => true,
                     'title' => $row->active ? '<i class="material-icons-outlined md-18">close</i> ' . __('make_passive') : '<i class="material-icons-outlined md-18">check</i> ' . __('make_active'),
+                    'onclick' => $row->active ? '__passive(' . $row->id . ')' : '__active(' . $row->id . ')'
                 ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
@@ -112,5 +113,30 @@ class ContentController extends Controller
             DB::rollBack();
             return resJson(false);
         }
+    }
+
+    public function find(int $id)
+    {
+        if (!Auth::user()->can('see_contents')) {
+            return resJsonUnauthorized();
+        }
+        // TODO: We'll check that for better way for multi language operations (without model relations)
+        $content = Content::select('parent_id', 'searchable')->find($id);
+
+        $translations = DB::table('content_translations')
+            ->select('title', 'description', 'full', 'active', 'language')
+            ->where('content_id', $id)
+            ->get()
+            ->keyBy('language')
+            ->transform(function ($i) {
+                // Remove language keys, i needed it only to make a keyBy on collection
+                unset($i->language);
+                return $i;
+            });
+
+        return response()->json([
+            'content' => $content,
+            'translations' => $translations
+        ]);
     }
 }

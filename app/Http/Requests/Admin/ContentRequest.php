@@ -29,6 +29,7 @@ class ContentRequest extends FormRequest
         $rules = [
             'content.parent_id' => 'required|integer',
             'content.files' => '',
+            'content.searchable' => 'integer'
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];

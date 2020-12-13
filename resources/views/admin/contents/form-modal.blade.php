@@ -36,6 +36,15 @@
                                                 {{ Form::select("content[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-switch">
+                                                    {{ Form::hidden("content[searchable]", 0) }}
+                                                    {{ Form::checkbox("content[searchable]", 1, true, ['class' => 'custom-control-input', 'id' => "content[searchable]"]) }}
+                                                    {{ Form::label("content[searchable]", __('contents.searchable'), ['class' => 'custom-control-label']) }}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="border-top mb-3"></div>
                                     @foreach($languages as $key => $language)
@@ -66,15 +75,6 @@
                                                             {{ Form::hidden("$language->code[active]", 0) }}
                                                             {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
                                                             {{ Form::label("$language->code[active]", __('contents.active'), ['class' => 'custom-control-label']) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <div class="custom-control custom-switch">
-                                                            {{ Form::hidden("$language->code[searchable]", 0) }}
-                                                            {{ Form::checkbox("$language->code[searchable]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[searchable]"]) }}
-                                                            {{ Form::label("$language->code[searchable]", __('contents.searchable'), ['class' => 'custom-control-label']) }}
                                                         </div>
                                                     </div>
                                                 </div>
