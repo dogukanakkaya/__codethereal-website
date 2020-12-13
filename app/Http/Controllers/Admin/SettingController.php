@@ -53,11 +53,11 @@ class SettingController extends Controller
                     */
                     DB::table('settings')->updateOrInsert(
                         [
-                            "name" => $key,
-                            "language" => $language->code
+                            'name' => $key,
+                            'language' => $language->code
                         ],
                         [
-                            "value" => $value,
+                            'value' => $value,
                         ]
                     );
                 }

@@ -134,7 +134,11 @@ class ContentController extends Controller
                 return $i;
             });
 
-        $files = DB::table('content_files')->where('content_id', $id)->get()->pluck('file_id');
+        $files = DB::table('content_files')
+            ->where('content_id', $id)
+            ->leftJoin('files', 'files.id', 'content_files.file_id')
+            ->get()
+            ->pluck('path', 'file_id');
 
 
         return response()->json([
@@ -142,5 +146,53 @@ class ContentController extends Controller
             'translations' => $translations,
             'files' => $files
         ]);
+    }
+
+    public function update(ContentRequest $request, int $id)
+    {
+        if (!Auth::user()->can('update_contents')) {
+            return resJsonUnauthorized();
+        }
+        $data = $request->validated();
+        $contentData = array_remove($data, 'content');
+
+        // Get and unset files from content data and if it's not 0 then explode it from | character to add database each one
+        $files = array_remove($contentData, 'files');
+        $fileIds = $files !== '0' ? explode('|', $files) : [];
+
+        DB::beginTransaction();
+        try {
+            // Update Content
+            Content::where('id', $id)->update($contentData);
+
+            // Update Content Languages
+            $translationData = [];
+            foreach ($data as $language => $values) {
+                $values['url'] = Str::slug($values['title']);
+                DB::table('content_translations')
+                    ->where('content_id', $id)
+                    ->where('language', $language)
+                    ->update($values);
+            }
+
+            // Update Content Files
+            // Drop all files first, and then collect all data in one array to make faster sql queries
+            DB::table('content_files')->where('content_id', $id)->delete();
+            $filesData = [];
+            foreach ($fileIds as $fileId) {
+                $filesData[] = [
+                    'content_id' => $id,
+                    'file_id' => $fileId
+                ];
+            }
+            DB::table('content_files')->insert($filesData);
+
+            DB::commit();
+            return resJson(true);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            DB::rollBack();
+            return resJson(false);
+        }
     }
 }

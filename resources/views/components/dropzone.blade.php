@@ -61,10 +61,8 @@
                 // Get input of which given file id belongs to
                 const inputEl = document.querySelector(`[data-file-id='${id}']`).closest('.ce-previews').nextSibling
                 if (inputEl) {
-                    inputEl.value = inputEl.value.replace(id, '').replace('|', '')
-
-                    // If no image left in dropzone then change input value to 0
-                    if (!inputEl.value) inputEl.value = 0
+                    // If we have more than one images, remove "1|" :: else remove "1" (think 1 as id)
+                    inputEl.value = inputEl.value.includes(`${id}|`) ? inputEl.value.replace(`${id}|`, '') : inputEl.value.replace(id, 0)
                 }
 
                 // Clear preview of image
@@ -142,13 +140,11 @@
             }
         });
 
-        // For single file dropzones only, on new file dropped, remove old file and it's id from input
-        @if($maxFiles === 1)
+        // Clear all previews
         const clearPreviewFull{{ $index }} = () => {
             document.getElementById('preview-{{ $index }}').querySelectorAll('*').forEach(q => q.remove())
             document.querySelector('input[name="{{ $inputName }}"]').value = 0
         }
-        @endif
 
         const createPreview{{ $index }} = (id, url) => {
             @if($maxFiles === 1)
@@ -179,7 +175,7 @@
         }
 
         @forelse($files as $file)
-        createPreview{{$index}}({{ $file->id }}, '{{ asset('storage/' . $file->path) }}')
+        createPreview{{$index}}({{ $file->id }}, storage({{ $file->path }}))
         @empty
 
         @endforelse

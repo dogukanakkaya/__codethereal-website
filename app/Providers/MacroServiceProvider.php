@@ -54,7 +54,7 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-24">sync</i></button>');
+            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-24" title="'.__('global.refresh').'">sync</i></button>');
         });
 
         \Form::macro('addNew', function (array $attributes = []) {
@@ -63,7 +63,16 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24">add</i></button>');
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('global.add_new').'">add</i></button>');
+        });
+
+        \Form::macro('sort', function (array $attributes = []) {
+            $existAttrs = [
+                'class' => 'dark'
+            ];
+            $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
+
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('global.sort').'">sort</i></button>');
         });
     }
 }

@@ -7,6 +7,7 @@
 @section('content')
     <x-breadcrumb :nav="$navigations"/>
     <div class="page-actions">
+        {{ Form::sort(['onclick' => '__sort()']) }}
         {{ Form::refresh(['onclick' => '__refresh()']) }}
         {{ Form::addNew(['onclick' => '__create()']) }}
     </div>
@@ -47,7 +48,7 @@
             toggleBtnLoading()
             const formData = serialize(form, {hash: true, empty: true})
             if (updateId > 0){
-                const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', updateId)
+                const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData).then(__onResponse)
             }else{
                 request.post('{{ route('contents.create') }}', formData).then(__onResponse)
@@ -56,6 +57,7 @@
 
         const __update = id => {
             updateId = id
+            clearPreviewFull1()
 
             const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
@@ -75,15 +77,9 @@
                     document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
                     @endforeach
 
-
-                    /*
-                    for(const [language, values] of Object.entries(translations)){
-                        document.querySelector(`input[name="${language}[title]"]`).value = values.title
-                        document.querySelector(`input[name="${language}[url]"]`).value = values.url
-                        document.querySelector(`input[name="${language}[icon]"]`).value = values.icon
-                        document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
+                    for(const [fileId, filePath] of Object.entries(files)){
+                        createPreview1(fileId, storage(filePath))
                     }
-                    */
 
                     openModal(modal)
                 })
