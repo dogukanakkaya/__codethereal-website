@@ -453,6 +453,10 @@ main {
             background-color: #000;
         }
 
+        &.main{
+            background-color: $main-color;
+        }
+
         &:not(:last-child) {
             margin-right: 10px;
         }

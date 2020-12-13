@@ -50,7 +50,7 @@ class MacroServiceProvider extends ServiceProvider
 
         \Form::macro('refresh', function (array $attributes = []) {
             $existAttrs = [
-                'class' => 'ce-btn primary'
+                'class' => 'primary'
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
@@ -59,7 +59,7 @@ class MacroServiceProvider extends ServiceProvider
 
         \Form::macro('addNew', function (array $attributes = []) {
             $existAttrs = [
-                'class' => 'ce-btn dark'
+                'class' => 'main'
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
