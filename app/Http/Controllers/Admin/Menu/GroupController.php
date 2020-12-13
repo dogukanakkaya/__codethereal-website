@@ -34,16 +34,19 @@ class GroupController extends Controller
         }
         $data = Group::latest()->withCount('items')->get();
         return Datatables::of($data)
-            ->addColumn('action', function ($row) {
+            ->editColumn('created_at', function (Group $group) {
+                return date("Y-m-d H:i:s", strtotime($group->created_at));
+            })
+            ->addColumn('action', function (Group $group) {
                 $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('global.detail'), 'onclick' => 'window.location.href = "' . route('menu_items.index', ['groupId' => $row->id]) . '"']
+                    ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('global.detail'), 'onclick' => 'window.location.href = "' . route('menu_items.index', ['groupId' => $group->id]) . '"']
                 ];
 
                 // Only developer can delete and update menu groups
                 if (Auth::user()->isDev()) {
                     array_push($actions,
-                        ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $row->id . ')'],
-                        ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
+                        ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $group->id . ')'],
+                        ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $group->id . ')'],
                     );
                 }
                 return view('admin.partials.dropdown', ['actions' => $actions]);

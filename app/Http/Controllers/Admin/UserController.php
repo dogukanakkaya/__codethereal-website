@@ -53,6 +53,9 @@ class UserController extends Controller
             ->editColumn('email_verified_at', function (User $user) {
                 return $user->email_verified_at !== NULL ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
+            ->editColumn('created_at', function (User $user) {
+                return date("Y-m-d H:i:s", strtotime($user->created_at));
+            })
             ->addColumn('action', function (User $user) {
                 $actions = [
                     ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $user->id . ')'],
@@ -62,9 +65,6 @@ class UserController extends Controller
             })
             ->addColumn('is_online', function (User $user) {
                 return isOnline($user->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
-            })
-            ->editColumn('created_at', function (User $user) {
-                return date("Y-m-d H:i:s", strtotime($user->created_at));
             })
             ->rawColumns(['path', 'action', 'email_verified_at', 'is_online'])
             ->make(true);

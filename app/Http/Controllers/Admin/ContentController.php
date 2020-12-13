@@ -22,7 +22,7 @@ class ContentController extends Controller
             'navigations' => [__('contents.contents')],
             'columns' => [
                 ['data' => 'file', 'name' => 'file', 'title' => __('File'), 'orderable' => false, 'searchable' => false],
-                ['data' => 'title', 'name' => 'content_translations.title', 'title' => __('Title')],
+                ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
                 ['data' => 'status', 'name' => 'status', 'title' => __('Status'), 'searchable' => false],
                 ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent'), 'searchable' => false],
                 ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at'), 'searchable' => false],
@@ -37,6 +37,9 @@ class ContentController extends Controller
     {
         $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
+            ->editColumn('created_at', function (Content $content) {
+                return date("Y-m-d H:i:s", strtotime($content->created_at));
+            })
             ->addColumn('file', function (Content $content) {
                 $file = Content::findContentFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
@@ -53,9 +56,6 @@ class ContentController extends Controller
             })
             ->addColumn('parent', function (Content $content) {
                 return Content::findOneByLocale($content->parent_id, 'title')->title ?? '';
-            })
-            ->editColumn('created_at', function (Content $content) {
-                return date("Y-m-d H:i:s", strtotime($content->created_at));
             })
             ->rawColumns(['file', 'action', 'status'])
             ->make(true);
