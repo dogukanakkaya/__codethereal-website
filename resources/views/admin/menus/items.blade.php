@@ -123,24 +123,12 @@
 
                     document.querySelector(`select[name="item[parent_id]"]`).value = item.parent_id
 
-                    // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
-                    let translation = {}
-                    @foreach($languages as $language)
-                        translation = translations?.{{ $language->code }}
-                    document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
-                    document.querySelector(`input[name="{{ $language->code }}[url]"]`).value = translation?.url ?? ''
-                    document.querySelector(`input[name="{{ $language->code }}[icon]"]`).value = translation?.icon ?? ''
-                    document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
-                    @endforeach
-
-                    /*
                     for(const [language, values] of Object.entries(translations)){
-                        document.querySelector(`input[name="${language}[title]"]`).value = values.title
-                        document.querySelector(`input[name="${language}[url]"]`).value = values.url
-                        document.querySelector(`input[name="${language}[icon]"]`).value = values.icon
+                        document.querySelector(`input[name="${language}[title]"]`).value = values.title ?? ''
+                        document.querySelector(`input[name="${language}[url]"]`).value = values.url ?? ''
+                        document.querySelector(`input[name="${language}[icon]"]`).value = values.icon ?? ''
                         document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
                     }
-                    */
 
                     openModal(modal)
                 })

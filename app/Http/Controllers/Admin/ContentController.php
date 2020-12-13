@@ -40,6 +40,10 @@ class ContentController extends Controller
             ->addColumn('file', function ($row) {
                 $file = Content::select('path')
                     ->where('contents.id', $row->id)
+                    // TODO: check this out, it's not working, it always returns the type 1
+                    ->where(function ($query){
+                        $query->where('files.type', 2)->orWhere('files.type', 1);
+                    })
                     ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
                     ->leftJoin('files', 'files.id', 'content_files.file_id')
                     ->first();

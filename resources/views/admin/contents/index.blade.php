@@ -47,10 +47,10 @@
             e.preventDefault()
             toggleBtnLoading()
             const formData = serialize(form, {hash: true, empty: true})
-            if (updateId > 0){
+            if (updateId > 0) {
                 const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData).then(__onResponse)
-            }else{
+            } else {
                 request.post('{{ route('contents.create') }}', formData).then(__onResponse)
             }
         })
@@ -67,17 +67,14 @@
                     document.querySelector(`select[name="content[parent_id]"]`).value = content.parent_id
                     document.querySelector(`input[type=checkbox][name="content[searchable]"]`).checked = parseInt(content.searchable ?? 0) === 1
 
-                    // TODO: think that, which one is better performance? Or maybe merge all languages foreach to one, and assign these to variables
-                    let translation = {}
-                    @foreach($languages as $language)
-                        translation = translations?.{{ $language->code }}
-                    document.querySelector(`input[name="{{ $language->code }}[title]"]`).value = translation?.title ?? ''
-                    document.querySelector(`textarea[name="{{ $language->code }}[description]"]`).value = translation?.description ?? ''
-                    tinymce.get('{{ $language->code }}[full]').setContent(translation?.full ?? '')
-                    document.querySelector(`input[type=checkbox][name="{{ $language->code }}[active]"]`).checked = parseInt(translation?.active ?? 0) === 1
-                    @endforeach
+                    for (const [language, values] of Object.entries(translations)) {
+                        document.querySelector(`input[name="${language}[title]"]`).value = values.title ?? ''
+                        document.querySelector(`textarea[name="${language}[description]"]`).value = values.description ?? ''
+                        tinymce.get(`${language}[full]`).setContent(values.full ?? '')
+                        document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
+                    }
 
-                    for(const [fileId, filePath] of Object.entries(files)){
+                    for (const [fileId, filePath] of Object.entries(files)) {
                         createPreview1(fileId, storage(filePath))
                     }
 
