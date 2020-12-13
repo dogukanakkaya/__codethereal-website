@@ -81,13 +81,5 @@
                     openModal(modal)
                 })
         }
-
-        const __active = id => {
-
-        }
-
-        const __passive = id => {
-
-        }
     </script>
 @endpush

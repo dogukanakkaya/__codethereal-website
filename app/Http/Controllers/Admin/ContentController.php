@@ -54,11 +54,6 @@ class ContentController extends Controller
                     ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__update(' . $row->id . ')'],
                     ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $row->id . ')'],
                 ];
-                $actions[] = [
-                    'separator' => true,
-                    'title' => $row->active ? '<i class="material-icons-outlined md-18">close</i> ' . __('make_passive') : '<i class="material-icons-outlined md-18">check</i> ' . __('make_active'),
-                    'onclick' => $row->active ? '__passive(' . $row->id . ')' : '__active(' . $row->id . ')'
-                ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
             })
             ->addColumn('status', function ($row) {
@@ -193,8 +188,7 @@ class ContentController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
