@@ -8,9 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tempData = [
-            'navigations' => ['/users' => 'Users', 'Edit User']
+        $data = [
+            'navigations' => []
         ];
-        return view('admin.home.index', $tempData);
+        return view('admin.home.index', $data);
     }
 }

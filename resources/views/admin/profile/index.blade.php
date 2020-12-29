@@ -73,10 +73,10 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="notes" role="tabpanel">
-                            <p>{{ __('global.coming_soon', ['name' => __('global.notes')]) }}</p>
+                            <p>{{ __('global.coming_soon', ['name' => __('users.notes')]) }}</p>
                         </div>
                         <div class="tab-pane fade" id="calendar" role="tabpanel">
-                            <p>{{ __('global.coming_soon', ['name' => __('global.calendar')]) }}</p>
+                            <p>{{ __('global.coming_soon', ['name' => __('users.calendar')]) }}</p>
                         </div>
                     </div>
                     {{ Form::close() }}
