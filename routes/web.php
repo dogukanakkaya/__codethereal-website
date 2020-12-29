@@ -147,8 +147,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::post('/', 'ContentController@create')->name('contents.create');
                 Route::get('{id}', 'ContentController@find')->name('contents.find');
                 Route::put('{id}', 'ContentController@update')->name('contents.update');
-                //Route::delete('{id}', 'UserController@destroy')->name('users.destroy');
-                //Route::get('restore/{id}', 'UserController@restore')->name('users.restore');
+                Route::delete('{id}', 'ContentController@destroy')->name('contents.destroy');
+                Route::get('restore/{id}', 'ContentController@restore')->name('contents.restore');
             });
         });
 

@@ -49,7 +49,7 @@ class ContentController extends Controller
             })
             ->addColumn('action', function (Content $content) {
                 $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__update(' . $content->id . ')'],
+                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $content->id . ')'],
                     ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $content->id . ')'],
                 ];
                 return view('admin.partials.dropdown', ['actions' => $actions]);
@@ -110,6 +110,22 @@ class ContentController extends Controller
             DB::rollBack();
             return resJson(false);
         }
+    }
+
+    public function destroy(int $id)
+    {
+        if (!Auth::user()->can('delete_contents')) {
+            return resJsonUnauthorized();
+        }
+        return resJson(Content::destroy($id));
+    }
+
+    public function restore(int $id)
+    {
+        if (!Auth::user()->can('delete_contents')) {
+            return resJsonUnauthorized();
+        }
+        return resJson(Content::withTrashed()->find($id)->restore());
     }
 
     public function find(int $id)

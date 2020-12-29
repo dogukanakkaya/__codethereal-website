@@ -55,7 +55,24 @@
             }
         })
 
-        const __update = id => {
+        const __delete = id => {
+            if (confirm('{{ __('global.confirm_delete') }}')) {
+                const url = '{{ route('contents.destroy', ['id' => ':id']) }}'.replace(':id', id)
+                request.delete(url)
+                    .then(res => {
+                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('global.undo') }}</a>`;
+                        __onResponse(res)
+                    })
+            }
+        }
+
+        const __undoDelete = id => {
+            const url = '{{ route('contents.restore', ['id' => ':id']) }}'.replace(':id', id)
+            request.get(url)
+                .then(__onResponse)
+        }
+
+        const __find = id => {
             updateId = id
             clearPreviewFull1()
 
