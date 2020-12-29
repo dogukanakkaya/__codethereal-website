@@ -185,7 +185,7 @@ class ItemController extends Controller
     }
 
     /**
-     * Return builded items
+     * Return items as tree
      *
      * @param $items
      * @return array

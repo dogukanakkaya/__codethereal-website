@@ -48,11 +48,7 @@ class ContentController extends Controller
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
             ->addColumn('action', function (Content $content) {
-                $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $content->id . ')'],
-                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $content->id . ')'],
-                ];
-                return view('admin.partials.dropdown', ['actions' => $actions]);
+                return view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]);
             })
             ->addColumn('status', function (Content $content) {
                 return $content->active == 1 ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
@@ -247,6 +243,19 @@ class ContentController extends Controller
             DB::rollBack();
             return resJson(false);
         }
+    }
 
+    /**
+     * Return table actions
+     *
+     * @param int $id
+     * @return \string[][]
+     */
+    private function actions(int $id): array
+    {
+        return [
+            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $id . ')'],
+            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $id . ')'],
+        ];
     }
 }
