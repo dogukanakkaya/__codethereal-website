@@ -188,4 +188,46 @@ class ContentController extends Controller
             return resJson(false);
         }
     }
+
+    public function sort()
+    {
+        if (!Auth::user()->can('sort_contents')) {
+            return resJsonUnauthorized();
+        }
+        $contents = Content::findAllByLocale('contents.id', 'parent_id', 'sequence', 'title')->sortBy('sequence');
+        $data = [
+            'navigations' => [route('contents.index') => __('contents.contents') ,__('contents.sort')],
+            'tree' => buildTree($contents, [
+                'parentId' => 'parent_id'
+            ])
+        ];
+        return view('admin.contents.sort', $data);
+    }
+
+    public function saveSequence()
+    {
+        if (!Auth::user()->can('sort_contents')) {
+            return resJsonUnauthorized();
+        }
+        $data = request()->all();
+
+        DB::beginTransaction();
+        try {
+            foreach ($data as $key => $datum) {
+                // I write this with query builder for better performance, there could be a lot of data to be ordered.
+                DB::update('UPDATE contents SET updated_at = ?, parent_id = ?, sequence = ? WHERE id = ?;', [
+                    now(),
+                    $datum['parent_id'],
+                    $key,
+                    $datum['id']
+                ]);
+            }
+            DB::commit();
+            return resJson(true);
+        } catch (\Exception) {
+            DB::rollBack();
+            return resJson(false);
+        }
+
+    }
 }

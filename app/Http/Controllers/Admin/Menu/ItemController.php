@@ -47,7 +47,7 @@ class ItemController extends Controller
             'actions' => $this->actions()
         ];
         return response()
-            ->view('admin.menus.items-ajax-list', $data, 200)
+            ->view('admin.menus.items-ajax-list', $data)
             ->header('Content-Type', 'application/html');
     }
 
@@ -173,7 +173,7 @@ class ItemController extends Controller
                     now(),
                     $datum['parent_id'],
                     $key,
-                    $datum['item_id']
+                    $datum['id']
                 ]);
             }
             DB::commit();
@@ -182,7 +182,6 @@ class ItemController extends Controller
             DB::rollBack();
             return resJson(false);
         }
-
     }
 
     /**

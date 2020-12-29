@@ -1,0 +1,8 @@
+@import 'resources/sass/variables';
+
+.sortable {
+    &.list-group{
+        cursor: move;
+        margin-top: 20px;
+    }
+}

@@ -81,5 +81,7 @@
                     openModal(modal)
                 })
         }
+
+        const __sort = () => window.location.href = '{{ route('contents.sort') }}'
     </script>
 @endpush

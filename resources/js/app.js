@@ -90,7 +90,7 @@ window.nestedSortableSerialize = (sortable, sortableGroup) => {
         // Find the closest sortable group and get it's data-parent-id attribute
         const parentId = children[i].closest(sortableGroup).getAttribute('data-parent-id')
         serialized.push({
-            item_id: children[i].dataset['sortableId'],
+            id: children[i].dataset['sortableId'],
             parent_id: parentId
         });
         if (nested){

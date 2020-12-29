@@ -216,7 +216,7 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
         $childStart = str_replace('{title}',$content->{$dbCols['title']},$childStart);
 
         $html .= $childStart;
-        $html .= buildHtmlTree($content->children,$htmlTags,$dbCols, $content->item_id);
+        $html .= buildHtmlTree($content->children,$htmlTags,$dbCols, $content->{$dbCols['id']});
         $html .= $htmlTags['childEnd'];
     }
     $html .= $htmlTags['end'];

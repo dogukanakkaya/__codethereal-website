@@ -137,9 +137,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         // Users page
         Route::prefix('contents')->group(function (){
             Route::get('/', 'ContentController@index')->name('contents.index');
+            Route::get('sort', 'ContentController@sort')->name('contents.sort');
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function (){
+                Route::put('save-sequence', 'ContentController@saveSequence')->name('contents.save_sequence');
+
                 Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
                 Route::post('/', 'ContentController@create')->name('contents.create');
                 Route::get('{id}', 'ContentController@find')->name('contents.find');
