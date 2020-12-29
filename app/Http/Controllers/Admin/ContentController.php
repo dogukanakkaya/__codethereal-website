@@ -35,6 +35,9 @@ class ContentController extends Controller
 
     public function datatable()
     {
+        if (!Auth::user()->can('see_contents')) {
+            return resJsonUnauthorized();
+        }
         $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
             ->editColumn('created_at', function (Content $content) {
