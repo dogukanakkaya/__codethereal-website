@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Dev;
 
 use Illuminate\Console\Command;
 
-class ResetDev extends Command
+class Reset extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'reset:dev';
+    protected $signature = 'dev:reset';
 
     /**
      * The console command description.
