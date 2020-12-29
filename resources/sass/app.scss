@@ -83,12 +83,13 @@ aside {
     .logo {
         display: flex;
         align-items: center;
+        justify-content: center;
         height: $header-height;
         padding: 20px;
         background-color: #fff;
 
         img {
-            width: 250px;
+            width: 140px;
         }
     }
 
