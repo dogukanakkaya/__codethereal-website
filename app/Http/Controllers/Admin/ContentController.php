@@ -19,13 +19,13 @@ class ContentController extends Controller
             return back();
         }
         $data = [
-            'navigations' => [__('contents.contents')],
+            'navigations' => [__('contents.self_plural')],
             'columns' => [
-                ['data' => 'file', 'name' => 'file', 'title' => __('File'), 'orderable' => false, 'searchable' => false],
-                ['data' => 'title', 'name' => 'title', 'title' => __('Title')],
-                ['data' => 'status', 'name' => 'status', 'title' => __('Status'), 'searchable' => false],
-                ['data' => 'parent', 'name' => 'parent', 'title' => __('Parent'), 'searchable' => false],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at'), 'searchable' => false],
+                ['data' => 'file', 'name' => 'file', 'title' => __('contents.photo'), 'orderable' => false, 'searchable' => false],
+                ['data' => 'title', 'name' => 'title', 'title' => __('contents.title')],
+                ['data' => 'status', 'name' => 'status', 'title' => __('contents.status'), 'searchable' => false],
+                ['data' => 'parent', 'name' => 'parent', 'title' => __('contents.parent'), 'searchable' => false],
+                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('contents.created_at'), 'searchable' => false],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
             ],
             'parents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
@@ -211,7 +211,7 @@ class ContentController extends Controller
         }
         $contents = Content::findAllByLocale('contents.id', 'parent_id', 'sequence', 'title')->sortBy('sequence');
         $data = [
-            'navigations' => [route('contents.index') => __('contents.contents') ,__('contents.sort')],
+            'navigations' => [route('contents.index') => __('contents.self_plural') ,__('contents.sort')],
             'tree' => buildTree($contents, [
                 'parentId' => 'parent_id'
             ])
@@ -254,8 +254,8 @@ class ContentController extends Controller
     private function actions(int $id): array
     {
         return [
-            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $id . ')'],
-            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $id . ')'],
+            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
+            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
         ];
     }
 }

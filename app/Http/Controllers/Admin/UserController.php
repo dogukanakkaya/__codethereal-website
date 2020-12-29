@@ -20,7 +20,7 @@ class UserController extends Controller
             return back();
         }
         $data = [
-            'navigations' => [__('users.users')],
+            'navigations' => [__('users.self_plural')],
             'columns' => [
                 ['data' => 'path', 'name' => 'path', 'title' => __('users.photo'), 'className' => 'text-center'],
                 ['data' => 'name', 'name' => 'name', 'title' => __('users.fullname')],
@@ -28,7 +28,7 @@ class UserController extends Controller
                 ['data' => 'position', 'name' => 'position', 'title' => __('users.position')],
                 ['data' => 'email_verified_at', 'name' => 'verified', 'title' => __('users.verified')],
                 ['data' => 'is_online', 'name' => 'online', 'title' => 'Online'],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at'), 'searchable' => false],
+                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('users.created_at'), 'searchable' => false],
                 ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
             ]
         ];
@@ -57,11 +57,7 @@ class UserController extends Controller
                 return date("Y-m-d H:i:s", strtotime($user->created_at));
             })
             ->addColumn('action', function (User $user) {
-                $actions = [
-                    ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $user->id . ')'],
-                    ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $user->id . ')'],
-                ];
-                return view('admin.partials.dropdown', ['actions' => $actions]);
+                return view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]);
             })
             ->addColumn('is_online', function (User $user) {
                 return isOnline($user->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
@@ -177,5 +173,19 @@ class UserController extends Controller
             return resJson(false);
         }
         return resJson($user->restore());
+    }
+
+    /**
+     * Return table actions
+     *
+     * @param int $id
+     * @return array
+     */
+    private function actions(int $id): array
+    {
+        return  [
+            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
+            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+        ];
     }
 }

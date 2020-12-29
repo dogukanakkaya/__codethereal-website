@@ -38,7 +38,7 @@ class GroupRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => __('menus.group_title'),
+            'title' => __('menus.group.title'),
         ];
     }
 

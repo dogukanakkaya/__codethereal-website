@@ -59,7 +59,7 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'content.parent_id' => __('contents.parent_content'),
+            'content.parent_id' => __('contents.parent'),
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];

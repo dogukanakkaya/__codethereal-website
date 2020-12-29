@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'users' => 'Users',
-    'user' => 'User',
+    'self_singular' => 'User',
+    'self_plural' => 'Users',
     'profile' => 'Profile',
     'fullname' => 'Fullname',
     'email' => 'E-Mail',
@@ -12,5 +12,8 @@ return [
     'password' => 'Password',
     'roles' => 'Roles',
     'verified' => 'Verified',
-    'logout' => 'Logout'
+    'created_at' => 'Created At',
+    'logout' => 'Logout',
+    'notes' => 'Notes',
+    'calendar' => 'Calendar'
 ];

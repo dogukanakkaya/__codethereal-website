@@ -22,7 +22,7 @@ class ItemController extends Controller
         }
         $groupItems = Group::itemsByLocale($groupId);
         $data = [
-            'navigations' => [route('menus.index') => __('menus.group'), __('menus.items')],
+            'navigations' => [route('menus.index') => __('menus.group.self_singular'), __('menus.item.self_plural')],
             'items' => $this->treeItems($groupItems),
             'actions' => $this->actions(),
             'groupId' => $groupId,
@@ -206,8 +206,8 @@ class ItemController extends Controller
     private function actions(): array
     {
         return [
-            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find({value})'],
-            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete({value})']
+            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find({value})'],
+            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete({value})']
         ];
     }
 }

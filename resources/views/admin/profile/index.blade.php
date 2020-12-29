@@ -9,9 +9,9 @@
                     <a class="nav-link right active" data-toggle="pill" href="#profile" role="tab"
                        aria-selected="true">{{ __('users.profile') }}</a>
                     <a class="nav-link right" data-toggle="pill" href="#notes" role="tab"
-                       aria-selected="false">{{ __('global.notes') }}</a>
+                       aria-selected="false">{{ __('users.notes') }}</a>
                     <a class="nav-link right" data-toggle="pill" href="#calendar" role="tab"
-                       aria-selected="false">{{ __('global.calendar') }}</a>
+                       aria-selected="false">{{ __('users.calendar') }}</a>
                 </div>
             </div>
             <div class="col-md-10 col-xs-12">

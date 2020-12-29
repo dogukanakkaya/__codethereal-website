@@ -12,7 +12,7 @@ class PermissionController extends Controller
     public function index()
     {
         $data = [
-            'navigations' => [__('permissions.permission')],
+            'navigations' => [__('permissions.self_singular')],
             'permissionGroups' => Permission::all()->groupBy('group')
         ];
         return view('admin.permissions.index', $data);

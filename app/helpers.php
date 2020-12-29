@@ -29,12 +29,12 @@ function resJson($status, $data = array(), int $statusCode = 200)
 {
     $response = ($status) ? [
         'status' => 1,
-        'title' => __('global.success'),
-        'message' => __('global.success_message')
+        'title' => __('messages.success.custom_title'),
+        'message' => __('messages.success.custom_message')
     ] : [
         'status' => 0,
-        'title' => __('global.error'),
-        'message' => __('global.error_message')
+        'title' => __('messages.error.custom_title'),
+        'message' => __('messages.error.custom_message')
     ];
     return response()->json(array_merge($response, $data), $statusCode);
 }
@@ -48,8 +48,8 @@ function resJsonUnauthorized()
 {
     return response()->json([
         'status' => 0,
-        'title' => __('global.error'),
-        'message' => __('global.unauthorized_message')
+        'title' => __('messages.error.custom_title'),
+        'message' => __('messages.error.unauthorized_message')
     ], 403);
 }
 

@@ -62,11 +62,11 @@
         }
 
         const __delete = id => {
-            if (confirm('{{ __('global.confirm_delete') }}')) {
+            if (confirm('{{ __('messages.confirmation.delete.custom_message') }}')) {
                 const url = '{{ route('users.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
-                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('global.undo') }}</a>`;
+                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('buttons.undo') }}</a>`;
                         __onResponse(res)
                     })
             }
@@ -99,7 +99,7 @@
                         response.data.permissions.forEach(permission => {
                             document.querySelector(`input[type=checkbox][value=${permission.name}]`).setAttribute('checked', true)
                         })
-                        changeModalTitle(modal, `{{ __('global.update') }}: ${response.data.name}`)
+                        changeModalTitle(modal, `{{ __('buttons.update') }}: ${response.data.name}`)
                         openModal(modal)
                     })
             })

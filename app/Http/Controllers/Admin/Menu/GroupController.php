@@ -16,7 +16,7 @@ class GroupController extends Controller
             return back();
         }
         $data = [
-            'navigations' => [__('menus.groups')],
+            'navigations' => [__('menus.group.self_plural')],
             'columns' => $this->columns()
         ];
         return view('admin.menus.index', $data);
@@ -88,14 +88,14 @@ class GroupController extends Controller
     private function actions(int $id): array
     {
         $actions = [
-            ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('global.detail'), 'onclick' => 'window.location.href = "' . route('menu_items.index', ['groupId' => $id]) . '"']
+            ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('buttons.detail'), 'onclick' => 'window.location.href = "' . route('menu_items.index', ['groupId' => $id]) . '"']
         ];
 
         // Only developer can delete and update menu groups
         if (Auth::user()->isDev()) {
             array_push($actions,
-                ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('global.update'), 'onclick' => '__find(' . $id . ')'],
-                ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('global.delete'), 'onclick' => '__delete(' . $id . ')'],
+                ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
+                ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
             );
         }
         return $actions;
@@ -109,9 +109,9 @@ class GroupController extends Controller
     private function columns(): array
     {
         return [
-            ['data' => 'title', 'name' => 'title', 'title' => __('menus.group_title')],
-            ['data' => 'items_count', 'name' => 'items_count', 'title' => __('menus.item_count')],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => __('global.created_at')],
+            ['data' => 'title', 'name' => 'title', 'title' => __('menus.group.title')],
+            ['data' => 'items_count', 'name' => 'items_count', 'title' => __('menus.item.count')],
+            ['data' => 'created_at', 'name' => 'created_at', 'title' => __('menus.created_at')],
             ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
         ];
     }

@@ -44,7 +44,7 @@
             Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = '{{ __('dropzone.too_many_files', ['max' => $maxFiles]) }}'
 
             const removeFile = id => {
-                if (confirm('{{ __('global.confirm_delete') }}')) {
+                if (confirm('{{ __('messages.confirmation.delete.custom_message') }}')) {
                     const url = '{{ route('files.destroy', ['id' => ':id']) }}'.replace(':id', id)
 
                     request.delete(url)
@@ -165,8 +165,8 @@
                     <div class="thumb">
                         <img class="w-100" src="${url}" alt="dz-thumb" />
                         <div class="preview-actions">
-                            <a href="${downloadUrl}" title="{{ __('global.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('global.download') }}</a>
-                            <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('global.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('global.update') }}</a>
+                            <a href="${downloadUrl}" title="{{ __('buttons.download') }}"><i class="material-icons-outlined md-18">cloud_download</i> {{ __('buttons.download') }}</a>
+                            <a href="javascript:void(0);" onclick="editFile(${id})" title="{{ __('buttons.update') }}"><i class="material-icons-outlined md-18">edit</i> {{ __('buttons.update') }}</a>
                             <a href="javascript:void(0);" onclick="removeFile(${id})" title="{{ __('dropzone.remove') }}"><i class="material-icons-outlined md-18">delete</i> {{ __('dropzone.remove') }}</a>
                             <a href="javascript:void(0);" onclick="objectFitToggle(this)" title="{{ __('dropzone.expand') }}"><i class="material-icons-outlined md-18">zoom_out_map</i> {{ __('dropzone.expand') }}</a>
                         </div>

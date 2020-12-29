@@ -32,8 +32,8 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                {{ Form::label("content[parent_id]", __('contents.parent_content')) }}
-                                                {{ Form::select("content[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
+                                                {{ Form::label("content[parent_id]", __('contents.parent')) }}
+                                                {{ Form::select("content[parent_id]", [0 => __('global.none')] + $parents, 0, ['class' => 'form-control']) }}
                                             </div>
                                         </div>
                                         <div class="col-12">

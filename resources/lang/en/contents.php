@@ -1,14 +1,18 @@
 <?php
 
 return [
-    'contents' => 'Contents',
-    'content' => 'Content',
+    'self_singular' => 'Content',
+    'self_plural' => 'Contents',
+    'photo' => 'Photo',
     'title' => 'Title',
+    'status' => 'Status',
+    'parent' => 'Parent',
     'description' => 'Description',
     'full' => 'Full Content',
     'files' => 'Files',
     'general' => 'General',
-    'parent_content' => 'Parent Content',
     'active' => 'Active',
-    'searchable' => 'Searchable'
+    'searchable' => 'Searchable',
+    'sort' => 'Sort',
+    'created_at' => 'Created At'
 ];

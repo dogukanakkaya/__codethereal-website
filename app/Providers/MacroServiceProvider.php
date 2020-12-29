@@ -33,7 +33,7 @@ class MacroServiceProvider extends ServiceProvider
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
             return new HtmlString('<button ' . $mergedAttrs . '>
-                        <span class="btn-enabled">' . __("global.save") . ' <i class="material-icons-outlined md-18">save</i></span>
+                        <span class="btn-enabled">' . __("buttons.save") . ' <i class="material-icons-outlined md-18">save</i></span>
                         <span class="btn-disabled d-none">' . __("global.loading") . ' <i class="material-icons-outlined md-18">timeline</i></span>
                     </button>');
         });
@@ -45,7 +45,7 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button ' . $mergedAttrs . '>' . __("global.close") . ' <i class="material-icons-outlined md-18">close</i></button>');
+            return new HtmlString('<button ' . $mergedAttrs . '>' . __("buttons.close") . ' <i class="material-icons-outlined md-18">close</i></button>');
         });
 
         \Form::macro('refresh', function (array $attributes = []) {

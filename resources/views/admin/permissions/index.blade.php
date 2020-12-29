@@ -62,7 +62,7 @@
         }
 
         const __delete = id => {
-            if (confirm('{{ __('global.confirm_delete') }}')) {
+            if (confirm('{{ __('messages.confirmation.delete.custom_message') }}')) {
                 const url = '{{ route('permissions.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(__onResponse)

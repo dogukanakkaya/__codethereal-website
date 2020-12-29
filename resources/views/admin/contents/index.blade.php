@@ -56,11 +56,11 @@
         })
 
         const __delete = id => {
-            if (confirm('{{ __('global.confirm_delete') }}')) {
+            if (confirm('{{ __('messages.confirmation.delete.custom_message') }}')) {
                 const url = '{{ route('contents.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
-                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('global.undo') }}</a>`;
+                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('buttons.undo') }}</a>`;
                         __onResponse(res)
                     })
             }

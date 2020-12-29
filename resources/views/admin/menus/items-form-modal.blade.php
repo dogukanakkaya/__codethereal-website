@@ -23,19 +23,19 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            {{ Form::label("$language->code[title]", __('menus.item_title'), ['class' => 'required']) }}
+                                            {{ Form::label("$language->code[title]", __('menus.item.title'), ['class' => 'required']) }}
                                             {{ Form::text("$language->code[title]", '', ['class' => 'form-control']) }}
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            {{ Form::label("$language->code[url]", __('menus.item_url')) }}
+                                            {{ Form::label("$language->code[url]", __('menus.item.url')) }}
                                             {{ Form::text("$language->code[url]", '', ['class' => 'form-control']) }}
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            {{ Form::label("$language->code[icon]", __('menus.item_icon')) }}
+                                            {{ Form::label("$language->code[icon]", __('menus.item.icon')) }}
                                             {{ Form::text("$language->code[icon]", '', ['class' => 'form-control']) }}
                                         </div>
                                     </div>
@@ -44,7 +44,7 @@
                                             <div class="custom-control custom-switch">
                                                 {{ Form::hidden("$language->code[active]", 0) }}
                                                 {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
-                                                {{ Form::label("$language->code[active]", __('menus.item_active'), ['class' => 'custom-control-label']) }}
+                                                {{ Form::label("$language->code[active]", __('menus.item.active'), ['class' => 'custom-control-label']) }}
                                             </div>
                                         </div>
                                     </div>
@@ -54,8 +54,8 @@
                         <div class="row pt-3 border-top">
                             <div class="col-12">
                                 <div class="form-group">
-                                    {{ Form::label("item[parent_id]", __('menus.item_parent')) }}
-                                    {{ Form::select("item[parent_id]", [0 => __('global.no')] + $parents, 0, ['class' => 'form-control']) }}
+                                    {{ Form::label("item[parent_id]", __('menus.item.parent')) }}
+                                    {{ Form::select("item[parent_id]", [0 => __('global.none')] + $parents, 0, ['class' => 'form-control']) }}
                                 </div>
                             </div>
                         </div>

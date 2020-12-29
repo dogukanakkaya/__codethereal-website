@@ -55,7 +55,7 @@ class ItemRequest extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'item.parent_id' => __('menus.item_parent'),
+            'item.parent_id' => __('menus.item.parent'),
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -65,10 +65,10 @@ class ItemRequest extends FormRequest
                 continue;
 
             if(isset($data['active']) && intval($data['active']) === 1){
-                $attributes[$language->code . '.title'] = __('menus.item_title') . " - $upperLang";
-                $attributes[$language->code . '.url'] = __('menus.item_url') . " - $upperLang";
-                $attributes[$language->code . '.icon'] = __('menus.item_icon') . " - $upperLang";
-                $attributes[$language->code . '.active'] = __('menus.item_active') . " - $upperLang";
+                $attributes[$language->code . '.title'] = __('menus.item.title') . " - $upperLang";
+                $attributes[$language->code . '.url'] = __('menus.item.url') . " - $upperLang";
+                $attributes[$language->code . '.icon'] = __('menus.item.con') . " - $upperLang";
+                $attributes[$language->code . '.active'] = __('menus.item.active') . " - $upperLang";
             }
         }
         return $attributes;
