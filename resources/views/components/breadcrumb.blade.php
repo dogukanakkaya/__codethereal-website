@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" class="ce-breadcrumb mb-4">
+<nav aria-label="breadcrumb" class="ce-breadcrumb">
     <ul class="d-flex align-items-center">
         @foreach ($navigations as $url => $name)
             @if ($loop->last)

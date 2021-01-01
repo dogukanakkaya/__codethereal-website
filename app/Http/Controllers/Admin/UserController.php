@@ -51,7 +51,7 @@ class UserController extends Controller
                 return '<img src="' . $path . '" class="table-img" alt="profile"/>';
             })
             ->editColumn('email_verified_at', function (User $user) {
-                return $user->email_verified_at !== NULL ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+                return $user->email_verified_at !== NULL ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
             ->editColumn('created_at', function (User $user) {
                 return date("Y-m-d H:i:s", strtotime($user->created_at));
@@ -60,7 +60,7 @@ class UserController extends Controller
                 return view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]);
             })
             ->addColumn('is_online', function (User $user) {
-                return isOnline($user->id) ? '<span class="badge badge-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge badge-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
+                return isOnline($user->id) ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
             })
             ->rawColumns(['path', 'action', 'email_verified_at', 'is_online'])
             ->make(true);

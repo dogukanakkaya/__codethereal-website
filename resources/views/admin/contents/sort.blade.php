@@ -6,7 +6,9 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
+    <div class="d-flex justify-content-between align-items-center  mb-4">
+        <x-breadcrumb :nav="$navigations"/>
+    </div>
     <div class="list-area p-4">
         {!! buildHtmlTree($tree, [
             'start' => '<div class="list-group sortable" data-parent-id="{parentId}">',

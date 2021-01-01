@@ -5,10 +5,12 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
-    <div class="page-actions">
-        {{ Form::refresh(['onclick' => 'ajaxList()']) }}
-        {{ Form::addNew(['onclick' => '__create()']) }}
+    <div class="d-flex justify-content-between align-items-center">
+        <x-breadcrumb :nav="$navigations"/>
+        <div class="page-actions">
+            {{ Form::refresh(['onclick' => 'ajaxList()']) }}
+            {{ Form::addNew(['onclick' => '__create()']) }}
+        </div>
     </div>
     <div id="list" class="list-area p-4">
         @include('admin.permissions.ajax-list', ['permissionGroups' => $permissionGroups])

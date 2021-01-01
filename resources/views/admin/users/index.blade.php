@@ -5,10 +5,12 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
-    <div class="page-actions">
-        {{ Form::refresh(['onclick' => '__refresh()']) }}
-        {{ Form::addNew(['onclick' => '__create()']) }}
+    <div class="d-flex justify-content-between align-items-center">
+        <x-breadcrumb :nav="$navigations"/>
+        <div class="page-actions">
+            {{ Form::refresh(['onclick' => '__refresh()']) }}
+            {{ Form::addNew(['onclick' => '__create()']) }}
+        </div>
     </div>
     <div class="list-area p-4">
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
