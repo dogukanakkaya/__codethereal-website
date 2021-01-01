@@ -168,9 +168,7 @@ function repositionElement(e) {
 
 window.openModal = (selector) => {
     const modalEl = document.querySelector(selector)
-    // TODO: check this after bs5 released
-    //const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    const modalInstance = undefined
+    const modalInstance = bootstrap.Modal.getInstance(modalEl)
     if (modalInstance){
         modalInstance.show()
     }else{
@@ -179,9 +177,7 @@ window.openModal = (selector) => {
 }
 window.closeModal = (selector) => {
     const modalEl = document.querySelector(selector)
-    // TODO: check this after bs5 released
-    //const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    const modalInstance = undefined
+    const modalInstance = bootstrap.Modal.getInstance(modalEl)
     if (modalInstance){
         modalInstance.hide()
     }else{
@@ -189,10 +185,4 @@ window.closeModal = (selector) => {
     }
 }
 window.changeModalTitle = (selector, title) => document.querySelector(selector).querySelector('.modal-title').innerText = title
-//window.openModal = selector => $(selector).modal('show')
-//window.closeModal = selector => $(selector).modal('hide')
-//window.changeModalTitle = (selector, title) => $(`${selector} .modal-title`).text(title)
-
 /* /Global functions */
-
-

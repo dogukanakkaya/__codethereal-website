@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="nav nav-pills mb-3 language-tab" role="tablist">
                         @foreach($languages as $language)
-                            <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill"
+                            <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill"
                                href="#form-{{ $language->code }}" role="tab"
                                aria-selected="true">{{ strtoupper($language->code) }}</a>
                         @endforeach

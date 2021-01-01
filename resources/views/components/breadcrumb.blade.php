@@ -1,11 +1,12 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+<nav aria-label="breadcrumb" class="ce-breadcrumb mb-4">
+    <ul class="d-flex align-items-center">
         @foreach ($navigations as $url => $name)
             @if ($loop->last)
-                <li class="breadcrumb-item active" aria-current="page">{{ $name }}</li>
+                <li class="active" aria-current="page">{{ $name }}</li>
             @else
-                <li class="breadcrumb-item"><a href="{{ $url }}">{{ $name }}</a></li>
+                <li><a href="{{ $url }}">{{ $name }}</a></li>
             @endif
         @endforeach
-    </ol>
+    </ul>
 </nav>
+

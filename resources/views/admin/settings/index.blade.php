@@ -6,11 +6,11 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
                 <div class="nav nav-pills mb-3 border-active-tab" role="tablist">
-                    <a class="nav-link active" data-toggle="pill" href="#website" role="tab"
+                    <a class="nav-link active" data-bs-toggle="pill" href="#website" role="tab"
                        aria-selected="true">{{ __('settings.website') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#contact" role="tab"
+                    <a class="nav-link" data-bs-toggle="pill" href="#contact" role="tab"
                        aria-selected="false">{{ __('settings.contact') }}</a>
-                    <a class="nav-link" data-toggle="pill" href="#social" role="tab"
+                    <a class="nav-link" data-bs-toggle="pill" href="#social" role="tab"
                        aria-selected="false">{{ __('settings.social') }}</a>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <div class="tab-pane fade show active" id="website" role="tabpanel">
                             <div class="nav nav-pills mb-3 language-tab" role="tablist">
                                 @foreach($languages as $language)
-                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill" href="#website-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill" href="#website-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
                                 @endforeach
                             </div>
                             <div class="tab-content">
@@ -70,7 +70,7 @@
                         <div class="tab-pane fade" id="contact" role="tabpanel">
                             <div class="nav nav-pills mb-3 language-tab" role="tablist">
                                 @foreach($languages as $language)
-                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill" href="#contact-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill" href="#contact-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
                                 @endforeach
                             </div>
                             <div class="tab-content">
@@ -111,7 +111,7 @@
                         <div class="tab-pane fade" id="social" role="tabpanel">
                             <div class="nav nav-pills mb-3 language-tab" role="tablist">
                                 @foreach($languages as $language)
-                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill" href="#social-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill" href="#social-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
                                 @endforeach
                             </div>
                             <div class="tab-content">

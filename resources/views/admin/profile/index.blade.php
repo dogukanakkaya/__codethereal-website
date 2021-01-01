@@ -6,11 +6,11 @@
         <div class="row">
             <div class="col-md-2 col-xs-12">
                 <div class="nav flex-column nav-pills border-active-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link right active" data-toggle="pill" href="#profile" role="tab"
+                    <a class="nav-link right active" data-bs-toggle="pill" href="#profile" role="tab"
                        aria-selected="true">{{ __('users.profile') }}</a>
-                    <a class="nav-link right" data-toggle="pill" href="#notes" role="tab"
+                    <a class="nav-link right" data-bs-toggle="pill" href="#notes" role="tab"
                        aria-selected="false">{{ __('users.notes') }}</a>
-                    <a class="nav-link right" data-toggle="pill" href="#calendar" role="tab"
+                    <a class="nav-link right" data-bs-toggle="pill" href="#calendar" role="tab"
                        aria-selected="false">{{ __('users.calendar') }}</a>
                 </div>
             </div>

@@ -10,9 +10,9 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
                         <div class="nav nav-pills mb-3 border-active-tab" role="tablist">
-                            <a class="nav-link active" data-toggle="pill" href="#general" role="tab"
+                            <a class="nav-link active" data-bs-toggle="pill" href="#general" role="tab"
                                aria-selected="true"><i class="material-icons-outlined">layers</i> {{ __('contents.general') }}</a>
-                            <a class="nav-link" data-toggle="pill" href="#files" role="tab"
+                            <a class="nav-link" data-bs-toggle="pill" href="#files" role="tab"
                                aria-selected="false"><i class="material-icons-outlined">insert_drive_file</i> {{ __('contents.files') }}</a>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                             <div class="tab-pane fade show active" id="general" role="tabpanel">
                                 <div class="nav nav-pills mb-3 language-tab" style="top: 25px;position: absolute;right: 15px;" role="tablist">
                                     @foreach($languages as $language)
-                                        <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill"
+                                        <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill"
                                            href="#general-{{ $language->code }}" role="tab"
                                            aria-selected="true">{{ strtoupper($language->code) }}</a>
                                     @endforeach

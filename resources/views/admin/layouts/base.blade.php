@@ -98,7 +98,7 @@
                 <li class="language">
                     <div class="dropdown">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <a href="javascript:void(0);"><img src="{{ asset('img/flags') }}/{{ app()->getLocale() }}.svg" alt=""></a>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -127,7 +127,7 @@
                 <li class="profile">
                     <div class="dropdown">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @php
                                 $file = App\Models\Admin\File::find($user->image);
                                 $image = isset($file->path) ? 'storage/' . $file->path : 'img/profile.webp';

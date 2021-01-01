@@ -440,16 +440,18 @@ main {
     }
 }
 
-.breadcrumb-item {
-    align-items: center;
-
-    & + .breadcrumb-item::before {
-        font-family: 'Material Icons';
-        content: 'chevron_right';
-    }
-
-    &.active {
-        color: $main-color;
+.ce-breadcrumb {
+    li{
+        margin-right: .5rem;
+        &:not(:first-child)::before{
+            font-family: 'Material Icons';
+            content: 'chevron_right';
+            vertical-align: middle;
+            margin-right: .5rem;
+        }
+        &.active {
+            color: $main-color;
+        }
     }
 }
 
