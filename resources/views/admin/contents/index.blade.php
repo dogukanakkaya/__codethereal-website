@@ -76,7 +76,7 @@
             updateId = id
             clearPreviewFull1()
 
-            const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', id)
+            const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
                     const {content, translations, files} = response.data
