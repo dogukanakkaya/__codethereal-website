@@ -18,7 +18,7 @@
             'id' => 'id',
             'title' => 'title'
         ]) !!}
-        <div class="text-right mt-3">
+        <div class="text-end mt-3">
             {{ Form::save(['onclick' => '__saveSequence()']) }}
         </div>
     </div>

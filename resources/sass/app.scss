@@ -5,34 +5,9 @@
 @import 'queries';
 
 // Bootstrap
-//@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/root";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/transitions";
-@import "~bootstrap/scss/dropdown";
-@import "~bootstrap/scss/custom-forms";
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/breadcrumb";
-@import "~bootstrap/scss/badge";
-@import "~bootstrap/scss/list-group";
-@import "~bootstrap/scss/close";
-@import "~bootstrap/scss/modal";
-@import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/alert";
-//@import "~bootstrap/scss/print";
-
-// Utils
-@import 'utils';
+@import "utils";
 
 .top-container {
     display: inline;
@@ -540,6 +515,12 @@ main {
     button {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
         padding: .4rem .9rem;
+
+        &:hover{
+            background: #e0e0e0;
+            border-color: #e0e0e0;
+            color: #333;
+        }
 
         &:focus, &:active {
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;

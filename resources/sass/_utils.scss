@@ -155,15 +155,35 @@ form:invalid [type='submit']{
 }
 
 /* BS Override */
-form label:not(.form-check-label){
-    font-size: .725rem;
-    text-transform: uppercase;
-    color: $gray-color;
-    font-weight: 600;
+form{
+    label{
+        font-size: .725rem;
+        text-transform: uppercase;
+        color: $gray-color;
+        font-weight: 600;
+        margin-bottom: .3rem;
+    }
+
+    .form-control {
+        font-size: .825rem !important;
+        padding: .4rem .5rem !important;
+
+
+    }
+
+    .form-control, .form-check-input{
+        &:focus {
+            border-color: #ff48247d;
+            box-shadow: 0 0 0 0.2rem rgb(255 72 36 / 25%);
+        }
+    }
+
+    .form-check-input{
+        &:checked{
+            background-color: $main-color;
+            border-color: $main-color;
+        }
+    }
 }
 
-form input{
-    font-size: .825rem!important;
-    padding: .4rem .5rem!important;
-}
 /* /BS Override */

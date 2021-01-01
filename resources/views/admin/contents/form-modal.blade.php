@@ -4,9 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -21,7 +19,7 @@
                     <div class="col-12">
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="general" role="tabpanel">
-                                <div class="nav nav-pills mb-3 language-tab" style="top: -48px;position: absolute;right: 0;" role="tablist">
+                                <div class="nav nav-pills mb-3 language-tab" style="top: 25px;position: absolute;right: 15px;" role="tablist">
                                     @foreach($languages as $language)
                                         <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="pill"
                                            href="#general-{{ $language->code }}" role="tab"
@@ -31,17 +29,16 @@
                                 <div class="tab-content">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 {{ Form::label("content[parent_id]", __('contents.parent')) }}
                                                 {{ Form::select("content[parent_id]", [0 => __('global.none')] + $parents, 0, ['class' => 'form-control']) }}
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-switch">
-                                                    {{ Form::hidden("content[searchable]", 0) }}
-                                                    {{ Form::checkbox("content[searchable]", 1, true, ['class' => 'custom-control-input', 'id' => "content[searchable]"]) }}
-                                                    {{ Form::label("content[searchable]", __('contents.searchable'), ['class' => 'custom-control-label']) }}
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    {{ Form::checkbox("content[searchable]", 1, true, ['class' => 'form-check-input', 'id' => "content[searchable]"]) }}
+                                                    {{ Form::label("content[searchable]", __('contents.searchable'), ['class' => 'form-check-label']) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -52,30 +49,27 @@
                                              id="general-{{ $language->code }}" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="form-group">
+                                                    <div class="mb-3">
                                                         {{ Form::label("$language->code[title]", __('contents.title'), ['class' => 'required']) }}
                                                         {{ Form::text("$language->code[title]", '', ['class' => 'form-control']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="form-group">
+                                                    <div class="mb-3">
                                                         {{ Form::label("$language->code[description]", __('contents.description')) }}
                                                         {{ Form::textarea("$language->code[description]", '', ['class' => 'form-control']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="form-group">
+                                                    <div class="mb-3">
                                                         {{ Form::label("$language->code[full]", __('contents.full')) }}
                                                         <x-rich-editor :name="$language->code . '[full]'"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="form-group">
-                                                        <div class="custom-control custom-switch">
-                                                            {{ Form::hidden("$language->code[active]", 0) }}
-                                                            {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'custom-control-input', 'id' => "$language->code[active]"]) }}
-                                                            {{ Form::label("$language->code[active]", __('contents.active'), ['class' => 'custom-control-label']) }}
-                                                        </div>
+                                                    <div class="mb-3 form-check">
+                                                        {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'form-check-input', 'id' => "$language->code[active]"]) }}
+                                                        {{ Form::label("$language->code[active]", __('contents.active'), ['class' => 'form-check-label']) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,7 +81,7 @@
                                 <div class="tab-content">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 <x-dropzone index="1" input-name="content[files]" folder="contents"
                                                             sortable="true"/>
                                             </div>
@@ -100,7 +94,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                {{ Form::closeBtn(['data-dismiss' => 'modal']) }}
+                {{ Form::closeBtn(['data-bs-dismiss' => 'modal']) }}
                 {{ Form::save() }}
             </div>
         </div>

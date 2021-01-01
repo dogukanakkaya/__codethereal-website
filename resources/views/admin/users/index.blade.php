@@ -56,7 +56,7 @@
             }
             getPermissions().then(response => {
                 document.getElementById('user-permissions').innerHTML = response.data
-                changeModalTitle(modal, '{{ __('global.add_new') }}')
+                //changeModalTitle(modal, '{{ __('global.add_new') }}')
                 openModal(modal)
             })
         }

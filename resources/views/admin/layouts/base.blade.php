@@ -133,7 +133,7 @@
                                 $image = isset($file->path) ? 'storage/' . $file->path : 'img/profile.webp';
                             @endphp
                             <img src="{{ asset($image) }}" alt="profile">
-                            <span class="ml-1 d-none d-xl-inline-block">{{ Str::words($user->name, 1, '') }}</span>
+                            <span class="ms-1 d-none d-xl-inline-block">{{ Str::words($user->name, 1, '') }}</span>
                             <i class="d-none d-xl-inline-block material-icons-outlined md-18">expand_more</i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

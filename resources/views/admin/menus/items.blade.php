@@ -16,7 +16,7 @@
         <div id="list">
             @include('admin.menus.items-ajax-list', ['items' => $items])
         </div>
-        <div class="text-right mt-3">
+        <div class="text-end mt-3">
             {{ Form::save(['onclick' => '__saveSequence()']) }}
         </div>
     </div>

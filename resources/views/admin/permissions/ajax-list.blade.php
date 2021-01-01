@@ -5,7 +5,7 @@
                 <div class="role-item">
                     <div class="head d-flex align-items-center justify-content-between p-3">
                         <div class="d-flex align-items-center">
-                            <div class="char mr-3">
+                            <div class="char me-3">
                                 <span>{{ substr($permission->title, 0, 1) }}</span>
                             </div>
                             <div>

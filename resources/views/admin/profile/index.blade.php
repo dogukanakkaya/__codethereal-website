@@ -22,25 +22,25 @@
                             @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label('name', __('users.fullname'), ['class' => 'required']) }}
                                         {{ Form::text('name', $user->name, ['class' => 'form-control', 'required' => true]) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label('email', __('users.email'), ['class' => 'required']) }}
                                         {{ Form::email('email', $user->email, ['class' => 'form-control', 'required' => true, 'readonly' => true]) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label('position', __('users.position')) }}
                                         {{ Form::text('position', $user->position, ['class' => 'form-control']) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label('password', __('users.password')) }}
                                         {{ Form::password('password', ['class' => 'form-control', 'placeholder' => '********', 'readonly' => true]) }}
                                         <a href="{{ route('profile.reset_password') }}"><small>{{ __('passwords.reset_password') }}</small></a>
@@ -55,19 +55,19 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label('about', __('users.about')) }}
                                         {{ Form::textarea('about', $user->about, ['class' => 'form-control']) }}
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         {{ Form::label(__('users.photo')) }}
                                         <x-dropzone :file-id="$user->image" folder="user-profiles" input-name="image"
                                                     max-files="1"/>
                                     </div>
                                 </div>
-                                <div class="col-12 text-right">
+                                <div class="col-12 text-end">
                                     {{ Form::save() }}
                                 </div>
                             </div>
