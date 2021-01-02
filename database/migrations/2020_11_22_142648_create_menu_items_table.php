@@ -18,6 +18,7 @@ class CreateMenuItemsTable extends Migration
             $table->foreignId('group_id')->constrained('menu_groups');
             $table->integer('parent_id')->default(0);
             $table->integer('sequence')->default(0);
+            $table->string('permission')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

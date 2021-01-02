@@ -1,7 +1,9 @@
 @extends('admin.layouts.base')
 
 @section('content')
-    <x-breadcrumb :nav="$navigations"/>
+    <div class="d-flex align-items-center mb-4">
+        <x-breadcrumb :nav="$navigations"/>
+    </div>
     <div class="profile">
         <div class="row">
             <div class="col-md-2 col-xs-12">

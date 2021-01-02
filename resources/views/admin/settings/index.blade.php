@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center  mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <x-breadcrumb :nav="$navigations"/>
     </div>
     <div class="settings">

@@ -24,39 +24,18 @@
             </div>
             <div class="menus">
                 <ul>
-                    <li class="separator">{{ __('global.general') }}</li>
-                    <li>
-                        <a href="{{ route('admin.home') }}" class="{{ isActive('admin') }}"><i
-                                class="material-icons-outlined md-18">home</i> {{ __('global.home') }}</a>
-                    </li>
-                    @can('see_settings')
-                        <li>
-                            <a href="{{ route('settings.index') }}" class="{{ isActive('admin/settings') }}"><i
-                                    class="material-icons-outlined md-18">settings</i> Settings</a>
-                        </li>
-                    @endcan
-                    @can('see_users')
-                        <li>
-                            <a href="{{ route('users.index') }}" class="{{ isActive('admin/users') }}"><i
-                                    class="material-icons-outlined md-18">people_alt</i> Users</a>
-                        </li>
-                    @endcan
-                    @can('see_menus')
-                        <li>
-                            <a href="{{ route('menus.index') }}"
-                               class="{{ isActive(['admin/menus', 'admin/menus/*/items']) }}"><i
-                                    class="material-icons-outlined md-18">menu</i> Menus</a>
-                        </li>
-                    @endcan
+                    @foreach($menuGroups as $groupId => $menuItems)
+                        <li class="separator">{{ __('global.menu_titles.'.$groupId.'') }}</li>
+                        @foreach($menuItems as $menuItem)
+                            @if($menuItem->permission === null || $user->can('see_' . $menuItem->permission))
+                            <li>
+                                <a href="{{ url($menuItem->url) }}" class="{{ isActive($menuItem->url) }}"><i
+                                        class="material-icons-outlined md-18">{{ $menuItem->icon }}</i> {{ $menuItem->title }}</a>
+                            </li>
+                            @endif
+                        @endforeach
+                    @endforeach
 
-                    <li class="separator">{{ __('global.cms') }}</li>
-                    @can('see_contents')
-                        <li>
-                            <a href="{{ route('contents.index') }}"
-                               class="{{ isActive(['admin/contents', 'admin/contents/*']) }}"><i
-                                    class="material-icons-outlined md-18">layers</i> Contents</a>
-                        </li>
-                    @endcan
                     <li class="has-dd">
                         <a href="javascript:void(0);"><i class="material-icons-outlined md-18">keyboard_tab</i> Other</a>
                         <ul class="menu-dd">

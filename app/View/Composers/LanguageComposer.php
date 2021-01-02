@@ -5,7 +5,7 @@ namespace App\View\Composers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class LanguagesComposer
+class LanguageComposer
 {
 
     /**

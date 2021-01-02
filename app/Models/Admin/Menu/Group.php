@@ -36,9 +36,10 @@ class Group extends Model
      * @param $id
      * @return mixed
      */
-    public static function itemsByLocale($id)
+    public static function itemsByLocale($id, ...$select)
     {
-        return self::find($id)
+        return self::select($select)
+            ->find($id)
             ->items()
             ->oldest('sequence')
             ->latest()

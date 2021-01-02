@@ -16,4 +16,9 @@ return [
     'none' => 'None',
 
     'coming_soon' => ':name coming soon!', // w/ param TODO: temporary
+
+    'menu_titles' => [
+        1 => 'General',
+        2 => 'CMS'
+    ]
 ];
