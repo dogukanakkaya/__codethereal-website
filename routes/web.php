@@ -157,7 +157,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     // Website routes
     Route::prefix('/')->group(function (){
         Route::get('/', function (){
-            return 'Hello from website';
+            return view('site.index');
+        });
+        Route::get('list', function (){
+            return view('site.list');
+        });
+        Route::get('detail', function (){
+            return view('site.detail');
         });
     });
 

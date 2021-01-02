@@ -10,6 +10,8 @@
     "/css/ce/datatable.css": "/css/ce/datatable.css",
     "/css/ce/sortable.css": "/css/ce/sortable.css",
     "/css/ce/dropzone.css": "/css/ce/dropzone.css",
+    "/site/css/style.css": "/site/css/style.css",
+    "/site/js/app.js": "/site/js/app.js",
     "/js/static/dropzone.min.js": "/js/static/dropzone.min.js",
     "/js/static/sortable.min.js": "/js/static/sortable.min.js",
     "/plugins/tinymce/tinymce.min.js": "/plugins/tinymce/tinymce.min.js"

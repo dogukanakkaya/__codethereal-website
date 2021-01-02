@@ -34,3 +34,10 @@ mix.copyDirectory('node_modules/tinymce/plugins', 'public/plugins/tinymce/plugin
 mix.copyDirectory('node_modules/tinymce/skins', 'public/plugins/tinymce/skins');
 mix.copyDirectory('node_modules/tinymce/themes', 'public/plugins/tinymce/themes');
 mix.copy('node_modules/tinymce/tinymce.min.js', 'public/plugins/tinymce/tinymce.min.js');
+
+
+const sitePrefix = 'site'
+mix.js('resources/site/js/app.js', `public/${sitePrefix}/js`)
+    .sass('resources/site/sass/style.scss', `public/${sitePrefix}/css`)
+    .copyDirectory('resources/site/img', `public/${sitePrefix}/img`)
+    .copyDirectory('node_modules/bootstrap-icons/font', `public/${sitePrefix}/bootstrap-icons`)
