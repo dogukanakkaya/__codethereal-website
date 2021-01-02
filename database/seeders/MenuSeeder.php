@@ -17,77 +17,77 @@ class MenuSeeder extends Seeder
     public function run()
     {
         /* Admin General Menus */
-        $group = Group::create([
+        $groupGeneral = Group::create([
             'id' => 1,
             'title' => 'Admin General Menus'
         ]);
-        $item = Item::create([
-            'group_id' => $group->id,
+        $itemHome = Item::create([
+            'group_id' => $groupGeneral->id,
         ]);
-        $item2 = Item::create([
-            'group_id' => $group->id,
+        $itemSettings = Item::create([
+            'group_id' => $groupGeneral->id,
             'permission' => 'settings'
         ]);
-        $item3 = Item::create([
-            'group_id' => $group->id,
+        $itemUsers = Item::create([
+            'group_id' => $groupGeneral->id,
             'permission' => 'users'
         ]);
-        $item4 = Item::create([
-            'group_id' => $group->id,
+        $itemMenus = Item::create([
+            'group_id' => $groupGeneral->id,
             'permission' => 'menus'
         ]);
         DB::table('menu_item_translations')->insert([
             [
-                'item_id' => $item->id,
+                'item_id' => $itemHome->id,
                 'title' => 'Anasayfa',
                 'url' => 'admin',
                 'icon' => 'home',
                 'language' => 'tr'
             ],
             [
-                'item_id' => $item->id,
+                'item_id' => $itemHome->id,
                 'title' => 'Home',
                 'url' => 'admin',
                 'icon' => 'home',
                 'language' => 'en'
             ],
             [
-                'item_id' => $item2->id,
+                'item_id' => $itemSettings->id,
                 'title' => 'Ayarlar',
                 'url' => 'admin/settings',
                 'icon' => 'settings',
                 'language' => 'tr'
             ],
             [
-                'item_id' => $item2->id,
+                'item_id' => $itemSettings->id,
                 'title' => 'Settings',
                 'url' => 'admin/settings',
                 'icon' => 'settings',
                 'language' => 'en'
             ],
             [
-                'item_id' => $item3->id,
+                'item_id' => $itemUsers->id,
                 'title' => 'Üyeler',
                 'url' => 'admin/users',
                 'icon' => 'people_alt',
                 'language' => 'tr'
             ],
             [
-                'item_id' => $item3->id,
+                'item_id' => $itemUsers->id,
                 'title' => 'Users',
                 'url' => 'admin/users',
                 'icon' => 'people_alt',
                 'language' => 'en'
             ],
             [
-                'item_id' => $item4->id,
+                'item_id' => $itemMenus->id,
                 'title' => 'Menüler',
                 'url' => 'admin/menus',
                 'icon' => 'menu',
                 'language' => 'tr'
             ],
             [
-                'item_id' => $item4->id,
+                'item_id' => $itemMenus->id,
                 'title' => 'Menus',
                 'url' => 'admin/menus',
                 'icon' => 'menu',
@@ -97,24 +97,24 @@ class MenuSeeder extends Seeder
         /* /Admin General Menus */
 
         /* Admin CMS Menus */
-        $group2 = Group::create([
+        $groupCms = Group::create([
             'id' => 2,
             'title' => 'Admin CMS Menus'
         ]);
-        $item5 = Item::create([
-            'group_id' => $group2->id,
+        $itemContents = Item::create([
+            'group_id' => $groupCms->id,
             'permission' => 'contents'
         ]);
         DB::table('menu_item_translations')->insert([
             [
-                'item_id' => $item5->id,
+                'item_id' => $itemContents->id,
                 'title' => 'İçerikler',
                 'url' => 'admin/contents',
                 'icon' => 'layers',
                 'language' => 'tr'
             ],
             [
-                'item_id' => $item5->id,
+                'item_id' => $itemContents->id,
                 'title' => 'Contents',
                 'url' => 'admin/contents',
                 'icon' => 'layers',

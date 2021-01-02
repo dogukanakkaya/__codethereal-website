@@ -8,7 +8,9 @@
     <div class="d-flex justify-content-between align-items-center">
         <x-breadcrumb :nav="$navigations"/>
         <div class="page-actions">
+            @can('sort_contents')
             {{ Form::sort(['onclick' => '__sort()']) }}
+            @endcan
             {{ Form::refresh(['onclick' => '__refresh()']) }}
             {{ Form::addNew(['onclick' => '__create()']) }}
         </div>

@@ -36,6 +36,7 @@
                         @endforeach
                     @endforeach
 
+                    <!--
                     <li class="has-dd">
                         <a href="javascript:void(0);"><i class="material-icons-outlined md-18">keyboard_tab</i> Other</a>
                         <ul class="menu-dd">
@@ -47,6 +48,7 @@
                             </li>
                         </ul>
                     </li>
+                    -->
 
                     @if($user->isDev())
                         <li class="separator">{{ __('global.developer') }}</li>
