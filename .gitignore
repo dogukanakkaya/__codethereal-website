@@ -12,3 +12,5 @@ npm-debug.log
 yarn-error.log
 .idea/
 .DS_Store
+/config/website.php
+/app/Http/Controllers/Site
