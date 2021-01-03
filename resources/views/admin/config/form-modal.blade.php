@@ -1,5 +1,5 @@
 <div class="modal fade" id="config-form-modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         {{ Form::open(['id' => 'config-form']) }}
         <div class="modal-content">
             <div class="modal-body">
