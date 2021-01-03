@@ -24,7 +24,7 @@ class PermissionController extends Controller
     public function ajaxList()
     {
         return response()
-            ->view('admin.permissions.ajax-list', ['permissionGroups' => Permission::all()->groupBy('group')], 200)
+            ->view('admin.permissions.ajax-list', ['permissionGroups' => Permission::all()->groupBy('group')])
             ->header('Content-Type', 'application/html');
     }
 

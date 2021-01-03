@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect','localizationRedirect']], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect']], function () {
 
     // Authentication Routes
     \Illuminate\Support\Facades\Auth::routes(['verify' => true, 'register' => false]);
@@ -29,18 +29,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
     // Admin Authenticated users route group
-    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function () {
         Route::get('/', 'HomeController@index')->name('admin.home');
 
         // Only developer routes
-        Route::group(['prefix' => 'dev', 'middleware' => 'dev', 'namespace' => 'Dev'], function(){
+        Route::group(['prefix' => 'dev', 'middleware' => 'dev', 'namespace' => 'Dev'], function () {
 
             // Dev/Permissions
-            Route::prefix('permissions')->group(function (){
+            Route::prefix('permissions')->group(function () {
                 Route::get('/', 'PermissionController@index')->name('permissions.index');
 
                 // Only for ajax operations
-                Route::middleware('only.ajax')->group(function (){
+                Route::middleware('only.ajax')->group(function () {
                     Route::get('ajax', 'PermissionController@ajaxList')->name('permissions.ajax');
                     Route::get('checkboxes', 'PermissionController@checkboxesView')->name('permissions.checkboxes');
 
@@ -50,15 +50,27 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::delete('{id}', 'PermissionController@destroy')->name('permissions.destroy');
                 });
             });
+
+            // Dev/Config
+            Route::prefix('config')->group(function () {
+                Route::get('/', 'ConfigController@index')->name('config.index');
+
+                // Only for ajax operations
+                Route::middleware('only.ajax')->group(function () {
+                    // I write this as a post request because we send a file path (route library search it like it is a route)
+                    Route::post('find', 'ConfigController@find')->name('config.find');
+                    Route::put('update', 'ConfigController@update')->name('config.update');
+                });
+            });
         });
 
         // Files
-        Route::prefix('files')->group(function (){
+        Route::prefix('files')->group(function () {
             Route::post('/', 'FileController@upload')->name('files.upload');
             Route::get('{id}', 'FileController@download')->name('files.download');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::put('save-sequence', 'FileController@saveSequence')->name('files.save_sequence');
 
                 Route::get('find/{id}', 'FileController@find')->name('files.find');
@@ -68,32 +80,32 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         });
 
         // User profile page
-        Route::prefix('profile')->group(function (){
+        Route::prefix('profile')->group(function () {
             Route::get('/', 'ProfileController@index')->name('profile.index');
             Route::get('reset-password', 'ProfileController@requestPassword')->name('profile.reset_password');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::put('/', 'ProfileController@update')->name('profile.update');
             });
         });
 
         // Settings page
-        Route::prefix('settings')->group(function (){
+        Route::prefix('settings')->group(function () {
             Route::get('/', 'SettingController@index')->name('settings.index');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::put('/', 'SettingController@update')->name('settings.update');
             });
         });
 
         // Users page
-        Route::prefix('users')->group(function (){
+        Route::prefix('users')->group(function () {
             Route::get('/', 'UserController@index')->name('users.index');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::get('datatable', 'UserController@datatable')->name('users.datatable');
                 Route::post('/', 'UserController@create')->name('users.create');
                 Route::get('{id}', 'UserController@find')->name('users.find');
@@ -104,11 +116,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         });
 
         // Menus page
-        Route::group(['prefix' => 'menus', 'namespace' => 'Menu'], function(){
+        Route::group(['prefix' => 'menus', 'namespace' => 'Menu'], function () {
             Route::get('/', 'GroupController@index')->name('menus.index');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::get('datatable', 'GroupController@datatable')->name('menus.datatable');
                 Route::post('/', 'GroupController@create')->name('menus.create');
                 Route::get('{id}', 'GroupController@find')->name('menus.find');
@@ -117,11 +129,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::get('restore/{id}', 'GroupController@restore')->name('menus.restore');
             });
 
-            Route::prefix('{groupId}/items')->group(function (){
+            Route::prefix('{groupId}/items')->group(function () {
                 Route::get('/', 'ItemController@index')->name('menu_items.index');
 
                 // Only for ajax operations
-                Route::middleware('only.ajax')->group(function (){
+                Route::middleware('only.ajax')->group(function () {
                     Route::put('save-sequence', 'ItemController@saveSequence')->name('menu_items.save_sequence');
                     Route::get('ajax', 'ItemController@ajaxList')->name('menu_items.ajax');
 
@@ -135,12 +147,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         });
 
         // Users page
-        Route::prefix('contents')->group(function (){
+        Route::prefix('contents')->group(function () {
             Route::get('/', 'ContentController@index')->name('contents.index');
             Route::get('sort', 'ContentController@sort')->name('contents.sort');
 
             // Only for ajax operations
-            Route::middleware('only.ajax')->group(function (){
+            Route::middleware('only.ajax')->group(function () {
                 Route::put('save-sequence', 'ContentController@saveSequence')->name('contents.save_sequence');
 
                 Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
@@ -155,18 +167,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     });
 
     // Website routes
-    Route::prefix('/')->group(function (){
-        Route::get('/', function (){
-            return view('site.index');
-        });
-        Route::get('list', function (){
+    Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
+        Route::get('/', 'WebController@index');
+        Route::get('list', function () {
             return view('site.list');
         });
-        Route::get('detail', function (){
+        Route::get('detail', function () {
             return view('site.detail');
         });
     });
-
 });
 
 

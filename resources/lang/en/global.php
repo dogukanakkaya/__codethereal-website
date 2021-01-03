@@ -2,9 +2,6 @@
 
 return [
     'home' => 'Home',
-    'settings' => 'Settings',
-    'cms' => 'CMS',
-    'general' => 'General',
     'developer' => 'Developer',
     'theme_settings' => 'Theme Settings',
     'light_theme' => 'Light Theme',

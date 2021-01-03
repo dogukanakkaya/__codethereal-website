@@ -53,10 +53,15 @@
                     @if($user->isDev())
                         <li class="separator">{{ __('global.developer') }}</li>
                         <li>
-                            <a href="{{ url('admin/dev/permissions') }}"
+                            <a href="{{ route('permissions.index') }}"
                                class="{{ isActive('admin/dev/permissions') }}"><i class="material-icons-outlined md-18">security</i>
                                 Permissions</a>
                         </li>
+                            <li>
+                                <a href="{{ route('config.index') }}"
+                                   class="{{ isActive('admin/dev/config') }}"><i class="material-icons-outlined md-18">lock_open</i>
+                                    Config</a>
+                            </li>
                     @endif
                 </ul>
             </div>
