@@ -60,6 +60,7 @@
                 document.getElementById('user-permissions').innerHTML = response.data
                 //changeModalTitle(modal, '{{ __('global.add_new') }}')
                 openModal(modal)
+                changeModalTitle(modal, '{{ __('users.add_new') }}')
             })
         }
 
@@ -101,7 +102,7 @@
                         response.data.permissions.forEach(permission => {
                             document.querySelector(`input[type=checkbox][value=${permission.name}]`).setAttribute('checked', true)
                         })
-                        changeModalTitle(modal, `{{ __('buttons.update') }}: ${response.data.name}`)
+                        changeModalTitle(modal, '{{ __('users.update', ['title' => ':title']) }}'.replace(':title', response.data.name))
                         openModal(modal)
                     })
             })

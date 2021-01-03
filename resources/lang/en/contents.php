@@ -14,5 +14,8 @@ return [
     'active' => 'Active',
     'searchable' => 'Searchable',
     'sort' => 'Sort',
-    'created_at' => 'Created At'
+    'created_at' => 'Created At',
+
+    'add_new' => 'Add new Content',
+    'update' => 'Update :title'
 ];

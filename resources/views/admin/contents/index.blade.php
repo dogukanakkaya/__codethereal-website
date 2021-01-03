@@ -36,6 +36,7 @@
                 updateId = 0;
             }
             openModal(modal)
+            changeModalTitle(modal, '{{ __('contents.add_new') }}')
         }
 
         const __onResponse = response => {
@@ -102,6 +103,7 @@
                     }
 
                     openModal(modal)
+                    changeModalTitle(modal, '{{ __('contents.update', ['title' => ':title']) }}'.replace(':title', translations.{{ app()->getLocale() }}.title))
                 })
         }
 

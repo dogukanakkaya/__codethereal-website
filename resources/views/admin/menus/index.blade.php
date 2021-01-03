@@ -52,6 +52,7 @@
                 updateId = 0;
             }
             openModal(modal)
+            changeModalTitle(modal, '{{ __('menus.group.add_new') }}')
         }
 
         const __delete = id => {
@@ -78,6 +79,7 @@
                 .then(response => {
                     document.querySelector('input[name=title]').value = response.data.title
                     openModal(modal)
+                    changeModalTitle(modal, '{{ __('menus.group.update', ['title' => ':title']) }}'.replace(':title', response.data.title))
                 })
 
         }

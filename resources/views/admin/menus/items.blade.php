@@ -97,6 +97,7 @@
                 updateId = 0;
             }
             openModal(modal)
+            changeModalTitle(modal, '{{ __('menus.item.add_new') }}')
         }
 
         const __delete = id => {
@@ -133,6 +134,7 @@
                     }
 
                     openModal(modal)
+                    changeModalTitle(modal, '{{ __('menus.item.update', ['title' => ':title']) }}'.replace(':title', translations.{{ app()->getLocale() }}.title))
                 })
         }
 

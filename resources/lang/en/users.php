@@ -15,5 +15,8 @@ return [
     'created_at' => 'Created At',
     'logout' => 'Logout',
     'notes' => 'Notes',
-    'calendar' => 'Calendar'
+    'calendar' => 'Calendar',
+
+    'add_new' => 'Add new User',
+    'update' => 'Update :title'
 ];
