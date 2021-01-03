@@ -87,6 +87,15 @@
             border-bottom: $gray-border;
         }
     }
+
+    .clickable{
+        padding-bottom: 2px;
+        border-bottom: 1px dotted #000;
+
+        &:hover{
+            color: inherit;
+        }
+    }
 }
 
 .table-img{

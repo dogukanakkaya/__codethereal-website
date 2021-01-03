@@ -40,12 +40,12 @@ class ContentController extends Controller
         }
         $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
-            ->editColumn('created_at', function (Content $content) {
-                return date("Y-m-d H:i:s", strtotime($content->created_at));
-            })
             ->addColumn('file', function (Content $content) {
                 $file = Content::findContentFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
+            })
+            ->editColumn('title', function (Content $content) {
+                return '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>';
             })
             ->addColumn('action', function (Content $content) {
                 return view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]);
@@ -56,7 +56,10 @@ class ContentController extends Controller
             ->addColumn('parent', function (Content $content) {
                 return Content::findOneByLocale($content->parent_id, 'title')->title ?? '';
             })
-            ->rawColumns(['file', 'action', 'status'])
+            ->editColumn('created_at', function (Content $content) {
+                return date("Y-m-d H:i:s", strtotime($content->created_at));
+            })
+            ->rawColumns(['file', 'title', 'status', 'action'])
             ->make(true);
     }
 

@@ -29,13 +29,16 @@ class GroupController extends Controller
         }
         $data = Group::latest()->withCount('items')->get();
         return Datatables::of($data)
+            ->editColumn('title', function (Group $group) {
+                return '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = ' . route('menu_items.index', ['groupId' => $group->id]) . '">' . $group->title . '</a>';
+            })
             ->editColumn('created_at', function (Group $group) {
                 return date("Y-m-d H:i:s", strtotime($group->created_at));
             })
             ->addColumn('action', function (Group $group) {
                 return view('admin.partials.dropdown', ['actions' => $this->actions($group->id)]);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['title', 'action'])
             ->make(true);
     }
 
