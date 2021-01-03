@@ -1,4 +1,4 @@
-<div class="modal fade draggable" id="content-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade draggable" id="content-form-modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         {{ Form::open(['id' => 'content-form']) }}
         <div class="modal-content">

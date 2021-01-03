@@ -40,8 +40,9 @@ class ContentRequest extends FormRequest
             $rules[$language->code . '.active'] = 'integer';
             $rules[$language->code . '.files'] = 'string';
 
-            if (isset($data['active']) && intval($data['active']) === 0)
+            if (isset($data['active']) && intval($data['active']) === 0) {
                 $rules[$language->code . '.title'] = 'max:255';
+            }
 
             if(isset($data['active']) && intval($data['active']) === 1){
                 $rules[$language->code . '.title'] = 'required|max:255';

@@ -15,7 +15,7 @@ class SettingController extends Controller
             return back();
         }
         $data = [
-            'navigations' => [__('global.settings')],
+            'navigations' => [__('settings.self')],
             'settings' => DB::table('settings')
                 ->get()
                 ->groupBy('language')

@@ -57,6 +57,7 @@
                 request.put(url, formData).then(__onResponse)
             } else {
                 request.post('{{ route('contents.create') }}', formData).then(__onResponse)
+                clearPreviewFull1()
             }
         })
 

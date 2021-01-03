@@ -16,10 +16,10 @@ class CreateContentTranslationsTable extends Migration
         Schema::create('content_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')->constrained('contents');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('full')->nullable();
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->char('language', 3);
             $table->boolean('active')->default(1);

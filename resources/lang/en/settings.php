@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'self' => 'Settings',
     'website' => 'Website',
     'contact' => 'Contact',
     'social' => 'Social Media',
