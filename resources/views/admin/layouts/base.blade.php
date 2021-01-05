@@ -19,7 +19,7 @@
         <div class="overlay">
             <div class="logo">
                 <a href="">
-                    <img src="{{ asset('img/logo.svg') }}" alt=""/>
+                    <img src="{{ asset('img/logo-dark.svg') }}" alt=""/>
                 </a>
             </div>
             <div class="menus">

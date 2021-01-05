@@ -40,7 +40,7 @@
 <div class="container">
     <div class="contain">
         <div class="logo">
-            <img src="{{ asset('img/logo.svg') }}" alt="logo"/>
+            <img src="{{ asset('img/logo-dark.svg') }}" alt="logo"/>
         </div>
         <div class="line"></div>
         <div class="content-body">
@@ -50,7 +50,7 @@
     <div class="mail-info-text text-center">
         <span>{{ __('mail.info_text') }}</span>
         <a href="https://codethereal.com/" target="_blank">
-            <img src="{{ asset('img/logo.svg') }}" alt="logo"/>
+            <img src="{{ asset('img/logo-dark.svg') }}" alt="logo"/>
         </a>
         <span>{{ __('mail.info_text2') }}</span>
     </div>

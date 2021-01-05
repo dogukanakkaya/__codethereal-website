@@ -13,7 +13,7 @@
 <body>
 <div class="contain" style="background-image: url('{{ asset('img/building-background.jpg') }}')">
     <div class="box">
-        <div class="logo"><img src="{{ asset('img/Logo.png') }}" alt=""></div>
+        <div class="logo"><img src="{{ asset('img/logo-dark.svg') }}" alt=""></div>
         @if($errors->any())
             <div class="alert error">
                 <p>{{$errors->first()}}</p>
