@@ -34,12 +34,13 @@
         const modal = '#menu-item-form-modal'
 
         const sortableGroup = '.sortable' // Sortable group selector
-        const sortables = [];
+        let sortables = [];
         const sortableRoot = document.querySelector(sortableGroup) // First of the sortables
 
         const initializeSortables = () => {
             // We destroy all sortables
             sortables.forEach(n => n.destroy())
+            sortables = []
 
             // And then initalize again (for ajax refresh)
             document.querySelectorAll(sortableGroup).forEach(sortable => {

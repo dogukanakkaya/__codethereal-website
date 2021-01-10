@@ -4,6 +4,7 @@ namespace App\Models\Admin\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Group extends Model
 {
@@ -34,6 +35,7 @@ class Group extends Model
      * Find all items of menu group by locale
      *
      * @param $id
+     * @param mixed ...$select
      * @return mixed
      */
     public static function itemsByLocale($id, ...$select)
