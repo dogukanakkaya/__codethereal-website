@@ -222,3 +222,34 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
     $html .= $htmlTags['end'];
     return $html;
 }
+
+/**
+ * Check url and format properly (check if redirects to another website etc.)
+ *
+ * @param string $url
+ * @return string
+ */
+function createUrl(string $url): string
+{
+    return preg_match('@^(https://|http://)@', $url) ? $url : url($url);
+}
+
+function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false)
+{
+    $explodeSlashes = explode('/', $path);
+    $file = end($explodeSlashes);
+
+    $filePath = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
+
+    if (!file_exists(asset($filePath))){
+        \Intervention\Image\Facades\Image::make('storage/' . $path)
+            ->resize($width, $height, function($constraint) use($aspectRatio, $upsize) {
+                if ($aspectRatio) $constraint->aspectRatio();
+                if ($upsize) $constraint->upsize();
+            })
+            ->save($filePath)
+            ->response();
+    }
+
+    return asset($filePath);
+}

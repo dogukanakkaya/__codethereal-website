@@ -69,16 +69,26 @@ class Content extends Model
      * @param int $id
      * @return mixed
      */
-    public static function findContentFile(int $id): mixed
+    public static function findFile(int $id): mixed
     {
         return self::select('path')
             ->where('contents.id', $id)
             // TODO: check this out, it's not working, it always returns the type 1
-            ->where(function ($query){
+            ->where(function ($query) {
                 $query->where('files.type', 2)->orWhere('files.type', 1);
             })
             ->leftJoin('content_files', 'content_files.content_id', '=', 'contents.id')
             ->leftJoin('files', 'files.id', 'content_files.file_id')
             ->first();
+    }
+
+    public static function findSubContentsByLocale(int $parentId, ...$select): mixed
+    {
+        return self::select($select)
+            ->where('parent_id', $parentId)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->latest('sequence')
+            ->get();
     }
 }

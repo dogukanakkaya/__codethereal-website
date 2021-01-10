@@ -38,7 +38,7 @@ class Group extends Model
      * @param mixed ...$select
      * @return mixed
      */
-    public static function itemsByLocale($id, ...$select)
+    public static function itemsByLocale($id, ...$select): mixed
     {
         return self::select($select)
             ->find($id)

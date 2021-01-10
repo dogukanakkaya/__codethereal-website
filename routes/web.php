@@ -168,7 +168,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     // Website routes
     Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
-        Route::get('/', 'WebController@index');
+        Route::get('/', 'WebController@index')->name('web.index');
         Route::get('list', function () {
             return view('site.list');
         });

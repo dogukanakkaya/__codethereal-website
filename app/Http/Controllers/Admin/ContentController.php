@@ -41,7 +41,7 @@ class ContentController extends Controller
         $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
         return Datatables::of($data)
             ->addColumn('file', function (Content $content) {
-                $file = Content::findContentFile($content->id);
+                $file = Content::findFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
             ->editColumn('title', function (Content $content) {
@@ -80,18 +80,6 @@ class ContentController extends Controller
             // Create Content
             $content = Content::create($contentData);
 
-            // Create Content Languages
-            // Collect all data in one array to make faster sql queries
-            $translationData = [];
-            foreach ($data as $language => $values) {
-                $translationData[] = array_merge($values, [
-                    'language' => $language,
-                    'content_id' => $content->id,
-                    'url' => Str::slug($values['title'])
-                ]);
-            }
-            DB::table('content_translations')->insert($translationData);
-
             // Create Content Files
             // Collect all data in one array to make faster sql queries
             $filesData = [];
@@ -102,6 +90,22 @@ class ContentController extends Controller
                 ];
             }
             DB::table('content_files')->insert($filesData);
+
+            // Find content featured image to save database
+            $contentFeaturedImage = Content::findFile($content->id);
+
+            // Create Content Languages
+            // Collect all data in one array to make faster sql queries
+            $translationData = [];
+            foreach ($data as $language => $values) {
+                $translationData[] = array_merge($values, [
+                    'language' => $language,
+                    'content_id' => $content->id,
+                    'url' => Str::slug($values['title']),
+                    'featured_image' => $contentFeaturedImage->path ?? ''
+                ]);
+            }
+            DB::table('content_translations')->insert($translationData);
 
             DB::commit();
             return resJson(true);
@@ -177,16 +181,6 @@ class ContentController extends Controller
             // Update Content
             Content::where('id', $id)->update($contentData);
 
-            // Update Content Languages
-            $translationData = [];
-            foreach ($data as $language => $values) {
-                $values['url'] = Str::slug($values['title']);
-                DB::table('content_translations')
-                    ->where('content_id', $id)
-                    ->where('language', $language)
-                    ->update($values);
-            }
-
             // Update Content Files
             // Drop all files first, and then collect all data in one array to make faster sql queries
             DB::table('content_files')->where('content_id', $id)->delete();
@@ -198,6 +192,19 @@ class ContentController extends Controller
                 ];
             }
             DB::table('content_files')->insert($filesData);
+
+            // Find content featured image to save database
+            $contentFeaturedImage = Content::findFile($id);
+
+            // Update Content Languages
+            foreach ($data as $language => $values) {
+                $values['url'] = Str::slug($values['title']);
+                $values['featured_image'] = $contentFeaturedImage->path ?? '';
+                DB::table('content_translations')
+                    ->where('content_id', $id)
+                    ->where('language', $language)
+                    ->update($values);
+            }
 
             DB::commit();
             return resJson(true);
