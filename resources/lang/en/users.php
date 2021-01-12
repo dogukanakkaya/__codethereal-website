@@ -10,6 +10,7 @@ return [
     'about' => 'About',
     'photo' => 'Photo',
     'password' => 'Password',
+    'confirm_password' => 'Confirm Password',
     'roles' => 'Roles',
     'verified' => 'Verified',
     'created_at' => 'Created At',

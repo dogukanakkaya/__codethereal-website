@@ -16,6 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.', // w/ param
     'login' => 'Login',
+    'register' => 'Register',
     'remember_me' => 'Remember me',
     'verify_email_text' => 'Please follow the instructions in your e-mail to verify your account',
     'resend_email' => 'Resend E-Mail',
