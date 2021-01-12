@@ -93,7 +93,7 @@
                                     @continue
                                 @endif
                                 <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($language->code) }}">
-                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt=""> {{ $language->name }}
+                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt="{{ $language->name }}"> {{ $language->name }}
                                 </a>
                             @endforeach
                         </div>

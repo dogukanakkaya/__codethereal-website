@@ -30,11 +30,5 @@ class ComposerServiceProvider extends ServiceProvider
 
         view()->composer('admin.*', 'App\View\Composers\Admin\MenusComposer'); // Admin menus composer
         // /Admin View Composers
-
-        // Site View Composers
-        view()->composer('site.*', 'App\View\Composers\Site\SettingsComposer'); // Settings composer
-
-        view()->composer('site.*', 'App\View\Composers\Site\MenusComposer'); // Header, footer menus composer
-        // /Site View Composers
     }
 }

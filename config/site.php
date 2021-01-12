@@ -7,6 +7,9 @@ return [
         'title',
         'description',
         'linkedin',
-        'github'
+        'github',
+        'phone',
+        'email',
+        'address'
     ]
 ];

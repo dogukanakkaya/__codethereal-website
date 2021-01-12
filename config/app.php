@@ -178,6 +178,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\MacroServiceProvider::class,
 
+        // Only website
+        App\Providers\WebServiceProvider::class,
+
         // 3rd party service providers
         Spatie\Permission\PermissionServiceProvider::class,
 
