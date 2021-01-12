@@ -81,6 +81,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return intval($this->rank) === config('user.rank.dev');
     }
 
+    public function isAdmin()
+    {
+        return intval($this->rank) === config('user.rank.admin');
+    }
+
     public function markAsAuthorized()
     {
         Authorize::create([

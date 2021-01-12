@@ -23,5 +23,12 @@ class MenusComposer
                 'parentId' => 'parent_id'
             ])
         );
+
+        $view->with('quickLinks',
+            buildTree(Group::itemsByLocale(config('site.quick_links'), 'id', 'title', 'url'), [
+                'id' => 'item_id',
+                'parentId' => 'parent_id'
+            ])
+        );
     }
 }

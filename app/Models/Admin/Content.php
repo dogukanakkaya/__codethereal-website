@@ -87,14 +87,44 @@ class Content extends Model
             ->first();
     }
 
-    public static function findSubContentsByLocale(int $parentId, ...$select): mixed
+    /**
+     * Return query instance to find sub contents of given content id
+     *
+     * @param int $parentId
+     * @param mixed ...$select
+     * @return mixed
+     */
+    private static function findSubContentsByLocaleInstance(int $parentId, ...$select): mixed
     {
         return self::select($select)
             ->where('parent_id', $parentId)
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
-            ->latest('sequence')
-            ->withCount('children')
-            ->get();
+            ->oldest('sequence')
+            ->latest();
+    }
+
+    /**
+     * Find sub contents of given content id
+     *
+     * @param int $parentId
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findSubContentsByLocale(int $parentId, ...$select): mixed
+    {
+        return self::findSubContentsByLocaleInstance($parentId, ...$select)->get();
+    }
+
+    /**
+     * Find sub contents of given content id with children's count
+     *
+     * @param int $parentId
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findSubContentsWithChildrenCountByLocale(int $parentId, ...$select): mixed
+    {
+        return self::findSubContentsByLocaleInstance($parentId, ...$select)->withCount('children')->get();
     }
 }

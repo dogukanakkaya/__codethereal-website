@@ -4,16 +4,23 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Content;
-use App\Models\Admin\Menu\Group;
+use App\Models\User;
 
 class WebController extends Controller
 {
     public function index()
     {
         $data = [
-            'popularCategory' => Content::findOneByLocale(config('site.popular_categories'), 'title', 'url'),
-            'popularCategoryItems' => Content::findSubContentsByLocale(config('site.popular_categories'), 'contents.id', 'title', 'featured_image')
+            'category' => Content::findOneByLocale(config('site.categories'), 'title', 'url'),
+            'categoryItems' => Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), 'title', 'url', 'featured_image'),
+            'cards' => Content::findSubContentsByLocale(config('site.cards'), 'title', 'url', 'description', 'featured_image'),
+            'userCount' => User::where('rank', config('user.rank.basic'))->count()
         ];
+        $data['categoryCount'] = $data['categoryItems']->count();
+
+        // Sum of sub contents of categories
+        $data['categoryItemChildrenSum'] = $data['categoryItems']->sum('children_count');
+
         return view('site.index', $data);
     }
 }

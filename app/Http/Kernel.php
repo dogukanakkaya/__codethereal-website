@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'dev' => Middleware\Developer::class,
+        'manager' => Middleware\Manager::class,
         'online' => Middleware\UserOnline::class,
         'only.ajax' => Middleware\OnlyAjax::class,
         'authorize' => Middleware\AuthorizeDevice::class,

@@ -29,7 +29,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
     // Admin Authenticated users route group
-    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online'], 'namespace' => 'App\Http\Controllers\Admin'], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online', 'manager'], 'namespace' => 'App\Http\Controllers\Admin'], function () {
         Route::get('/', 'HomeController@index')->name('admin.home');
 
         // Only developer routes
@@ -169,6 +169,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     // Website routes
     Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
+
+        Route::prefix('auth')->group(function (){
+            Route::get('login', 'AuthController@loginView');
+            Route::get('register', 'AuthController@registerView');
+        });
+
         Route::get('list', function () {
             return view('site.list');
         });

@@ -184,5 +184,6 @@ window.closeModal = (selector) => {
         new bootstrap.Modal(document.querySelector(selector)).hide()
     }
 }
+
 window.changeModalTitle = (selector, title) => document.querySelector(selector).querySelector('.modal-title').innerText = title
 /* /Global functions */

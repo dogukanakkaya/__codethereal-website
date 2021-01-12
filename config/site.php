@@ -2,7 +2,9 @@
 
 return [
     'header_menu' => 3,
-    'popular_categories' => 1,
+    'quick_links' => 4,
+    'categories' => 1,
+    'cards' => 4,
     'setting_names' => [
         'title',
         'description',
