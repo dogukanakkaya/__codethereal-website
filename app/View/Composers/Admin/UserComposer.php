@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Composers;
+namespace App\View\Composers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;

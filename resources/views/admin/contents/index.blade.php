@@ -34,6 +34,7 @@
             if (updateId > 0) {
                 form.reset()
                 updateId = 0;
+                clearPreviewFull1()
             }
             openModal(modal)
             changeModalTitle(modal, '{{ __('contents.add_new') }}')
@@ -45,6 +46,7 @@
                 form.reset()
                 closeModal(modal)
                 __refresh()
+                clearPreviewFull1()
             }
             toggleBtnLoading()
         }
@@ -58,7 +60,6 @@
                 request.put(url, formData).then(__onResponse)
             } else {
                 request.post('{{ route('contents.create') }}', formData).then(__onResponse)
-                clearPreviewFull1()
             }
         })
 

@@ -32,6 +32,11 @@ class Content extends Model
         'deleted_at',
     ];
 
+    public function children()
+    {
+        return $this->hasMany('App\Models\Admin\Content', 'parent_id');
+    }
+
     /**
      * Find all records with active locale
      *
@@ -89,6 +94,7 @@ class Content extends Model
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->latest('sequence')
+            ->withCount('children')
             ->get();
     }
 }

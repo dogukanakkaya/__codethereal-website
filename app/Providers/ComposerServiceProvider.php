@@ -23,11 +23,18 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Using class based composers...
-        view()->composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\UserComposer');
+        view()->composer('*', 'App\View\Composers\Admin\LanguagesComposer'); // Languages composer
 
-        view()->composer('*', 'App\View\Composers\LanguageComposer');
+        // Admin View Composers
+        view()->composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\Admin\UserComposer'); // Authenticated user composer
 
-        view()->composer('admin.*', 'App\View\Composers\MenuComposer');
+        view()->composer('admin.*', 'App\View\Composers\Admin\MenusComposer'); // Admin menus composer
+        // /Admin View Composers
+
+        // Site View Composers
+        view()->composer('site.*', 'App\View\Composers\Site\SettingsComposer'); // Settings composer
+
+        view()->composer('site.*', 'App\View\Composers\Site\MenusComposer'); // Header, footer menus composer
+        // /Site View Composers
     }
 }

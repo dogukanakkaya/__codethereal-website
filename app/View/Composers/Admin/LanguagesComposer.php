@@ -1,11 +1,11 @@
 <?php
 
-namespace App\View\Composers;
+namespace App\View\Composers\Admin;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class LanguageComposer
+class LanguagesComposer
 {
 
     /**
