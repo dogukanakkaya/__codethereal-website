@@ -87,9 +87,8 @@
             const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
-                    const {content, translations, files} = response.data
+                    const {content, translations, files, parents} = response.data
 
-                    document.querySelector(`select[name="content[parent_id]"]`).value = content.parent_id
                     document.querySelector(`input[type=checkbox][name="content[searchable]"]`).checked = parseInt(content.searchable ?? 0) === 1
 
                     for (const [language, values] of Object.entries(translations)) {
@@ -101,6 +100,19 @@
 
                     for (const [fileId, filePath] of Object.entries(files)) {
                         createPreview1(fileId, storage(filePath))
+                    }
+
+                    // Convert parent ids to integer
+                    const newParents = parents.map(parent => parseInt(parent))
+                    for (const option of document.querySelectorAll(`select[name="content[parents][]"] option`)) {
+                        const value = parseInt(option.value)
+
+                        /* If option value contained in values, set selected attribute */
+                        if (newParents.indexOf(value) !== -1) {
+                            option.setAttribute('selected', 'selected');
+                        } else {
+                            option.removeAttribute('selected');
+                        }
                     }
 
                     openModal(modal)

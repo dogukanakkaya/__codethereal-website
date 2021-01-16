@@ -38,27 +38,17 @@ class ContentController extends Controller
         if (!Auth::user()->can('see_contents')) {
             return resJsonUnauthorized();
         }
-        $data = Content::findAllByLocale('contents.id', 'title', 'parent_id', 'active', 'created_at');
+        $data = Content::findAllByLocale('contents.id', 'title', 'active', 'created_at');
         return Datatables::of($data)
             ->addColumn('file', function (Content $content) {
                 $file = Content::findFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
-            ->editColumn('title', function (Content $content) {
-                return '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>';
-            })
-            ->addColumn('action', function (Content $content) {
-                return view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]);
-            })
-            ->addColumn('status', function (Content $content) {
-                return $content->active == 1 ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
-            })
-            ->addColumn('parent', function (Content $content) {
-                return Content::findOneByLocale($content->parent_id, 'title')->title ?? '';
-            })
-            ->editColumn('created_at', function (Content $content) {
-                return date("Y-m-d H:i:s", strtotime($content->created_at));
-            })
+            ->editColumn('title', fn (Content $content) => '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>')
+            ->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
+            ->addColumn('status', fn (Content $content) => statusBadge($content->active))
+            ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParents($content->id, 'title')->pluck('title')->toArray()))
+            ->editColumn('created_at', fn (Content $content) => date("Y-m-d H:i:s", strtotime($content->created_at)))
             ->rawColumns(['file', 'title', 'status', 'action'])
             ->make(true);
     }
@@ -71,17 +61,28 @@ class ContentController extends Controller
         $data = $request->validated();
         $contentData = array_remove($data, 'content');
 
-        // Get and unset files from content data and if it's not 0 then explode it from | character to add database each one
+        // Get and unset files and parents from content data
         $files = array_remove($contentData, 'files');
         $fileIds = $files !== '0' ? explode('|', $files) : [];
+
+        $parentIds = array_remove($contentData, 'parents');
 
         DB::beginTransaction();
         try {
             // Create Content
             $content = Content::create($contentData);
 
+            // Create Content Parents
+            $parentsData = [];
+            foreach ($parentIds as $parentId) {
+                $parentsData[] = [
+                    'content_id' => $content->id,
+                    'parent_id' => $parentId
+                ];
+            }
+            DB::table('content_parents')->insert($parentsData);
+
             // Create Content Files
-            // Collect all data in one array to make faster sql queries
             $filesData = [];
             foreach ($fileIds as $fileId) {
                 $filesData[] = [
@@ -95,7 +96,6 @@ class ContentController extends Controller
             $contentFeaturedImage = Content::findFile($content->id);
 
             // Create Content Languages
-            // Collect all data in one array to make faster sql queries
             $translationData = [];
             foreach ($data as $language => $values) {
                 $translationData[] = array_merge($values, [
@@ -137,7 +137,7 @@ class ContentController extends Controller
             return resJsonUnauthorized();
         }
         // TODO: We'll check that for better way for multi language operations (without model relations)
-        $content = Content::select('parent_id', 'searchable')->find($id);
+        $content = Content::select('searchable')->find($id);
 
         $translations = DB::table('content_translations')
             ->select('title', 'description', 'full', 'active', 'language')
@@ -150,17 +150,15 @@ class ContentController extends Controller
                 return $i;
             });
 
-        $files = DB::table('content_files')
-            ->where('content_id', $id)
-            ->leftJoin('files', 'files.id', 'content_files.file_id')
-            ->get()
-            ->pluck('path', 'file_id');
+        $files = Content::findFiles($id,'path', 'file_id')->pluck('path', 'file_id');
 
+        $parents = Content::findParents($id, 'parent_id')->pluck('parent_id')->toArray();
 
         return response()->json([
             'content' => $content,
             'translations' => $translations,
-            'files' => $files
+            'files' => $files,
+            'parents' => $parents
         ]);
     }
 
@@ -172,17 +170,29 @@ class ContentController extends Controller
         $data = $request->validated();
         $contentData = array_remove($data, 'content');
 
-        // Get and unset files from content data and if it's not 0 then explode it from | character to add database each one
+        // Get and unset files and parents from content data
         $files = array_remove($contentData, 'files');
         $fileIds = $files !== '0' ? explode('|', $files) : [];
+
+        $parentIds = array_remove($contentData, 'parents');
 
         DB::beginTransaction();
         try {
             // Update Content
             Content::where('id', $id)->update($contentData);
 
+            // Update Content Parents
+            DB::table('content_parents')->where('content_id', $id)->delete();
+            $parentsData = [];
+            foreach ($parentIds as $parentId) {
+                $parentsData[] = [
+                    'content_id' => $id,
+                    'parent_id' => $parentId
+                ];
+            }
+            DB::table('content_parents')->insert($parentsData);
+
             // Update Content Files
-            // Drop all files first, and then collect all data in one array to make faster sql queries
             DB::table('content_files')->where('content_id', $id)->delete();
             $filesData = [];
             foreach ($fileIds as $fileId) {
@@ -219,12 +229,10 @@ class ContentController extends Controller
         if (!Auth::user()->can('sort_contents')) {
             return resJsonUnauthorized();
         }
-        $contents = Content::findAllByLocale('contents.id', 'parent_id', 'sequence', 'title')->sortBy('sequence');
+        $contents = Content::findAllByLocale('contents.id', 'sequence', 'title')->sortBy('sequence');
         $data = [
             'navigations' => [route('contents.index') => __('contents.self_plural') ,__('contents.sort')],
-            'tree' => buildTree($contents, [
-                'parentId' => 'parent_id'
-            ])
+            'contents' => $contents
         ];
         return view('admin.contents.sort', $data);
     }
@@ -238,13 +246,12 @@ class ContentController extends Controller
 
         DB::beginTransaction();
         try {
-            foreach ($data as $key => $datum) {
+            foreach ($data as $key => $id) {
                 // I write this with query builder for better performance, there could be a lot of data to be ordered.
-                DB::update('UPDATE contents SET updated_at = ?, parent_id = ?, sequence = ? WHERE id = ?;', [
+                DB::update('UPDATE contents SET updated_at = ?, sequence = ? WHERE id = ?;', [
                     now(),
-                    $datum['parent_id'],
                     $key,
-                    $datum['id']
+                    $id
                 ]);
             }
             DB::commit();

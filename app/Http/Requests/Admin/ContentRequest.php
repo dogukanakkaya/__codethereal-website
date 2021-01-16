@@ -27,7 +27,7 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $rules = [
-            'content.parent_id' => 'required|integer',
+            'content.parents' => 'array',
             'content.files' => '',
             'content.searchable' => 'integer'
         ];

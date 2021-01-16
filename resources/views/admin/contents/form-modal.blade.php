@@ -30,8 +30,8 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                {{ Form::label("content[parent_id]", __('contents.parent')) }}
-                                                {{ Form::select("content[parent_id]", [0 => __('global.none')] + $parents, 0, ['class' => 'form-control']) }}
+                                                {{ Form::label("content[parents][]", __('contents.parent')) }}
+                                                {{ Form::select("content[parents][]", $parents, 0, ['class' => 'form-control searchable-select', 'multiple' => true]) }}
                                             </div>
                                         </div>
                                         <div class="col-12">

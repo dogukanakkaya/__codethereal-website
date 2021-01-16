@@ -231,9 +231,21 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
  */
 function createUrl(string $url): string
 {
-    return preg_match('@^(https://|http://)@', $url) ? $url : url($url);
+    return $url === '#' ? 'javascript:void(0);' : (
+        preg_match('@^(https://|http://)@', $url) ? $url : url($url)
+    );
 }
 
+/**
+ * Resize an image by given width and height
+ *
+ * @param string $path
+ * @param int|null $width
+ * @param int|null $height
+ * @param bool $aspectRatio
+ * @param false $upsize
+ * @return string
+ */
 function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false)
 {
     $explodeSlashes = explode('/', $path);
@@ -252,4 +264,15 @@ function resize(string $path, int|null $width, int|null $height = null, $aspectR
     }
 
     return asset($filePath);
+}
+
+/**
+ * Returns the proper badge for status
+ *
+ * @param bool $status
+ * @return string
+ */
+function statusBadge(bool $status): string
+{
+    return $status ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
 }

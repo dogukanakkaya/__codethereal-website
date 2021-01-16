@@ -69,6 +69,39 @@ class Content extends Model
     }
 
     /**
+     * Return content parents
+     *
+     * @param int $id
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findParents(int $id, ...$select)
+    {
+        return self::select($select)
+            ->where('content_parents.content_id', $id)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->leftJoin('content_parents', 'content_parents.parent_id', 'contents.id')
+            ->get();
+    }
+
+    /**
+     * Return content files
+     *
+     * @param int $id
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findFiles(int $id, ...$select)
+    {
+        return self::select($select)
+            ->where('content_files.content_id', $id)
+            ->leftJoin('content_files', 'content_files.content_id', 'contents.id')
+            ->leftJoin('files', 'files.id', 'content_files.file_id')
+            ->get();
+    }
+
+    /**
      * Return first file content has
      *
      * @param int $id

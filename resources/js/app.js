@@ -166,7 +166,7 @@ function repositionElement(e) {
 }
 /* /Draggable setup */
 
-window.openModal = (selector) => {
+window.openModal = selector => {
     const modalEl = document.querySelector(selector)
     const modalInstance = bootstrap.Modal.getInstance(modalEl)
     if (modalInstance){
@@ -175,7 +175,7 @@ window.openModal = (selector) => {
         new bootstrap.Modal(document.querySelector(selector)).show()
     }
 }
-window.closeModal = (selector) => {
+window.closeModal = selector => {
     const modalEl = document.querySelector(selector)
     const modalInstance = bootstrap.Modal.getInstance(modalEl)
     if (modalInstance){
