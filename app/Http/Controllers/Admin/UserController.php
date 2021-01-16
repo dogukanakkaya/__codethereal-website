@@ -50,24 +50,12 @@ class UserController extends Controller
                 $path = isset($user->path) ? asset('storage/' . $user->path) : asset("img/profile.webp");
                 return '<img src="' . $path . '" class="table-img" alt="profile"/>';
             })
-            ->editColumn('name', function (User $user) {
-                return '<a class="clickable" title="' . $user->id . '" onclick="__find(' . $user->id . ')">' . $user->name . '</a>';
-            })
-            ->editColumn('email', function (User $user) {
-                return '<a class="clickable" href="mailto:' . $user->email . '">' . $user->email . '</a>';
-            })
-            ->editColumn('email_verified_at', function (User $user) {
-                return $user->email_verified_at !== NULL ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
-            })
-            ->editColumn('created_at', function (User $user) {
-                return date("Y-m-d H:i:s", strtotime($user->created_at));
-            })
-            ->addColumn('is_online', function (User $user) {
-                return isOnline($user->id) ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
-            })
-            ->addColumn('action', function (User $user) {
-                return view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]);
-            })
+            ->editColumn('name', fn (User $user) => '<a class="clickable" title="' . $user->id . '" onclick="__find(' . $user->id . ')">' . $user->name . '</a>')
+            ->editColumn('email', fn (User $user) => '<a class="clickable" href="mailto:' . $user->email . '">' . $user->email . '</a>')
+            ->editColumn('email_verified_at', fn (User $user) => statusBadge($user->email_verified_at !== NULL))
+            ->editColumn('created_at', fn (User $user) => date("Y-m-d H:i:s", strtotime($user->created_at)))
+            ->addColumn('is_online', fn (User $user) => statusBadge(isOnline($user->id)))
+            ->addColumn('action', fn (User $user) => view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]))
             ->rawColumns(['path', 'name', 'email', 'email_verified_at', 'is_online', 'action'])
             ->make(true);
     }

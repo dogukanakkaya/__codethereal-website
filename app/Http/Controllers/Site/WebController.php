@@ -12,7 +12,7 @@ class WebController extends Controller
     {
         $data = [
             'category' => Content::findOneByLocale(config('site.categories'), 'title', 'url'),
-            'categoryItems' => Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), 8, ['title', 'url', 'featured_image']),
+            'categoryItems' => Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['title', 'url', 'featured_image'], 8),
             'cards' => Content::findSubContentsByLocale(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
             'userCount' => User::where('rank', config('user.rank.basic'))->count()
         ];

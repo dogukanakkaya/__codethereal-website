@@ -12,7 +12,3 @@ npm-debug.log
 yarn-error.log
 .idea/
 .DS_Store
-/config/website.php
-/app/Http/Controllers/Site
-/app/View/Composers/Site
-/app/Providers/WebServiceProvider.php

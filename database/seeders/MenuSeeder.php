@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Menu\Group;
-use App\Models\Admin\Menu\Item;
+use App\Models\Admin\Menu\MenuGroup;
+use App\Models\Admin\Menu\MenuItem;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,22 +17,22 @@ class MenuSeeder extends Seeder
     public function run()
     {
         /* Admin General Menus */
-        $groupGeneral = Group::create([
+        $groupGeneral = MenuGroup::create([
             'id' => 1,
             'title' => 'Admin General Menus'
         ]);
-        $itemHome = Item::create([
+        $itemHome = MenuItem::create([
             'group_id' => $groupGeneral->id,
         ]);
-        $itemSettings = Item::create([
+        $itemSettings = MenuItem::create([
             'group_id' => $groupGeneral->id,
             'permission' => 'settings'
         ]);
-        $itemUsers = Item::create([
+        $itemUsers = MenuItem::create([
             'group_id' => $groupGeneral->id,
             'permission' => 'users'
         ]);
-        $itemMenus = Item::create([
+        $itemMenus = MenuItem::create([
             'group_id' => $groupGeneral->id,
             'permission' => 'menus'
         ]);
@@ -97,11 +97,11 @@ class MenuSeeder extends Seeder
         /* /Admin General Menus */
 
         /* Admin CMS Menus */
-        $groupCms = Group::create([
+        $groupCms = MenuGroup::create([
             'id' => 2,
             'title' => 'Admin CMS Menus'
         ]);
-        $itemContents = Item::create([
+        $itemContents = MenuItem::create([
             'group_id' => $groupCms->id,
             'permission' => 'contents'
         ]);

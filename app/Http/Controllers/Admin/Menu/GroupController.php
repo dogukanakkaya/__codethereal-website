@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\GroupRequest;
-use App\Models\Admin\Menu\Group;
+use App\Models\Admin\Menu\MenuGroup;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -27,17 +27,11 @@ class GroupController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return resJsonUnauthorized();
         }
-        $data = Group::latest()->withCount('items')->get();
+        $data = MenuGroup::latest()->withCount('items')->get();
         return Datatables::of($data)
-            ->editColumn('title', function (Group $group) {
-                return '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = ' . route('menu_items.index', ['groupId' => $group->id]) . '">' . $group->title . '</a>';
-            })
-            ->editColumn('created_at', function (Group $group) {
-                return date("Y-m-d H:i:s", strtotime($group->created_at));
-            })
-            ->addColumn('action', function (Group $group) {
-                return view('admin.partials.dropdown', ['actions' => $this->actions($group->id)]);
-            })
+            ->editColumn('title', fn (MenuGroup $group) => '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = ' . route('menu_items.index', ['groupId' => $group->id]) . '">' . $group->title . '</a>')
+            ->editColumn('created_at', fn (MenuGroup $group) => date("Y-m-d H:i:s", strtotime($group->created_at)))
+            ->addColumn('action', fn (MenuGroup $group) => view('admin.partials.dropdown', ['actions' => $this->actions($group->id)]))
             ->rawColumns(['title', 'action'])
             ->make(true);
     }
@@ -47,7 +41,7 @@ class GroupController extends Controller
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
         }
-        return resJson(Group::create($request->validated()));
+        return resJson(MenuGroup::create($request->validated()));
     }
 
     public function find(int $id)
@@ -55,7 +49,7 @@ class GroupController extends Controller
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
         }
-        return Group::find($id);
+        return MenuGroup::find($id);
     }
 
     public function update(GroupRequest $request, int $id)
@@ -63,7 +57,7 @@ class GroupController extends Controller
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
         }
-        return resJson(Group::where('id', $id)->update($request->validated()));
+        return resJson(MenuGroup::where('id', $id)->update($request->validated()));
     }
 
     public function destroy(int $id)
@@ -71,7 +65,7 @@ class GroupController extends Controller
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
         }
-        return resJson(Group::destroy($id));
+        return resJson(MenuGroup::destroy($id));
     }
 
     public function restore(int $id)
@@ -79,7 +73,7 @@ class GroupController extends Controller
         if (!Auth::user()->isDev()) {
             return resJsonUnauthorized();
         }
-        return resJson(Group::withTrashed()->find($id)->restore());
+        return resJson(MenuGroup::withTrashed()->find($id)->restore());
     }
 
     /**

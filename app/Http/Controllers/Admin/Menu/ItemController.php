@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\ItemRequest;
-use App\Models\Admin\Menu\Group;
-use App\Models\Admin\Menu\Item;
+use App\Models\Admin\Menu\MenuGroup;
+use App\Models\Admin\Menu\MenuItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return back();
         }
-        $groupItems = Group::itemsByLocale($groupId, 'id', 'title');
+        $groupItems = MenuGroup::itemsByLocale($groupId, 'id', 'title');
         $data = [
             'navigations' => [route('menus.index') => __('menus.group.self_singular'), __('menus.item.self_plural')],
             'items' => $this->treeItems($groupItems),
@@ -42,7 +42,7 @@ class ItemController extends Controller
             return resJsonUnauthorized();
         }
         $data = [
-            'items' => $this->treeItems(Group::itemsByLocale($groupId, 'id', 'title')),
+            'items' => $this->treeItems(MenuGroup::itemsByLocale($groupId, 'id', 'title')),
             'actions' => $this->actions()
         ];
         return response()
@@ -64,7 +64,7 @@ class ItemController extends Controller
 
         DB::beginTransaction();
         try {
-            $item = Item::create($itemData);
+            $item = MenuItem::create($itemData);
 
             // Create Menu Item Languages
             // Collect all data in one array to make faster sql queries
@@ -92,7 +92,7 @@ class ItemController extends Controller
             return resJsonUnauthorized();
         }
         // TODO: We'll check that for better way for multi language operations (without model relations)
-        $item = Item::select('parent_id')->find($itemId);
+        $item = MenuItem::select('parent_id')->find($itemId);
 
         $translations = DB::table('menu_item_translations')
             ->select('title', 'url', 'icon', 'active', 'language')
@@ -122,7 +122,7 @@ class ItemController extends Controller
 
         DB::beginTransaction();
         try {
-            Item::where('id', $itemId)->update($itemData);
+            MenuItem::where('id', $itemId)->update($itemData);
 
             // Loop with every language
             foreach ($data as $language => $values) {
@@ -146,7 +146,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
-        return resJson(Item::destroy($itemId));
+        return resJson(MenuItem::destroy($itemId));
     }
 
     public function restore(int $groupId, int $itemId)
@@ -154,7 +154,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
-        return resJson(Item::withTrashed()->find($itemId)->restore());
+        return resJson(MenuItem::withTrashed()->find($itemId)->restore());
     }
 
     public function saveSequence()

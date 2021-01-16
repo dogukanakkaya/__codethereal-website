@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixins";
+@import "~bootstrap/scss/utilities";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "opacity": (
+      property: opacity,
+      values: (
+        0: 0,
+        25: 0.25,
+        50: 0.5,
+        75: 0.75,
+        100: 1,
+      ),
+    ),
+  )
+);
+
+.bracket {
+  border-right: $gray-low-border;
+  font-size: 10px;
+  height: 20px;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.youtube {
+  color: $youtube-color;
+}
+.linkedin {
+  color: $linkedin-color;
+}
+.github {
+  color: $github-color;
+}
+.facebook {
+  color: $facebook-color;
+}
+.ce-btn {
+  line-height: 1.2;
+  font-size: 13px;
+  background-color: transparent;
+  color: $main-color;
+  transition: all 0.5s;
+  border-radius: 21px;
+  padding: 0.5rem 1.5rem;
+  margin-right: 1.25rem;
+  border: 2px solid $main-color;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $main-color;
+    color: #fff;
+  }
+}
