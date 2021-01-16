@@ -138,7 +138,7 @@ class ContentController extends Controller
 
         $files = Content::findFiles($id,'path', 'file_id')->pluck('path', 'file_id');
 
-        $parents = Content::findParents($id, 'parent_id')->pluck('parent_id')->toArray();
+        $parents = Content::findParentsByLocale($id, 'parent_id')->pluck('parent_id')->toArray();
 
         return response()->json([
             'content' => $content,

@@ -10,9 +10,9 @@
                 <div class="choose-category">
                     <a onclick="toggleMultiple(this.nextElementSibling, 'visible', 'opacity-100')"><i class="bi bi-list" aria-hidden="true"></i> Choose Category <i class="bi bi-chevron-down category-arrow r-180"></i></a>
                     <ul class="category-dropdown">
-                        <li value="1" class="selected">Education Sets</li>
-                        <li value="2">Projects</li>
-                        <li value="3">Job Posts</li>
+                        <li value="1" class="selected">PHP</li>
+                        <li value="2">Javascript</li>
+                        <li value="3">CSS</li>
                     </ul>
                 </div>
                 <div class="search">
@@ -35,17 +35,15 @@
         </div>
         <div class="row">
             @foreach($categoryItems as $categoryItem)
-                @for ($i = 0; $i < 4; $i++)
-                    <div class="col-md-3">
-                        <div class="item">
-                            <a href="{{ url($categoryItem->url) }}">
-                                <img src="{{ resize($categoryItem->featured_image, 150) }}" alt="">
-                                <h5>{{ $categoryItem->title }}</h5>
-                            </a>
-                            <span>({{ $categoryItem->childrens_count }} lessons)</span>
-                        </div>
+                <div class="col-md-3">
+                    <div class="item">
+                        <a href="{{ url($categoryItem->url) }}">
+                            <img src="{{ resize($categoryItem->featured_image, 150) }}" alt="">
+                            <h5>{{ $categoryItem->title }}</h5>
+                        </a>
+                        <span>({{ $categoryItem->childrens_count }} lessons)</span>
                     </div>
-                @endfor
+                </div>
             @endforeach
         </div>
     </section>
