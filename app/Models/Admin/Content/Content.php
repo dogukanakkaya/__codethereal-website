@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models\Admin\Content;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +22,6 @@ class Content extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id',
         'sequence',
         'searchable'
     ];
@@ -32,9 +31,14 @@ class Content extends Model
         'deleted_at',
     ];
 
-    public function children()
+    public function childrens()
     {
-        return $this->hasMany('App\Models\Admin\Content', 'parent_id');
+        return $this->hasMany(ContentParent::class, 'parent_id');
+    }
+
+    public function parents()
+    {
+        return $this->hasMany(ContentParent::class, 'content_id');
     }
 
     /**
@@ -75,8 +79,9 @@ class Content extends Model
      * @param mixed ...$select
      * @return mixed
      */
-    public static function findParents(int $id, ...$select)
+    public static function findParentsByLocale(int $id, ...$select)
     {
+        // TODO: do this with parents relation
         return self::select($select)
             ->where('content_parents.content_id', $id)
             ->where('language', app()->getLocale())
@@ -123,41 +128,46 @@ class Content extends Model
     /**
      * Return query instance to find sub contents of given content id
      *
-     * @param int $parentId
-     * @param mixed ...$select
+     * @param int $id
+     * @param $limit
+     * @param array $select
      * @return mixed
      */
-    private static function findSubContentsByLocaleInstance(int $parentId, ...$select): mixed
+    private static function findSubContentsByLocaleInstance(int $id, int|null $limit, array $select): mixed
     {
         return self::select($select)
-            ->where('parent_id', $parentId)
+            ->where('content_parents.parent_id', $id)
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->leftJoin('content_parents', 'content_parents.content_id', 'contents.id')
             ->oldest('sequence')
-            ->latest();
+            ->latest()
+            ->take($limit);
     }
 
     /**
      * Find sub contents of given content id
      *
-     * @param int $parentId
-     * @param mixed ...$select
+     * @param int $id
+     * @param null $limit
+     * @param array $select
      * @return mixed
      */
-    public static function findSubContentsByLocale(int $parentId, ...$select): mixed
+    public static function findSubContentsByLocale(int $id, int|null $limit = null, array $select = ['*']): mixed
     {
-        return self::findSubContentsByLocaleInstance($parentId, ...$select)->get();
+        return self::findSubContentsByLocaleInstance($id, $limit, $select)->get();
     }
 
     /**
      * Find sub contents of given content id with children's count
      *
-     * @param int $parentId
-     * @param mixed ...$select
+     * @param int $id
+     * @param null $limit
+     * @param array $select
      * @return mixed
      */
-    public static function findSubContentsWithChildrenCountByLocale(int $parentId, ...$select): mixed
+    public static function findSubContentsWithChildrenCountByLocale(int $id, int|null $limit = null, array $select = ['*']): mixed
     {
-        return self::findSubContentsByLocaleInstance($parentId, ...$select)->withCount('children')->get();
+        return self::findSubContentsByLocaleInstance($id, $limit, $select)->withCount('childrens')->get();
     }
 }

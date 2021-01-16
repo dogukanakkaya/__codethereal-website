@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ContentRequest;
-use App\Models\Admin\Content;
-use App\Models\Admin\File;
+use App\Models\Admin\Content\Content;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -47,7 +46,7 @@ class ContentController extends Controller
             ->editColumn('title', fn (Content $content) => '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>')
             ->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
             ->addColumn('status', fn (Content $content) => statusBadge($content->active))
-            ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParents($content->id, 'title')->pluck('title')->toArray()))
+            ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParentsByLocale($content->id, 'title')->pluck('title')->toArray()))
             ->editColumn('created_at', fn (Content $content) => date("Y-m-d H:i:s", strtotime($content->created_at)))
             ->rawColumns(['file', 'title', 'status', 'action'])
             ->make(true);
@@ -65,7 +64,7 @@ class ContentController extends Controller
         $files = array_remove($contentData, 'files');
         $fileIds = $files !== '0' ? explode('|', $files) : [];
 
-        $parentIds = array_remove($contentData, 'parents');
+        $parentIds = array_remove($contentData, 'parents') ?? [];
 
         DB::beginTransaction();
         try {
@@ -73,24 +72,10 @@ class ContentController extends Controller
             $content = Content::create($contentData);
 
             // Create Content Parents
-            $parentsData = [];
-            foreach ($parentIds as $parentId) {
-                $parentsData[] = [
-                    'content_id' => $content->id,
-                    'parent_id' => $parentId
-                ];
-            }
-            DB::table('content_parents')->insert($parentsData);
+            DB::table('content_parents')->insert($this->prepareParentsData($content->id, $parentIds));
 
             // Create Content Files
-            $filesData = [];
-            foreach ($fileIds as $fileId) {
-                $filesData[] = [
-                    'content_id' => $content->id,
-                    'file_id' => $fileId
-                ];
-            }
-            DB::table('content_files')->insert($filesData);
+            DB::table('content_files')->insert($this->prepareFilesData($content->id, $fileIds));
 
             // Find content featured image to save database
             $contentFeaturedImage = Content::findFile($content->id);
@@ -109,7 +94,8 @@ class ContentController extends Controller
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception) {
+        } catch (\Exception $e) {
+            echo $e->getMessage();
             DB::rollBack();
             return resJson(false);
         }
@@ -174,7 +160,7 @@ class ContentController extends Controller
         $files = array_remove($contentData, 'files');
         $fileIds = $files !== '0' ? explode('|', $files) : [];
 
-        $parentIds = array_remove($contentData, 'parents');
+        $parentIds = array_remove($contentData, 'parents') ?? [];
 
         DB::beginTransaction();
         try {
@@ -183,25 +169,11 @@ class ContentController extends Controller
 
             // Update Content Parents
             DB::table('content_parents')->where('content_id', $id)->delete();
-            $parentsData = [];
-            foreach ($parentIds as $parentId) {
-                $parentsData[] = [
-                    'content_id' => $id,
-                    'parent_id' => $parentId
-                ];
-            }
-            DB::table('content_parents')->insert($parentsData);
+            DB::table('content_parents')->insert($this->prepareParentsData($id, $parentIds));
 
             // Update Content Files
             DB::table('content_files')->where('content_id', $id)->delete();
-            $filesData = [];
-            foreach ($fileIds as $fileId) {
-                $filesData[] = [
-                    'content_id' => $id,
-                    'file_id' => $fileId
-                ];
-            }
-            DB::table('content_files')->insert($filesData);
+            DB::table('content_files')->insert($this->prepareFilesData($id, $fileIds));
 
             // Find content featured image to save database
             $contentFeaturedImage = Content::findFile($id);
@@ -260,6 +232,45 @@ class ContentController extends Controller
             DB::rollBack();
             return resJson(false);
         }
+    }
+
+    /**
+     * Collect file ids in 1 array and return it
+     *
+     * @param int $contentId
+     * @param array $fileIds
+     * @return array
+     */
+    private function prepareFilesData(int $contentId, array $fileIds): array
+    {
+        $filesData = [];
+        foreach ($fileIds as $fileId) {
+            $filesData[] = [
+                'content_id' => $contentId,
+                'file_id' => $fileId
+            ];
+        }
+        return $filesData;
+    }
+
+    /**
+     * Collect parent ids in 1 array and return it
+     *
+     * @param int $contentId
+     * @param array $parentIds
+     * @return array
+     */
+    private function prepareParentsData(int $contentId, array $parentIds): array
+    {
+        $parentsData = [];
+        foreach ($parentIds as $parentId) {
+            if (empty($parentId)) continue;
+            $parentsData[] = [
+                'content_id' => $contentId,
+                'parent_id' => $parentId
+            ];
+        }
+        return $parentsData;
     }
 
     /**

@@ -17,7 +17,6 @@ class CreateContentParentsTable extends Migration
             $table->id();
             $table->foreignId('content_id')->constrained('contents');
             $table->foreignId('parent_id')->constrained('contents');
-            $table->timestamps();
         });
     }
 

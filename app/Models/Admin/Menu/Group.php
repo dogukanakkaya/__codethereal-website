@@ -4,7 +4,6 @@ namespace App\Models\Admin\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
 class Group extends Model
 {
@@ -41,7 +40,7 @@ class Group extends Model
     public static function itemsByLocale($id, ...$select): mixed
     {
         return self::select($select)
-            ->find($id)
+            ->findOrFail($id)
             ->items()
             ->oldest('sequence')
             ->latest()
