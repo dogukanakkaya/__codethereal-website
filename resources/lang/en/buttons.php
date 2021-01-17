@@ -9,5 +9,9 @@ return [
     'undo' => 'Undo',
     'close' => 'Close',
     'download' => 'Download',
-    'resend' => 'Resend'
+    'resend' => 'Resend',
+    'refresh' => 'Refresh',
+    'sort' => 'Sort',
+    'add_new' => 'Add New',
+    'delete_checked' => 'Delete Checked'
 ];

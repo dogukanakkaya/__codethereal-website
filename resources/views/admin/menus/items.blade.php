@@ -10,7 +10,9 @@
         <x-breadcrumb :nav="$navigations"/>
         <div class="page-actions">
             {{ Form::refresh(['onclick' => 'ajaxList()']) }}
+            @can('create_menus')
             {{ Form::addNew(['onclick' => '__create()']) }}
+            @endcan
         </div>
     </div>
     <div class="list-area p-4">

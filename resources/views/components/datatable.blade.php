@@ -6,7 +6,7 @@
 
 @push('scripts')
     <script>
-        let dt;
+        let dt
         $(function () {
             dt = $('#ce-datatable').DataTable({
                 dom: '<"dt-top"lf><"dt-body"t><"dt-bottom"ip>',

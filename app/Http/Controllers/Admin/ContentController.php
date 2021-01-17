@@ -20,6 +20,7 @@ class ContentController extends Controller
         $data = [
             'navigations' => [__('contents.self_plural')],
             'columns' => [
+                ['data' => 'checkbox', 'name' => 'checkbox', 'title' => '<input type="checkbox" onclick="__checkAll(this)"/>', 'orderable' => false, 'searchable' => false, 'className' => 'text-center'],
                 ['data' => 'file', 'name' => 'file', 'title' => __('contents.photo'), 'orderable' => false, 'searchable' => false],
                 ['data' => 'title', 'name' => 'title', 'title' => __('contents.title')],
                 ['data' => 'status', 'name' => 'status', 'title' => __('contents.status'), 'searchable' => false],
@@ -39,16 +40,17 @@ class ContentController extends Controller
         }
         $data = Content::findAllByLocale('contents.id', 'title', 'active', 'created_at');
         return Datatables::of($data)
+            ->editColumn('title', fn (Content $content) => '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>')
+            ->editColumn('created_at', fn (Content $content) => date("Y-m-d H:i:s", strtotime($content->created_at)))
+            ->addColumn('checkbox', fn (Content $content) => '<input type="checkbox" onclick="__showDeleteCheckedButton()" value="' . $content->id . '" name="checked[]"/>')
             ->addColumn('file', function (Content $content) {
                 $file = Content::findFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
-            ->editColumn('title', fn (Content $content) => '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>')
             ->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
             ->addColumn('status', fn (Content $content) => statusBadge($content->active))
             ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParentsByLocale($content->id, 'title')->pluck('title')->toArray()))
-            ->editColumn('created_at', fn (Content $content) => date("Y-m-d H:i:s", strtotime($content->created_at)))
-            ->rawColumns(['file', 'title', 'status', 'action'])
+            ->rawColumns(['checkbox', 'file', 'title', 'status', 'action'])
             ->make(true);
     }
 

@@ -8,11 +8,16 @@
     <div class="d-flex justify-content-between align-items-center">
         <x-breadcrumb :nav="$navigations"/>
         <div class="page-actions">
+            @can('delete_contents')
+                {{ Form::delete(['onclick' => '__deleteChecked()', 'class' => 'd-none delete-checked']) }}
+            @endcan
             @can('sort_contents')
             {{ Form::sort(['onclick' => '__sort()']) }}
             @endcan
             {{ Form::refresh(['onclick' => '__refresh()']) }}
+            @can('sort_contents')
             {{ Form::addNew(['onclick' => '__create()']) }}
+            @endcan
         </div>
     </div>
 
@@ -121,5 +126,40 @@
         }
 
         const __sort = () => window.location.href = '{{ route('contents.sort') }}'
+
+        /* Delete Checked */
+        const __checkAll = el => {
+            if (el.checked){
+                document.getElementsByName('checked[]').forEach(check => {
+                    check.checked = true
+                })
+            }else{
+                document.getElementsByName('checked[]').forEach(check => {
+                    check.checked = false
+                })
+            }
+            __showDeleteCheckedButton(el.checked)
+        }
+
+        const __showDeleteCheckedButton = () => {
+            const isAnyChecked = document.querySelector('input[name="checked[]"]:checked')
+            const buttonEl = document.querySelector('.delete-checked')
+            if (isAnyChecked && buttonEl.classList.contains('d-none')){
+                buttonEl.classList.remove('d-none')
+            }else if(!buttonEl.classList.contains('d-none') && !isAnyChecked){
+                buttonEl.classList.add('d-none')
+            }
+        }
+
+        const __deleteChecked = () => {
+            const checkedIds = []
+            document.querySelectorAll('input[name="checked[]"]:checked').forEach(check => {
+                if (check.checked){
+                    checkedIds.push(check.value)
+                }
+            })
+            console.log(checkedIds)
+        }
+        /* /Delete Checked */
     </script>
 @endpush

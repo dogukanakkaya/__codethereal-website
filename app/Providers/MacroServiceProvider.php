@@ -54,7 +54,7 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-24" title="'.__('global.refresh').'">sync</i></button>');
+            return new HtmlString('<button ' . $mergedAttrs . '><i class="material-icons-outlined md-24" title="'.__('buttons.refresh').'">sync</i></button>');
         });
 
         \Form::macro('addNew', function (array $attributes = []) {
@@ -63,7 +63,7 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('global.add_new').'">add</i></button>');
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('buttons.add_new').'">add</i></button>');
         });
 
         \Form::macro('sort', function (array $attributes = []) {
@@ -72,7 +72,16 @@ class MacroServiceProvider extends ServiceProvider
             ];
             $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
 
-            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('global.sort').'">sort</i></button>');
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('buttons.sort').'">sort</i></button>');
+        });
+
+        \Form::macro('delete', function (array $attributes = []) {
+            $existAttrs = [
+                'class' => 'danger'
+            ];
+            $mergedAttrs = mergeHtmlAttributes($existAttrs, $attributes);
+
+            return new HtmlString('<button '.$mergedAttrs.'><i class="material-icons-outlined md-24" title="'.__('buttons.delete_checked').'">close</i></button>');
         });
     }
 }
