@@ -16,11 +16,11 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.1",
+        "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
         "mcamara/laravel-localization": "^1.6",
-        "spatie/laravel-permission": "^3.17",
-        "yajra/laravel-datatables-oracle": "^9.14"
+        "spatie/laravel-permission": "^3.18",
+        "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
