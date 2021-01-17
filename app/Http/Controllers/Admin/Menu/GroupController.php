@@ -29,7 +29,7 @@ class GroupController extends Controller
         }
         $data = MenuGroup::latest()->withCount('items')->get();
         return Datatables::of($data)
-            ->editColumn('title', fn (MenuGroup $group) => '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = ' . route('menu_items.index', ['groupId' => $group->id]) . '">' . $group->title . '</a>')
+            ->editColumn('title', fn (MenuGroup $group) => '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = `' . route('menu_items.index', ['groupId' => $group->id]) . '`">' . $group->title . '</a>')
             ->editColumn('created_at', fn (MenuGroup $group) => date("Y-m-d H:i:s", strtotime($group->created_at)))
             ->addColumn('action', fn (MenuGroup $group) => view('admin.partials.dropdown', ['actions' => $this->actions($group->id)]))
             ->rawColumns(['title', 'action'])

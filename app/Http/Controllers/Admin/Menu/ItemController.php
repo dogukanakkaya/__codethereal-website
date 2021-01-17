@@ -19,7 +19,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return back();
         }
-        $groupItems = MenuGroup::itemsByLocale($groupId, 'id', 'title');
+        $groupItems = MenuGroup::itemsByLocale($groupId, 'menu_items.id', 'item_id', 'parent_id', 'title');
         $data = [
             'navigations' => [route('menus.index') => __('menus.group.self_singular'), __('menus.item.self_plural')],
             'items' => $this->treeItems($groupItems),

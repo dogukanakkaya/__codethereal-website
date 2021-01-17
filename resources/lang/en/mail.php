@@ -29,5 +29,8 @@ return [
         'location' => 'Location'
     ],
 
+    'errors' => [
+        'throttled' => 'Please wait before retrying.',
+    ]
 
 ];

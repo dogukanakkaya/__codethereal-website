@@ -18,17 +18,14 @@ class MenusComposer
     public function compose(View $view)
     {
         $view->with('headerMenus',
-            buildTree(MenuGroup::itemsByLocale(config('site.header_menu'), 'id', 'title', 'url'), [
+            buildTree(MenuGroup::itemsByLocale(config('site.header_menu'), 'item_id', 'parent_id', 'title', 'url'), [
                 'id' => 'item_id',
                 'parentId' => 'parent_id'
             ])
         );
 
         $view->with('quickLinks',
-            buildTree(MenuGroup::itemsByLocale(config('site.quick_links'), 'id', 'title', 'url'), [
-                'id' => 'item_id',
-                'parentId' => 'parent_id'
-            ])
+            MenuGroup::itemsByLocale(config('site.quick_links'), 'item_id', 'title', 'url')
         );
     }
 }

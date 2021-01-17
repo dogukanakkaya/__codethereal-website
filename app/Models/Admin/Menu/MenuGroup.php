@@ -39,13 +39,16 @@ class MenuGroup extends Model
      */
     public static function itemsByLocale($id, ...$select): mixed
     {
-        return self::select($select)
-            ->findOrFail($id)
-            ->items()
-            ->oldest('sequence')
-            ->latest()
-            ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', 'menu_items.id')
-            ->where('language', app()->getLocale())
-            ->get();
+        $group = self::find($id);
+        if ($group){
+            return $group->items()
+                ->select($select)
+                ->oldest('sequence')
+                ->latest()
+                ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', 'menu_items.id')
+                ->where('language', app()->getLocale())
+                ->get();
+        }
+        return [];
     }
 }

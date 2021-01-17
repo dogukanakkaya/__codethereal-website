@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', $settings['title'] ?? 'Codethereal')</title>
+    <title>@yield('title', $settings['title'] ?? config('app.name'))</title>
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
 </head>

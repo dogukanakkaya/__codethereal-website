@@ -201,10 +201,9 @@ class ContentController extends Controller
         if (!Auth::user()->can('sort_contents')) {
             return resJsonUnauthorized();
         }
-        $contents = Content::findAllByLocale('contents.id', 'sequence', 'title')->sortBy('sequence');
         $data = [
             'navigations' => [route('contents.index') => __('contents.self_plural') ,__('contents.sort')],
-            'contents' => $contents
+            'contents' => Content::findAllByLocale('contents.id', 'sequence', 'title')->sortBy('sequence')
         ];
         return view('admin.contents.sort', $data);
     }

@@ -4,9 +4,9 @@
     <h1>{{ __('mail.hello') }}</h1>
     <p>{{ __('mail.auth.authorize_email_reason') }}</p>
     <div class="list-type">
-        <p><span class="text-bold text-dark">{{ __('auth.ip_address') }}:</span> <span class="text-gray">{{ $authorize->ip_address }}</span></p>
-        <p><span class="text-bold text-dark">{{ __('auth.browser') }}:</span> <span class="text-gray">{{ $authorize->browser }} ({{ $authorize->platform }})</span></p>
-        <p><span class="text-bold text-dark">{{ __('auth.location') }}:</span> <span class="text-gray">{{ $authorize->location }}</span></p>
+        <p><span class="text-bold text-dark">{{ __('mail.auth.ip_address') }}:</span> <span class="text-gray">{{ $authorize->ip_address }}</span></p>
+        <p><span class="text-bold text-dark">{{ __('mail.auth.browser') }}:</span> <span class="text-gray">{{ $authorize->browser }} ({{ $authorize->platform }})</span></p>
+        <p><span class="text-bold text-dark">{{ __('mail.auth.location') }}:</span> <span class="text-gray">{{ $authorize->location }}</span></p>
     </div>
     <p>{{ __('mail.auth.authorize_approve_text') }}</p>
     <div class="text-center w-100">

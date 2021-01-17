@@ -32,6 +32,10 @@ class AuthorizeController extends Controller
     public function resend(Request $request)
     {
         if (!Authorize::active() && auth()->check()) {
+            $lastAuthorize = Authorize::select('updated_at')->where('user_id', auth()->id())->latest()->first();
+            if (isset($lastAuthorize->updated_at) && $lastAuthorize->updated_at->addMinute() > now()){
+                return redirect()->route('authorize')->withErrors(['status' => __('mail.errors.throttled')]);
+            }
             $authorize = Authorize::make();
 
             Mail::to($request->user())->send(new AuthorizeDeviceMail($authorize));

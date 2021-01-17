@@ -42,7 +42,7 @@
             sortables.forEach(n => n.destroy())
             sortables = []
 
-            // And then initalize again (for ajax refresh)
+            // And then initialize again
             document.querySelectorAll(sortableGroup).forEach(sortable => {
                 sortables.push(new Sortable(sortable, {
                     group: 'nested',

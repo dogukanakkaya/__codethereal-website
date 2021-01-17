@@ -28,6 +28,13 @@
     <script>
         const sortable = new Sortable(document.querySelector('.sortable'), {
             animation: 150,
+            fallbackOnBody: true,
+            swapThreshold: 0.65,
+            ghostClass: 'ghost',
+            filter: '.dropdown',
+            multiDrag: true,
+            selectedClass: 'multi-selected', // The class applied to the selected items
+            fallbackTolerance: 3, // So that we can select items on mobile
             dataIdAttr: "data-sortable-id"
         });
 
