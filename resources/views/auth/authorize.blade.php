@@ -7,7 +7,7 @@
         <p>{{ __('auth.authorize_device_text') }}</p>
         {{ Form::open(['route' => 'authorize.resend']) }}
         <div class="auth-btn">
-            {{ Form::submit(__('auth.resend_email')) }}
+            {{ Form::submit(__('buttons.resend')) }}
         </div>
         {{ Form::close() }}
     </div>

@@ -38,7 +38,7 @@ class AuthorizeController extends Controller
 
             $authorize->increment('attempt');
 
-            return redirect()->route('authorize')->with(['status' => __('auth.new_email_sent')]);
+            return redirect()->route('authorize')->with(['status' => __('mail.resent')]);
         }
     }
 }

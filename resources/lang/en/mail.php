@@ -2,10 +2,15 @@
 
 return [
     'hello' => 'Hello',
+    'regards' => 'Regards',
     'link_expires_in' => 'This link will expire in :time.',
     'cant_click_button' => 'If you’re having trouble clicking the ":button" button, copy and paste the URL below into your web browser:',
     'no_action_if_not_requested' => 'If you did not request a this operation, no further action is required.',
-    'regards' => 'Regards',
+    'no_action_if_not_owner' => 'If you are not the owner of this request, no further action is required.',
+
+    'info_text' => 'This mail sent by the',
+    'info_text2' => 'system, please do not reply...',
+    'resent' => 'We have sent you a new e-mail. Please check your inbox.',
 
     'auth' => [
         'verify_email_reason' => 'You are receiving this email because we received a verify request for your account.',
@@ -24,6 +29,5 @@ return [
         'location' => 'Location'
     ],
 
-    'info_text' => 'This mail sent by the',
-    'info_text2' => 'system, please do not reply...'
+
 ];

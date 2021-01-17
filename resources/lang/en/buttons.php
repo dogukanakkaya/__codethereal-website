@@ -8,5 +8,6 @@ return [
     'actions' => 'Actions',
     'undo' => 'Undo',
     'close' => 'Close',
-    'download' => 'Download'
+    'download' => 'Download',
+    'resend' => 'Resend'
 ];

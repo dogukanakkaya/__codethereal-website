@@ -29,7 +29,7 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         if (!Auth::user()->can('update_settings')){
-            return resJson(0, ['message' => __('auth.no_permission')]);
+            return resJsonUnauthorized();
         }
 
         $reqData = $request->json()->all();

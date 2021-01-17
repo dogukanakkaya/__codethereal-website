@@ -7,7 +7,7 @@
         <p>{{ __('auth.verify_email_text') }} </p>
         {{ Form::open(['route' => 'verification.resend']) }}
             <div class="auth-btn">
-                {{ Form::submit(__('auth.resend_email')) }}
+                {{ Form::submit(__('buttons.resend')) }}
             </div>
         {{ Form::close() }}
     </div>

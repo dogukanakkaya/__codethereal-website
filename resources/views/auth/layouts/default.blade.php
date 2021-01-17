@@ -19,7 +19,7 @@
                 <p>{{$errors->first()}}</p>
             </div>
         @elseif(session()->has('resent'))
-            <div class="alert success" role="alert">{{ session('resent') }}</div>
+            <div class="alert success" role="alert">{{ __('mail.resent') }}</div>
         @elseif(session()->has('status'))
             <div class="alert success" role="alert">{{ session('status') }}</div>
         @endif
