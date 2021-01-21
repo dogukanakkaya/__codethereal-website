@@ -10,16 +10,18 @@ class WebController extends Controller
 {
     public function index()
     {
+        $categoryItems = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id', 'title', 'url', 'featured_image'], 8);
         $data = [
             'category' => Content::findOneByLocale(config('site.categories'), 'title', 'url'),
-            'categoryItems' => Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['title', 'url', 'featured_image'], 8),
+            'categoryItems' => $categoryItems,
             'cards' => Content::findSubContentsByLocale(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
-            'userCount' => User::where('rank', config('user.rank.basic'))->count()
+            'userCount' => User::where('rank', config('user.rank.basic'))->count(),
+            'parallax' => Content::findOneByLocale(config('site.home_parallax'), 'title', 'description', 'featured_image')
         ];
+        $data['featuredContents'] = Content::findSubContentsByLocale($categoryItems->pluck('id')->toArray(), ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name']);
         $data['categoryCount'] = $data['categoryItems']->count();
-
         // Sum of sub contents of categories
-        $data['categoryItemChildrenSum'] = $data['categoryItems']->sum('childrens_count');
+        $data['categoryItemChildrenSum'] = $categoryItems->sum('childrens_count');
 
         return view('site.index', $data);
     }

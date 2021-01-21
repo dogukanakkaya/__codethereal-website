@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             LanguageSeeder::class,
-            MenuSeeder::class,
-            ContentSeeder::class
+            MenuSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
     }

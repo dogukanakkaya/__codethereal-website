@@ -71,46 +71,46 @@
         </div>
     </section>
 
-    <section class="separate-parallax" style="background-image: url('https://www.codethereal.com/new.codethereal/public/site/images/home-top-middle.png');">
+    <section class="separate-parallax" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
         <div class="overlay flex-column d-flex justify-content-center align-items-center p-3 text-center">
-            <h3>Are You Ready to Learn with CodEthereal.com?</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, perferendis.</p>
-            <a href="#" class="ce-btn"><i class="bi bi-person-plus"></i> Sign Up</a>
+            <h3>{{ $parallax->title }}</h3>
+            <p>{{ $parallax->description }}</p>
+            <span class="ce-btn" onclick="__login()"><i class="bi bi-person-plus"></i> Login</span>
         </div>
     </section>
 
     <section class="container contents">
         <div class="row">
             <div class="col-md-12 head d-flex justify-content-between align-items-center">
-                <h4>Popular Contents</h4>
+                <h4>Featured Contents</h4>
                 <button class="ce-btn"><i class="bi bi-list"></i> Show All</button>
             </div>
         </div>
         <div class="row gy-5">
-            @for ($i = 0; $i < 9; $i++)
-            <div class="col-md-4">
-                <div class="card">
-                    <span class="date">27 December</span>
-                    <div class="image">
-                        <a href="#">
-                            <img src="{{ asset('site/img/code_382x260.jpg') }}" alt="">
-                        </a>
-                        <div class="item-overlay">
-                            <a href="#"> <i class="bi bi-link-45deg"></i></a>
+            @foreach($featuredContents as $featuredContent)
+                <div class="col-md-4">
+                    <div class="card">
+                        <span class="date">{{ $featuredContent->created_at->format('d') }} {{ __('date.'.$featuredContent->created_at->format('m')) }}</span>
+                        <div class="image">
+                            <a href="{{ url($featuredContent->url) }}">
+                                <img src="{{ resize($featuredContent->featured_image, 500) }}" alt="">
+                            </a>
+                            <div class="item-overlay">
+                                <a href="{{ url($featuredContent->url) }}"> <i class="bi bi-link-45deg"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Real Time Chat with NodeJS & Socket.io</a></h5>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas, voluptatum?</p>
-                        <hr>
-                        <div class="d-flex justify-content-between align-items-center card-bottom">
-                            <a href="#"><i class="bi bi-pencil"></i> Admin</a>
-                            <a href="#"><i class="bi bi-chevron-double-right"> Read More</i></a>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{ url($featuredContent->url) }}">{{ $featuredContent->title }}</a></h5>
+                            <p class="card-text">{!! $featuredContent->description !!}</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center card-bottom">
+                                <span><i class="bi bi-pencil"></i> {{ $featuredContent->created_by_name }}</span>
+                                <a href="{{ url($featuredContent->url) }}"><i class="bi bi-chevron-double-right"> Read More</i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endfor
+            @endforeach
         </div>
     </section>
 

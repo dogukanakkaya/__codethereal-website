@@ -12,7 +12,7 @@ class GroupController extends Controller
 {
     public function index()
     {
-        if (!Auth::user()->can('see_menus')) {
+        if (!auth()->user()->can('see_menus')) {
             return back();
         }
         $data = [

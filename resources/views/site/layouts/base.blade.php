@@ -17,12 +17,12 @@
         </ul>
         <ul>
             @if(!auth()->check())
-            <li><a href="javascript:void(0);" onclick="__login()"><i class="bi bi-person"></i> Login</a></li>
+            <li onclick="__login()"><i class="bi bi-person"></i> Login</li>
             <span class="bracket"></span>
-            <li><a href="javascript:void(0);" onclick="__register()"><i class="bi bi-person-plus"></i> Register</a></li>
+            <li onclick="__register()"><i class="bi bi-person-plus"></i> Register</li>
             <span class="bracket"></span>
             @else
-                <li><a href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> Logout</a></li>
+                <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> Logout</li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>

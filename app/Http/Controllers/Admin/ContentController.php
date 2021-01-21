@@ -53,6 +53,9 @@ class ContentController extends Controller
         }
         $data = $request->validated();
         $contentData = array_remove($data, 'content');
+        $contentData['created_by'] = Auth::id();
+        $contentData['created_by_name'] = Auth::user()->name;
+        $contentData['updated_by'] = Auth::id();
 
         // Get and unset files and parents from content data
         $files = array_remove($contentData, 'files');
@@ -149,6 +152,7 @@ class ContentController extends Controller
         }
         $data = $request->validated();
         $contentData = array_remove($data, 'content');
+        $contentData['updated_by'] = Auth::id();
 
         // Get and unset files and parents from content data
         $files = array_remove($contentData, 'files');
@@ -213,7 +217,8 @@ class ContentController extends Controller
         try {
             foreach ($data as $key => $id) {
                 // I write this with query builder for better performance, there could be a lot of data to be ordered.
-                DB::update('UPDATE contents SET updated_at = ?, sequence = ? WHERE id = ?;', [
+                DB::update('UPDATE contents SET updated_by = ?, updated_at = ?, sequence = ? WHERE id = ?;', [
+                    Auth::id(),
                     now(),
                     $key,
                     $id

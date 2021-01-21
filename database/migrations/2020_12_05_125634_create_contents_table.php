@@ -17,6 +17,9 @@ class CreateContentsTable extends Migration
             $table->id();
             $table->integer('sequence')->default(0);
             $table->integer('searchable')->default(1);
+            $table->foreignId('created_by')->constrained('users');
+            $table->string('created_by_name');
+            $table->foreignId('updated_by')->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

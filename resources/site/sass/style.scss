@@ -66,18 +66,19 @@
     }
 
     ul:last-child {
-        li:last-child a {
-            padding-right: 0;
-        }
-
-        a {
+        li {
             padding: 1rem;
             color: #454b63;
             font-size: 14px;
+            cursor: pointer;
             transition: all 0.25s ease-in-out;
 
             &:hover {
                 color: $main-color-hover;
+            }
+
+            &:last-child {
+                padding-right: 0;
             }
         }
     }
@@ -483,7 +484,7 @@ header {
     }
 
     .card-bottom {
-        a {
+        a, span {
             font-size: 12px;
             transition: 0.4s ease-in-out;
             color: $main-color;
@@ -643,6 +644,7 @@ header {
     .ce-btn {
         border-color: #fff;
         color: #fff;
+        cursor: pointer;
 
         &:hover {
             background-color: transparent;
