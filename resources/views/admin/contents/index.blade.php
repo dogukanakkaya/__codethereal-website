@@ -73,7 +73,7 @@
                 const url = '{{ route('contents.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
-                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete(${id})">{{ __('buttons.undo') }}</a>`;
+                        res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete('${id}')">{{ __('buttons.undo') }}</a>`;
                         __onResponse(res)
                     })
             }
@@ -126,40 +126,5 @@
         }
 
         const __sort = () => window.location.href = '{{ route('contents.sort') }}'
-
-        /* Delete Checked */
-        const __checkAll = el => {
-            if (el.checked){
-                document.getElementsByName('checked[]').forEach(check => {
-                    check.checked = true
-                })
-            }else{
-                document.getElementsByName('checked[]').forEach(check => {
-                    check.checked = false
-                })
-            }
-            __showDeleteCheckedButton(el.checked)
-        }
-
-        const __showDeleteCheckedButton = () => {
-            const isAnyChecked = document.querySelector('input[name="checked[]"]:checked')
-            const buttonEl = document.querySelector('.delete-checked')
-            if (isAnyChecked && buttonEl.classList.contains('d-none')){
-                buttonEl.classList.remove('d-none')
-            }else if(!buttonEl.classList.contains('d-none') && !isAnyChecked){
-                buttonEl.classList.add('d-none')
-            }
-        }
-
-        const __deleteChecked = () => {
-            const checkedIds = []
-            document.querySelectorAll('input[name="checked[]"]:checked').forEach(check => {
-                if (check.checked){
-                    checkedIds.push(check.value)
-                }
-            })
-            console.log(checkedIds)
-        }
-        /* /Delete Checked */
     </script>
 @endpush

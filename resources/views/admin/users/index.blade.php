@@ -8,6 +8,9 @@
     <div class="d-flex justify-content-between align-items-center">
         <x-breadcrumb :nav="$navigations"/>
         <div class="page-actions">
+            @can('delete_users')
+                {{ Form::delete(['onclick' => '__deleteChecked()', 'class' => 'd-none delete-checked']) }}
+            @endcan
             {{ Form::refresh(['onclick' => '__refresh()']) }}
             @can('create_users')
             {{ Form::addNew(['onclick' => '__create()']) }}

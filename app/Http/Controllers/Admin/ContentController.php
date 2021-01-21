@@ -19,15 +19,7 @@ class ContentController extends Controller
         }
         $data = [
             'navigations' => [__('contents.self_plural')],
-            'columns' => [
-                ['data' => 'checkbox', 'name' => 'checkbox', 'title' => '<input type="checkbox" onclick="__checkAll(this)"/>', 'orderable' => false, 'searchable' => false, 'className' => 'text-center'],
-                ['data' => 'file', 'name' => 'file', 'title' => __('contents.photo'), 'orderable' => false, 'searchable' => false],
-                ['data' => 'title', 'name' => 'title', 'title' => __('contents.title')],
-                ['data' => 'status', 'name' => 'status', 'title' => __('contents.status'), 'searchable' => false],
-                ['data' => 'parent', 'name' => 'parent', 'title' => __('contents.parent'), 'searchable' => false],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('contents.created_at'), 'searchable' => false],
-                ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
-            ],
+            'columns' => $this->columns(),
             'parents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
         ];
         return view('admin.contents.index', $data);
@@ -42,7 +34,7 @@ class ContentController extends Controller
         return Datatables::of($data)
             ->editColumn('title', fn (Content $content) => '<a class="clickable" title="' . $content->id . '" onclick="__find(' . $content->id . ')">' . $content->title . '</a>')
             ->editColumn('created_at', fn (Content $content) => date("Y-m-d H:i:s", strtotime($content->created_at)))
-            ->addColumn('checkbox', fn (Content $content) => '<input type="checkbox" onclick="__showDeleteCheckedButton()" value="' . $content->id . '" name="checked[]"/>')
+            ->addColumn('check_all', fn (Content $content) => '<input type="checkbox" onclick="__onCheck()" value="' . $content->id . '" name="checked[]"/>')
             ->addColumn('file', function (Content $content) {
                 $file = Content::findFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
@@ -50,7 +42,7 @@ class ContentController extends Controller
             ->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
             ->addColumn('status', fn (Content $content) => statusBadge($content->active))
             ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParentsByLocale($content->id, 'title')->pluck('title')->toArray()))
-            ->rawColumns(['checkbox', 'file', 'title', 'status', 'action'])
+            ->rawColumns(['check_all', 'file', 'title', 'status', 'action'])
             ->make(true);
     }
 
@@ -103,20 +95,20 @@ class ContentController extends Controller
         }
     }
 
-    public function destroy(int $id)
+    public function destroy(int|string $id)
     {
         if (!Auth::user()->can('delete_contents')) {
             return resJsonUnauthorized();
         }
-        return resJson(Content::destroy($id));
+        return resJson(Content::destroy(explode(',', $id)));
     }
 
-    public function restore(int $id)
+    public function restore(int|string $id)
     {
         if (!Auth::user()->can('delete_contents')) {
             return resJsonUnauthorized();
         }
-        return resJson(Content::withTrashed()->find($id)->restore());
+        return resJson(Content::withTrashed()->whereIn('id', explode(',', $id))->restore());
     }
 
     public function find(int $id)
@@ -285,6 +277,23 @@ class ContentController extends Controller
         return [
             ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
             ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+        ];
+    }
+
+    /**
+     * Return the table columns
+     *
+     * @return array[]
+     */
+    private function columns(): array
+    {
+        return [
+            ['data' => 'file', 'name' => 'file', 'title' => __('contents.photo'), 'orderable' => false, 'searchable' => false],
+            ['data' => 'title', 'name' => 'title', 'title' => __('contents.title')],
+            ['data' => 'status', 'name' => 'status', 'title' => __('contents.status'), 'searchable' => false],
+            ['data' => 'parent', 'name' => 'parent', 'title' => __('contents.parent'), 'searchable' => false],
+            ['data' => 'created_at', 'name' => 'created_at', 'title' => __('contents.created_at'), 'searchable' => false],
+            ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
         ];
     }
 }

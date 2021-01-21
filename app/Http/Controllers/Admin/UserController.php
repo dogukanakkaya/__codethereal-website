@@ -21,16 +21,7 @@ class UserController extends Controller
         }
         $data = [
             'navigations' => [__('users.self_plural')],
-            'columns' => [
-                ['data' => 'path', 'name' => 'path', 'title' => __('users.photo'), 'className' => 'text-center'],
-                ['data' => 'name', 'name' => 'name', 'title' => __('users.fullname')],
-                ['data' => 'email', 'name' => 'email', 'title' => __('users.email')],
-                ['data' => 'position', 'name' => 'position', 'title' => __('users.position')],
-                ['data' => 'email_verified_at', 'name' => 'verified', 'title' => __('users.verified')],
-                ['data' => 'is_online', 'name' => 'online', 'title' => 'Online'],
-                ['data' => 'created_at', 'name' => 'created_at', 'title' => __('users.created_at'), 'searchable' => false],
-                ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
-            ]
+            'columns' => $this->columns()
         ];
         return view('admin.users.index', $data);
     }
@@ -40,7 +31,7 @@ class UserController extends Controller
         if (!Auth::user()->can('see_users')) {
             return resJsonUnauthorized();
         }
-        $data = User::select('users.id', 'path', 'users.name', 'email', 'position', 'users.created_at as created_at', 'email_verified_at')
+        $data = User::select('users.id', 'path', 'users.name', 'email', 'users.created_at as created_at', 'email_verified_at')
             ->where('rank', '!=', config('user.rank.dev'))
             ->leftJoin('files', 'files.id', 'users.image')
             ->latest()
@@ -54,9 +45,10 @@ class UserController extends Controller
             ->editColumn('email', fn (User $user) => '<a class="clickable" href="mailto:' . $user->email . '">' . $user->email . '</a>')
             ->editColumn('email_verified_at', fn (User $user) => statusBadge($user->email_verified_at !== NULL))
             ->editColumn('created_at', fn (User $user) => date("Y-m-d H:i:s", strtotime($user->created_at)))
+            ->addColumn('check_all', fn (User $user) => '<input type="checkbox" onclick="__onCheck()" value="' . $user->id . '" name="checked[]"/>')
             ->addColumn('is_online', fn (User $user) => statusBadge(isOnline($user->id)))
             ->addColumn('action', fn (User $user) => view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]))
-            ->rawColumns(['path', 'name', 'email', 'email_verified_at', 'is_online', 'action'])
+            ->rawColumns(['check_all', 'path', 'name', 'email', 'email_verified_at', 'is_online', 'action'])
             ->make(true);
     }
 
@@ -180,6 +172,24 @@ class UserController extends Controller
         return  [
             ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
             ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+        ];
+    }
+
+    /**
+     * Return the table columns
+     *
+     * @return array[]
+     */
+    private function columns(): array
+    {
+        return [
+            ['data' => 'path', 'name' => 'path', 'title' => __('users.photo'), 'className' => 'text-center'],
+            ['data' => 'name', 'name' => 'name', 'title' => __('users.fullname')],
+            ['data' => 'email', 'name' => 'email', 'title' => __('users.email')],
+            ['data' => 'email_verified_at', 'name' => 'verified', 'title' => __('users.verified')],
+            ['data' => 'is_online', 'name' => 'online', 'title' => 'Online'],
+            ['data' => 'created_at', 'name' => 'created_at', 'title' => __('users.created_at'), 'searchable' => false],
+            ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
         ];
     }
 }
