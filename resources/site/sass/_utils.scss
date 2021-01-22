@@ -63,3 +63,14 @@ ul {
     color: #fff;
   }
 }
+
+label.required::after{
+    content: '*';
+    color: $danger;
+    margin-left: 2px;
+}
+
+.ce-alert{
+    white-space: pre-line;
+    display: flex;
+}

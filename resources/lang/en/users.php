@@ -9,6 +9,7 @@ return [
     'position' => 'Position',
     'about' => 'About',
     'photo' => 'Photo',
+    'phone' => 'Phone',
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'roles' => 'Roles',

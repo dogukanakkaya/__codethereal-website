@@ -3,14 +3,12 @@
 import 'datatables.net'
 import ceToast from './ce/toast'
 import { STORAGE_PREFIX } from "./constants"
-import axios from 'axios'
+import './common'
 
 window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 window.bootstrap = require('bootstrap')
 
-// TODO: i needed to modify this to return 0 on empty checkbox so i copy core files and change the line
-window.serialize = require('./static/form-serialize');
 window.makeToast = ceToast
 
 const availableThemeColors = ['light-theme', 'dark-theme']
@@ -105,18 +103,7 @@ window.nestedSortableSerialize = (sortable, sortableGroup) => {
     return serialized
 }
 
-// Axios
-window.request = axios.create({
-    timeout: 30000,
-    headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-    },
-    validateStatus: function (status) {
-        return status >= 200 && status <= 450;
-    },
-});
-
+// Axios instance of my own
 request.interceptors.response.use((response) => response, (error) => {
     makeToast({
         status: 0,
@@ -165,25 +152,3 @@ function repositionElement(e) {
     this.style.top = initY + e.clientY - mousePressY + 'px';
 }
 /* /Draggable setup */
-
-window.openModal = selector => {
-    const modalEl = document.querySelector(selector)
-    const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    if (modalInstance){
-        modalInstance.show()
-    }else{
-        new bootstrap.Modal(document.querySelector(selector)).show()
-    }
-}
-window.closeModal = selector => {
-    const modalEl = document.querySelector(selector)
-    const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    if (modalInstance){
-        modalInstance.hide()
-    }else{
-        new bootstrap.Modal(document.querySelector(selector)).hide()
-    }
-}
-
-window.changeModalTitle = (selector, title) => document.querySelector(selector).querySelector('.modal-title').innerText = title
-/* /Global functions */

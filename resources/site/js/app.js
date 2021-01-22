@@ -1,7 +1,5 @@
-import axios from 'axios'
+import '../../js/common'
 window.bootstrap = require('bootstrap')
-
-window.toggleMultiple = (el, ...classes) => classes.map(cls => el.classList.toggle(cls))
 
 window.addEventListener('DOMContentLoaded', e => {
 
@@ -11,42 +9,42 @@ window.addEventListener('DOMContentLoaded', e => {
     const topBarHeight = document.querySelector('.top-bar').clientHeight
 
     // Add sticky class if user scrolled under top-bar
-    window.addEventListener('scroll', e => {
+    window.addEventListener('scroll', () => {
         window.pageYOffset >= topBarHeight ? header.classList.add('sticky') : header.classList.remove('sticky')
     })
 })
 
-window.openModal = selector => {
-    const modalEl = document.querySelector(selector)
-    const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    if (modalInstance){
-        modalInstance.show()
-    }else{
-        new bootstrap.Modal(document.querySelector(selector)).show()
-    }
-}
-window.closeModal = selector => {
-    const modalEl = document.querySelector(selector)
-    const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    if (modalInstance){
-        modalInstance.hide()
-    }else{
-        new bootstrap.Modal(document.querySelector(selector)).hide()
-    }
-}
-
 window.__login = async () => {
     if (!document.getElementById('login-modal')){
-        const response = await axios.get(url('auth/login'))
-        document.body.insertAdjacentHTML('beforeend', response.data)
+        const {data: html} = await request.get(url('auth/login'))
+        document.body.insertAdjacentHTML('beforeend', html)
+        document.getElementById('login-form').addEventListener('submit', async e => {
+            e.preventDefault()
+            const response = await request.post(url('auth/login'), serialize(e.target, {hash: true, empty: true}))
+            console.log(response)
+        })
     }
     openModal('#login-modal')
 }
 
 window.__register = async () => {
     if (!document.getElementById('register-modal')){
-        const response = await axios.get(url('auth/register'))
-        document.body.insertAdjacentHTML('beforeend', response.data)
+        const {data: html} = await request.get(url('auth/register'))
+        document.body.insertAdjacentHTML('beforeend', html)
+        document.getElementById('register-form').addEventListener('submit', async e => {
+            e.preventDefault()
+            const {data: { status, message }} = await request.post(url('auth/register'), serialize(e.target, {hash: true, empty: true}))
+
+            const alertEl = e.target.querySelector('.alert')
+            if (status){
+                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                e.target.reset()
+                closeModal('#register-modal')
+            }else{
+                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+            }
+            alertEl.textContent = message
+        })
     }
     openModal('#register-modal')
 }

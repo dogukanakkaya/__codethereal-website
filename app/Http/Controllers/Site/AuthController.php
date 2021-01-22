@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -19,10 +22,22 @@ class AuthController extends Controller
             ->header('Content-Type', 'application/html');
     }
 
+    public function login()
+    {
+
+    }
+
     public function registerView()
     {
         return response()
             ->view('site.auth.register-modal')
             ->header('Content-Type', 'application/html');
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        return resJson(User::create($data));
     }
 }

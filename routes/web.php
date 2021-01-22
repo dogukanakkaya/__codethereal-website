@@ -170,11 +170,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
 
-        Route::prefix('auth')->group(function (){
-            Route::get('login', 'AuthController@loginView');
-            Route::get('register', 'AuthController@registerView');
-        });
-
         Route::get('list', function () {
             return view('site.list');
         });
@@ -184,5 +179,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     });
 });
 
+Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Site'], function () {
+    Route::get('login', 'AuthController@loginView');
+    Route::get('register', 'AuthController@registerView');
 
-
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+});

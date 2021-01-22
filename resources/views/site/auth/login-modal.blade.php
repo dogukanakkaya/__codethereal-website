@@ -1,5 +1,6 @@
 <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+        {{ Form::open(['id' => 'login-form']) }}
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{ __('auth.login') }}</h5>
@@ -19,8 +20,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="ce-btn me-0">{{ __('auth.login') }} <i class="bi bi-save"></i></button>
+                <button type="submit" class="ce-btn me-0">{{ __('auth.login') }} <i class="bi bi-save"></i></button>
             </div>
         </div>
+        {{ Form::close() }}
     </div>
 </div>
