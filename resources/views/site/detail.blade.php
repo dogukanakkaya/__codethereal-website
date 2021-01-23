@@ -4,7 +4,7 @@
     <section class="page-breadcrumb">
         <nav>
             <ul class="d-flex justify-content-center align-items-center">
-                <li><a href="">Home</a></li>
+                <li><a href="{{ route('web.index') }}">Home</a></li>
                 <li><a href="">PHP</a></li>
                 <li><a href="">PHP and GraphQL</a></li>
             </ul>
@@ -15,11 +15,11 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="banner">
-                    <img src="{{ asset('site/img/laravel-jwt.jpeg') }}" class="w-100" alt="">
+                    <img src="{{ resize($content->featured_image, 1100) }}" class="w-100" alt="">
                     <div class="content-info">
                         <ul class="d-flex">
-                            <li><a href="#"><i class="bi bi-pencil"></i> Admin</a></li>
-                            <li><a href="#"><i class="bi bi-clock"></i> 6 hours ago</a></li>
+                            <li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>
+                            <li><a href="#"><i class="bi bi-clock"></i> {{ $content->created_at->diffForHumans() }}</a></li>
                             <li><a href="#"><i class="bi bi-chat-text"></i> 8 comment</a></li>
                         </ul>
                         <ul class="d-flex">

@@ -35,15 +35,5 @@ class UserSeeder extends Seeder
         ]);
         $userAdmin->markEmailAsVerified();
         $userAdmin->markAsAuthorized();
-
-        $userBasic = User::create([
-            'name' => 'Doğu Basic',
-            'email' => 'psymon775@gmail.com',
-            'password' => Hash::make('12345678'),
-            'position' => '',
-            'rank' => config('user.rank.basic')
-        ]);
-        $userBasic->markEmailAsVerified();
-        $userBasic->markAsAuthorized();
     }
 }

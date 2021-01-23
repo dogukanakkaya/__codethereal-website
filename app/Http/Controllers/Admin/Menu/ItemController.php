@@ -42,7 +42,7 @@ class ItemController extends Controller
             return resJsonUnauthorized();
         }
         $data = [
-            'items' => $this->treeItems(MenuGroup::itemsByLocale($groupId, 'id', 'title')),
+            'items' => $this->treeItems(MenuGroup::itemsByLocale($groupId, 'item_id', 'parent_id', 'title')),
             'actions' => $this->actions()
         ];
         return response()

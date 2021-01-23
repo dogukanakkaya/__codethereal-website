@@ -4,6 +4,7 @@ namespace App\Models\Admin\Content;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Content extends Model
 {
@@ -63,7 +64,7 @@ class Content extends Model
     }
 
     /**
-     * Find one record with active locale
+     * Find one record by active locale
      *
      * @param int $id
      * @param mixed ...$select
@@ -77,6 +78,23 @@ class Content extends Model
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->first();
     }
+
+    /**
+     * Find one record by active locale with link
+     *
+     * @param string $url
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findOneByLocaleWithUrl(string $url, ...$select): mixed
+    {
+        return self::select($select)
+            ->where('url', $url)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->first();
+    }
+
 
     /**
      * Return content parents
@@ -139,7 +157,7 @@ class Content extends Model
      * @param int|null $limit
      * @return mixed
      */
-    private static function findSubContentsByLocaleInstance(int|array $id, array $select, int|null $limit): mixed
+    public static function findSubContentsByLocaleInstance(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
         $query = self::select($select)
             ->where('language', app()->getLocale())
@@ -178,5 +196,16 @@ class Content extends Model
     public static function findSubContentsWithChildrenCountByLocale(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
         return self::findSubContentsByLocaleInstance($id, $select, $limit)->withCount('childrens')->get();
+    }
+
+    /**
+     * Return if given content id has sub contents or not
+     *
+     * @param int $id
+     * @return bool
+     */
+    public static function hasSubContents(int $id)
+    {
+        return DB::table('content_parents')->where('parent_id', $id)->count() > 0;
     }
 }

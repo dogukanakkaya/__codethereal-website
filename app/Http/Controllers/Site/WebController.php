@@ -25,4 +25,20 @@ class WebController extends Controller
 
         return view('site.index', $data);
     }
+
+    public function resolve(string $url)
+    {
+        $content = Content::findOneByLocaleWithUrl($url, 'contents.id');
+        if (Content::hasSubContents($content->id)){
+            $data = [
+                'contents' => Content::findSubContentsByLocaleInstance($content->id, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6),
+            ];
+            return view('site.list', $data);
+        }else{
+            $data = [
+                'content' => Content::findOneByLocaleWithUrl($url, 'title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'),
+            ];
+            return view('site.detail', $data);
+        }
+    }
 }

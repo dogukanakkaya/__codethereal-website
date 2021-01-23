@@ -232,7 +232,7 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
 function createUrl(string $url): string
 {
     return $url === '#' ? 'javascript:void(0);' : (
-        preg_match('@^(https://|http://)@', $url) ? $url : url($url)
+        preg_match('@^(https://|http://)@', $url) ? $url : url(app()->getLocale() . "/" . $url)
     );
 }
 
@@ -246,7 +246,7 @@ function createUrl(string $url): string
  * @param false $upsize
  * @return string
  */
-function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false)
+function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false): string
 {
     $explodeSlashes = explode('/', $path);
     $file = end($explodeSlashes);

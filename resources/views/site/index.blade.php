@@ -29,15 +29,15 @@
     <section class="categories container">
         <div class="row">
             <div class="col-md-12 head d-flex justify-content-between align-items-center">
-                <h4>{{ $category->title }}</h4>
-                <a href="{{ url($category->url) }}" class="ce-btn"><i class="bi bi-list"></i> Show All</a>
+                <h4>{{ $category->title ?? '' }}</h4>
+                <a href="{{ createUrl($category->url ?? '') }}" class="ce-btn"><i class="bi bi-list"></i> Show All</a>
             </div>
         </div>
         <div class="row">
             @foreach($categoryItems as $categoryItem)
                 <div class="col-md-3">
                     <div class="item">
-                        <a href="{{ url($categoryItem->url) }}">
+                        <a href="{{ createUrl($categoryItem->url) }}">
                             <img src="{{ resize($categoryItem->featured_image, 150) }}" alt="">
                             <h5>{{ $categoryItem->title }}</h5>
                         </a>
@@ -71,13 +71,15 @@
         </div>
     </section>
 
+    @isset($parallax)
     <section class="separate-parallax" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
         <div class="overlay flex-column d-flex justify-content-center align-items-center p-3 text-center">
             <h3>{{ $parallax->title }}</h3>
-            <p>{{ $parallax->description }}</p>
+            <p>{{ $parallax->description ?? '' }}</p>
             <span class="ce-btn" onclick="__login()"><i class="bi bi-person-plus"></i> Login</span>
         </div>
     </section>
+    @endisset
 
     <section class="container contents">
         <div class="row">

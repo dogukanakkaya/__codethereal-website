@@ -89,7 +89,7 @@
         <div class="row gy-4 gy-lg-0">
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="logo">
-                    <a href="#"><img src="{{ asset('site/img/logo-light.svg') }}" alt=""></a>
+                    <a href="{{ route('web.index') }}"><img src="{{ asset('site/img/logo-light.svg') }}" alt=""></a>
                 </div>
                 <p>{{ $settings['description'] ?? '' }}</p>
                 <ul class="d-flex justify-content-center justify-content-md-start">
@@ -99,10 +99,10 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <h5><a href="{{ url($category->url) }}"><i class="bi bi-list"></i> {{ $category->title }}</a></h5>
+                <h5><a href=""><i class="bi bi-list"></i> Categories</a></h5>
                 <ul>
-                    @foreach($categoryItems as $categoryItem)
-                        <li><a href="{{ url($categoryItem->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $categoryItem->title }}</a></li>
+                    @foreach($categoryLinks as $categoryLink)
+                        <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $categoryLink->title }}</a></li>
                     @endforeach
                 </ul>
             </div>

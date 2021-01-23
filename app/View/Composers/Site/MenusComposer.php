@@ -27,5 +27,9 @@ class MenusComposer
         $view->with('quickLinks',
             MenuGroup::itemsByLocale(config('site.quick_links'), 'item_id', 'title', 'url')
         );
+
+        $view->with('categoryLinks',
+            MenuGroup::itemsByLocale(config('site.category_links'), 'item_id', 'title', 'url')
+        );
     }
 }

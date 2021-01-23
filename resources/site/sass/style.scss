@@ -1070,13 +1070,13 @@ aside {
 }
 
 .pagination {
-    .active a {
+    .active span {
         background-color: $main-color;
         border-color: $main-color;
         color: #fff;
     }
 
-    a {
+    a,span {
         width: 40px;
         height: 40px;
         display: flex;
@@ -1088,10 +1088,10 @@ aside {
         font-size: 13px;
         color: #000;
         transition: all 0.3s ease-in;
+    }
 
-        &:hover {
-            color: $main-color-hover;
-        }
+    a:hover {
+        color: $main-color-hover;
     }
 }
 

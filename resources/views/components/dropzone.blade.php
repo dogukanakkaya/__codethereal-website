@@ -147,6 +147,8 @@
         }
 
         const createPreview{{ $index }} = (id, url) => {
+            if (!id) return
+
             @if($maxFiles === 1)
                 clearPreviewFull{{ $index }}()
             @endif
