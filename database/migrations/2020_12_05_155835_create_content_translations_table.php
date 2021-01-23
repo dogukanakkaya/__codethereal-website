@@ -24,7 +24,11 @@ class CreateContentTranslationsTable extends Migration
             $table->string('featured_image')->nullable();
             $table->char('language', 3);
             $table->boolean('active')->default(1);
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_tags')->nullable();
         });
+
     }
 
     /**

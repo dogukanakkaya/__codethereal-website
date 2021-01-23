@@ -38,7 +38,9 @@ class ContentRequest extends FormRequest
             $rules[$language->code . '.full'] = '';
             $rules[$language->code . '.icon'] = 'max:255';
             $rules[$language->code . '.active'] = 'integer';
-            $rules[$language->code . '.files'] = 'string';
+            $rules[$language->code . '.meta_title'] = 'nullable|string';
+            $rules[$language->code . '.meta_description'] = 'nullable|string';
+            $rules[$language->code . '.meta_tags'] = 'nullable|string';
 
             if (isset($data['active']) && intval($data['active']) === 0) {
                 $rules[$language->code . '.title'] = 'max:255';
@@ -60,7 +62,9 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'content.parent_id' => __('contents.parent'),
+            'content.parent_id' => __('contents.parents'),
+            'content.files' => __('contents.files'),
+            'content.searchable' => __('contents.searchable')
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -75,7 +79,9 @@ class ContentRequest extends FormRequest
                 $attributes[$language->code . '.full'] = __('contents.full') . " - $upperLang";
                 $attributes[$language->code . '.icon'] = __('contents.icon') . " - $upperLang";
                 $attributes[$language->code . '.active'] = __('contents.active') . " - $upperLang";
-                $attributes[$language->code . '.files'] = __('contents.files') . " - $upperLang";
+                $attributes[$language->code . '.meta_title'] = __('contents.seo.title') . " - $upperLang";
+                $attributes[$language->code . '.meta_description'] = __('contents.seo.description') . " - $upperLang";
+                $attributes[$language->code . '.meta_tags'] = __('contents.seo.tags') . " - $upperLang";
             }
         }
         return $attributes;

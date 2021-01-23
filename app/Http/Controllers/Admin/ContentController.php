@@ -20,7 +20,7 @@ class ContentController extends Controller
         $data = [
             'navigations' => [__('contents.self_plural')],
             'columns' => $this->columns(),
-            'parents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
+            'contents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
         ];
         return view('admin.contents.index', $data);
     }
@@ -62,6 +62,7 @@ class ContentController extends Controller
         $fileIds = $files !== '0' ? explode('|', $files) : [];
 
         $parentIds = array_remove($contentData, 'parents') ?? [];
+        $relationsIds = array_remove($contentData, 'relations') ?? [];
 
         DB::beginTransaction();
         try {
@@ -70,6 +71,9 @@ class ContentController extends Controller
 
             // Create Content Parents
             DB::table('content_parents')->insert($this->prepareParentsData($content->id, $parentIds));
+
+            // Create Content Relations
+            DB::table('content_relations')->insert($this->prepareRelationsData($content->id, $relationsIds));
 
             // Create Content Files
             DB::table('content_files')->insert($this->prepareFilesData($content->id, $fileIds));
@@ -159,6 +163,7 @@ class ContentController extends Controller
         $fileIds = $files !== '0' ? explode('|', $files) : [];
 
         $parentIds = array_remove($contentData, 'parents') ?? [];
+        $relationIds = array_remove($contentData, 'relations') ?? [];
 
         DB::beginTransaction();
         try {
@@ -168,6 +173,10 @@ class ContentController extends Controller
             // Update Content Parents
             DB::table('content_parents')->where('content_id', $id)->delete();
             DB::table('content_parents')->insert($this->prepareParentsData($id, $parentIds));
+
+            // Update Content Relations
+            DB::table('content_relations')->where('content_id', $id)->delete();
+            DB::table('content_relations')->insert($this->prepareRelationsData($id, $relationIds));
 
             // Update Content Files
             DB::table('content_files')->where('content_id', $id)->delete();
@@ -272,6 +281,26 @@ class ContentController extends Controller
     }
 
     /**
+     * Collect parent ids in 1 array and return it
+     *
+     * @param int $contentId
+     * @param array $relationIds
+     * @return array
+     */
+    private function prepareRelationsData(int $contentId, array $relationIds): array
+    {
+        $relationsData = [];
+        foreach ($relationIds as $relationId) {
+            if (empty($relationId)) continue;
+            $relationsData[] = [
+                'content_id' => $contentId,
+                'parent_id' => $relationId
+            ];
+        }
+        return $relationsData;
+    }
+
+    /**
      * Return table actions
      *
      * @param int $id
@@ -296,7 +325,7 @@ class ContentController extends Controller
             ['data' => 'file', 'name' => 'file', 'title' => __('contents.photo'), 'orderable' => false, 'searchable' => false],
             ['data' => 'title', 'name' => 'title', 'title' => __('contents.title')],
             ['data' => 'status', 'name' => 'status', 'title' => __('contents.status'), 'searchable' => false],
-            ['data' => 'parent', 'name' => 'parent', 'title' => __('contents.parent'), 'searchable' => false],
+            ['data' => 'parent', 'name' => 'parent', 'title' => __('contents.parents'), 'searchable' => false],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => __('contents.created_at'), 'searchable' => false],
             ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
         ];
