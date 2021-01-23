@@ -16,7 +16,7 @@ class CreateContentRelationsTable extends Migration
         Schema::create('content_relations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')->constrained('contents');
-            $table->foreignId('parent_id')->constrained('contents');
+            $table->foreignId('relation_id')->constrained('contents');
         });
     }
 

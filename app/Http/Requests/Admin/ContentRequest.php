@@ -28,6 +28,7 @@ class ContentRequest extends FormRequest
         $reqData = $this->all();
         $rules = [
             'content.parents' => 'array',
+            'content.relations' => 'array',
             'content.files' => '',
             'content.searchable' => 'integer'
         ];
@@ -62,7 +63,8 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'content.parent_id' => __('contents.parents'),
+            'content.parents' => __('contents.parents'),
+            'content.relations' => __('contents.relations'),
             'content.files' => __('contents.files'),
             'content.searchable' => __('contents.searchable')
         ];

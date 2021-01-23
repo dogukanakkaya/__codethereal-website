@@ -4,7 +4,7 @@
     <section class="home-top">
         <div class="center container">
             <div>
-                <h3 class="slogan"><span>The Mind is a Far Better Warrior than the Sword!</span></h3>
+                <h3 class="slogan"><span>{{ __('site.slogan') }}</span></h3>
             </div>
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
                 <div class="choose-category">
@@ -26,27 +26,29 @@
         </div>
     </section>
 
+    @isset($category)
     <section class="categories container">
         <div class="row">
             <div class="col-md-12 head d-flex justify-content-between align-items-center">
-                <h4>{{ $category->title ?? '' }}</h4>
-                <a href="{{ createUrl($category->url ?? '') }}" class="ce-btn"><i class="bi bi-list"></i> Show All</a>
+                <h4>{{ $category->title }}</h4>
+                <a href="{{ createUrl($category->url) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
             </div>
         </div>
         <div class="row">
-            @foreach($categoryItems as $categoryItem)
+            @foreach($categories as $category)
                 <div class="col-md-3">
                     <div class="item">
-                        <a href="{{ createUrl($categoryItem->url) }}">
-                            <img src="{{ resize($categoryItem->featured_image, 150) }}" alt="">
-                            <h5>{{ $categoryItem->title }}</h5>
+                        <a href="{{ createUrl($category->url) }}">
+                            <img src="{{ resize($category->featured_image, 150) }}" alt="">
+                            <h5>{{ $category->title }}</h5>
                         </a>
-                        <span>({{ $categoryItem->childrens_count }} lessons)</span>
+                        <span>({{ $category->childrens_count }} {{ __('site.article') }})</span>
                     </div>
                 </div>
             @endforeach
         </div>
     </section>
+    @endisset
 
     <section class="container mb-5">
         <div class="row">
@@ -62,7 +64,7 @@
                         <div class="face face2">
                             <div class="content">
                                 <p>{{ $card->description }}</p>
-                                <a href="{{ url($card->url) }}" class="ce-btn">Read More</a>
+                                <a href="{{ createUrl($card->url) }}" class="ce-btn">{{ __('site.read_more') }}</a>
                             </div>
                         </div>
                     </div>
@@ -75,8 +77,8 @@
     <section class="separate-parallax" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
         <div class="overlay flex-column d-flex justify-content-center align-items-center p-3 text-center">
             <h3>{{ $parallax->title }}</h3>
-            <p>{{ $parallax->description ?? '' }}</p>
-            <span class="ce-btn" onclick="__login()"><i class="bi bi-person-plus"></i> Login</span>
+            <p>{{ $parallax->description }}</p>
+            <span class="ce-btn" onclick="__login()"><i class="bi bi-person-plus"></i> {{ __('site.login') }}</span>
         </div>
     </section>
     @endisset
@@ -84,8 +86,8 @@
     <section class="container contents">
         <div class="row">
             <div class="col-md-12 head d-flex justify-content-between align-items-center">
-                <h4>Featured Contents</h4>
-                <button class="ce-btn"><i class="bi bi-list"></i> Show All</button>
+                <h4>{{ __('site.featured_contents') }}</h4>
+                <button class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</button>
             </div>
         </div>
         <div class="row gy-5">
@@ -94,20 +96,20 @@
                     <div class="card">
                         <span class="date">{{ $featuredContent->created_at->format('d') }} {{ __('date.'.$featuredContent->created_at->format('m')) }}</span>
                         <div class="image">
-                            <a href="{{ url($featuredContent->url) }}">
+                            <a href="{{ createUrl($featuredContent->url) }}">
                                 <img src="{{ resize($featuredContent->featured_image, 500) }}" alt="">
                             </a>
                             <div class="item-overlay">
-                                <a href="{{ url($featuredContent->url) }}"> <i class="bi bi-link-45deg"></i></a>
+                                <a href="{{ createUrl($featuredContent->url) }}"> <i class="bi bi-link-45deg"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{ url($featuredContent->url) }}">{{ $featuredContent->title }}</a></h5>
+                            <h5 class="card-title"><a href="{{ createUrl($featuredContent->url) }}">{{ $featuredContent->title }}</a></h5>
                             <p class="card-text">{!! $featuredContent->description !!}</p>
                             <hr>
                             <div class="d-flex justify-content-between align-items-center card-bottom">
                                 <span><i class="bi bi-pencil"></i> {{ $featuredContent->created_by_name }}</span>
-                                <a href="{{ url($featuredContent->url) }}"><i class="bi bi-chevron-double-right"> Read More</i></a>
+                                <a href="{{ createUrl($featuredContent->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
                             </div>
                         </div>
                     </div>
@@ -122,17 +124,17 @@
                 <li>
                     <i class="bi bi-person-check"></i>
                     <h4>{{ $userCount }}+</h4>
-                    <h4>Student</h4>
+                    <h4>{{ __('site.user') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-bookmark-check"></i>
                     <h4>{{ $categoryItemChildrenSum }}+</h4>
-                    <h4>Article</h4>
+                    <h4>{{ __('site.article') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-collection"></i>
                     <h4>{{ $categoryCount }}+</h4>
-                    <h4>Collection</h4>
+                    <h4>{{ __('site.category') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-question-diamond"></i>

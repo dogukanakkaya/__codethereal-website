@@ -127,7 +127,7 @@ class ContentController extends Controller
         $content = Content::select('searchable')->find($id);
 
         $translations = DB::table('content_translations')
-            ->select('title', 'description', 'full', 'active', 'language')
+            ->select('title', 'description', 'full', 'active', 'meta_title', 'meta_description', 'meta_tags', 'language')
             ->where('content_id', $id)
             ->get()
             ->keyBy('language')
@@ -138,14 +138,15 @@ class ContentController extends Controller
             });
 
         $files = Content::findFiles($id,'path', 'file_id')->pluck('path', 'file_id');
-
         $parents = Content::findParentsByLocale($id, 'parent_id')->pluck('parent_id')->toArray();
+        $relations = Content::findRelationsByLocale($id, 'relation_id')->pluck('relation_id')->toArray();
 
         return response()->json([
             'content' => $content,
             'translations' => $translations,
             'files' => $files,
-            'parents' => $parents
+            'parents' => $parents,
+            'relations' => $relations
         ]);
     }
 
@@ -294,7 +295,7 @@ class ContentController extends Controller
             if (empty($relationId)) continue;
             $relationsData[] = [
                 'content_id' => $contentId,
-                'parent_id' => $relationId
+                'relation_id' => $relationId
             ];
         }
         return $relationsData;

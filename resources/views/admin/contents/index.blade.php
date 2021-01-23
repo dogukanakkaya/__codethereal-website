@@ -92,12 +92,15 @@
             const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
-                    const {content, translations, files, parents} = response.data
+                    const {content, translations, files, parents, relations} = response.data
 
                     document.querySelector(`input[type=checkbox][name="content[searchable]"]`).checked = parseInt(content.searchable ?? 0) === 1
 
                     for (const [language, values] of Object.entries(translations)) {
                         document.querySelector(`input[name="${language}[title]"]`).value = values.title ?? ''
+                        document.querySelector(`input[name="${language}[meta_title]"]`).value = values.meta_title ?? ''
+                        document.querySelector(`input[name="${language}[meta_description]"]`).value = values.meta_description ?? ''
+                        document.querySelector(`input[name="${language}[meta_tags]"]`).value = values.meta_tags ?? ''
                         document.querySelector(`textarea[name="${language}[description]"]`).value = values.description ?? ''
                         tinymce.get(`${language}[full]`).setContent(values.full ?? '')
                         document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
@@ -114,6 +117,19 @@
 
                         /* If option value contained in values, set selected attribute */
                         if (newParents.indexOf(value) !== -1) {
+                            option.setAttribute('selected', 'selected');
+                        } else {
+                            option.removeAttribute('selected');
+                        }
+                    }
+
+                    // Convert relation ids to integer
+                    const newRelations = relations.map(relation => parseInt(relation))
+                    for (const option of document.querySelectorAll(`select[name="content[relations][]"] option`)) {
+                        const value = parseInt(option.value)
+
+                        /* If option value contained in values, set selected attribute */
+                        if (newRelations.indexOf(value) !== -1) {
                             option.setAttribute('selected', 'selected');
                         } else {
                             option.removeAttribute('selected');

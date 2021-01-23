@@ -825,6 +825,10 @@ footer {
         width: 100%;
     }
 
+    li{
+        font-family: cursive;
+    }
+
     li:not(:last-child) a {
         transition: all 0.4s ease-in-out;
 
@@ -841,14 +845,13 @@ footer {
         }
     }
 
-    li:last-child a {
+    li:last-child {
         font-size: 18px;
         text-shadow: 0 0 1px #000, 0 0 1px $main-color;
     }
 
-    a {
+    li, a {
         color: #fff;
-        font-family: cursive;
     }
 }
 
@@ -983,6 +986,16 @@ aside {
         background: #fbfbfd;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
         font-size: 0.8rem;
+    }
+
+    blockquote::before{
+        margin-left: -15px;
+        font-size: 17px;
+        content: "!";
+        font-weight: 400;
+        position: absolute;
+        color: #ff2d20;
+        opacity: .6;
     }
 }
 

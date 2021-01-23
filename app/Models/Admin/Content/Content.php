@@ -45,7 +45,7 @@ class Content extends Model
 
     public function parents()
     {
-        return $this->hasMany(ContentParent::class, 'content_id');
+        return $this->belongsToMany(Content::class, 'content_parents', 'content_id', 'parent_id');
     }
 
     /**
@@ -95,7 +95,6 @@ class Content extends Model
             ->first();
     }
 
-
     /**
      * Return content parents
      *
@@ -111,6 +110,24 @@ class Content extends Model
             ->where('language', app()->getLocale())
             ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->leftJoin('content_parents', 'content_parents.parent_id', 'contents.id')
+            ->get();
+    }
+
+    /**
+     * Return content relations
+     *
+     * @param int $id
+     * @param mixed ...$select
+     * @return mixed
+     */
+    public static function findRelationsByLocale(int $id, ...$select)
+    {
+        // TODO: do this with relations relation
+        return self::select($select)
+            ->where('content_relations.content_id', $id)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->leftJoin('content_relations', 'content_relations.relation_id', 'contents.id')
             ->get();
     }
 
@@ -199,6 +216,27 @@ class Content extends Model
     }
 
     /**
+     * Return relational contents of given content id
+     *
+     * @param int $id
+     * @param array $select
+     * @param int|null $limit
+     * @return mixed
+     */
+    public static function findRelationalContentsByLocale(int $id, array $select = ['*'], int|null $limit = null): mixed
+    {
+        return self::select($select)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->leftJoin('content_relations', 'content_relations.relation_id', 'contents.id')
+            ->oldest('sequence')
+            ->latest()
+            ->take($limit)
+            ->where('content_relations.content_id', $id)
+            ->get();
+    }
+
+    /**
      * Return if given content id has sub contents or not
      *
      * @param int $id
@@ -207,5 +245,23 @@ class Content extends Model
     public static function hasSubContents(int $id)
     {
         return DB::table('content_parents')->where('parent_id', $id)->count() > 0;
+    }
+
+    public static function parentTree(int $id, $select = ['*'])
+    {
+        $tree = [];
+        while($content = self::find($id)
+            ->parents()
+            ->select($select)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->first()){
+            $tree[$id] = [
+                'title' => $content->title,
+                'url' => $content->url
+            ];
+            $id = $content->id;
+        }
+        return array_reverse($tree);
     }
 }

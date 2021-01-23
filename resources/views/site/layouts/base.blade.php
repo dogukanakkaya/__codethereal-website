@@ -6,6 +6,7 @@
     <title>@yield('title', $settings['title'] ?? config('app.name'))</title>
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
+    @stack('styles')
 </head>
 <body>
 <div class="container">
@@ -17,12 +18,12 @@
         </ul>
         <ul>
             @if(!auth()->check())
-            <li onclick="__login()"><i class="bi bi-person"></i> Login</li>
+            <li onclick="__login()"><i class="bi bi-person"></i> {{ __('site.login') }}</li>
             <span class="bracket"></span>
-            <li onclick="__register()"><i class="bi bi-person-plus"></i> Register</li>
+            <li onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.register') }}</li>
             <span class="bracket"></span>
             @else
-                <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> Logout</li>
+                <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> {{ __('site.logout') }}</li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
@@ -99,7 +100,7 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <h5><a href=""><i class="bi bi-list"></i> Categories</a></h5>
+                <h5><a href=""><i class="bi bi-list"></i> {{ __('site.categories') }}</a></h5>
                 <ul>
                     @foreach($categoryLinks as $categoryLink)
                         <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $categoryLink->title }}</a></li>
@@ -107,7 +108,7 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <h5><a href=""><i class="bi bi-link-45deg"></i> Quick Links</a></h5>
+                <h5><a href=""><i class="bi bi-link-45deg"></i> {{ __('site.quick_links') }}</a></h5>
                 <ul>
                     @foreach($quickLinks as $quickLink)
                         <li><a href="{{ url($quickLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $quickLink->title }}</a></li>
@@ -115,7 +116,7 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <h5><a href="{{ url('iletisim-sayfasi-route') }}"><i class="bi bi-cursor"></i> Contact Us</a></h5>
+                <h5><a href="{{ url('iletisim-sayfasi-route') }}"><i class="bi bi-cursor"></i> {{ __('site.contact_us') }}</a></h5>
                 <ul>
                     <li><a href="{{ $settings['phone'] ?? '' }}"><i class="bi bi-phone-vibrate"></i> {{ $settings['phone'] ?? '' }}</a></li>
                     <li><a href="{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email'] ?? '' }}</a></li>
@@ -127,5 +128,6 @@
 </footer>
 <script>const url = path => `{{ url('') }}/${path}`</script>
 <script src="{{ asset('site/js/app.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

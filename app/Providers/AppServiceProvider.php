@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        header_remove("X-Powered-By");
+        session_name('CODETHEREALSESSID');
     }
 
     /**

@@ -15,5 +15,7 @@
     "/site/js/app.js": "/site/js/app.js",
     "/js/static/dropzone.min.js": "/js/static/dropzone.min.js",
     "/js/static/sortable.min.js": "/js/static/sortable.min.js",
+    "/site/js/prism.js": "/site/js/prism.js",
+    "/site/css/prism.css": "/site/css/prism.css",
     "/plugins/tinymce/tinymce.min.js": "/plugins/tinymce/tinymce.min.js"
 }
