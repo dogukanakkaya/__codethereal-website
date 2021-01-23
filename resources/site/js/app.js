@@ -20,8 +20,19 @@ window.__login = async () => {
         document.body.insertAdjacentHTML('beforeend', html)
         document.getElementById('login-form').addEventListener('submit', async e => {
             e.preventDefault()
-            const response = await request.post(url('auth/login'), serialize(e.target, {hash: true, empty: true}))
-            console.log(response)
+            const {data: { status, message }} = await request.post(url('auth/login'), serialize(e.target, {hash: true, empty: true}))
+
+            const alertEl = e.target.querySelector('.alert')
+            if (status){
+                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                e.target.reset()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+            }else{
+                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+            }
+            alertEl.textContent = message
         })
     }
     openModal('#login-modal')
@@ -39,11 +50,10 @@ window.__register = async () => {
             if (status){
                 replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
                 e.target.reset()
-                closeModal('#register-modal')
             }else{
                 replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
             }
-            alertEl.textContent = message
+            alertEl.innerHTML = message
         })
     }
     openModal('#register-modal')

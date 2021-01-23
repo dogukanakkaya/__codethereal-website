@@ -125,7 +125,7 @@
         </div>
     </div>
 </footer>
-<script>const url = (path) => `{{ url('') }}/${path}`</script>
+<script>const url = path => `{{ url('') }}/${path}`</script>
 <script src="{{ asset('site/js/app.js') }}"></script>
 </body>
 </html>

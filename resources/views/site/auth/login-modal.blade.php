@@ -8,15 +8,18 @@
             </div>
             <div class="modal-body">
                 <div class="ce-f-group mb-3">
-                    {{ Form::label('email', __('users.email')) }}
+                    {{ Form::label('email', __('users.email'), ['class' => 'required']) }}
                     {{ Form::email('email', '', ['required' => 'true']) }}
                 </div>
                 <div class="ce-f-group mb-3">
-                    {{ Form::label('password', __('users.password')) }}
+                    {{ Form::label('password', __('users.password'), ['class' => 'required']) }}
                     {{ Form::password('password', ['required' => 'true']) }}
                 </div>
                 <div class="mb-3">
-                    {{ Form::checkbox('remember', 'on') }} {{__('auth.remember_me')}}
+                    {{ Form::checkbox('remember_me', 1) }} {{__('auth.remember_me')}}
+                </div>
+                <div class="alert alert-dismissible fade show d-none ce-alert" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
             <div class="modal-footer">

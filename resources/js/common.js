@@ -6,8 +6,8 @@ window.serialize = require('./static/form-serialize');
 window.toggleMultiple = (el, ...classes) => classes.map(cls => el.classList.toggle(cls))
 
 window.replaceClasses = (el, search, replace) => {
-    el.classList.remove(search)
-    el.classList.add(replace)
+    el.classList.remove(...search)
+    el.classList.add(...replace)
 }
 
 window.request = axios.create({
