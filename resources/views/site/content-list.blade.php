@@ -61,20 +61,15 @@
                     </div>
                     <div class="item">
                         <h4 class="title">Recent Posts</h4>
-                        <div class="recent-post">
-                            <a href="#"><img src="{{ asset('site/img/ejs-template.gif') }}" alt=""></a>
-                            <div class="info">
-                                <h4><a href="#">Using EJS Template with NodeJS</a></h4>
-                                <span class="timestamp">16 hours ago</span>
+                        @foreach($mostViewedContents as $mostViewedContent)
+                            <div class="recent-post">
+                                <a href="{{ createUrl($mostViewedContent->url) }}"><img src="{{ resize($mostViewedContent->featured_image, 200) }}" alt=""></a>
+                                <div class="info">
+                                    <h4><a href="{{ createUrl($mostViewedContent->url) }}">{{ $mostViewedContent->title }}</a></h4>
+                                    <span class="timestamp">{{ $mostViewedContent->created_at->diffForHumans() }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="recent-post">
-                            <a href="#"><img src="{{ asset('site/img/ejs-template.gif') }}" alt=""></a>
-                            <div class="info">
-                                <h4><a href="#">Using EJS Template with NodeJS</a></h4>
-                                <span class="timestamp">16 hours ago</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="item">
                         <h4 class="title">Saved Posts</h4>

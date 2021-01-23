@@ -236,6 +236,20 @@ class Content extends Model
             ->get();
     }
 
+    public static function findMostViewedSubContents(int|array $id, array$select = ['*'], int|null $limit = null): mixed
+    {
+        $query = self::select($select)
+            ->where('language', app()->getLocale())
+            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+            ->leftJoin('content_parents', 'content_parents.content_id', 'contents.id')
+            ->latest('views')
+            ->take($limit);
+        if (is_array($id)){
+            return $query->whereIn('content_parents.parent_id', $id)->get();
+        }
+        return $query->where('content_parents.parent_id', $id)->get();
+    }
+
     /**
      * Return if given content id has sub contents or not
      *
