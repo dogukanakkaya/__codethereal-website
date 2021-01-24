@@ -252,12 +252,7 @@ header {
 }
 
 .home-top {
-    background: linear-gradient(
-            to right,
-            rgba(12, 41, 116, 0.84) 0%,
-            rgba(35, 107, 237, 0.84) 48%
-    ),
-    url(https://www.codethereal.com/new.codethereal/public/site/images/contents/home-top-bg_1865x700.jpg) no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     height: calc(#{$home-top-height} - #{$top-bar-height});
@@ -286,6 +281,7 @@ header {
         background-color: rgb(255, 255, 255);
         box-shadow: 0 6px 1.78px 0.22px rgba(36, 73, 111, 0.64);
         position: relative;
+        width: 28%;
 
         a {
             float: left;
@@ -683,6 +679,7 @@ header {
     }
 }
 
+/*
 .job-posts {
     tr {
         height: 125px;
@@ -735,6 +732,7 @@ header {
         white-space: pre;
     }
 }
+*/
 
 .section-title {
     display: flex;
@@ -759,12 +757,6 @@ header {
 }
 
 footer {
-    background: linear-gradient(
-            to right,
-            rgba(12, 41, 116, 0.84) 0%,
-            rgba(35, 107, 237, 0.84) 48%
-    ),
-    url(https://www.codethereal.com/new.codethereal/public/site/images/contents/home-top-bg_1865x437.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -807,12 +799,6 @@ footer {
 }
 
 .page-breadcrumb {
-    background: linear-gradient(
-            to right,
-            rgba(12, 41, 116, 0.84) 0%,
-            rgba(35, 107, 237, 0.84) 48%
-    ),
-    url(https://www.codethereal.com/new.codethereal/public/site/images/contents/home-top-bg_1865x700.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -927,34 +913,34 @@ aside {
 }
 
 .banner {
-    .content-info {
+    .content-info{
         display: flex;
         justify-content: space-between;
         padding: 0.5rem 0;
         margin-bottom: 1rem;
         border-bottom: $gray-low-border;
+    }
 
-        ul:first-child {
-            li:not(:last-child) {
-                a::after {
-                    content: "|";
-                    margin: 0 0.5rem;
-                    color: $gray-color;
-                    opacity: 0.2;
-                }
-            }
-
-            a {
-                color: $main-color;
-                font-size: 13px;
+    ul:first-child {
+        li:not(:last-child) {
+            a::after {
+                content: "|";
+                margin: 0 0.5rem;
+                color: $gray-color;
+                opacity: 0.2;
             }
         }
 
-        ul:last-child {
-            a {
-                @include padding(0 0.5rem);
-                display: block;
-            }
+        a {
+            color: $main-color;
+            font-size: 13px;
+        }
+    }
+
+    ul:last-child {
+        a {
+            @include padding(0 0.5rem);
+            display: block;
         }
     }
 }
@@ -1068,6 +1054,15 @@ aside {
 .write-comment {
     margin: 1.5rem 0;
 
+    h6 {
+        span{
+            color: $main-color;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
     textarea {
         border: none;
         outline: none;
@@ -1165,6 +1160,7 @@ aside {
     label[for="menu-toggle"] {
         display: block;
     }
+    /*
     .job-posts {
         .logo {
             width: 150px;
@@ -1185,6 +1181,7 @@ aside {
             font-size: 10px;
         }
     }
+     */
 
     footer {
         text-align: center;

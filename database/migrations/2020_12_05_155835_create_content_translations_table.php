@@ -21,6 +21,7 @@ class CreateContentTranslationsTable extends Migration
             $table->string('full')->nullable();
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
+            $table->string('categories')->nullable();
             $table->string('featured_image')->nullable();
             $table->char('language', 3);
             $table->boolean('active')->default(1);

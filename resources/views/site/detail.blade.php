@@ -1,11 +1,11 @@
-@extends('site.layouts.base')
+@extends('layouts.site')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('site/css/prism.css') }}">
 @endpush
 
 @section('content')
-    <section class="page-breadcrumb">
+    <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }});">
         <nav>
             <ul class="d-flex justify-content-center align-items-center">
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
@@ -29,9 +29,6 @@
                             <li><a href="#"><i class="bi bi-chat-text"></i> 8 comment</a></li>
                         </ul>
                         <ul class="d-flex">
-                            <li><a href="#"><i class="bi bi-facebook facebook"></i></a></li>
-                            <li><a href="#"><i class="bi bi-github github"></i></a></li>
-                            <li><a href="#"><i class="bi bi-youtube youtube"></i></a></li>
                             <li><a href="#"><i class="bi bi-linkedin linkedin"></i></a></li>
                         </ul>
                     </div>
@@ -44,50 +41,30 @@
                         <a href="{{ createUrl('t/' . $tag) }}" title="{{ $tag }}">{{ ucfirst($tag) }}</a>
                     @endforeach
                 </div>
+                <div class="alert alert-dismissible fade show d-none ce-alert comment-alert" role="alert">
+                    <span></span>
+                    <button type="button" class="btn-close" aria-label="Close" onclick="replyTo = 0;this.closest('.comment-alert').classList.add('d-none')"></button>
+                </div>
                 <div class="write-comment">
-                    <h5>Leave a comment</h5>
-                    <form onsubmit="return false;" class="d-flex">
-                        <textarea rows="4" placeholder="Enter your comment..."></textarea>
-                        <button class="ce-btn me-0" type="submit">Send <i class="bi bi-check-all"></i></button>
-                    </form>
+                    @if(auth()->check())
+                    <h5>
+                        {{ __('site.comment.leave_a_comment') }}
+                    </h5>
+                    {{ Form::open(['id' => 'comment-form', 'class' => 'd-flex']) }}
+                    {{ Form::textarea('comment', '', ['rows' => 4, 'placeholder' => __('site.comment.enter_comment'), 'required' => true]) }}
+                    <button class="ce-btn me-0" type="submit">Send <i class="bi bi-check-all"></i></button>
+                    {{ Form::close() }}
+                    @else
+                        <h6>
+                            {!! __('site.comment.must_login') !!}
+                        </h6>
+                    @endif
+
                 </div>
                 <div class="comments">
-                    <h5>Comments (3)</h5>
+                    <h5>{{ __('site.comment.self_plural') }} ({{ $commentCount }})</h5>
                     <ul>
-                        <li>
-                            <div class="comment">
-                                <span class="avatar">DA</span>
-                                <div>
-                                    <h6>Doğukan Akkaya</h6>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, ipsum.</p>
-                                    <span><i class="bi bi-clock"></i> 16 hours ago</span>
-                                    <span><i class="bi bi-reply ms-3"></i> Reply</span>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <span class="avatar">DA</span>
-                                        <div>
-                                            <h6>Doğukan Akkaya</h6>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, ipsum.</p>
-                                            <span><i class="bi bi-clock"></i> 16 hours ago</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <span class="avatar">DA</span>
-                                <div>
-                                    <h6>Doğukan Akkaya</h6>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, ipsum.</p>
-                                    <span><i class="bi bi-clock"></i> 16 hours ago</span>
-                                    <span><i class="bi bi-reply ms-3"></i> Reply</span>
-                                </div>
-                            </div>
-                        </li>
+                        @each('site.partials.comment', $comments, 'comment')
                     </ul>
                 </div>
             </div>
@@ -116,16 +93,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="item">
-                        <h4 class="title">Saved Posts</h4>
-                        <div class="recent-post">
-                            <a href="#"><img src="{{ asset('site/img/ejs-template.gif') }}" alt=""></a>
-                            <div class="info">
-                                <h4><a href="#">Using EJS Template with NodeJS</a></h4>
-                                <span class="timestamp">16 hours ago</span>
-                            </div>
-                        </div>
-                    </div>
                 </aside>
             </div>
         </div>
@@ -134,4 +101,34 @@
 
 @push('scripts')
     <script src="{{ asset('site/js/prism.js') }}"></script>
+    <script>
+        @if(auth()->check())
+        let replyTo = 0
+
+        document.getElementById('comment-form').addEventListener('submit', async e => {
+            e.preventDefault()
+            const data = serialize(e.target, {hash: true, empty: true})
+            data.content_id = {{ $content->id }}
+            data.parent_id = replyTo
+
+            const {data: {status, message}} = await request.post('{{ route('web.comment') }}', data)
+
+            const alertEl = document.querySelector('.comment-alert')
+            if (status){
+                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                e.target.reset()
+            }else{
+                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+            }
+            alertEl.querySelector('span').textContent = message
+        })
+
+        const __replyTo = (id, name) => {
+            replyTo = id
+            const alertEl = document.querySelector('.comment-alert')
+            replaceClasses(alertEl, ['d-none', 'alert-danger', 'alert-success'], ['alert-primary'])
+            alertEl.querySelector('span').textContent = '{{ __('site.comment.reply_to', ['name' => ':name']) }}'.replace(':name', name)
+        }
+        @endif
+    </script>
 @endpush

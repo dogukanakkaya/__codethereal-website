@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Codethereal | Manage')</title>
-
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{--todo--}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @stack('styles')
 </head>
 <body>
@@ -168,8 +169,9 @@
     const storage = (path) => `{{ asset('storage') }}/${path}`
 </script>
 <script src="{{ asset('js/app.js') }}"></script>
+{{--todo--}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @stack('scripts')
-
 </body>
 </html>
 @endspaceless

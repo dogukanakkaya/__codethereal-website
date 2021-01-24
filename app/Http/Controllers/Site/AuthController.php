@@ -13,9 +13,8 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('throttle:10,60')->only('login');
+        $this->middleware('throttle:10,60')->only('login', 'register');
         $this->middleware('authorize')->only('login');
-        $this->middleware('verified')->only('login');
     }
 
     public function loginView()
@@ -28,9 +27,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials, $request->get('remember_me'))) {
-            $request->session()->regenerate();
-            return resJson(1, ['message' => __('auth.wait_for_redirect')]);
+        $user = User::where('email', request('email'))->first();
+        if ($user?->hasVerifiedEmail()){
+            if (Auth::attempt($credentials, $request->get('remember_me'))) {
+                $request->session()->regenerate();
+                return resJson(1, ['message' => __('auth.wait_for_redirect')]);
+            }
         }
         return resJson(0, ['message' => __('auth.failed')]);
     }

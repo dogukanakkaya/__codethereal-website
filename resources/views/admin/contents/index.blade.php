@@ -1,7 +1,8 @@
-@extends('admin.layouts.base')
+@extends('layouts.admin')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/contents/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ce/select2.css') }}">
 @endpush
 
 @section('content')
@@ -110,31 +111,8 @@
                         createPreview1(fileId, storage(filePath))
                     }
 
-                    // Convert parent ids to integer
-                    const newParents = parents.map(parent => parseInt(parent))
-                    for (const option of document.querySelectorAll(`select[name="content[parents][]"] option`)) {
-                        const value = parseInt(option.value)
-
-                        /* If option value contained in values, set selected attribute */
-                        if (newParents.indexOf(value) !== -1) {
-                            option.setAttribute('selected', 'selected');
-                        } else {
-                            option.removeAttribute('selected');
-                        }
-                    }
-
-                    // Convert relation ids to integer
-                    const newRelations = relations.map(relation => parseInt(relation))
-                    for (const option of document.querySelectorAll(`select[name="content[relations][]"] option`)) {
-                        const value = parseInt(option.value)
-
-                        /* If option value contained in values, set selected attribute */
-                        if (newRelations.indexOf(value) !== -1) {
-                            option.setAttribute('selected', 'selected');
-                        } else {
-                            option.removeAttribute('selected');
-                        }
-                    }
+                    $('select[name="content[parents][]"]').val(parents).change()
+                    $('select[name="content[relations][]"]').val(relations).change()
 
                     openModal(modal)
                     changeModalTitle(modal, '{{ __('contents.update', ['title' => ':title']) }}'.replace(':title', translations.{{ app()->getLocale() }}.title))
@@ -142,5 +120,11 @@
         }
 
         const __sort = () => window.location.href = '{{ route('contents.sort') }}'
+
+        // TODO: to vanilla js
+        $('.searchable-select').select2({
+            width: '100%',
+            allowClear: true
+        })
     </script>
 @endpush

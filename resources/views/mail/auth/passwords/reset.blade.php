@@ -1,4 +1,4 @@
-@extends('mail.auth.layouts.default')
+@extends('layouts.mail')
 
 @section('content')
     <h1>{{ __('mail.hello') }} {{ $name }}</h1>

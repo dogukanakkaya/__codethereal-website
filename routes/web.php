@@ -156,6 +156,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::put('save-sequence', 'ContentController@saveSequence')->name('contents.save_sequence');
 
                 Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
+
                 Route::post('/', 'ContentController@create')->name('contents.create');
                 Route::get('{id}', 'ContentController@find')->name('contents.find');
                 Route::put('{id}', 'ContentController@update')->name('contents.update');
@@ -166,25 +167,26 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     });
 
-    // Website routes
+    // Website routes with locale prefix
     Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
 
-        Route::get('{url}', 'WebController@resolve');
+        Route::get('search', 'WebController@search');
+        Route::get('t/{tag}', 'WebController@searchTag');
 
-        Route::get('list', function () {
-            return view('site.list');
-        });
-        Route::get('detail', function () {
-            return view('site.detail');
-        });
+        Route::get('{url}', 'WebController@resolve');
     });
 });
 
-Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Site'], function () {
-    Route::get('login', 'AuthController@loginView');
-    Route::get('register', 'AuthController@registerView');
+// Website routes without locale prefix
+Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
+    Route::prefix('auth')->group(function () {
+        Route::get('login', 'AuthController@loginView');
+        Route::get('register', 'AuthController@registerView');
 
-    Route::post('login', 'AuthController@login');
-    Route::post('register', 'AuthController@register');
+        Route::post('login', 'AuthController@login');
+        Route::post('register', 'AuthController@register');
+    });
+
+    Route::post('comment/send', 'WebController@comment')->name('web.comment')->middleware('auth')->middleware('throttle:3,10');
 });

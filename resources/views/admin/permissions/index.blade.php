@@ -1,4 +1,4 @@
-@extends('admin.layouts.base')
+@extends('layouts.admin')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/permissions/base.css') }}">

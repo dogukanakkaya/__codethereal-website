@@ -5,20 +5,20 @@
         <nav>
             <ul class="d-flex justify-content-center align-items-center">
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
-                @foreach($parentTree as $pTree)
-                    <li><a href="{{ createUrl($pTree['url']) }}">{{ $pTree['title'] }}</a></li>
-                @endforeach
-                <li>{{ $category->title }}</li>
+                @isset($category)
+                <li><a href="{{ createUrl($category->url) }}">{{ $category->title }}</a></li>
+                @endisset
+                <li>{{ $search }}</li>
             </ul>
         </nav>
     </section>
 
     <section class="container mb-5">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="row gy-5 contents">
                     @foreach($contents as $content)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card">
                                 <span class="date">{{ $content->created_at->format('d') }} {{ __('date.'.$content->created_at->format('m')) }}</span>
                                 <div class="image">
@@ -45,33 +45,6 @@
                         {{ $contents->links('site.partials.pagination') }}
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <aside>
-                    <div class="item">
-                        <input type="search" placeholder="Search...">
-                    </div>
-                    <div class="item">
-                        <h4 class="title">{{ __('site.categories') }}</h4>
-                        <ul>
-                            @foreach($categoryLinks as $categoryLink)
-                                <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-right"></i> {{ $categoryLink->title }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <h4 class="title">{{ __('site.most_viewed_contents') }}</h4>
-                        @foreach($mostViewedContents as $mostViewedContent)
-                            <div class="recent-post">
-                                <a href="{{ createUrl($mostViewedContent->url) }}"><img src="{{ resize($mostViewedContent->featured_image, 200) }}" alt=""></a>
-                                <div class="info">
-                                    <h4><a href="{{ createUrl($mostViewedContent->url) }}">{{ $mostViewedContent->title }}</a></h4>
-                                    <span class="timestamp">{{ $mostViewedContent->created_at->diffForHumans() }}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </aside>
             </div>
         </div>
     </section>

@@ -276,3 +276,14 @@ function statusBadge(bool $status): string
 {
     return $status ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
 }
+
+function nameCode(string $name): string
+{
+    $exploded = explode(' ', $name);
+    $first = substr($exploded[0] ?? '', 0, 1);
+    $last = '';
+    if (count($exploded) !== 1){
+        $last = substr(end($exploded), 0, 1);
+    }
+    return $first.$last;
+}

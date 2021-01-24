@@ -18,9 +18,7 @@
                 <div class="mb-3">
                     {{ Form::checkbox('remember_me', 1) }} {{__('auth.remember_me')}}
                 </div>
-                <div class="alert alert-dismissible fade show d-none ce-alert" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <div class="alert fade show d-none ce-alert" role="alert"></div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="ce-btn me-0">{{ __('auth.login') }} <i class="bi bi-save"></i></button>

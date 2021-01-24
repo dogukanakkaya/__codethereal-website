@@ -2,7 +2,6 @@ import '../../js/common'
 window.bootstrap = require('bootstrap')
 
 window.addEventListener('DOMContentLoaded', e => {
-
     // Header element to make sticky
     const header = document.querySelector('header')
     // I get the top-bar height to add sticky class on scroll
@@ -13,6 +12,14 @@ window.addEventListener('DOMContentLoaded', e => {
         window.pageYOffset >= topBarHeight ? header.classList.add('sticky') : header.classList.remove('sticky')
     })
 })
+
+document.querySelectorAll('.category-dropdown li').forEach(category => category.addEventListener('click', e => {
+    document.querySelector('.category-dropdown .selected')?.classList.remove('selected'); // remove selected class
+    e.target.classList.add('selected') // add selected class
+    document.getElementById('selected').textContent = e.target.innerText // change selected text
+    document.querySelector('.category-dropdown').classList.remove('visible', 'opacity-100') // close dropdown
+    document.getElementById('search-category-id').value = e.target.value // set input value
+}))
 
 window.__login = async () => {
     if (!document.getElementById('login-modal')){

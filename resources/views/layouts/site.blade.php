@@ -85,7 +85,7 @@
     </div>
 </header>
 @yield('content')
-<footer>
+<footer style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }})">
     <div class="container pt-5 pb-5">
         <div class="row gy-4 gy-lg-0">
             <div class="col-lg-3 col-md-6 col-sm-12">

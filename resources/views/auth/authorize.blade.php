@@ -1,4 +1,4 @@
-@extends('auth.layouts.default')
+@extends('layouts.auth')
 
 @section('title', 'Codethereal | ' . __('auth.authorize_device'))
 

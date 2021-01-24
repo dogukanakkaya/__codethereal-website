@@ -43,9 +43,16 @@ class Content extends Model
         return $this->hasMany(ContentParent::class, 'parent_id');
     }
 
+    /*
     public function parents()
     {
         return $this->belongsToMany(Content::class, 'content_parents', 'content_id', 'parent_id');
+    }
+    */
+
+    public static function findByLocaleInstance(...$select)
+    {
+        return self::select($select)->where('language', app()->getLocale())->leftJoin('content_translations', 'content_translations.content_id', 'contents.id');
     }
 
     /**
@@ -56,11 +63,7 @@ class Content extends Model
      */
     public static function findAllByLocale(...$select): mixed
     {
-        return self::select($select)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
-            ->latest()
-            ->get();
+        return self::findByLocaleInstance(...$select)->latest()->get();
     }
 
     /**
@@ -72,11 +75,7 @@ class Content extends Model
      */
     public static function findOneByLocale(int $id, ...$select): mixed
     {
-        return self::select($select)
-            ->where('contents.id', $id)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
-            ->first();
+        return self::findByLocaleInstance(...$select)->where('contents.id', $id)->first();
     }
 
     /**
@@ -88,11 +87,7 @@ class Content extends Model
      */
     public static function findOneByLocaleWithUrl(string $url, ...$select): mixed
     {
-        return self::select($select)
-            ->where('url', $url)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
-            ->first();
+        return self::findByLocaleInstance(...$select)->where('url', $url)->first();
     }
 
     /**
@@ -104,11 +99,8 @@ class Content extends Model
      */
     public static function findParentsByLocale(int $id, ...$select)
     {
-        // TODO: do this with parents relation
-        return self::select($select)
+        return self::findByLocaleInstance(...$select)
             ->where('content_parents.content_id', $id)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->leftJoin('content_parents', 'content_parents.parent_id', 'contents.id')
             ->get();
     }
@@ -122,11 +114,8 @@ class Content extends Model
      */
     public static function findRelationsByLocale(int $id, ...$select)
     {
-        // TODO: do this with relations relation
-        return self::select($select)
+        return self::findByLocaleInstance(...$select)
             ->where('content_relations.content_id', $id)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
             ->leftJoin('content_relations', 'content_relations.relation_id', 'contents.id')
             ->get();
     }
@@ -176,9 +165,7 @@ class Content extends Model
      */
     public static function findSubContentsByLocaleInstance(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
-        $query = self::select($select)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+        $query = self::findByLocaleInstance(...$select)
             ->leftJoin('content_parents', 'content_parents.content_id', 'contents.id')
             ->oldest('sequence')
             ->latest()
@@ -225,9 +212,7 @@ class Content extends Model
      */
     public static function findRelationalContentsByLocale(int $id, array $select = ['*'], int|null $limit = null): mixed
     {
-        return self::select($select)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+        return self::findByLocaleInstance(...$select)
             ->leftJoin('content_relations', 'content_relations.relation_id', 'contents.id')
             ->oldest('sequence')
             ->latest()
@@ -236,11 +221,17 @@ class Content extends Model
             ->get();
     }
 
+    /**
+     * Return most viewed contents under given content id
+     *
+     * @param int|array $id
+     * @param array|string[] $select
+     * @param int|null $limit
+     * @return mixed
+     */
     public static function findMostViewedSubContents(int|array $id, array$select = ['*'], int|null $limit = null): mixed
     {
-        $query = self::select($select)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+        $query = self::findByLocaleInstance(...$select)
             ->leftJoin('content_parents', 'content_parents.content_id', 'contents.id')
             ->latest('views')
             ->take($limit);
@@ -258,17 +249,22 @@ class Content extends Model
      */
     public static function hasSubContents(int $id)
     {
-        return DB::table('content_parents')->where('parent_id', $id)->count() > 0;
+        return DB::table('content_parents')->where('parent_id', $id)->exists();
     }
 
+    /**
+     * Return the given content id's parentTree (for breadcrumb)
+     *
+     * @param int $id
+     * @param string[] $select
+     * @return array
+     */
     public static function parentTree(int $id, $select = ['*'])
     {
         $tree = [];
-        while($content = self::find($id)
-            ->parents()
-            ->select($select)
-            ->where('language', app()->getLocale())
-            ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+        while($content = self::findByLocaleInstance(...$select)
+            ->where('content_parents.content_id', $id)
+            ->leftJoin('content_parents', 'content_parents.parent_id', 'contents.id')
             ->first()){
             $tree[$id] = [
                 'title' => $content->title,

@@ -26,7 +26,7 @@ class ComposerServiceProvider extends ServiceProvider
         view()->composer('*', 'App\View\Composers\Admin\LanguagesComposer'); // Languages composer
 
         // Admin View Composers
-        view()->composer(['admin.layouts.base', 'admin.profile.index'], 'App\View\Composers\Admin\UserComposer'); // Authenticated user composer
+        view()->composer(['layouts.admin', 'admin.profile.index'], 'App\View\Composers\Admin\UserComposer'); // Authenticated user composer
 
         view()->composer('admin.*', 'App\View\Composers\Admin\MenusComposer'); // Admin menus composer
         // /Admin View Composers

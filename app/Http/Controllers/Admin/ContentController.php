@@ -20,7 +20,7 @@ class ContentController extends Controller
         $data = [
             'navigations' => [__('contents.self_plural')],
             'columns' => $this->columns(),
-            'contents' => Content::findAllByLocale('contents.id', 'title', 'created_at')->pluck('title', 'id')->toArray()
+            'contents' => Content::findAllByLocale('contents.id', 'title')->pluck('title', 'id')->toArray()
         ];
         return view('admin.contents.index', $data);
     }
@@ -88,15 +88,15 @@ class ContentController extends Controller
                     'language' => $language,
                     'content_id' => $content->id,
                     'url' => Str::slug($values['title']),
-                    'featured_image' => $contentFeaturedImage->path ?? ''
+                    'categories' => implode(', ', Content::findByLocaleInstance('title')->whereIn('contents.id', $parentIds)->get()->pluck('title')->toArray()),
+                    'featured_image' => $contentFeaturedImage->path ?? '',
                 ]);
             }
             DB::table('content_translations')->insert($translationData);
 
             DB::commit();
             return resJson(true);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        } catch (\Exception) {
             DB::rollBack();
             return resJson(false);
         }
@@ -190,6 +190,7 @@ class ContentController extends Controller
             foreach ($data as $language => $values) {
                 $values['url'] = Str::slug($values['title']);
                 $values['featured_image'] = $contentFeaturedImage->path ?? '';
+                $values['categories'] = implode(', ', Content::findByLocaleInstance('title')->whereIn('contents.id', $parentIds)->get()->pluck('title')->toArray());
                 DB::table('content_translations')
                     ->where('content_id', $id)
                     ->where('language', $language)

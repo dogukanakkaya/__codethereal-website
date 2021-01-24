@@ -1,28 +1,31 @@
-@extends('site.layouts.base')
+@extends('layouts.site')
 
 @section('content')
-    <section class="home-top">
+    <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }})">
         <div class="center container">
             <div>
                 <h3 class="slogan"><span>{{ __('site.slogan') }}</span></h3>
             </div>
+            {{ Form::open(['url' => app()->getLocale() . '/search', 'method' => 'get']) }}
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
                 <div class="choose-category">
-                    <a onclick="toggleMultiple(this.nextElementSibling, 'visible', 'opacity-100')"><i class="bi bi-list" aria-hidden="true"></i> Choose Category <i class="bi bi-chevron-down category-arrow r-180"></i></a>
+                    <a onclick="toggleMultiple(this.nextElementSibling, 'visible', 'opacity-100')"><i class="bi bi-list" aria-hidden="true"></i> <span id="selected">Choose Category</span> <i class="bi bi-chevron-down category-arrow r-180"></i></a>
                     <ul class="category-dropdown">
-                        <li value="1" class="selected">PHP</li>
-                        <li value="2">Javascript</li>
-                        <li value="3">CSS</li>
+                        @foreach($categories as $category)
+                        <li value="{{ $category->id }}">{{ $category->title }}</li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="search">
                     <i class="bi bi-search icon" aria-hidden="true"></i>
-                    <input type="text" placeholder="Search in Education sets, courses or job posts...">
+                    {{ Form::text('q', '', ['placeholder' => __('site.search').'...', 'required' => true]) }}
+                    {{ Form::hidden('c', 0, ['id' => 'search-category-id']) }}
                 </div>
                 <div class="search-button">
-                    <button onclick="return false;runAjaxRequest()"><i class="bi bi-search"></i></button>
+                    <button onclick="__search()"><i class="bi bi-search"></i></button>
                 </div>
             </div>
+            {{ Form::close() }}
         </div>
     </section>
 
@@ -49,29 +52,6 @@
         </div>
     </section>
     @endisset
-
-    <section class="container mb-5">
-        <div class="row">
-            @foreach($cards as $card)
-                <div class="col-md-4">
-                    <div class="ce-card">
-                        <div class="face face1">
-                            <div class="content">
-                                <img src="{{ resize($card->featured_image, 200) }}">
-                                <h3>{{ $card->title }}</h3>
-                            </div>
-                        </div>
-                        <div class="face face2">
-                            <div class="content">
-                                <p>{{ $card->description }}</p>
-                                <a href="{{ createUrl($card->url) }}" class="ce-btn">{{ __('site.read_more') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
 
     @isset($parallax)
     <section class="separate-parallax" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
@@ -138,13 +118,37 @@
                 </li>
                 <li>
                     <i class="bi bi-question-diamond"></i>
-                    <h4>220+</h4>
-                    <h4>Question</h4>
+                    <h4>0+</h4>
+                    <h4>Codethereal</h4>
                 </li>
             </ul>
         </div>
     </section>
 
+    <section class="container mb-5">
+        <div class="row">
+            @foreach($cards as $card)
+                <div class="col-md-4">
+                    <div class="ce-card">
+                        <div class="face face1">
+                            <div class="content">
+                                <img src="{{ resize($card->featured_image, 200) }}" alt="{{ $card->title }}">
+                                <h3>{{ $card->title }}</h3>
+                            </div>
+                        </div>
+                        <div class="face face2">
+                            <div class="content">
+                                <p>{{ $card->description }}</p>
+                                <a href="{{ createUrl($card->url) }}" class="ce-btn">{{ __('site.read_more') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    {{--
     <section class="container mb-5 job-posts">
         <div class="row">
             <div class="col-12 section-title">
@@ -160,44 +164,14 @@
                             <img src="{{ asset('site/img/logo-dark.svg') }}" alt="">
                         </td>
                         <td class="title">
-                            <h5><a href="#">ReactJS Developer</a></h5>
+                            <h5><a href="#">Software Developer</a></h5>
                             <span>Codethereal</span>
                         </td>
                         <td class="location">
-                            <i class="bi bi-geo-alt"></i> Pendik, İstanbul
+                            <i class="bi bi-geo-alt"></i> Location
                         </td>
                         <td class="type">
-                            <span>FULL TIME</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="logo">
-                            <img src="{{ asset('site/img/tesla.png') }}" alt="">
-                        </td>
-                        <td class="title">
-                            <h5><a href="#">Python Developer</a></h5>
-                            <span>Tesla</span>
-                        </td>
-                        <td class="location">
-                            <i class="bi bi-geo-alt"></i> Pendik, İstanbul
-                        </td>
-                        <td class="type">
-                            <span>PART TIME</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="logo">
-                            <img src="{{ asset('site/img/spacex.png') }}" alt="">
-                        </td>
-                        <td class="title">
-                            <h5><a href="#">Sr. AI Expert</a></h5>
-                            <span>Space X</span>
-                        </td>
-                        <td class="location">
-                            <i class="bi bi-geo-alt"></i> Pendik, İstanbul
-                        </td>
-                        <td class="type">
-                            <span>FULL TIME</span>
+                            <span>BUTTON</span>
                         </td>
                     </tr>
                     </tbody>
@@ -205,4 +179,5 @@
             </div>
         </div>
     </section>
+    --}}
 @endsection

@@ -15,5 +15,15 @@ return [
     'categories' => 'Categories',
     'quick_links' => 'Quick Links',
     'contact_us' => 'Contact Us',
-    'home' => 'Home'
+    'home' => 'Home',
+    'search' => 'Search',
+    'most_viewed_contents' => 'Most Viewed',
+    'comment' => [
+        'self_singular' => 'Comment',
+        'self_plural' => 'Comments',
+        'enter_comment' => 'Enter your comment...',
+        'leave_a_comment' => 'Leave a comment',
+        'reply_to' => 'Reply to: :name',
+        'must_login' => 'You must be <span onclick="__login()">login</span> to comment'
+    ]
 ];

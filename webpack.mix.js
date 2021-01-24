@@ -30,6 +30,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/ce/datatable.scss', 'public/css/ce')
     .sass('resources/sass/ce/sortable.scss', 'public/css/ce')
     .sass('resources/sass/ce/dropzone.scss', 'public/css/ce')
+    .sass('resources/sass/ce/select2.scss', 'public/css/ce')
 
 mix.copyDirectory('resources/img', 'public/img');
 

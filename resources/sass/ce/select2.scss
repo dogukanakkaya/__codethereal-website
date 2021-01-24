@@ -1,0 +1,41 @@
+@import '../variables';
+
+.select2-container--default{
+    .select2-search--inline{
+        .select2-search__field{
+            height: auto;
+        }
+    }
+    .select2-selection--multiple{
+        border: 1px solid rgba(33, 33, 33, 0.12);
+        border-radius: 0;
+        height: 33px;
+
+        .select2-selection__choice{
+            border-radius: 0;
+            color: #fff;
+            padding: 5px 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: baseline;
+            white-space: nowrap;
+            background: $main-color;
+            border: none;
+            line-height: 10px;
+            font-size: 12px;
+        }
+        .select2-selection__choice__remove{
+            left: 3px;
+            top: 5px;
+            color: #fff;
+            border-right: 0;
+        }
+    }
+    &.select2-container--focus{
+        .select2-selection--multiple{
+            border-color: #ff48247d;
+            box-shadow: 0 0 0 0.2rem rgba(255, 72, 36, 0.25);
+        }
+    }
+}
