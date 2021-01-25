@@ -47,7 +47,7 @@ class UserController extends Controller
             ->editColumn('created_at', fn (User $user) => date("Y-m-d H:i:s", strtotime($user->created_at)))
             ->addColumn('check_all', fn (User $user) => '<input type="checkbox" onclick="__onCheck()" value="' . $user->id . '" name="checked[]"/>')
             ->addColumn('is_online', fn (User $user) => statusBadge(isOnline($user->id)))
-            ->addColumn('action', fn (User $user) => view('admin.partials.dropdown', ['actions' => $this->actions($user->id)]))
+            ->addColumn('action', fn (User $user) => view('admin.partials.single-actions', ['actions' => $this->actions($user->id)]))
             ->rawColumns(['check_all', 'path', 'name', 'email', 'email_verified_at', 'is_online', 'action'])
             ->make(true);
     }
@@ -170,8 +170,8 @@ class UserController extends Controller
     private function actions(int $id): array
     {
         return  [
-            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
-            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+            '<button class="btn btn-info text-white" onclick="__find(' . $id . ')"><i class="material-icons-outlined md-18">edit</i></button>',
+            '<button class="btn btn-danger text-white" onclick="__delete(' . $id . ')"><i class="material-icons-outlined md-18">delete</i></button>'
         ];
     }
 

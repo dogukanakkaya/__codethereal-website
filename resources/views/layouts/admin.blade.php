@@ -1,5 +1,4 @@
-@spaceless
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,7 @@
     <title>@yield('title', 'Codethereal | Manage')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{--todo--}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     @stack('styles')
 </head>
 <body>
@@ -29,15 +28,16 @@
                         <li class="separator">{{ __('global.menu_titles.'.$groupId.'') }}</li>
                         @foreach($menuItems as $menuItem)
                             @if($menuItem->permission === null || $user->can('see_' . $menuItem->permission))
-                            <li>
-                                <a href="{{ url($menuItem->url) }}" class="{{ isActive($menuItem->url) }}"><i
-                                        class="material-icons-outlined md-18">{{ $menuItem->icon }}</i> {{ $menuItem->title }}</a>
-                            </li>
+                                <li>
+                                    <a href="{{ url($menuItem->url) }}" class="{{ isActive($menuItem->url) }}"><i
+                                            class="material-icons-outlined md-18">{{ $menuItem->icon }}</i> {{ $menuItem->title }}
+                                    </a>
+                                </li>
                             @endif
                         @endforeach
                     @endforeach
 
-                    <!--
+                <!--
                     <li class="has-dd">
                         <a href="javascript:void(0);"><i class="material-icons-outlined md-18">keyboard_tab</i> Other</a>
                         <ul class="menu-dd">
@@ -58,11 +58,11 @@
                                class="{{ isActive('admin/dev/permissions') }}"><i class="material-icons-outlined md-18">security</i>
                                 Permissions</a>
                         </li>
-                            <li>
-                                <a href="{{ route('config.index') }}"
-                                   class="{{ isActive('admin/dev/config') }}"><i class="material-icons-outlined md-18">lock_open</i>
-                                    Config</a>
-                            </li>
+                        <li>
+                            <a href="{{ route('config.index') }}"
+                               class="{{ isActive('admin/dev/config') }}"><i class="material-icons-outlined md-18">lock_open</i>
+                                Config</a>
+                        </li>
                     @endif
                 </ul>
             </div>
@@ -86,15 +86,18 @@
                     <div class="dropdown">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <a href="javascript:void(0);"><img src="{{ asset('img/flags') }}/{{ app()->getLocale() }}.svg" alt=""></a>
+                            <a href="javascript:void(0);"><img
+                                    src="{{ asset('img/flags') }}/{{ app()->getLocale() }}.svg" alt=""></a>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach($languages as $language)
                                 @if(app()->getLocale() === $language->code)
                                     @continue
                                 @endif
-                                <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($language->code) }}">
-                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg" alt="{{ $language->name }}"> {{ $language->name }}
+                                <a class="dropdown-item"
+                                   href="{{ LaravelLocalization::getLocalizedURL($language->code) }}">
+                                    <img class="flag-img" src="{{ asset('img/flags') }}/{{ $language->code }}.svg"
+                                         alt="{{ $language->name }}"> {{ $language->name }}
                                 </a>
                             @endforeach
                         </div>
@@ -165,8 +168,9 @@
 
 @stack('end')
 <script>
-    const asset = (path) => `{{ asset('') }}${path}`
-    const storage = (path) => `{{ asset('storage') }}/${path}`
+    const asset = (path) => `{{ asset('') }}${path}`,
+        storage = (path) => `{{ asset('storage') }}/${path}`
+    const locale = '{{ app()->getLocale() }}'
 </script>
 <script src="{{ asset('js/app.js') }}"></script>
 {{--todo--}}
@@ -174,4 +178,3 @@
 @stack('scripts')
 </body>
 </html>
-@endspaceless

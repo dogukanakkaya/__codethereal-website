@@ -22,7 +22,4 @@ return [
         'description' => 'Meta Description',
         'tags' => 'Meta Tags'
     ],
-
-    'add_new' => 'Add new Content',
-    'update' => 'Update :title'
 ];

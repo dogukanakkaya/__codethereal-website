@@ -39,11 +39,12 @@
         const __create = () => {
             if (updateId > 0) {
                 form.reset()
+                $('select[name="content[parents][]"]').val([]).change()
+                $('select[name="content[relations][]"]').val([]).change()
                 updateId = 0;
                 clearPreviewFull1()
             }
             openModal(modal)
-            changeModalTitle(modal, '{{ __('contents.add_new') }}')
         }
 
         const __onResponse = response => {
@@ -115,7 +116,6 @@
                     $('select[name="content[relations][]"]').val(relations).change()
 
                     openModal(modal)
-                    changeModalTitle(modal, '{{ __('contents.update', ['title' => ':title']) }}'.replace(':title', translations.{{ app()->getLocale() }}.title))
                 })
         }
 

@@ -578,6 +578,15 @@ main {
     }
 }
 
+.single-actions{
+    button{
+        border-radius: 2px;
+        &:not(:last-child){
+            margin-right: 5px;
+        }
+    }
+}
+
 @include mobile {
     #menu-toggle {
 
