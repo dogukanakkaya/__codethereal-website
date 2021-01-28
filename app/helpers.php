@@ -11,7 +11,7 @@ function isActive($url, $class = 'active'): mixed
 {
     if (is_array($url)) {
         $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);
-    } else{
+    } else {
         $url = app()->getLocale() . "/" . $url;
     }
     return request()->is($url) ? $class : '';
@@ -150,17 +150,17 @@ function mergeHtmlAttributes($existAttrs, $newAttrs): string
 
     // Merge all of them together, and unset attributes that merged
     foreach ($existAttrs as $key => $value) {
-        if (in_array($key, array_keys($newAttrs))){
-            $attributes .= $key.'="' . $value . ' ' . $newAttrs[$key] . '"';
+        if (in_array($key, array_keys($newAttrs))) {
+            $attributes .= $key . '="' . $value . ' ' . $newAttrs[$key] . '"';
             unset($newAttrs[$key]);
-        }else{
-            $attributes .= $key.'="' . $value . '"';
+        } else {
+            $attributes .= $key . '="' . $value . '"';
         }
     }
 
     // Add attributes that should not be merged (i already unset it from array if merge needed)
     foreach ($newAttrs as $key => $value) {
-        $attributes .= $key.'="' . $value . '"';
+        $attributes .= $key . '="' . $value . '"';
     }
 
     return $attributes;
@@ -173,7 +173,7 @@ function mergeHtmlAttributes($existAttrs, $newAttrs): string
  * @param $dbCols = []
  * @return array
  */
-function buildTree($contents, array $dbCols= [], int $parentId = 0): array
+function buildTree($contents, array $dbCols = [], int $parentId = 0): array
 {
     $dbCols['id'] = isset($dbCols['id']) ? $dbCols['id'] : 'id';
     $dbCols['parentId'] = isset($dbCols['parentId']) ? $dbCols['parentId'] : 'parentId';
@@ -208,15 +208,15 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
     $dbCols['id'] = isset($dbCols['id']) ? $dbCols['id'] : 'id';
     $dbCols['title'] = isset($dbCols['title']) ? $dbCols['title'] : 'title';
 
-    $htmlStart = str_replace('{parentId}', $parentId,$htmlTags['start']);
+    $htmlStart = str_replace('{parentId}', $parentId, $htmlTags['start']);
 
     $html = $htmlStart;
     foreach ($contents as $content) {
-        $childStart = str_replace('{value}',$content->{$dbCols['id']},$htmlTags['childStart']);
-        $childStart = str_replace('{title}',$content->{$dbCols['title']},$childStart);
+        $childStart = str_replace('{value}', $content->{$dbCols['id']}, $htmlTags['childStart']);
+        $childStart = str_replace('{title}', $content->{$dbCols['title']}, $childStart);
 
         $html .= $childStart;
-        $html .= buildHtmlTree($content->children,$htmlTags,$dbCols, $content->{$dbCols['id']});
+        $html .= buildHtmlTree($content->children, $htmlTags, $dbCols, $content->{$dbCols['id']});
         $html .= $htmlTags['childEnd'];
     }
     $html .= $htmlTags['end'];
@@ -232,7 +232,7 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
 function createUrl(string $url): string
 {
     return $url === '#' ? 'javascript:void(0);' : (
-        preg_match('@^(https://|http://)@', $url) ? $url : url(app()->getLocale() . "/" . $url)
+    preg_match('@^(https://|http://)@', $url) ? $url : url(app()->getLocale() . "/" . $url)
     );
 }
 
@@ -248,14 +248,21 @@ function createUrl(string $url): string
  */
 function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false): string
 {
+    // Do not resize svg files
+    $fileInfo = pathinfo(asset('storage/' . $path));
+    $fileExt = $fileInfo['extension'] ?? '';
+    if ($fileExt === 'svg') {
+        return asset('storage/' . $path);
+    }
+
     $explodeSlashes = explode('/', $path);
     $file = end($explodeSlashes);
 
     $filePath = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
 
-    if (!file_exists(asset($filePath))){
+    if (!file_exists(asset($filePath))) {
         \Intervention\Image\Facades\Image::make('storage/' . $path)
-            ->resize($width, $height, function($constraint) use($aspectRatio, $upsize) {
+            ->resize($width, $height, function ($constraint) use ($aspectRatio, $upsize) {
                 if ($aspectRatio) $constraint->aspectRatio();
                 if ($upsize) $constraint->upsize();
             })
@@ -282,8 +289,31 @@ function nameCode(string $name): string
     $exploded = explode(' ', $name);
     $first = substr($exploded[0] ?? '', 0, 1);
     $last = '';
-    if (count($exploded) !== 1){
+    if (count($exploded) !== 1) {
         $last = substr(end($exploded), 0, 1);
     }
-    return $first.$last;
+    return $first . $last;
+}
+
+function meta($data): string
+{
+    $title = $data['title'] ?? config('app.name');
+    $description = $data['description'] ?? '';
+    $keywords = $data['keywords'] ?? 'code,software';
+    $language = config('site.locale_names.' . app()->getLocale());
+
+    return "
+         <title>$title</title>
+         <meta charset='UTF-8'>
+         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+         <meta http-equiv='Cache-control' content='public'>
+         <meta name='title' content='$title'>
+         <meta name='description' content='$description'>
+         <meta name='keywords' content='$keywords'>
+         <meta name='robots' content='index, follow'>
+         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+         <meta name='language' content='$language'>
+         <meta name='revisit-after' content='1 days'>
+         <meta name='author' content='" . config('app.name') . "'>
+    ";
 }

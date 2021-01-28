@@ -51,6 +51,8 @@
             makeToast(response.data)
             if (response.data.status) {
                 form.reset()
+                $('select[name="content[parents][]"]').val([]).change()
+                $('select[name="content[relations][]"]').val([]).change()
                 closeModal(modal)
                 __refresh()
                 clearPreviewFull1()

@@ -15,6 +15,7 @@ class AuthController extends Controller
     {
         $this->middleware('throttle:10,60')->only('login', 'register');
         $this->middleware('authorize')->only('login');
+        $this->middleware('guest');
     }
 
     public function loginView()

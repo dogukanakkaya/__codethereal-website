@@ -2,7 +2,7 @@
 
 return [
     'categories' => 1,
-    'home_parallax' => '8',
+    'home_parallax' => '6',
     'header_menu' => 3,
     'category_links' => 4,
     'quick_links' => 5,
@@ -15,5 +15,9 @@ return [
         'phone',
         'email',
         'address'
+    ],
+    'locale_names' => [
+        'en' => 'English',
+        'tr' => 'Turkish'
     ]
 ];

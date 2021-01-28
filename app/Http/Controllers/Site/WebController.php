@@ -32,7 +32,16 @@ class WebController extends Controller
 
     public function resolve(string $url)
     {
-        $content = Content::findOneByLocaleWithUrl($url, 'contents.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_tags');
+        $content = Content::findOneByLocaleWithUrl($url, 'contents.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags');
+        if (!$content){
+            return back();
+        }
+
+        $data['_meta'] = [
+            'title' => $content->meta_title,
+            'description' => $content->meta_description,
+            'keywords' => $content->meta_tags
+        ];
         $data['parentTree'] = Content::parentTree($content->id, ['contents.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
 
         // If given url has sub contents then return list view, if not return detail view
@@ -63,6 +72,17 @@ class WebController extends Controller
         }
     }
 
+    public function contentList()
+    {
+        $categories = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id']);
+        $categoryIds = $categories->pluck('id')->toArray();
+        $data['contents'] = Content::findSubContentsByLocaleInstance($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
+        $data['mostViewedContents'] = Content::findMostViewedSubContents($categoryIds, ['title', 'url', 'featured_image', 'created_at'], 3);
+        $data['parentTree'] = [];
+
+        return view('site.content-list', $data);
+    }
+
     public function search()
     {
         $q = request('q', '');
@@ -70,7 +90,10 @@ class WebController extends Controller
         $data = [
             'category' => Content::findOneByLocale($c, 'title', 'url'),
             'contents' => Content::findSubContentsByLocaleInstance($c, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->where('title', 'like', '%'.$q.'%')->paginate(15),
-            'search' => $q
+            'search' => $q,
+            '_meta' => [
+                'title' => $q
+            ]
         ];
         return view('site.search-list', $data);
     }
@@ -81,7 +104,10 @@ class WebController extends Controller
             // TODO: mysql'e geçince değiştir (find_in_set sqlite ile çalışmıyor)
             //'contents' => Content::findByLocaleInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->whereRaw('FIND_IN_SET(?, meta_tags)', [$tag])->paginate(15),
             'contents' => Content::findByLocaleInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->where('meta_tags', 'like', '%'.$tag.'%')->paginate(15),
-            'search' => $tag
+            'search' => $tag,
+            '_meta' => [
+                'title' => $tag
+            ]
         ];
         return view('site.search-list', $data);
     }

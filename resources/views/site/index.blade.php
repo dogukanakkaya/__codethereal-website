@@ -11,8 +11,8 @@
                 <div class="choose-category">
                     <a onclick="toggleMultiple(this.nextElementSibling, 'visible', 'opacity-100')"><i class="bi bi-list" aria-hidden="true"></i> <span id="selected">Choose Category</span> <i class="bi bi-chevron-down category-arrow r-180"></i></a>
                     <ul class="category-dropdown">
-                        @foreach($categories as $category)
-                        <li value="{{ $category->id }}">{{ $category->title }}</li>
+                        @foreach($categories as $cat)
+                        <li value="{{ $cat->id }}">{{ $cat->title }}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -58,7 +58,9 @@
         <div class="overlay flex-column d-flex justify-content-center align-items-center p-3 text-center">
             <h3>{{ $parallax->title }}</h3>
             <p>{{ $parallax->description }}</p>
-            <span class="ce-btn" onclick="__login()"><i class="bi bi-person-plus"></i> {{ __('site.login') }}</span>
+            @if(!auth()->check())
+                <span class="ce-btn" onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.register') }}</span>
+            @endif
         </div>
     </section>
     @endisset
@@ -66,8 +68,8 @@
     <section class="container contents">
         <div class="row">
             <div class="col-md-12 head d-flex justify-content-between align-items-center">
-                <h4>{{ __('site.featured_contents') }}</h4>
-                <button class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</button>
+                <h4>{{ __('site.featured_articles') }}</h4>
+                <a href="{{ createUrl(__('routes.articles')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
             </div>
         </div>
         <div class="row gy-5">
@@ -118,7 +120,7 @@
                 </li>
                 <li>
                     <i class="bi bi-question-diamond"></i>
-                    <h4>0+</h4>
+                    <h4>?+</h4>
                     <h4>Codethereal</h4>
                 </li>
             </ul>

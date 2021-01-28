@@ -8,7 +8,7 @@
                 @foreach($parentTree as $pTree)
                     <li><a href="{{ createUrl($pTree['url']) }}">{{ $pTree['title'] }}</a></li>
                 @endforeach
-                <li>{{ $category->title }}</li>
+                <li>{{ $category->title ?? ucfirst(__('routes.articles')) }}</li>
             </ul>
         </nav>
     </section>

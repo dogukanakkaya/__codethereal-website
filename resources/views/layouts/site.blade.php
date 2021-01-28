@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', $settings['title'] ?? config('app.name'))</title>
+    {!! meta($_meta ?? $settings) !!}
+
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
     @stack('styles')
@@ -118,8 +117,8 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <h5><a href="{{ url('iletisim-sayfasi-route') }}"><i class="bi bi-cursor"></i> {{ __('site.contact_us') }}</a></h5>
                 <ul>
-                    <li><a href="{{ $settings['phone'] ?? '' }}"><i class="bi bi-phone-vibrate"></i> {{ $settings['phone'] ?? '' }}</a></li>
-                    <li><a href="{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email'] ?? '' }}</a></li>
+                    <li><a href="tel:{{ $settings['phone'] ?? '' }}"><i class="bi bi-phone-vibrate"></i> {{ $settings['phone'] ?? '' }}</a></li>
+                    <li><a href="mailto:{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email'] ?? '' }}</a></li>
                     <li><a href="{{ $settings['address'] ?? '' }}"><i class="bi bi-geo-alt"></i> {{ $settings['address'] ?? '' }}</a></li>
                 </ul>
             </div>

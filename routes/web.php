@@ -171,6 +171,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
 
+        Route::get(LaravelLocalization::transRoute('routes.articles'), 'WebController@contentList');
         Route::get('search', 'WebController@search');
         Route::get('t/{tag}', 'WebController@searchTag');
 
