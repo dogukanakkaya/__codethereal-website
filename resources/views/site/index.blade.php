@@ -72,7 +72,7 @@
                 <a href="{{ createUrl(__('routes.articles')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
             </div>
         </div>
-        <div class="row gy-5">
+        <div class="row">
             @foreach($featuredContents as $featuredContent)
                 <div class="col-md-4">
                     <div class="card">
@@ -100,7 +100,7 @@
         </div>
     </section>
 
-    <section class="separate-parallax mt-5 mb-5" style="background-image: url('https://www.codethereal.com/new.codethereal/public/site/images/home-top-middle.png');">
+    <section class="separate-parallax mt-5 mb-5" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
         <div class="overlay flex-column d-flex justify-content-center align-items-center">
             <ul class="d-flex justify-content-evenly w-100 counters">
                 <li>

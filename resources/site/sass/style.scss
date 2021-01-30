@@ -432,8 +432,8 @@ header {
     position: relative;
 
     .card {
-        border-top: none;
         border-radius: 0;
+        margin-bottom: 2.5rem;
 
         &:hover {
             .item-overlay {

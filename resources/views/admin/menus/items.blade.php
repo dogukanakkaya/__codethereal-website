@@ -3,6 +3,8 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/ce/sortable.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menus/base.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
 @endpush
 
 @section('content')
@@ -30,6 +32,9 @@
 
 @push('scripts')
     <script src="{{ asset('js/static/sortable.min.js') }}"></script>
+
+    <script src="{{ asset('js/ce/biconpicker.js') }}"></script>
+
     <script>
         let updateId = 0;
         const form = document.getElementById('menu-item-form')
@@ -133,6 +138,7 @@
                         document.querySelector(`input[name="${language}[title]"]`).value = values.title ?? ''
                         document.querySelector(`input[name="${language}[url]"]`).value = values.url ?? ''
                         document.querySelector(`input[name="${language}[icon]"]`).value = values.icon ?? ''
+                        document.querySelector(`input[name="${language}[icon]"]`).dispatchEvent(new Event('change'))
                         document.querySelector(`input[type=checkbox][name="${language}[active]"]`).checked = parseInt(values.active) === 1
                     }
 
@@ -146,5 +152,12 @@
             request.put('{{ route('menu_items.save_sequence', ['groupId' => $groupId]) }}', nestedSortableSerialize(sortableRoot, sortableGroup))
                 .then(__onResponse)
         }
+
+        @foreach($languages as $language)
+            new Biconpicker(document.querySelector(`input[name="{{ $language->code }}[icon]"]`), {
+                showSelectedIn: document.querySelector('.selected-bicon-{{ $language->code }}')
+            })
+        @endforeach
+
     </script>
 @endpush

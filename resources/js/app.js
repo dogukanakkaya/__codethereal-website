@@ -1,4 +1,3 @@
-// TODO: check all window object definitions imported including
 //import 'bootstrap'
 import 'datatables.net'
 import ceToast from './ce/toast'

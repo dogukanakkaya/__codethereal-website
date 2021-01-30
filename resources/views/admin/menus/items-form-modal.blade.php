@@ -32,9 +32,12 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="mb-3">
-                                            {{ Form::label("$language->code[icon]", __('menus.item.icon')) }}
-                                            {{ Form::text("$language->code[icon]", '', ['class' => 'form-control']) }}
+                                        {{ Form::label("$language->code[icon]", __('menus.item.icon')) }}
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text h-100 selected-bicon-{{ $language->code }}"><i class="bi bi-app"></i></span>
+                                            </div>
+                                            {{ Form::text("$language->code[icon]", '', ['class' => 'form-control', 'autocomplete' => 'off']) }}
                                         </div>
                                     </div>
                                     <div class="col-12">

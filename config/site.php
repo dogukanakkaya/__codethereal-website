@@ -19,5 +19,7 @@ return [
     'locale_names' => [
         'en' => 'English',
         'tr' => 'Turkish'
-    ]
+    ],
+
+    'browser' => null
 ];

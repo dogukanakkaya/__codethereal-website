@@ -17,4 +17,15 @@ class AppServiceProvider extends ServiceProvider
         header_remove("X-Powered-By");
         session_name('CODETHEREALSESSID');
     }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $agent = agent();
+        config()->set('site.browser', $agent['browser']);
+    }
 }

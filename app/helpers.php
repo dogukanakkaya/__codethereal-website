@@ -79,6 +79,7 @@ function mailSubject(string $text): string
  *
  * @param $id
  * @return bool
+ * @throws \Psr\SimpleCache\InvalidArgumentException
  */
 function isOnline(int $id): bool
 {
@@ -90,9 +91,9 @@ function isOnline(int $id): bool
  *
  * @param array $arr
  * @param $key
- * @return mixed|null
+ * @return mixed
  */
-function array_remove(array &$arr, $key)
+function array_remove(array &$arr, $key): mixed
 {
     $val = $arr[$key] ?? null;
     unset($arr[$key]);
@@ -105,7 +106,8 @@ function array_remove(array &$arr, $key)
  * @param null $userAgent
  * @return array
  */
-function agent($userAgent = null)
+#[JetBrains\PhpStorm\ArrayShape(['platform' => "bool|null|string", 'browser' => "bool|null|string", 'platform_version' => "mixed", 'browser_version' => "mixed", 'device' => "bool|null|string"])]
+function agent($userAgent = null): array
 {
     $agent = new \Jenssegers\Agent\Agent(null, $userAgent);
     $platform = $agent->platform();
@@ -237,7 +239,7 @@ function createUrl(string $url): string
 }
 
 /**
- * Resize an image by given width and height
+ * Resize an image by given width and height and encode to webp if browser is not safari
  *
  * @param string $path
  * @param int|null $width
@@ -258,10 +260,17 @@ function resize(string $path, int|null $width, int|null $height = null, $aspectR
     $explodeSlashes = explode('/', $path);
     $file = end($explodeSlashes);
 
+    // Make webp if browser is not safari (safari does not support webp format)
+    if (config('site.browser') !== 'Safari'){
+        $file = str_replace($fileExt, 'webp', $file);
+    }
+
+    // Thumb file path
     $filePath = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
 
     if (!file_exists(asset($filePath))) {
         \Intervention\Image\Facades\Image::make('storage/' . $path)
+            ->encode('webp')
             ->resize($width, $height, function ($constraint) use ($aspectRatio, $upsize) {
                 if ($aspectRatio) $constraint->aspectRatio();
                 if ($upsize) $constraint->upsize();
@@ -284,6 +293,12 @@ function statusBadge(bool $status): string
     return $status ? '<span class="badge bg-success"><i class="material-icons-outlined md-18">check</i></span>' : '<span class="badge bg-danger"><i class="material-icons-outlined md-18">close</i></span></span>';
 }
 
+/**
+ * Returns the first char of first and last name of the user. (Doğukan Akkaya -> DA)
+ *
+ * @param string $name
+ * @return string
+ */
 function nameCode(string $name): string
 {
     $exploded = explode(' ', $name);
@@ -295,6 +310,12 @@ function nameCode(string $name): string
     return $first . $last;
 }
 
+/**
+ * Returns the meta html tags by given parameters (title, description etc.)
+ *
+ * @param $data
+ * @return string
+ */
 function meta($data): string
 {
     $title = $data['title'] ?? config('app.name');
