@@ -67,9 +67,11 @@
 
     <section class="container contents">
         <div class="row">
-            <div class="col-md-12 head d-flex justify-content-between align-items-center">
+            <div class="col-md-12">
+                <div class="head d-flex justify-content-between align-items-center">
                 <h4>{{ __('site.featured_articles') }}</h4>
                 <a href="{{ createUrl(__('routes.articles')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
+                </div>
             </div>
         </div>
         <div class="row">

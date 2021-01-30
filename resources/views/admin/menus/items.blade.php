@@ -32,9 +32,6 @@
 
 @push('scripts')
     <script src="{{ asset('js/static/sortable.min.js') }}"></script>
-
-    <script src="{{ asset('js/ce/biconpicker.js') }}"></script>
-
     <script>
         let updateId = 0;
         const form = document.getElementById('menu-item-form')

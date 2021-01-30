@@ -12,7 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/ce/biconpicker.js', 'public/js/ce')
 
     .copy('resources/js/static/dropzone.min.js', 'public/js/static')
     .copy('resources/js/static/sortable.min.js', 'public/js/static')
