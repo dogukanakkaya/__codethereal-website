@@ -1,9 +1,5 @@
 @extends('layouts.admin')
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/config/base.css') }}">
-@endpush
-
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <x-breadcrumb :nav="$navigations"/>

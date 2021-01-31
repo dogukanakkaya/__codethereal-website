@@ -3,7 +3,6 @@ import 'datatables.net'
 import ceToast from './ce/toast'
 import { STORAGE_PREFIX } from "./constants"
 import './common'
-import Biconpicker from "biconpicker";
 
 window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');

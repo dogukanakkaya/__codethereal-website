@@ -2,7 +2,6 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/ce/sortable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/contents/base.css') }}">
 @endpush
 
 @section('content')

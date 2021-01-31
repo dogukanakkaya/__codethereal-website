@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/contents/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ce/select2.css') }}">
 @endpush
 

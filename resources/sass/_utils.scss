@@ -185,5 +185,96 @@ form{
         }
     }
 }
-
 /* /BS Override */
+
+/* Menus */
+.sortable {
+    &.list-group{
+        cursor: move;
+        margin-top: 20px;
+    }
+
+    .dropdown{
+        display: inline-block;
+        float: right;
+    }
+}
+/* /Menus */
+
+/* Config */
+.directory{
+    &:not(:first-child){
+        padding-left: 1.5rem;
+    }
+    &:not(.open){
+        ul, li {
+            display: none;
+        }
+    }
+    span{
+        font-size: 16px;
+        display: block;
+        margin-bottom: .5rem;
+        cursor: pointer;
+        &::before{
+            font-family: 'Material Icons';
+            content: 'expand_more';
+            vertical-align: middle;
+        }
+        i{
+            color: #f8d775;
+            margin-top: -4px;
+        }
+    }
+    li{
+        padding: 0 0 .5rem 1.5rem;
+        cursor: pointer;
+        width: fit-content;
+        &:hover{
+            color: $main-color-hover;
+        }
+    }
+}
+/* /Config */
+
+/* Roles and Users */
+.role-item{
+    background: white;
+
+    .head{
+        background: linear-gradient(45deg, #ff1818, #ff8f00) !important;
+
+        .char{
+            border-radius: 100%;
+            border: 1px solid #ffffff4d;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background: $main-color;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h3{
+            font-size: 16px;
+            color: white;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .actions a{
+            color: white;
+        }
+    }
+}
+
+.permission-group-checks{
+    padding: 1rem 0;
+    border-bottom: $gray-border;
+
+    .form-check-label{
+        font-size: 11px;
+    }
+}
+/* /Roles and Users */
