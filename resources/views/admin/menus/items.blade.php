@@ -30,7 +30,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/static/sortable.min.js') }}"></script>
-    <script src="{{ asset('js/ce/biconpicker.js') }}"></script>
+    <script src="{{ asset('plugins/iconpicker/iconpicker.js') }}"></script>
     <script>
         let updateId = 0;
         const form = document.getElementById('menu-item-form')
@@ -150,8 +150,9 @@
         }
 
         @foreach($languages as $language)
-            new Biconpicker(document.querySelector(`input[name="{{ $language->code }}[icon]"]`), {
-                showSelectedIn: document.querySelector('.selected-bicon-{{ $language->code }}')
+            new Iconpicker(document.querySelector(`input[name="{{ $language->code }}[icon]"]`), {
+                showSelectedIn: document.querySelector('.selected-bicon-{{ $language->code }}'),
+                fade: true
             })
         @endforeach
 

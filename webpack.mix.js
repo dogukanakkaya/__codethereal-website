@@ -39,7 +39,7 @@ mix.copyDirectory('node_modules/tinymce/themes', 'public/plugins/tinymce/themes'
 mix.copy('node_modules/tinymce/tinymce.min.js', 'public/plugins/tinymce/tinymce.min.js');
 
 // Biconpicker
-mix.copy('node_modules/biconpicker/dist/biconpicker.js', 'public/plugins/biconpicker');
+mix.copy('node_modules/codethereal-iconpicker/dist/iconpicker.js', 'public/plugins/iconpicker');
 
 
 // Site mix
