@@ -28,5 +28,7 @@ return [
     'authorize_token_expired' => 'Token is invalid or expired',
 
     'wait_for_redirect' => 'Successful, please wait you\'re redirecting.',
-    'registered_needs_verification' => '<span>You\'re registered successfully. <b>*Please verify your e-mail from the mail we sent you.</b></span>'
+    'registered_needs_verification' => '<span>You\'re registered successfully. <b>*Please verify your e-mail from the mail we sent you.</b></span>',
+
+    'subscribe_accept_text' => 'I want to be notified by email when new article posted'
 ];

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->text('about')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('subscribe')->default(0);
 
             /**
              * 0: Basic User

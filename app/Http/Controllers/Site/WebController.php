@@ -15,6 +15,8 @@ class WebController extends Controller
         $categories = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id', 'title', 'url', 'featured_image'], 8);
         $categoryIds = $categories->pluck('id')->toArray();
         $data = [
+            'homeTop' => Content::findOneByLocale(config('site.home_top'), 'title', 'featured_image'),
+            'footer' => Content::findOneByLocale(config('site.footer'), 'description', 'featured_image'),
             'category' => Content::findOneByLocale(config('site.categories'), 'title', 'url'),
             'categories' => $categories,
             'cards' => Content::findSubContentsByLocale(config('site.cards'), ['title', 'url', 'description', 'featured_image']),

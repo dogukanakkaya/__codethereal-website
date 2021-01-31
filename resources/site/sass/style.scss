@@ -252,8 +252,6 @@ header {
 }
 
 .home-top {
-    background-repeat: no-repeat;
-    background-size: cover;
     position: relative;
     height: calc(#{$home-top-height} - #{$top-bar-height});
     top: calc(-1 * #{$header-height});
@@ -757,9 +755,6 @@ header {
 }
 
 footer {
-    background-size: cover;
-    background-repeat: no-repeat;
-
     .logo {
         margin-bottom: 1rem;
 
@@ -1126,6 +1121,16 @@ aside {
         &:focus {
             border-color: $main-color;
         }
+    }
+}
+
+.ce-check-f-group{
+    display: flex;
+    align-items: center;
+
+    label{
+        font-size: 13px;
+        margin-left: .5rem;
     }
 }
 

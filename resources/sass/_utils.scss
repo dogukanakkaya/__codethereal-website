@@ -149,6 +149,37 @@ a.danger:hover, a.danger:hover i {
     cursor: move;
 }
 
+.basic-card-item-list{
+    background: white;
+
+    .head{
+        background: linear-gradient(45deg, #ff1818, #ff8f00) !important;
+
+        .char{
+            border-radius: 100%;
+            border: 1px solid #ffffff4d;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background: $main-color;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h3{
+            font-size: 16px;
+            color: white;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .actions a{
+            color: white;
+        }
+    }
+}
+
 form:invalid [type='submit']{
     pointer-events: none;
     opacity: .4;
@@ -238,37 +269,6 @@ form{
 /* /Config */
 
 /* Roles and Users */
-.role-item{
-    background: white;
-
-    .head{
-        background: linear-gradient(45deg, #ff1818, #ff8f00) !important;
-
-        .char{
-            border-radius: 100%;
-            border: 1px solid #ffffff4d;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            background: $main-color;
-            text-align: center;
-            color: white;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-
-        h3{
-            font-size: 16px;
-            color: white;
-            margin-top: 5px;
-            margin-bottom: 0;
-        }
-
-        .actions a{
-            color: white;
-        }
-    }
-}
-
 .permission-group-checks{
     padding: 1rem 0;
     border-bottom: $gray-border;

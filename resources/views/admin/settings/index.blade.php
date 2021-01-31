@@ -31,8 +31,8 @@
 
                                 @foreach($languages as $key => $language)
                                     @php
-                                    $logo_white = "$language->code[logo_white]";
-                                    $logo_dark = "$language->code[logo_dark]";
+                                    $logoLightInput = "$language->code[logo_light]";
+                                    $logoDarkInput = "$language->code[logo_dark]";
 
                                     $dzIndex = $language->code . "1";
                                     $dzIndex2 = $language->code . "2";
@@ -54,14 +54,14 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                {{ Form::label(__('settings.logo_white')) }}
-                                                <x-dropzone :index="$dzIndex" :file-id="$settings[$language->code]['logo_white'] ?? 0" :input-name="$logo_white" max-files="1"/>
+                                                {{ Form::label(__('settings.logo_light')) }}
+                                                <x-dropzone :index="$dzIndex" :file-id="$settings[$language->code]['logo_light'] ?? 0" :input-name="$logoLightInput" max-files="1"/>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 {{ Form::label(__('settings.logo_dark')) }}
-                                                <x-dropzone :index="$dzIndex2" :file-id="$settings[$language->code]['logo_dark'] ?? 0" :input-name="$logo_dark" max-files="1"/>
+                                                <x-dropzone :index="$dzIndex2" :file-id="$settings[$language->code]['logo_dark'] ?? 0" :input-name="$logoDarkInput" max-files="1"/>
                                             </div>
                                         </div>
                                     </div>

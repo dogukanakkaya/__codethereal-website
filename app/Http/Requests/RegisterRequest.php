@@ -29,7 +29,8 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:255|min:5',
             'email' => 'required|email|string|max:255|min:12|unique:users',
             'password' => 'confirmed|max:30|min:8',
-            'phone' => 'nullable|max:20|min:10'
+            'phone' => 'nullable|max:20|min:10',
+            'subscribe' => 'integer'
         ];
     }
 
@@ -45,7 +46,8 @@ class RegisterRequest extends FormRequest
             'email' => 'Email',
             'phone' => 'phone',
             'password' => 'Password',
-            'password_confirmation' => 'Password Again'
+            'password_confirmation' => 'Password Again',
+            'subscribe' => 'Abonelik'
         ];
     }
 

@@ -30,7 +30,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $user = User::where('email', request('email'))->first();
         if ($user?->hasVerifiedEmail()){
-            if (Auth::attempt($credentials, $request->get('remember_me'))) {
+            if (Auth::attempt($credentials, (bool)$request->get('remember_me'))) {
                 $request->session()->regenerate();
                 return resJson(1, ['message' => __('auth.wait_for_redirect')]);
             }

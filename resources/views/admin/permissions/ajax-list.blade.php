@@ -2,7 +2,7 @@
     <div class="row mb-3">
         @foreach($permissionGroup as $permission)
             <div class="col-md-3">
-                <div class="role-item">
+                <div class="basic-card-item-list">
                     <div class="head d-flex align-items-center justify-content-between p-3">
                         <div class="d-flex align-items-center">
                             <div class="char me-3">

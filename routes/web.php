@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -172,6 +172,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('/', 'WebController@index')->name('web.index');
 
         Route::get(LaravelLocalization::transRoute('routes.articles'), 'WebController@contentList');
+
         Route::get('search', 'WebController@search');
         Route::get('t/{tag}', 'WebController@searchTag');
 

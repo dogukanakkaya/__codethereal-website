@@ -8,7 +8,7 @@ return [
     'google' => 'Google',
     'title' => 'Title',
     'description' => 'Description',
-    'logo_white' => 'Logo White',
+    'logo_light' => 'Logo Light',
     'logo_dark' => 'Logo Dark',
     'phone' => 'Phone',
     'email' => 'E-Mail',

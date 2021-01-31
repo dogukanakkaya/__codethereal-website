@@ -59,7 +59,7 @@
 
             const clearPreview = id => {
                 // Get input of which given file id belongs to
-                const inputEl = document.querySelector(`[data-file-id='${id}']`).closest('.ce-previews').nextSibling
+                const inputEl = document.querySelector(`[data-file-id='${id}']`).closest('.ce-previews').nextElementSibling
                 if (inputEl) {
                     // If we have more than one images, remove "1|" :: else remove "1" (think 1 as id)
                     inputEl.value = inputEl.value.includes(`${id}|`) ? inputEl.value.replace(`${id}|`, '') : inputEl.value.replace(id, 0)
@@ -177,7 +177,7 @@
         }
 
         @forelse($files as $file)
-        createPreview{{$index}}({{ $file->id }}, storage({{ $file->path }}))
+        createPreview{{$index}}({{ $file->id }}, storage('{{ $file->path }}'))
         @empty
 
         @endforelse

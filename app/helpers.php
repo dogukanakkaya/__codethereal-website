@@ -248,12 +248,14 @@ function createUrl(string $url): string
  * @param false $upsize
  * @return string
  */
-function resize(string $path, int|null $width, int|null $height = null, $aspectRatio = true, $upsize = false): string
+function resize(string $path, int|null $width = null, int|null $height = null, $aspectRatio = true, $upsize = false): string
 {
-    // Do not resize svg files
+    if(empty($path)) return $path;
+
+    // Do not resize svg files and if both width and height is null means image won't be resized. Just return it
     $fileInfo = pathinfo(asset('storage/' . $path));
     $fileExt = $fileInfo['extension'] ?? '';
-    if ($fileExt === 'svg') {
+    if ($fileExt === 'svg' || ($width === null && $height === null)) {
         return asset('storage/' . $path);
     }
 
@@ -280,6 +282,22 @@ function resize(string $path, int|null $width, int|null $height = null, $aspectR
     }
 
     return asset($filePath);
+}
+
+/**
+ * Find the image path from id and resize the image by given width and height and encode to webp if browser is not safari
+ *
+ * @param string $id
+ * @param int|null $width
+ * @param int|null $height
+ * @param bool $aspectRatio
+ * @param false $upsize
+ * @return string
+ */
+function resizeById(int $id, int|null $width = null, int|null $height = null, $aspectRatio = true, $upsize = false): string
+{
+    $file = \App\Models\Admin\File::select('path')->find($id);
+    return resize($file->path ?? '', $width, $height, $aspectRatio, $upsize);
 }
 
 /**

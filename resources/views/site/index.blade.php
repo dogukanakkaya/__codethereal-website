@@ -1,10 +1,10 @@
 @extends('layouts.site')
 
 @section('content')
-    <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }})">
+    <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($homeTop->featured_image ?? '', null, 1000) }}) no-repeat;background-size: cover;background-position: center;">
         <div class="center container">
             <div>
-                <h3 class="slogan"><span>{{ __('site.slogan') }}</span></h3>
+                <h3 class="slogan"><span>{{ $homeTop->title ?? '' }}</span></h3>
             </div>
             {{ Form::open(['url' => app()->getLocale() . '/search', 'method' => 'get']) }}
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
@@ -102,7 +102,7 @@
         </div>
     </section>
 
-    <section class="separate-parallax mt-5 mb-5" style="background-image: url('{{ resize($parallax->featured_image, null, 500) }}');">
+    <section class="separate-parallax mt-5 mb-5" style="background-image: url('{{ resize($parallax->featured_image ?? '', null, 500) }}');">
         <div class="overlay flex-column d-flex justify-content-center align-items-center">
             <ul class="d-flex justify-content-evenly w-100 counters">
                 <li>

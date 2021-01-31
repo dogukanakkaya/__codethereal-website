@@ -11,6 +11,25 @@ class ConfigController extends Controller
         'resources/lang'
     ];
 
+    private array $restrict = [
+        'config/app.php',
+        'config/auth.php',
+        'config/broadcasting.php',
+        'config/cache.php',
+        'config/cors.php',
+        'config/database.php',
+        'config/filesystems.php',
+        'config/hashing.php',
+        'config/laravellocalization.php',
+        'config/logging.php',
+        'config/mail.php',
+        'config/permission.php',
+        'config/queue.php',
+        'config/services.php',
+        'config/session.php',
+        'config/view.php',
+    ];
+
     public function index()
     {
         $dirs = [];
@@ -28,12 +47,18 @@ class ConfigController extends Controller
     public function find()
     {
         $path = request()->get('path');
+        if (in_array($path, $this->restrict)){
+            return resJsonUnauthorized();
+        }
         return resJson(1, ['content' => file_get_contents(base_path($path))]);
     }
 
     public function update()
     {
         $path = request()->get('path');
+        if (in_array($path, $this->restrict)){
+            return resJsonUnauthorized();
+        }
         return resJson(file_put_contents(base_path($path), request()->get('content')) !== false);
     }
 
@@ -64,7 +89,7 @@ class ConfigController extends Controller
      * Return html output of given directory structure
      *
      * @param array $dirStructure
-     * @param string $folder
+     * @param string|null $folder
      * @return string
      */
     private function createHtmlTree(array $dirStructure, string $folder = null): string
@@ -84,6 +109,9 @@ class ConfigController extends Controller
             } else {
                 // Remove config('app.name') variable from value (upper folder)
                 $path = str_replace(config('app.name') . '/', '', $folder . '/' . $file);
+                if (in_array($path, $this->restrict)){
+                    continue;
+                }
                 $html .= '<li onclick="__find(`' . $path . '`)"><i class="material-icons-outlined md-18">insert_drive_file</i> ' . $file . '</li>';
             }
         }

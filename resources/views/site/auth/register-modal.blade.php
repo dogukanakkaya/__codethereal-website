@@ -27,8 +27,9 @@
                     {{ Form::label('password_confirmation', __('users.confirm_password'), ['class' => 'required', 'minlength' => 8]) }}
                     {{ Form::password('password_confirmation', ['required' => 'true']) }}
                 </div>
-                <div class="mb-3">
-                    {{ Form::checkbox('remember', 'on') }} Sözleşmeyi okudum, kabul ediyorum
+                <div class="mb-3 ce-check-f-group">
+                    {{ Form::checkbox('subscribe', 1, false, ['id' => 'subscribe']) }}
+                    {{ Form::label('subscribe', __('auth.subscribe_accept_text')) }}
                 </div>
                 <div class="alert fade show d-none ce-alert" role="alert"></div>
             </div>

@@ -1,13 +1,17 @@
 <?php
 
 return [
-    'categories' => 1,
+    'home_top' => 1,
+    'footer' => 2,
+    'categories' => 3,
     'home_parallax' => '6',
     'header_menu' => 3,
     'category_links' => 4,
     'quick_links' => 5,
     'cards' => 0,
     'setting_names' => [
+        'logo_light',
+        'logo_dark',
         'title',
         'description',
         'linkedin',

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'slogan' => 'The Mind is a Far Better Warrior than the Sword!',
     'featured_contents' => 'Featured Contents',
     'featured_articles' => 'Featured Articles',
     'relational_contents' => 'Relational Contents',
