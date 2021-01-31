@@ -1,5 +1,5 @@
 @php
-    $dropdown = view()->make('admin.partials.dropdown', ['actions' => $actions]);
+    $dropdown = view()->make('admin.partials.single-actions', ['actions' => $actions]);
 @endphp
 {!! buildHtmlTree($items, [
     'start' => '<div class="list-group sortable" data-parent-id="{parentId}">',

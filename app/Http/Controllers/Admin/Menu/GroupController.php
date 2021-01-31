@@ -31,7 +31,7 @@ class GroupController extends Controller
         return Datatables::of($data)
             ->editColumn('title', fn (MenuGroup $group) => '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = `' . route('menu_items.index', ['groupId' => $group->id]) . '`">' . $group->title . '</a>')
             ->editColumn('created_at', fn (MenuGroup $group) => date("Y-m-d H:i:s", strtotime($group->created_at)))
-            ->addColumn('action', fn (MenuGroup $group) => view('admin.partials.dropdown', ['actions' => $this->actions($group->id)]))
+            ->addColumn('action', fn (MenuGroup $group) => view('admin.partials.single-actions', ['actions' => $this->actions($group->id)]))
             ->rawColumns(['title', 'action'])
             ->make(true);
     }
@@ -85,14 +85,14 @@ class GroupController extends Controller
     private function actions(int $id): array
     {
         $actions = [
-            ['title' => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . __('buttons.detail'), 'onclick' => 'window.location.href = "' . route('menu_items.index', ['groupId' => $id]) . '"']
+            '<button class="btn btn-dark text-white btn-sm" onclick="window.location.href = `'.route('menu_items.index', ['groupId' => $id]).'`"><i class="material-icons-outlined md-18">remove_red_eye</i></button>'
         ];
 
         // Only developer can delete and update menu groups
         if (Auth::user()->isDev()) {
             array_push($actions,
-                ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
-                ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+                '<button class="btn btn-info text-white btn-sm" onclick="__find(' . $id . ')"><i class="material-icons-outlined md-18">edit</i></button>',
+                '<button class="btn btn-danger text-white btn-sm" onclick="__delete(' . $id . ')"><i class="material-icons-outlined md-18">delete</i></button>'
             );
         }
         return $actions;

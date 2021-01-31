@@ -205,8 +205,8 @@ class ItemController extends Controller
     private function actions(): array
     {
         return [
-            ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find({value})'],
-            ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete({value})']
+            '<button class="btn btn-info text-white btn-sm" onclick="__find({value})"><i class="material-icons-outlined md-18">edit</i></button>',
+            '<button class="btn btn-danger text-white btn-sm" onclick="__delete({value})"><i class="material-icons-outlined md-18">delete</i></button>'
         ];
     }
 }

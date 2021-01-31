@@ -170,8 +170,8 @@ class UserController extends Controller
     private function actions(int $id): array
     {
         return  [
-            '<button class="btn btn-info text-white" onclick="__find(' . $id . ')"><i class="material-icons-outlined md-18">edit</i></button>',
-            '<button class="btn btn-danger text-white" onclick="__delete(' . $id . ')"><i class="material-icons-outlined md-18">delete</i></button>'
+            '<button class="btn btn-info text-white btn-sm" onclick="__find(' . $id . ')"><i class="material-icons-outlined md-18">edit</i></button>',
+            '<button class="btn btn-danger text-white btn-sm" onclick="__delete(' . $id . ')"><i class="material-icons-outlined md-18">delete</i></button>'
         ];
     }
 

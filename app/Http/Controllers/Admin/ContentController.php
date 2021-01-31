@@ -39,7 +39,8 @@ class ContentController extends Controller
                 $file = Content::findFile($content->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
-            ->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
+            //->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
+            ->addColumn('action', fn (Content $content) => view('admin.partials.single-actions', ['actions' => $this->actions($content->id)]))
             ->addColumn('status', fn (Content $content) => statusBadge($content->active))
             ->addColumn('parent', fn (Content $content) => implode(', ', Content::findParentsByLocale($content->id, 'title')->pluck('title')->toArray()))
             ->rawColumns(['check_all', 'file', 'title', 'status', 'action'])
@@ -310,9 +311,15 @@ class ContentController extends Controller
      */
     private function actions(int $id): array
     {
+        /*
         return [
             ['title' => '<i class="material-icons-outlined md-18">edit</i> ' . __('buttons.update'), 'onclick' => '__find(' . $id . ')'],
             ['title' => '<i class="material-icons-outlined md-18">delete</i> ' . __('buttons.delete'), 'onclick' => '__delete(' . $id . ')'],
+        ];
+        */
+        return  [
+            '<button class="btn btn-info text-white btn-sm" onclick="__find(' . $id . ')"><i class="material-icons-outlined md-18">edit</i></button>',
+            '<button class="btn btn-danger text-white btn-sm" onclick="__delete(' . $id . ')"><i class="material-icons-outlined md-18">delete</i></button>'
         ];
     }
 
