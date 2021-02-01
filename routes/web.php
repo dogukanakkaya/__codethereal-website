@@ -191,4 +191,5 @@ Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], func
     });
 
     Route::post('comment/send', 'WebController@comment')->name('web.comment')->middleware('auth')->middleware('throttle:3,10');
+    Route::post('vote', 'WebController@vote')->name('web.vote')->middleware('auth')->middleware('throttle:10,10');
 });

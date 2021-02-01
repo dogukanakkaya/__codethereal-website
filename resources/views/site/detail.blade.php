@@ -24,9 +24,10 @@
                     <img src="{{ resize($content->featured_image, 1100) }}" class="w-100" alt="">
                     <div class="content-info">
                         <ul class="d-flex">
-                            <li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>
-                            <li><a href="#"><i class="bi bi-clock"></i> {{ $content->created_at->diffForHumans() }}</a></li>
-                            <li><a href="#"><i class="bi bi-chat-text"></i> 8 comment</a></li>
+                            {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}
+                            <vote count="{{ $vote }}" vote-route="{{ route('web.vote') }}" content-id="{{ $content->id }}"></vote>
+                            <li><span><i class="bi bi-clock"></i> {{ $content->created_at->diffForHumans() }}</span></li>
+                            <li><span><i class="bi bi-chat-text"></i> {{ $commentCount }} {{ __('site.comment.self_plural') }}</span></li>
                         </ul>
                         <ul class="d-flex">
                             <li><a href="#"><i class="bi bi-linkedin linkedin"></i></a></li>
@@ -100,7 +101,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('site/js/prism.js') }}"></script>
     <script>
         @if(auth()->check())
         let replyTo = 0

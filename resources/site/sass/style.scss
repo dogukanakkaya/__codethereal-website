@@ -15,7 +15,7 @@
 //@import "~bootstrap/scss/forms";
 //@import "~bootstrap/scss/buttons";
 //@import "~bootstrap/scss/transitions";
-//@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/dropdown";
 //@import "~bootstrap/scss/button-group";
 //@import "~bootstrap/scss/nav";
 //@import "~bootstrap/scss/navbar";
@@ -917,16 +917,14 @@ aside {
     }
 
     ul:first-child {
-        li:not(:last-child) {
-            a::after {
-                content: "|";
-                margin: 0 0.5rem;
-                color: $gray-color;
-                opacity: 0.2;
-            }
+        li:not(:last-child)::after {
+            content: "|";
+            margin: 0 0.5rem;
+            color: $gray-color;
+            opacity: 0.2;
         }
 
-        a {
+        span {
             color: $main-color;
             font-size: 13px;
         }
@@ -997,6 +995,18 @@ aside {
     }
 }
 
+.vote{
+    position: relative;
+    span{
+        font-size: 15px;
+    }
+    .up,.down{
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+}
+
 .comments {
     ul ul {
         padding-left: 40px;
@@ -1026,6 +1036,7 @@ aside {
     }
 
     .comment {
+        position: relative;
         display: flex;
         padding: 1.5rem 0;
 
@@ -1036,6 +1047,10 @@ aside {
                 font-size: 11px;
                 color: $main-color;
             }
+
+            .reply{
+                cursor: pointer;
+            }
         }
 
         p {
@@ -1043,6 +1058,12 @@ aside {
             color: $gray-color;
             margin-bottom: 0;
         }
+    }
+
+    .comment-dots{
+        cursor: pointer;
+        position: absolute;
+        right: 0;
     }
 }
 

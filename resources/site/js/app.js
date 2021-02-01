@@ -76,3 +76,12 @@ document.addEventListener('click', e => {
         document.getElementById('menu-toggle').checked = false
     }
 });
+
+
+import { createApp } from 'vue';
+import Vote from './components/Vote'
+createApp({
+    components: {
+        Vote
+    }
+}).mount('#app')

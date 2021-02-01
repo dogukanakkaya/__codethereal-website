@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\VoteRequest;
 use App\Models\Admin\Content\Content;
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Support\Facades\Validator;
 
 class WebController extends Controller
@@ -38,36 +41,38 @@ class WebController extends Controller
         if (!$content){
             return back();
         }
+        $contentId = $content->id ?? 0;
 
         $data['_meta'] = [
             'title' => $content->meta_title,
             'description' => $content->meta_description,
             'keywords' => $content->meta_tags
         ];
-        $data['parentTree'] = Content::parentTree($content->id, ['contents.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
+        $data['parentTree'] = Content::parentTree($contentId, ['contents.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
 
         // If given url has sub contents then return list view, if not return detail view
-        if (Content::hasSubContents($content->id)){
+        if (Content::hasSubContents($contentId)){
             $data['category'] = $content;
 
-            if ($content->id === config('site.categories')){
+            if ($contentId === config('site.categories')){
                 $data['categories'] = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id', 'title', 'url', 'featured_image']);
                 return view('site.category-list', $data);
             }else{
-                $data['contents'] = Content::findSubContentsByLocaleInstance($content->id, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
-                $data['mostViewedContents'] = Content::findMostViewedSubContents($content->id, ['title', 'url', 'featured_image', 'created_at'], 3);
+                $data['contents'] = Content::findSubContentsByLocaleInstance($contentId, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
+                $data['mostViewedContents'] = Content::findMostViewedSubContents($contentId, ['title', 'url', 'featured_image', 'created_at'], 3);
                 return view('site.content-list', $data);
             }
         }else{
             // Check if user already viewed, if not increment views by 1
-            if (!session('viewed-' . $content->id)){
+            if (!session('viewed-' . $contentId)){
                 $content->increment('views');
-                session(['viewed-' . $content->id => true]);
+                session(['viewed-' . $contentId => true]);
             }
 
             $data['content'] = $content;
-            $data['relationalContents'] = Content::findRelationalContentsByLocale($content->id, ['title', 'url', 'featured_image', 'created_at']);
-            $comments = Comment::select('comments.id', 'comment', 'name', 'parent_id', 'comments.created_at')->where('content_id', $content->id)->leftJoin('users', 'users.id', 'comments.author_id')->get();
+            $data['relationalContents'] = Content::findRelationalContentsByLocale($contentId, ['title', 'url', 'featured_image', 'created_at']);
+            $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('content_id', $contentId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
+            $data['vote'] = Vote::where('content_id', $contentId)->sum('vote');
             $data['comments'] = buildTree($comments, ['parentId' => 'parent_id']);
             $data['commentCount'] = $comments->count();
             return view('site.detail', $data);
@@ -114,37 +119,32 @@ class WebController extends Controller
         return view('site.search-list', $data);
     }
 
-    public function comment()
+    public function comment(CommentRequest $request)
     {
-        $validator = Validator::make(request()->all(), [
-            'comment' => 'required|max:400|min:15',
-            'content_id' => 'required|integer',
-        ], [
-            'comment' => __('site.comment.self_singular'),
-            'content_id' => 'ID'
-        ]);
-        $errors = "";
-        foreach ($validator->errors()->all() as $error) {
-            $errors .= $error."\n";
-        }
-        if ($validator->fails()){
-            return resJson(0, ['message' => $errors]);
-        }
-
-        $parent_id = request('parent_id', 0);
-        if ($parent_id){
+        $data = $request->validated();
+        $parentId = $data['parent_id'] ?? 0;
+        if ($parentId){
             // If user tries to reply to inner comment, prevent it.
-            $parentComment = Comment::select('parent_id')->find($parent_id); // Find the parent comment that user tries to reply
+            $parentComment = Comment::select('parent_id')->find($parentId); // Find the parent comment that user tries to reply
             if (intval($parentComment->parent_id) !== 0){ // If that parent comment has another parent prevent it
                 return resJson(0);
             }
         }
+        $data['user_id'] = auth()->id();
+        return resJson(Comment::create($data));
+    }
 
-        return resJson(Comment::create([
-            'comment' => request('comment'),
-            'parent_id' => $parent_id,
-            'content_id' => request('content_id'),
-            'author_id' => auth()->id()
-        ]));
+    public function vote(VoteRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+
+        // If user voted this content already
+        if(Vote::where('content_id', $data['content_id'])->where('user_id', $data['user_id'])->exists()){
+            return resJson(0, ['message' => __('site.vote.already_voted')]);
+        }
+
+
+        return resJson(Vote::create($data));
     }
 }

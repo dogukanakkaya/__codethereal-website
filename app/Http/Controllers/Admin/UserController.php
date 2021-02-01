@@ -63,6 +63,7 @@ class UserController extends Controller
         try {
             // User is not active until he/she creates a password, so make password random.
             $data['password'] = Hash::make(Str::random(32));
+            $data['name_code'] = nameCode($data['name']);
 
             $user = User::create($data);
 
@@ -120,6 +121,8 @@ class UserController extends Controller
             if ($user->isDev() && !Auth::user()->isDev()) {
                 return resJson(false);
             }
+
+            $data['name_code'] = nameCode($data['name']);
 
             User::where('id', $id)->update($data);
 

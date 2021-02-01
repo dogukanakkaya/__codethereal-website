@@ -45,6 +45,9 @@ mix.copy('node_modules/codethereal-iconpicker/dist/iconpicker.js', 'public/plugi
 // Site mix
 const sitePrefix = 'site'
 mix.js('resources/site/js/app.js', `public/${sitePrefix}/js`)
+    .vue();
+
+mix
     .sass('resources/site/sass/style.scss', `public/${sitePrefix}/css`)
     .copy('resources/site/js/prism.js', 'public/site/js')
     .copy('resources/site/css/prism.css', 'public/site/css')

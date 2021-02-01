@@ -24,6 +24,11 @@ return [
         'enter_comment' => 'Enter your comment...',
         'leave_a_comment' => 'Leave a comment',
         'reply_to' => 'Reply to: :name',
-        'must_login' => 'You must be <span onclick="__login()">login</span> to comment'
+        'must_login' => 'You must be <span onclick="__login()">login</span> to comment',
+        'delete' => 'Delete'
+    ],
+    'vote' => [
+        'self_singular' => 'Vote',
+        'already_voted' => 'You voted this content already'
     ]
 ];

@@ -151,7 +151,7 @@
 
         @foreach($languages as $language)
             new Iconpicker(document.querySelector(`input[name="{{ $language->code }}[icon]"]`), {
-                showSelectedIn: document.querySelector('.selected-bicon-{{ $language->code }}'),
+                showSelectedIn: document.querySelector('.selected-icon-{{ $language->code }}'),
                 fade: true
             })
         @endforeach
