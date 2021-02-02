@@ -118,11 +118,13 @@ class WebController extends Controller
         if ($q !== null){
             $searched = DB::table('posts')
                 ->select('title', 'url')
+                ->whereNull('deleted_at')
                 ->where('language', app()->getLocale())
                 ->where(function($query) use($q) {
-                    $query->where('meta_title', 'like', '%'.$q.'%')
-                        ->orWhere('meta_description', 'like', '%'.$q.'%')
-                        ->orWhere('meta_tags', 'like', '%'.$q.'%');
+                    $query->where('title', 'like', '%'.$q.'%')
+                        ->orWhere('meta_title', 'like', '%'.$q.'%')
+                        ->orWhere('description', 'like', '%'.$q.'%')
+                        ->orWhere('meta_description', 'like', '%'.$q.'%');
                 })
                 ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
                 ->take(30)

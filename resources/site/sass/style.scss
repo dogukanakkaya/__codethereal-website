@@ -289,12 +289,23 @@ header {
             width: 100%;
             background: #fff;
             max-height: 500px;
+            top: 50px;
+            border-radius: 8px;
+
+            li:not(:last-child) a{
+                border-bottom: 1px solid #ddd;
+            }
 
             a{
                 color: #000;
                 display: block;
                 padding: 1rem;
-                border-bottom: 1px solid #ddd;
+                transition: all .4s ease-in;
+
+                &:hover{
+                    background: #F2F2F2;
+                    color: $main-color;
+                }
             }
         }
 
@@ -302,9 +313,11 @@ header {
             width: 100%;
             border: none;
             font-size: 13px;
-            padding: 0.8rem 2.25rem;
+            padding: 0 2.25rem;
             border-radius: 8px;
             outline: none;
+            height: 45px;
+            line-height: 45px;
         }
 
         .icon {
@@ -441,6 +454,7 @@ header {
         width: 100%;
         position: absolute;
         top: -70px;
+        left: 0;
         height: 70px;
         background-color: #fff;
 
@@ -461,8 +475,8 @@ header {
     position: absolute;
     height: 100%;
     width: 100%;
-    top: 0px;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
     background: linear-gradient(
             to right,
             rgba(10, 46, 224, 0.84) 0%,

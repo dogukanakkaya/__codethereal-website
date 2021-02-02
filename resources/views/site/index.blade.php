@@ -7,7 +7,7 @@
                 <h3 class="slogan"><span>{{ $homeTop->title ?? '' }}</span></h3>
             </div>
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
-                <search search-trans="{{ __('site.search') }}..." search-route="{{ route('web.search', ['q' => ':q']) }}"></search>
+                <search search-trans="{{ __('site.search') }}..." search-route="{{ route('web.search', ['q' => ':q']) }}" item-route="{{ createUrl() }}"></search>
             </div>
         </div>
     </section>

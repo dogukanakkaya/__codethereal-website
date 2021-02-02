@@ -131,7 +131,7 @@
         </div>
     </footer>
 </div>
-<script>const url = path => `{{ url('') }}/${path}`</script>
+<script>window.appUrl = (path = '') => `{{ url('') }}/${path}`</script>
 <script src="{{ asset('site/js/app.js') }}"></script>
 @stack('scripts')
 </body>
