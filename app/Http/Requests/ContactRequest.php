@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class ContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,11 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|min:5',
-            'email' => 'required|email|string|max:255|min:12|unique:users',
-            'password' => 'confirmed|max:30|min:8',
-            'phone' => 'nullable|max:20|min:10',
-            'subscribe' => 'integer'
+            'name' => 'required|max:255|min:3',
+            'email' => 'required|email|max:255|min:6',
+            'phone' => 'nullable|max:255|min:8',
+            'subject' => 'required|max:255|min:5',
+            'message' => 'required|max:500|min:20'
         ];
     }
 
@@ -42,12 +42,11 @@ class RegisterRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => __('users.fullname'),
-            'email' => __('users.email'),
-            'phone' => __('users.phone'),
-            'password' => __('users.password'),
-            'password_confirmation' => __('users.confirm_password'),
-            'subscribe' => __('users.subscribe')
+            'name' => __('site.contact.name'),
+            'email' => __('site.contact.email'),
+            'phone' => __('site.contact.phone'),
+            'subject' => __('site.contact.subject'),
+            'message' => __('site.contact.message')
         ];
     }
 

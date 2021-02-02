@@ -23,11 +23,11 @@ document.querySelectorAll('.category-dropdown li').forEach(category => category.
 
 window.__login = async () => {
     if (!document.getElementById('login-modal')){
-        const {data: html} = await request.get(url('auth/login'))
+        const {data: html} = await request.get(url('_/auth/login'))
         document.body.insertAdjacentHTML('beforeend', html)
         document.getElementById('login-form').addEventListener('submit', async e => {
             e.preventDefault()
-            const {data: { status, message }} = await request.post(url('auth/login'), serialize(e.target, {hash: true, empty: true}))
+            const {data: { status, message }} = await request.post(url('_/auth/login'), serialize(e.target, {hash: true, empty: true}))
 
             const alertEl = e.target.querySelector('.alert')
             if (status){
@@ -47,11 +47,11 @@ window.__login = async () => {
 
 window.__register = async () => {
     if (!document.getElementById('register-modal')){
-        const {data: html} = await request.get(url('auth/register'))
+        const {data: html} = await request.get(url('_/auth/register'))
         document.body.insertAdjacentHTML('beforeend', html)
         document.getElementById('register-form').addEventListener('submit', async e => {
             e.preventDefault()
-            const {data: { status, message }} = await request.post(url('auth/register'), serialize(e.target, {hash: true, empty: true}))
+            const {data: { status, message }} = await request.post(url('_/auth/register'), serialize(e.target, {hash: true, empty: true}))
 
             const alertEl = e.target.querySelector('.alert')
             if (status){
@@ -64,6 +64,27 @@ window.__register = async () => {
         })
     }
     openModal('#register-modal')
+}
+
+window.__contact = async () => {
+    if (!document.getElementById('contact-modal')){
+        const {data: html} = await request.get(url('_/contact'))
+        document.body.insertAdjacentHTML('beforeend', html)
+        document.getElementById('contact-form').addEventListener('submit', async e => {
+            e.preventDefault()
+            const {data: { status, message }} = await request.post(url('_/contact'), serialize(e.target, {hash: true, empty: true}))
+
+            const alertEl = e.target.querySelector('.alert')
+            if (status){
+                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                e.target.reset()
+            }else{
+                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+            }
+            alertEl.innerText = message
+        })
+    }
+    openModal('#contact-modal')
 }
 
 document.addEventListener('click', e => {

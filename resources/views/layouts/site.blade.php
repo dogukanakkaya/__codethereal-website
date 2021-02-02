@@ -77,7 +77,7 @@
                         @endif
                     @endforeach
                     <li>
-                        <button>
+                        <button onclick="__contact()">
                             {{ __('site.contact_us') }}
                         </button>
                     </li>

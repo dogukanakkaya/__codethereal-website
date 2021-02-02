@@ -27,6 +27,15 @@ return [
         'must_login' => 'You must be <span onclick="__login()">login</span> to comment',
         'delete' => 'Delete'
     ],
+    'contact' => [
+        'self_singular' => 'Contact',
+        'name' => 'Name',
+        'email' => 'E-Mail',
+        'phone' => 'Phone',
+        'subject' => 'Subject',
+        'message' => 'Message',
+        'send' => 'Send'
+    ],
     'vote' => [
         'self_singular' => 'Vote',
         'already_voted' => 'You voted this content already'

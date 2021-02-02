@@ -173,15 +173,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::get(LaravelLocalization::transRoute('routes.articles'), 'WebController@contentList');
 
-        Route::get('search', 'WebController@search');
         Route::get('t/{tag}', 'WebController@searchTag');
-
         Route::get('{url}', 'WebController@resolve');
     });
 });
 
 // Website routes without locale prefix
-Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
+Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], function () {
     Route::prefix('auth')->group(function () {
         Route::get('login', 'AuthController@loginView');
         Route::get('register', 'AuthController@registerView');
@@ -189,6 +187,9 @@ Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], func
         Route::post('login', 'AuthController@login');
         Route::post('register', 'AuthController@register');
     });
+
+    Route::get('contact', 'WebController@contactView');
+    Route::post('contact', 'WebController@contact');
 
     Route::post('comment/send', 'WebController@comment')->name('web.comment')->middleware('auth')->middleware('throttle:3,10');
     Route::post('vote', 'WebController@vote')->name('web.vote')->middleware('auth')->middleware('throttle:10,10');

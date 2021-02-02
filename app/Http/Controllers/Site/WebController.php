@@ -4,13 +4,24 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ContactRequest;
 use App\Http\Requests\VoteRequest;
+use App\Mail\ContactMail;
 use App\Models\Admin\Content\Content;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Vote;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * TODO: contents kelimelerini posts yap
+ * TODO: olabildiğince eloquent yerine query builder ile veri çek
+ * TODO: arama işlemini vue ile yap
+ *
+ * Class WebController
+ * @package App\Http\Controllers\Site
+ */
 class WebController extends Controller
 {
     public function index()
@@ -35,6 +46,12 @@ class WebController extends Controller
         return view('site.index', $data);
     }
 
+    /**
+     * Resolve any url (list page, detail page, category page)
+     *
+     * @param string $url
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function resolve(string $url)
     {
         $content = Content::findOneByLocaleWithUrl($url, 'contents.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags');
@@ -79,6 +96,11 @@ class WebController extends Controller
         }
     }
 
+    /**
+     * All contents page to list all of the contents
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function contentList()
     {
         $categories = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id']);
@@ -90,6 +112,11 @@ class WebController extends Controller
         return view('site.content-list', $data);
     }
 
+    /**
+     * Search given word in given category
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function search()
     {
         $q = request('q', '');
@@ -105,6 +132,12 @@ class WebController extends Controller
         return view('site.search-list', $data);
     }
 
+    /**
+     * Search a tag
+     *
+     * @param $tag
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function searchTag($tag)
     {
         $data = [
@@ -119,6 +152,12 @@ class WebController extends Controller
         return view('site.search-list', $data);
     }
 
+    /**
+     * Send comment to a post
+     *
+     * @param CommentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function comment(CommentRequest $request)
     {
         $data = $request->validated();
@@ -134,6 +173,12 @@ class WebController extends Controller
         return resJson(Comment::create($data));
     }
 
+    /**
+     * Vote a post
+     *
+     * @param VoteRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function vote(VoteRequest $request)
     {
         $data = $request->validated();
@@ -146,5 +191,28 @@ class WebController extends Controller
 
 
         return resJson(Vote::create($data));
+    }
+
+
+    /**
+     * Return contact view modal
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function contactView()
+    {
+        return response()
+            ->view('site.partials.contact-modal')
+            ->header('Content-Type', 'application/html');
+    }
+
+    /**
+     * Send contact email to site manager
+     *
+     * @param ContactRequest $request
+     */
+    public function contact(ContactRequest $request)
+    {
+        Mail::to(env('APP_CONTACT', 'doguakkaya27@gmail.com'))->send(new ContactMail($request->validated()));
     }
 }
