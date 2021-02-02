@@ -13,14 +13,6 @@ window.addEventListener('DOMContentLoaded', e => {
     })
 })
 
-document.querySelectorAll('.category-dropdown li').forEach(category => category.addEventListener('click', e => {
-    document.querySelector('.category-dropdown .selected')?.classList.remove('selected'); // remove selected class
-    e.target.classList.add('selected') // add selected class
-    document.getElementById('selected').textContent = e.target.innerText // change selected text
-    document.querySelector('.category-dropdown').classList.remove('visible', 'opacity-100') // close dropdown
-    document.getElementById('search-category-id').value = e.target.value // set input value
-}))
-
 window.__login = async () => {
     if (!document.getElementById('login-modal')){
         const {data: html} = await request.get(url('_/auth/login'))
@@ -101,8 +93,10 @@ document.addEventListener('click', e => {
 
 import { createApp } from 'vue';
 import Vote from './components/Vote'
+import Search from './components/Search'
 createApp({
     components: {
-        Vote
+        Vote,
+        Search
     }
 }).mount('#app')

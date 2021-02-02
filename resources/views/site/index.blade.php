@@ -6,26 +6,9 @@
             <div>
                 <h3 class="slogan"><span>{{ $homeTop->title ?? '' }}</span></h3>
             </div>
-            {{ Form::open(['url' => app()->getLocale() . '/search', 'method' => 'get']) }}
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
-                <div class="choose-category">
-                    <a onclick="toggleMultiple(this.nextElementSibling, 'visible', 'opacity-100')"><i class="bi bi-list" aria-hidden="true"></i> <span id="selected">Choose Category</span> <i class="bi bi-chevron-down category-arrow r-180"></i></a>
-                    <ul class="category-dropdown">
-                        @foreach($categories as $cat)
-                        <li value="{{ $cat->id }}">{{ $cat->title }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="search">
-                    <i class="bi bi-search icon" aria-hidden="true"></i>
-                    {{ Form::text('q', '', ['placeholder' => __('site.search').'...', 'required' => true]) }}
-                    {{ Form::hidden('c', 0, ['id' => 'search-category-id']) }}
-                </div>
-                <div class="search-button">
-                    <button onclick="__search()"><i class="bi bi-search"></i></button>
-                </div>
+                <search search-trans="{{ __('site.search') }}..." search-route="{{ route('web.search', ['q' => ':q']) }}"></search>
             </div>
-            {{ Form::close() }}
         </div>
     </section>
 

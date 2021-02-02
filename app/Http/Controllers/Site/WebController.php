@@ -11,6 +11,7 @@ use App\Models\Admin\Content\Content;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Vote;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
  * TODO: contents kelimelerini posts yap
  * TODO: olabildiğince eloquent yerine query builder ile veri çek
  * TODO: arama işlemini vue ile yap
+ * TODO: aynı başlıkla post oluşturulamasın panelde
  *
  * Class WebController
  * @package App\Http\Controllers\Site
@@ -101,7 +103,7 @@ class WebController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function contentList()
+    public function postList()
     {
         $categories = Content::findSubContentsWithChildrenCountByLocale(config('site.categories'), ['contents.id']);
         $categoryIds = $categories->pluck('id')->toArray();
@@ -112,24 +114,23 @@ class WebController extends Controller
         return view('site.content-list', $data);
     }
 
-    /**
-     * Search given word in given category
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function search()
+    public function search(string|null $q = null)
     {
-        $q = request('q', '');
-        $c = request('c', 0);
-        $data = [
-            'category' => Content::findOneByLocale($c, 'title', 'url'),
-            'contents' => Content::findSubContentsByLocaleInstance($c, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->where('title', 'like', '%'.$q.'%')->paginate(15),
-            'search' => $q,
-            '_meta' => [
-                'title' => $q
-            ]
-        ];
-        return view('site.search-list', $data);
+        $searched = [];
+        if ($q !== null){
+            $searched = DB::table('contents')
+                ->select('title', 'url')
+                ->where('language', app()->getLocale())
+                ->where(function($query) use($q) {
+                    $query->where('meta_title', 'like', '%'.$q.'%')
+                        ->orWhere('meta_description', 'like', '%'.$q.'%')
+                        ->orWhere('meta_tags', 'like', '%'.$q.'%');
+                })
+                ->leftJoin('content_translations', 'content_translations.content_id', 'contents.id')
+                ->take(30)
+                ->get();
+        }
+        return response()->json(['items' => $searched]);
     }
 
     /**

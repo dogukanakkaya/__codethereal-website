@@ -3,8 +3,6 @@ import axios from 'axios'
 // TODO: i needed to modify this to return 0 on empty checkbox so i copy core files and change the line
 window.serialize = require('./static/form-serialize');
 
-window.toggleMultiple = (el, ...classes) => classes.map(cls => el.classList.toggle(cls))
-
 window.replaceClasses = (el, search, replace) => {
     el.classList.remove(...search)
     el.classList.add(...replace)
