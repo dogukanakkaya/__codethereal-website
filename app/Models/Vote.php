@@ -20,7 +20,7 @@ class Vote extends Model
      */
     protected $fillable = [
         'vote',
-        'content_id',
+        'post_id',
         'user_id'
     ];
 

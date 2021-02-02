@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'self_singular' => 'Content',
-    'self_plural' => 'Contents',
+    'self_singular' => 'Post',
+    'self_plural' => 'Posts',
     'photo' => 'Photo',
     'title' => 'Title',
     'status' => 'Status',

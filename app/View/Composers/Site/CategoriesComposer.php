@@ -2,7 +2,7 @@
 
 namespace App\View\Composers\Site;
 
-use App\Models\Admin\Content\Content;
+use App\Models\Admin\Post\Post;
 use Illuminate\View\View;
 
 class CategoriesComposer
@@ -17,7 +17,7 @@ class CategoriesComposer
     public function compose(View $view)
     {
         $view->with('categoryLinks',
-            Content::findSubContentsByLocale(config('site.categories'), ['contents.id', 'title', 'url'])
+            Post::findSubPostsByLocale(config('site.categories'), ['posts.id', 'title', 'url'])
         );
     }
 }

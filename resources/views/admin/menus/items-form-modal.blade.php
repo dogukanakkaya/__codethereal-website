@@ -43,7 +43,7 @@
                                     <div class="col-12">
                                         <div class="mb-3 form-check">
                                             {{ Form::checkbox("$language->code[active]", 1, true, ['class' => 'form-check-input', 'id' => "$language->code[active]"]) }}
-                                            {{ Form::label("$language->code[active]", __('contents.active'), ['class' => 'form-check-label']) }}
+                                            {{ Form::label("$language->code[active]", __('menus.item.active'), ['class' => 'form-check-label']) }}
                                         </div>
                                     </div>
                                 </div>

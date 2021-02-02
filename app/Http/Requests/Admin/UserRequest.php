@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
             'about' => 'string',
         ];
         // If update route
-        if ($this->getMethod() == 'PUT' && $id = $this->route('id')) {
+        if ($this->getMethod() === 'PUT' && $id = $this->route('id')) {
             // TODO: email updating is not active yet, i'll send confirmations to new and old email too, check that!
             $rules['email'] = 'required|max:255|email|unique:users,email,'.$id.',id';
         }

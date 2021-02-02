@@ -28,7 +28,7 @@
                             <img src="{{ resize($category->featured_image, 150) }}" alt="">
                             <h5>{{ $category->title }}</h5>
                         </a>
-                        <span>({{ $category->childrens_count }} {{ __('site.article') }})</span>
+                        <span>({{ $category->childrens_count }} {{ __('site.post') }})</span>
                     </div>
                 </div>
             @endforeach
@@ -48,35 +48,35 @@
     </section>
     @endisset
 
-    <section class="container contents">
+    <section class="container posts">
         <div class="row">
             <div class="col-md-12">
                 <div class="head d-flex justify-content-between align-items-center">
-                <h4>{{ __('site.featured_articles') }}</h4>
+                <h4>{{ __('site.featured_posts') }}</h4>
                 <a href="{{ createUrl(__('routes.articles')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
                 </div>
             </div>
         </div>
         <div class="row">
-            @foreach($featuredContents as $featuredContent)
+            @foreach($featuredPosts as $featuredPost)
                 <div class="col-md-4">
                     <div class="card">
-                        <span class="date">{{ $featuredContent->created_at->format('d') }} {{ __('date.'.$featuredContent->created_at->format('m')) }}</span>
+                        <span class="date">{{ $featuredPost->created_at->format('d') }} {{ __('date.'.$featuredPost->created_at->format('m')) }}</span>
                         <div class="image">
-                            <a href="{{ createUrl($featuredContent->url) }}">
-                                <img src="{{ resize($featuredContent->featured_image, 500) }}" alt="">
+                            <a href="{{ createUrl($featuredPost->url) }}">
+                                <img src="{{ resize($featuredPost->featured_image, 500) }}" alt="">
                             </a>
                             <div class="item-overlay">
-                                <a href="{{ createUrl($featuredContent->url) }}"> <i class="bi bi-link-45deg"></i></a>
+                                <a href="{{ createUrl($featuredPost->url) }}"> <i class="bi bi-link-45deg"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{ createUrl($featuredContent->url) }}">{{ $featuredContent->title }}</a></h5>
-                            <p class="card-text">{!! $featuredContent->description !!}</p>
+                            <h5 class="card-title"><a href="{{ createUrl($featuredPost->url) }}">{{ $featuredPost->title }}</a></h5>
+                            <p class="card-text">{!! $featuredPost->description !!}</p>
                             <hr>
                             <div class="d-flex justify-content-between align-items-center card-bottom">
-                                <span><i class="bi bi-pencil"></i> {{ $featuredContent->created_by_name }}</span>
-                                <a href="{{ createUrl($featuredContent->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
+                                <span><i class="bi bi-pencil"></i> {{ $featuredPost->created_by_name }}</span>
+                                <a href="{{ createUrl($featuredPost->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                 <li>
                     <i class="bi bi-bookmark-check"></i>
                     <h4>{{ $categoryItemChildrenSum }}+</h4>
-                    <h4>{{ __('site.article') }}</h4>
+                    <h4>{{ __('site.post') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-collection"></i>

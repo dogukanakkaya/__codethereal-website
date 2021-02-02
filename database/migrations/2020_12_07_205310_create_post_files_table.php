@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContentFilesTable extends Migration
+class CreatePostFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateContentFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('content_files', function (Blueprint $table) {
+        Schema::create('post_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('content_id')->constrained('contents');
+            $table->foreignId('post_id')->constrained('posts');
             $table->foreignId('file_id')->constrained('files');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateContentFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('content_files');
+        Schema::dropIfExists('post_files');
     }
 }

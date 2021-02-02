@@ -109,14 +109,14 @@ class MenuSeeder extends Seeder
             [
                 'item_id' => $itemContents->id,
                 'title' => 'İçerikler',
-                'url' => 'admin/contents',
+                'url' => 'admin/posts',
                 'icon' => 'layers',
                 'language' => 'tr'
             ],
             [
                 'item_id' => $itemContents->id,
-                'title' => 'Contents',
-                'url' => 'admin/contents',
+                'title' => 'Posts',
+                'url' => 'admin/posts',
                 'icon' => 'layers',
                 'language' => 'en'
             ]

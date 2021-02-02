@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContentParentsTable extends Migration
+class CreatePostRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateContentParentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('content_parents', function (Blueprint $table) {
+        Schema::create('post_relations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('content_id')->constrained('contents');
-            $table->foreignId('parent_id')->constrained('contents');
+            $table->foreignId('post_id')->constrained('posts');
+            $table->foreignId('relation_id')->constrained('posts');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateContentParentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('content_parents');
+        Schema::dropIfExists('post_relations');
     }
 }

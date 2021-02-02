@@ -80,29 +80,29 @@ class PermissionSeeder extends Seeder
 
         /* Contents */
         Permission::create([
-            'name' => 'see_contents',
-            'group' => 'contents',
-            'title' => 'See Contents'
+            'name' => 'see_posts',
+            'group' => 'posts',
+            'title' => 'See Posts'
         ]);
         Permission::create([
-            'name' => 'create_contents',
-            'group' => 'contents',
-            'title' => 'Create Contents'
+            'name' => 'create_posts',
+            'group' => 'posts',
+            'title' => 'Create Posts'
         ]);
         Permission::create([
-            'name' => 'update_contents',
-            'group' => 'contents',
-            'title' => 'Update Contents'
+            'name' => 'update_posts',
+            'group' => 'posts',
+            'title' => 'Update Posts'
         ]);
         Permission::create([
-            'name' => 'delete_contents',
-            'group' => 'contents',
-            'title' => 'Delete Contents'
+            'name' => 'delete_posts',
+            'group' => 'posts',
+            'title' => 'Delete Posts'
         ]);
         Permission::create([
-            'name' => 'sort_contents',
-            'group' => 'contents',
-            'title' => 'Sort Contents'
+            'name' => 'sort_posts',
+            'group' => 'posts',
+            'title' => 'Sort Posts'
         ]);
         /* /Contents */
     }

@@ -12,7 +12,7 @@
                 @foreach($parentTree as $pTree)
                     <li><a href="{{ createUrl($pTree['url']) }}">{{ $pTree['title'] }}</a></li>
                 @endforeach
-                <li>{{ $content->title }}</li>
+                <li>{{ $post->title }}</li>
             </ul>
         </nav>
     </section>
@@ -21,12 +21,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="banner">
-                    <img src="{{ resize($content->featured_image, 1100) }}" class="w-100" alt="">
+                    <img src="{{ resize($post->featured_image, 1100) }}" class="w-100" alt="">
                     <div class="content-info">
                         <ul class="d-flex">
                             {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}
-                            <vote count="{{ $vote }}" vote-route="{{ route('web.vote') }}" content-id="{{ $content->id }}"></vote>
-                            <li><span><i class="bi bi-clock"></i> {{ $content->created_at->diffForHumans() }}</span></li>
+                            <vote count="{{ $vote }}" vote-route="{{ route('web.vote') }}" post-id="{{ $post->id }}"></vote>
+                            <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
                             <li><span><i class="bi bi-chat-text"></i> {{ $commentCount }} {{ __('site.comment.self_plural') }}</span></li>
                         </ul>
                         <ul class="d-flex">
@@ -35,10 +35,10 @@
                     </div>
                 </div>
                 <div class="full-content">
-                    {!! $content->full !!}
+                    {!! $post->full !!}
                 </div>
                 <div class="content-tags">
-                    @foreach(array_map('trim', explode(',', $content->meta_tags)) as $tag)
+                    @foreach(array_map('trim', explode(',', $post->meta_tags)) as $tag)
                         <a href="{{ createUrl('t/' . $tag) }}" title="{{ $tag }}">{{ ucfirst($tag) }}</a>
                     @endforeach
                 </div>
@@ -83,13 +83,13 @@
                         </ul>
                     </div>
                     <div class="item">
-                        <h4 class="title">{{ __('site.relational_contents') }}</h4>
-                        @foreach($relationalContents as $relationalContent)
+                        <h4 class="title">{{ __('site.relational_posts') }}</h4>
+                        @foreach($relationalPosts as $relationalPost)
                             <div class="recent-post">
-                                <a href="{{ createUrl($relationalContent->url) }}"><img src="{{ resize($relationalContent->featured_image, 200) }}" alt=""></a>
+                                <a href="{{ createUrl($relationalPost->url) }}"><img src="{{ resize($relationalPost->featured_image, 200) }}" alt=""></a>
                                 <div class="info">
-                                    <h4><a href="{{ createUrl($relationalContent->url) }}">{{ $relationalContent->title }}</a></h4>
-                                    <span class="timestamp">{{ $relationalContent->created_at->diffForHumans() }}</span>
+                                    <h4><a href="{{ createUrl($relationalPost->url) }}">{{ $relationalPost->title }}</a></h4>
+                                    <span class="timestamp">{{ $relationalPost->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                         @endforeach
@@ -108,7 +108,7 @@
         document.getElementById('comment-form').addEventListener('submit', async e => {
             e.preventDefault()
             const data = serialize(e.target, {hash: true, empty: true})
-            data.content_id = {{ $content->id }}
+            data.post_id = {{ $post->id }}
             data.parent_id = replyTo
 
             const {data: {status, message}} = await request.post('{{ route('web.comment') }}', data)

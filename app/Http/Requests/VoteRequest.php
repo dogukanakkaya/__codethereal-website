@@ -27,7 +27,7 @@ class VoteRequest extends FormRequest
     {
         return [
             'vote' => 'required|integer|in:1,-1',
-            'content_id' => 'required|integer|exists:contents,id'
+            'post_id' => 'required|integer|exists:posts,id'
         ];
     }
 
@@ -39,7 +39,7 @@ class VoteRequest extends FormRequest
     public function attributes()
     {
         return [
-            'content_id' => 'ID',
+            'post_id' => 'ID',
             'vote' => __('site.vote.self_singular')
         ];
     }

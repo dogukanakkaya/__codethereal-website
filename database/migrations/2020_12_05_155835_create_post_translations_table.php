@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContentTranslationsTable extends Migration
+class CreatePostTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateContentTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('content_translations', function (Blueprint $table) {
+        Schema::create('post_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('content_id')->constrained('contents');
+            $table->foreignId('post_id')->constrained('posts');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('full')->nullable();
@@ -39,6 +39,6 @@ class CreateContentTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('content_translations');
+        Schema::dropIfExists('post_translations');
     }
 }

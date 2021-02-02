@@ -169,23 +169,23 @@ function mergeHtmlAttributes($existAttrs, $newAttrs): string
 }
 
 /**
- * buildTree function ordering the contents with their parentId cols, and returns an array with this order
- * @param $contents
- * @param $parentId = 0
- * @param $dbCols = []
+ * buildTree function orders the items with their parentId cols, and returns an array with this order
+ * @param $items
+ * @param array $dbCols = []
+ * @param int $parentId = 0
  * @return array
  */
-function buildTree($contents, array $dbCols = [], int $parentId = 0): array
+function buildTree($items, array $dbCols = [], int $parentId = 0): array
 {
     $dbCols['id'] = isset($dbCols['id']) ? $dbCols['id'] : 'id';
     $dbCols['parentId'] = isset($dbCols['parentId']) ? $dbCols['parentId'] : 'parentId';
 
     $branch = array();
-    foreach ($contents as $content) {
-        if ($content->{$dbCols['parentId']} == $parentId) {
-            $children = buildTree($contents, $dbCols, $content->{$dbCols['id']});
-            $content->children = ($children) ? $children : array();
-            $branch[] = $content;
+    foreach ($items as $item) {
+        if ($item->{$dbCols['parentId']} == $parentId) {
+            $children = buildTree($items, $dbCols, $item->{$dbCols['id']});
+            $item->children = ($children) ? $children : array();
+            $branch[] = $item;
         }
     }
     return $branch;
@@ -193,13 +193,13 @@ function buildTree($contents, array $dbCols = [], int $parentId = 0): array
 
 /**
  * buildHtmlTree function returns a html output, ordered with buildTree function.
- * @param $contents
+ * @param $items
  * @param array $htmlTags = []
  * @param array $dbCols
  * @param int $parentId
  * @return string
  */
-function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int $parentId = 0): string
+function buildHtmlTree($items, array $htmlTags = [], array $dbCols = [], int $parentId = 0): string
 {
     $htmlTags['start'] = isset($htmlTags['start']) ? $htmlTags['start'] : '<ul>';
     $htmlTags['end'] = isset($htmlTags['end']) ? $htmlTags['end'] : '</ul>';
@@ -213,12 +213,12 @@ function buildHtmlTree($contents, array $htmlTags = [], array $dbCols = [], int 
     $htmlStart = str_replace('{parentId}', $parentId, $htmlTags['start']);
 
     $html = $htmlStart;
-    foreach ($contents as $content) {
-        $childStart = str_replace('{value}', $content->{$dbCols['id']}, $htmlTags['childStart']);
-        $childStart = str_replace('{title}', $content->{$dbCols['title']}, $childStart);
+    foreach ($items as $item) {
+        $childStart = str_replace('{value}', $item->{$dbCols['id']}, $htmlTags['childStart']);
+        $childStart = str_replace('{title}', $item->{$dbCols['title']}, $childStart);
 
         $html .= $childStart;
-        $html .= buildHtmlTree($content->children, $htmlTags, $dbCols, $content->{$dbCols['id']});
+        $html .= buildHtmlTree($item->children, $htmlTags, $dbCols, $item->{$dbCols['id']});
         $html .= $htmlTags['childEnd'];
     }
     $html .= $htmlTags['end'];

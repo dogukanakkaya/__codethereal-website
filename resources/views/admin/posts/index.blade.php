@@ -8,14 +8,14 @@
     <div class="d-flex justify-content-between align-items-center">
         <x-breadcrumb :nav="$navigations"/>
         <div class="page-actions">
-            @can('delete_contents')
+            @can('delete_posts')
                 {{ Form::delete(['onclick' => '__deleteChecked()', 'class' => 'd-none delete-checked']) }}
             @endcan
-            @can('sort_contents')
+            @can('sort_posts')
             {{ Form::sort(['onclick' => '__sort()']) }}
             @endcan
             {{ Form::refresh(['onclick' => '__refresh()']) }}
-            @can('sort_contents')
+            @can('create_posts')
             {{ Form::addNew(['onclick' => '__create()']) }}
             @endcan
         </div>
@@ -23,23 +23,23 @@
 
     <div class="list-area p-4">
         @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
-        <x-datatable :url="route('contents.datatable')" :columns="$columns"/>
+        <x-datatable :url="route('posts.datatable')" :columns="$columns"/>
     </div>
 
-    @include('admin.contents.form-modal')
+    @include('admin.posts.form-modal')
 @endsection
 
 @push('scripts')
     <script>
         let updateId = 0
-        const form = document.getElementById('content-form')
-        const modal = '#content-form-modal'
+        const form = document.getElementById('post-form')
+        const modal = '#post-form-modal'
 
         const __create = () => {
             if (updateId > 0) {
                 form.reset()
-                $('select[name="content[parents][]"]').val([]).change()
-                $('select[name="content[relations][]"]').val([]).change()
+                $('select[name="post[parents][]"]').val([]).change()
+                $('select[name="post[relations][]"]').val([]).change()
                 updateId = 0;
                 clearPreviewFull1()
             }
@@ -50,8 +50,8 @@
             makeToast(response.data)
             if (response.data.status) {
                 form.reset()
-                $('select[name="content[parents][]"]').val([]).change()
-                $('select[name="content[relations][]"]').val([]).change()
+                $('select[name="post[parents][]"]').val([]).change()
+                $('select[name="post[relations][]"]').val([]).change()
                 closeModal(modal)
                 __refresh()
                 clearPreviewFull1()
@@ -64,16 +64,16 @@
             toggleBtnLoading()
             const formData = serialize(form, {hash: true, empty: true})
             if (updateId > 0) {
-                const url = '{{ route('contents.update', ['id' => ':id']) }}'.replace(':id', updateId)
+                const url = '{{ route('posts.update', ['id' => ':id']) }}'.replace(':id', updateId)
                 request.put(url, formData).then(__onResponse)
             } else {
-                request.post('{{ route('contents.create') }}', formData).then(__onResponse)
+                request.post('{{ route('posts.create') }}', formData).then(__onResponse)
             }
         })
 
         const __delete = id => {
             if (confirm('{{ __('messages.confirmation.delete.custom_message') }}')) {
-                const url = '{{ route('contents.destroy', ['id' => ':id']) }}'.replace(':id', id)
+                const url = '{{ route('posts.destroy', ['id' => ':id']) }}'.replace(':id', id)
                 request.delete(url)
                     .then(res => {
                         res.data.addition = `<a href="javascript:void(0);" onclick="__undoDelete('${id}')">{{ __('buttons.undo') }}</a>`;
@@ -83,7 +83,7 @@
         }
 
         const __undoDelete = id => {
-            const url = '{{ route('contents.restore', ['id' => ':id']) }}'.replace(':id', id)
+            const url = '{{ route('posts.restore', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(__onResponse)
         }
@@ -92,12 +92,12 @@
             updateId = id
             clearPreviewFull1()
 
-            const url = '{{ route('contents.find', ['id' => ':id']) }}'.replace(':id', id)
+            const url = '{{ route('posts.find', ['id' => ':id']) }}'.replace(':id', id)
             request.get(url)
                 .then(response => {
-                    const {content, translations, files, parents, relations} = response.data
+                    const {post, translations, files, parents, relations} = response.data
 
-                    document.querySelector(`input[type=checkbox][name="content[searchable]"]`).checked = parseInt(content.searchable ?? 0) === 1
+                    document.querySelector(`input[type=checkbox][name="post[searchable]"]`).checked = parseInt(post.searchable ?? 0) === 1
 
                     for (const [language, values] of Object.entries(translations)) {
                         document.querySelector(`input[name="${language}[title]"]`).value = values.title ?? ''
@@ -113,14 +113,14 @@
                         createPreview1(fileId, storage(filePath))
                     }
 
-                    $('select[name="content[parents][]"]').val(parents).change()
-                    $('select[name="content[relations][]"]').val(relations).change()
+                    $('select[name="post[parents][]"]').val(parents).change()
+                    $('select[name="post[relations][]"]').val(relations).change()
 
                     openModal(modal)
                 })
         }
 
-        const __sort = () => window.location.href = '{{ route('contents.sort') }}'
+        const __sort = () => window.location.href = '{{ route('posts.sort') }}'
 
         // TODO: to vanilla js
         $('.searchable-select').select2({

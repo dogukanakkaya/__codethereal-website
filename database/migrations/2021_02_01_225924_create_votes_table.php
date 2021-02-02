@@ -16,7 +16,7 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('vote');
-            $table->foreignId('content_id')->constrained('contents');
+            $table->foreignId('post_id')->constrained('posts');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

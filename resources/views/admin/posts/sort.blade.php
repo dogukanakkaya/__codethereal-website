@@ -10,9 +10,9 @@
     </div>
     <div class="list-area p-4">
         <div class="sortable list-group">
-            @foreach($contents as $content)
-                <div class="list-group-item" data-sortable-id="{{ $content->id }}">
-                    {{ $content->title }}
+            @foreach($posts as $post)
+                <div class="list-group-item" data-sortable-id="{{ $post->id }}">
+                    {{ $post->title }}
                 </div>
             @endforeach
         </div>
@@ -39,7 +39,7 @@
 
         const __saveSequence = () => {
             toggleBtnLoading()
-            request.put('{{ route('contents.save_sequence') }}', sortable.toArray())
+            request.put('{{ route('posts.save_sequence') }}', sortable.toArray())
                 .then(response => {
                     makeToast(response.data)
                     toggleBtnLoading()

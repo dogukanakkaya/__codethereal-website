@@ -28,7 +28,7 @@ class CommentRequest extends FormRequest
         return [
             'comment' => 'required|max:400|min:15',
             'parent_id' => 'integer',
-            'content_id' => 'required|integer|exists:contents,id'
+            'post_id' => 'required|integer|exists:posts,id'
         ];
     }
 
@@ -41,7 +41,7 @@ class CommentRequest extends FormRequest
     {
         return [
             'comment' => __('site.comment.self_singular'),
-            'content_id' => 'ID'
+            'post_id' => 'ID'
         ];
     }
 

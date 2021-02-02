@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class ContentRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,10 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $rules = [
-            'content.parents' => 'array',
-            'content.relations' => 'array',
-            'content.files' => '',
-            'content.searchable' => 'integer'
+            'post.parents' => 'array',
+            'post.relations' => 'array',
+            'post.files' => '',
+            'post.searchable' => 'integer'
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -44,7 +44,7 @@ class ContentRequest extends FormRequest
             $rules[$language->code . '.meta_tags'] = 'nullable|string';
 
             if (isset($data['active']) && intval($data['active']) === 0) {
-                $rules[$language->code . '.title'] = 'max:255';
+                $rules[$language->code . '.title'] = 'nullable|max:255';
             }
 
             if(isset($data['active']) && intval($data['active']) === 1){
@@ -63,10 +63,10 @@ class ContentRequest extends FormRequest
     {
         $reqData = $this->all();
         $attributes = [
-            'content.parents' => __('contents.parents'),
-            'content.relations' => __('contents.relations'),
-            'content.files' => __('contents.files'),
-            'content.searchable' => __('contents.searchable')
+            'post.parents' => __('posts.parents'),
+            'post.relations' => __('posts.relations'),
+            'post.files' => __('posts.files'),
+            'post.searchable' => __('posts.searchable')
         ];
         foreach (languages() as $language) {
             $data = $reqData[$language->code] ?? [];
@@ -76,14 +76,14 @@ class ContentRequest extends FormRequest
                 continue;
 
             if(isset($data['active']) && intval($data['active']) === 1){
-                $attributes[$language->code . '.title'] = __('contents.title') . " - $upperLang";
-                $attributes[$language->code . '.description'] = __('contents.description') . " - $upperLang";
-                $attributes[$language->code . '.full'] = __('contents.full') . " - $upperLang";
-                $attributes[$language->code . '.icon'] = __('contents.icon') . " - $upperLang";
-                $attributes[$language->code . '.active'] = __('contents.active') . " - $upperLang";
-                $attributes[$language->code . '.meta_title'] = __('contents.seo.title') . " - $upperLang";
-                $attributes[$language->code . '.meta_description'] = __('contents.seo.description') . " - $upperLang";
-                $attributes[$language->code . '.meta_tags'] = __('contents.seo.tags') . " - $upperLang";
+                $attributes[$language->code . '.title'] = __('posts.title') . " - $upperLang";
+                $attributes[$language->code . '.description'] = __('posts.description') . " - $upperLang";
+                $attributes[$language->code . '.full'] = __('posts.full') . " - $upperLang";
+                $attributes[$language->code . '.icon'] = __('posts.icon') . " - $upperLang";
+                $attributes[$language->code . '.active'] = __('posts.active') . " - $upperLang";
+                $attributes[$language->code . '.meta_title'] = __('posts.seo.title') . " - $upperLang";
+                $attributes[$language->code . '.meta_description'] = __('posts.seo.description') . " - $upperLang";
+                $attributes[$language->code . '.meta_tags'] = __('posts.seo.tags') . " - $upperLang";
             }
         }
         return $attributes;

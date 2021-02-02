@@ -11,7 +11,7 @@
 
     export default {
         props: {
-            contentId: {
+            postId: {
                 required: true,
                 type: Number
             },
@@ -31,7 +31,7 @@
         },
         methods: {
             async vote(vote) {
-                const {data} = await axios.post(this.voteRoute, {content_id: this.contentId, vote})
+                const {data} = await axios.post(this.voteRoute, {post_id: this.postId, vote})
                 if (data.status){
                     this.newCount = Number(this.newCount) + Number(vote)
                 }

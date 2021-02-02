@@ -147,21 +147,21 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         });
 
         // Users page
-        Route::prefix('contents')->group(function () {
-            Route::get('/', 'ContentController@index')->name('contents.index');
-            Route::get('sort', 'ContentController@sort')->name('contents.sort');
+        Route::prefix('posts')->group(function () {
+            Route::get('/', 'PostController@index')->name('posts.index');
+            Route::get('sort', 'PostController@sort')->name('posts.sort');
 
             // Only for ajax operations
             Route::middleware('only.ajax')->group(function () {
-                Route::put('save-sequence', 'ContentController@saveSequence')->name('contents.save_sequence');
+                Route::put('save-sequence', 'PostController@saveSequence')->name('posts.save_sequence');
 
-                Route::get('datatable', 'ContentController@datatable')->name('contents.datatable');
+                Route::get('datatable', 'PostController@datatable')->name('posts.datatable');
 
-                Route::post('/', 'ContentController@create')->name('contents.create');
-                Route::get('{id}', 'ContentController@find')->name('contents.find');
-                Route::put('{id}', 'ContentController@update')->name('contents.update');
-                Route::delete('{id}', 'ContentController@destroy')->name('contents.destroy');
-                Route::get('restore/{id}', 'ContentController@restore')->name('contents.restore');
+                Route::post('/', 'PostController@create')->name('posts.create');
+                Route::get('{id}', 'PostController@find')->name('posts.find');
+                Route::put('{id}', 'PostController@update')->name('posts.update');
+                Route::delete('{id}', 'PostController@destroy')->name('posts.destroy');
+                Route::get('restore/{id}', 'PostController@restore')->name('posts.restore');
             });
         });
 

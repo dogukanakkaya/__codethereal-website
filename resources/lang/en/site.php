@@ -1,11 +1,10 @@
 <?php
 
 return [
-    'featured_contents' => 'Featured Contents',
-    'featured_articles' => 'Featured Articles',
-    'relational_contents' => 'Relational Contents',
+    'featured_posts' => 'Featured Posts',
+    'relational_posts' => 'Relational Posts',
+    'post' => 'Post',
     'user' => 'User',
-    'article' => 'Article',
     'category' => 'Category',
     'show_all' => 'Show All',
     'read_more' => 'Read More',
@@ -17,7 +16,7 @@ return [
     'contact_us' => 'Contact Us',
     'home' => 'Home',
     'search' => 'Search',
-    'most_viewed_contents' => 'Most Viewed',
+    'most_viewed_posts' => 'Most Viewed',
     'comment' => [
         'self_singular' => 'Comment',
         'self_plural' => 'Comments',
@@ -38,6 +37,6 @@ return [
     ],
     'vote' => [
         'self_singular' => 'Vote',
-        'already_voted' => 'You voted this content already'
+        'already_voted' => 'You voted this post already'
     ]
 ];
