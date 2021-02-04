@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    private array $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'zip');
+    private array $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', 'zip');
 
     public function upload()
     {

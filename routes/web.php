@@ -174,6 +174,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('/', 'WebController@index')->name('web.index');
 
         Route::get(LaravelLocalization::transRoute('routes.posts'), 'WebController@postList');
+        Route::get(LaravelLocalization::transRoute('routes.profile'), 'AuthController@profile')->name('web.profile');
 
         Route::get('t/{tag}', 'WebController@searchTag');
         Route::get('{url}', 'WebController@resolve');
@@ -195,6 +196,8 @@ Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], fun
 
     Route::post('comment/send', 'WebController@comment')->name('web.comment')->middleware('auth')->middleware('throttle:3,10');
     Route::post('vote', 'WebController@vote')->name('web.vote')->middleware('auth')->middleware('throttle:10,10');
+
+    Route::post('update-profile', 'AuthController@updateProfile')->name('web.update_profile');
 
     Route::get('search/{q?}', 'WebController@search')->name('web.search');
 

@@ -42,7 +42,7 @@
             <h3>{{ $parallax->title }}</h3>
             <p>{{ $parallax->description }}</p>
             @if(!auth()->check())
-                <span class="ce-btn" onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.register') }}</span>
+                <span class="ce-btn" onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.auth.register') }}</span>
             @endif
         </div>
     </section>
@@ -53,7 +53,7 @@
             <div class="col-md-12">
                 <div class="head d-flex justify-content-between align-items-center">
                 <h4>{{ __('site.featured_posts') }}</h4>
-                <a href="{{ createUrl(__('routes.articles')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
+                <a href="{{ createUrl(__('routes.posts')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         <span class="date">{{ $featuredPost->created_at->format('d') }} {{ __('date.'.$featuredPost->created_at->format('m')) }}</span>
                         <div class="image">
                             <a href="{{ createUrl($featuredPost->url) }}">
-                                <img src="{{ resize($featuredPost->featured_image, 500) }}" alt="">
+                                <img src="{{ resize($featuredPost->featured_image, 750) }}" alt="">
                             </a>
                             <div class="item-overlay">
                                 <a href="{{ createUrl($featuredPost->url) }}"> <i class="bi bi-link-45deg"></i></a>

@@ -7,7 +7,7 @@
 @section('content')
     <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }});">
         <nav>
-            <ul class="d-flex justify-content-center align-items-center">
+            <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
                 @foreach($parentTree as $pTree)
                     <li><a href="{{ createUrl($pTree['url']) }}">{{ $pTree['title'] }}</a></li>
@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="banner">
-                    <img src="{{ resize($post->featured_image, 1100) }}" class="w-100" alt="">
+                    <img src="{{ resize($post->featured_image, 1200) }}" class="w-100" alt="">
                     <div class="content-info">
                         <ul class="d-flex">
                             {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}

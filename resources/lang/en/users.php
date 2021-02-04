@@ -12,6 +12,7 @@ return [
     'phone' => 'Phone',
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
+    'current_password' => 'Current Password',
     'subscribe' => 'Subscribe',
     'roles' => 'Roles',
     'verified' => 'Verified',

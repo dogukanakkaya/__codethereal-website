@@ -8,15 +8,13 @@ return [
     'category' => 'Category',
     'show_all' => 'Show All',
     'read_more' => 'Read More',
-    'login' => 'Login',
-    'register' => 'Register',
-    'logout' => 'Logout',
     'categories' => 'Categories',
     'quick_links' => 'Quick Links',
     'contact_us' => 'Contact Us',
     'home' => 'Home',
     'search' => 'Search',
     'most_viewed_posts' => 'Most Viewed',
+    'save' => 'Save',
     'comment' => [
         'self_singular' => 'Comment',
         'self_plural' => 'Comments',
@@ -38,5 +36,14 @@ return [
     'vote' => [
         'self_singular' => 'Vote',
         'already_voted' => 'You voted this post already'
+    ],
+    'auth' => [
+        'login' => 'Login',
+        'register' => 'Register',
+        'logout' => 'Logout',
+        'profile' => 'Profile',
+        'saved_posts' => 'Saved Posts',
+        'delete_account' => 'Delete Account',
+        'profile_update_password_incorrect' => 'Your current password is not correct'
     ]
 ];

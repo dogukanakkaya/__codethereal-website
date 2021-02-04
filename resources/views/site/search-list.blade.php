@@ -3,7 +3,7 @@
 @section('content')
     <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ asset('site/img/home-top-bg.jpg') }});">
         <nav>
-            <ul class="d-flex justify-content-center align-items-center">
+            <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
                 @isset($category)
                 <li><a href="{{ createUrl($category->url) }}">{{ $category->title }}</a></li>
@@ -23,7 +23,7 @@
                                 <span class="date">{{ $post->created_at->format('d') }} {{ __('date.'.$post->created_at->format('m')) }}</span>
                                 <div class="image">
                                     <a href="{{ createUrl($post->url) }}">
-                                        <img src="{{ resize($post->featured_image, 500) }}" alt="">
+                                        <img src="{{ resize($post->featured_image, 750) }}" alt="">
                                     </a>
                                     <div class="item-overlay">
                                         <a href="{{ createUrl($post->url) }}"> <i class="bi bi-link-45deg"></i></a>

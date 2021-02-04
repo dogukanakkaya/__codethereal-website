@@ -2,9 +2,8 @@
 
 return [
     'home_top' => 1,
-    'footer' => 2,
-    'categories' => 3,
-    'home_parallax' => '6',
+    'categories' => 2,
+    'home_parallax' => 6,
     'header_menu' => 3,
     'category_links' => 4,
     'quick_links' => 5,

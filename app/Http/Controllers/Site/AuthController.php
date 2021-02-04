@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,10 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('throttle:10,60')->only('login', 'register');
-        $this->middleware('authorize')->only('login');
-        $this->middleware('guest');
+        $this->middleware('throttle:10,60')->only('login', 'register', 'updateProfile');
+        $this->middleware('authorize')->only('login', 'profile');
+        $this->middleware('guest')->except('profile', 'updateProfile');
+        $this->middleware('auth')->only('profile', 'updateProfile');
     }
 
     public function loginView()
@@ -55,6 +57,22 @@ class AuthController extends Controller
         return resJson($user, [
             'message' => __('auth.registered_needs_verification')
         ]);
+    }
 
+    public function profile()
+    {
+        return view('site.pages.profile', ['user' => auth()->user()]);
+    }
+
+    public function updateProfile(ProfileRequest $request)
+    {
+        $user = User::find(auth()->id());
+        $data = $request->validated();
+        $currentPassword = array_remove($data, 'current_password');
+        if (Hash::check($currentPassword, $user->password)){
+            return resJson(User::where('id', auth()->id())->update($data));
+        }else{
+            return resJson(0, ['message' => __('site.auth.profile_update_password_incorrect')]);
+        }
     }
 }

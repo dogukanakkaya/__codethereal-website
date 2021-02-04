@@ -18,12 +18,14 @@
             </ul>
             <ul>
                 @if(!auth()->check())
-                <li onclick="__login()"><i class="bi bi-person"></i> {{ __('site.login') }}</li>
-                <span class="bracket"></span>
-                <li onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.register') }}</li>
-                <span class="bracket"></span>
+                    <li onclick="__login()"><i class="bi bi-person"></i> {{ __('site.auth.login') }}</li>
+                    <span class="bracket"></span>
+                    <li onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.auth.register') }}</li>
+                    <span class="bracket"></span>
                 @else
-                    <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> {{ __('site.logout') }}</li>
+                    <li onclick="location.href = '{{ route('web.profile') }}'"><i class="bi bi-person"></i> {{ __('site.auth.profile') }}</li>
+                    <span class="bracket"></span>
+                    <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> {{ __('site.auth.logout') }}</li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
@@ -89,7 +91,7 @@
         </div>
     </header>
     @yield('content')
-    <footer style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($footer->featured_image ?? '', 1500) }}) no-repeat;background-size: cover;">
+    <footer style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url(https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500) no-repeat;background-size: cover;">
         <div class="container pt-5 pb-5">
             <div class="row gy-4 gy-lg-0">
                 <div class="col-lg-3 col-md-6 col-sm-12">

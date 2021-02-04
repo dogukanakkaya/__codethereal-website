@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'posts' => 'posts'
+    'posts' => 'posts',
+    'profile' => 'profile'
 ];

@@ -22,6 +22,7 @@ class MenusComposer
             ->latest()
             ->leftJoin('menu_item_translations', 'menu_item_translations.item_id', 'menu_items.id')
             ->where('language', app()->getLocale())
+            ->whereNull('menu_items.deleted_at')
             ->whereIn('group_id', config('admin.menu_groups'))
             ->get()
             ->groupBy('group_id');

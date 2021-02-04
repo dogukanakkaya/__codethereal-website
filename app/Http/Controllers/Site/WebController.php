@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Validator;
 
 /**
  * TODO: olabildiğince eloquent yerine query builder ile veri çek
- * TODO: arama işlemini vue ile yap
- * TODO: aynı başlıkla post oluşturulamasın panelde
  *
  * Class WebController
  * @package App\Http\Controllers\Site
@@ -31,7 +29,6 @@ class WebController extends Controller
         $categoryIds = $categories->pluck('id')->toArray();
         $data = [
             'homeTop' => Post::findOneByLocale(config('site.home_top'), 'title', 'featured_image'),
-            'footer' => Post::findOneByLocale(config('site.footer'), 'description', 'featured_image'),
             'category' => Post::findOneByLocale(config('site.categories'), 'title', 'url'),
             'categories' => $categories,
             'cards' => Post::findSubPostsByLocale(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
