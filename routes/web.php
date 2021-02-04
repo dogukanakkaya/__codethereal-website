@@ -189,6 +189,8 @@ Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], fun
 
         Route::post('login', 'AuthController@login');
         Route::post('register', 'AuthController@register');
+
+        Route::post('update-profile', 'AuthController@updateProfile')->name('web.update_profile');
     });
 
     Route::get('contact', 'WebController@contactView');
@@ -196,8 +198,7 @@ Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], fun
 
     Route::post('comment/send', 'WebController@comment')->name('web.comment')->middleware('auth')->middleware('throttle:3,10');
     Route::post('vote', 'WebController@vote')->name('web.vote')->middleware('auth')->middleware('throttle:10,10');
-
-    Route::post('update-profile', 'AuthController@updateProfile')->name('web.update_profile');
+    Route::post('save-post', 'WebController@savePost')->name('web.save_post')->middleware('auth')->middleware('throttle:10,10');
 
     Route::get('search/{q?}', 'WebController@search')->name('web.search');
 

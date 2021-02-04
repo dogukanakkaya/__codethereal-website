@@ -86,7 +86,7 @@ class WebController extends Controller
             $data['post'] = $post;
             $data['relationalPosts'] = Post::findRelationalPostsByLocale($postId, ['title', 'url', 'featured_image', 'created_at']);
             $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('post_id', $postId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
-            $data['vote'] = Vote::where('post_id', $postId)->sum('vote');
+            $data['vote'] = DB::table('votes')->where('post_id', $postId)->sum('vote');
             $data['comments'] = buildTree($comments, ['parentId' => 'parent_id']);
             $data['commentCount'] = $comments->count();
             return view('site.detail', $data);
@@ -117,6 +117,7 @@ class WebController extends Controller
                 ->select('title', 'url')
                 ->whereNull('deleted_at')
                 ->where('language', app()->getLocale())
+                ->where('searchable', 1)
                 ->where(function($query) use($q) {
                     $query->where('title', 'like', '%'.$q.'%')
                         ->orWhere('meta_title', 'like', '%'.$q.'%')
@@ -183,12 +184,33 @@ class WebController extends Controller
         $data['user_id'] = auth()->id();
 
         // If user voted this post already
-        if(Vote::where('post_id', $data['post_id'])->where('user_id', $data['user_id'])->exists()){
+        $postVotedAlready = DB::table('votes')->where('post_id', $data['post_id'])->where('user_id', $data['user_id'])->exists();
+        if($postVotedAlready){
             return resJson(0, ['message' => __('site.vote.already_voted')]);
         }
 
+        return resJson(DB::table('votes')->insert($data));
+    }
 
-        return resJson(Vote::create($data));
+    public function savePost()
+    {
+        $data = request()->only('post_id');
+        $validator = Validator::make($data, [
+            'post_id' => 'required|integer|exists:posts,id'
+        ]);
+        if ($validator->fails()){
+            return resJson(0);
+        }
+        $data['user_id'] = auth()->id();
+
+        // If user saved this post already
+        $postSavedAlready = DB::table('saved_posts')->where('post_id', $data['post_id'])->where('user_id', $data['user_id'])->exists();
+        if ($postSavedAlready){
+            return resJson(0, ['message' => __('site.saved_posts.already_saved')]);
+        }
+        $data['created_at'] = now();
+
+        return resJson(DB::table('saved_posts')->insert($data));
     }
 
 

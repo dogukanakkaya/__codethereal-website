@@ -90,9 +90,11 @@ document.addEventListener('click', e => {
 import { createApp } from 'vue';
 import Vote from './components/Vote'
 import Search from './components/Search'
+import SavePost from './components/SavePost'
 createApp({
     components: {
         Vote,
-        Search
+        Search,
+        SavePost
     }
 }).mount('#app')

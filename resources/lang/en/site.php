@@ -15,6 +15,7 @@ return [
     'search' => 'Search',
     'most_viewed_posts' => 'Most Viewed',
     'save' => 'Save',
+    'please_wait' => 'Please wait',
     'comment' => [
         'self_singular' => 'Comment',
         'self_plural' => 'Comments',
@@ -36,6 +37,10 @@ return [
     'vote' => [
         'self_singular' => 'Vote',
         'already_voted' => 'You voted this post already'
+    ],
+    'saved_posts' => [
+        'self_singular' => 'Saved Posts',
+        'already_saved' => 'You saved this post already'
     ],
     'auth' => [
         'login' => 'Login',

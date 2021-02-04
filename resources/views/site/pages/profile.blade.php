@@ -81,8 +81,8 @@
                             </div>
                         </div>
                     </div>
-                    <div style="text-align: right;">
-                        <button class="ce-btn" type="submit"><i class="bi bi-save"></i> {{ __('site.save') }}</button>
+                    <div class="text-end mb-3">
+                        <button class="ce-btn me-0" type="submit">{{ __('site.save') }} <i class="bi bi-save"></i></button>
                     </div>
                     <div class="alert fade show d-none ce-alert" role="alert"></div>
                 </form>

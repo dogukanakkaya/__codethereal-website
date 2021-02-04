@@ -775,7 +775,7 @@ footer {
         }
 
         &::after {
-            content: "\f26e";
+            content: "\f285";
             display: inline-block;
             font-family: bootstrap-icons !important;
             font-size: 12px;
@@ -963,6 +963,12 @@ aside {
         border: none;
         outline: none;
     }
+}
+
+.save-post{
+    background-color: transparent;
+    border: none;
+    outline: none!important;
 }
 
 .comments {
@@ -1226,7 +1232,7 @@ aside {
 .profile-actions{
     li{
         display: block;
-        padding: .5rem;
+        padding: .5rem .75rem;
         border-bottom: 1px solid #e3e3e3;
         font-size: 14px;
         cursor: pointer;

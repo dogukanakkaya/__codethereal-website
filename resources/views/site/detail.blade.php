@@ -25,13 +25,19 @@
                     <div class="content-info">
                         <ul class="d-flex">
                             {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}
-                            <vote count="{{ $vote }}" vote-route="{{ route('web.vote') }}" post-id="{{ $post->id }}"></vote>
+                            @if(auth()->check())
+                                @php($voted = \Illuminate\Support\Facades\DB::table('votes')->where('post_id', $post->id)->where('user_id', auth()->id())->first())
+                                <vote sum="{{ $vote }}" vote-route="{{ route('web.vote') }}" post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}"></vote>
+                            @endif
                             <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
                             <li><span><i class="bi bi-chat-text"></i> {{ $commentCount }} {{ __('site.comment.self_plural') }}</span></li>
                         </ul>
-                        <ul class="d-flex">
-                            <li><a href="#"><i class="bi bi-linkedin linkedin"></i></a></li>
-                        </ul>
+                        @if(auth()->check())
+                            @php($isSaved = \Illuminate\Support\Facades\DB::table('saved_posts')->where('post_id', $post->id)->where('user_id', auth()->id())->exists())
+                            <ul class="d-flex">
+                                <save-post save-post-route="{{ route('web.save_post') }}" post-id="{{ $post->id }}" :is-saved="{{ $isSaved ? 'true' : 'false' }}"></save-post>
+                            </ul>
+                        @endif
                     </div>
                 </div>
                 <div class="full-content">
