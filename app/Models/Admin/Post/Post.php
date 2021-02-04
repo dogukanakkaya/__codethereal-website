@@ -274,4 +274,13 @@ class Post extends Model
         }
         return array_reverse($tree);
     }
+
+    public static function savedPosts($select = ['*'])
+    {
+        return self::findByLocaleInstance(...$select)
+            ->latest('saved_posts.created_at')
+            ->where('saved_posts.user_id', auth()->id())
+            ->leftJoin('saved_posts', 'saved_posts.post_id', 'posts.id')
+            ->paginate(15);
+    }
 }

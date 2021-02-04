@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Admin\Post\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +63,8 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return view('site.pages.profile', ['user' => auth()->user()]);
+        $savedPosts = Post::savedPosts(['title', 'url', 'description', 'featured_image', 'posts.created_at', 'created_by_name']);
+        return view('site.pages.profile', ['user' => auth()->user(), 'savedPosts' => $savedPosts]);
     }
 
     public function updateProfile(ProfileRequest $request)
