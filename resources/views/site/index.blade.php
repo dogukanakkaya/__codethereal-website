@@ -51,9 +51,11 @@
     <section class="container posts">
         <div class="row">
             <div class="col-md-12">
-                <div class="head d-flex justify-content-between align-items-center">
-                <h4>{{ __('site.featured_posts') }}</h4>
-                <a href="{{ createUrl(__('routes.posts')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
+                <div class="position-relative">
+                    <div class="head d-flex justify-content-between align-items-center">
+                        <h4>{{ __('site.featured_posts') }}</h4>
+                        <a href="{{ createUrl(__('routes.posts')) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
+                    </div>
                 </div>
             </div>
         </div>

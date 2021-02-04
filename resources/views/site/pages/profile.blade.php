@@ -95,7 +95,7 @@
                         <div class="line"></div>
                     </div>
                     @foreach($savedPosts as $post)
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <span
                                     class="date">{{ $post->created_at->format('d') }} {{ __('date.'.$post->created_at->format('m')) }}</span>

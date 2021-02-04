@@ -10,17 +10,10 @@ use App\Mail\ContactMail;
 use App\Models\Admin\Post\Post;
 use App\Models\Comment;
 use App\Models\User;
-use App\Models\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
-/**
- * TODO: olabildiğince eloquent yerine query builder ile veri çek
- *
- * Class WebController
- * @package App\Http\Controllers\Site
- */
 class WebController extends Controller
 {
     public function index()
@@ -109,6 +102,12 @@ class WebController extends Controller
         return view('site.post-list', $data);
     }
 
+    /**
+     * Search and return items in json response
+     *
+     * @param string|null $q
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search(string|null $q = null)
     {
         $searched = [];
@@ -192,6 +191,11 @@ class WebController extends Controller
         return resJson(DB::table('votes')->insert($data));
     }
 
+    /**
+     * Save a post
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function savePost()
     {
         $data = request()->only('post_id');
@@ -212,7 +216,6 @@ class WebController extends Controller
 
         return resJson(DB::table('saved_posts')->insert($data));
     }
-
 
     /**
      * Return contact view modal

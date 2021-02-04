@@ -22,6 +22,11 @@ class AuthController extends Controller
         $this->middleware('auth')->only('profile', 'updateProfile', 'deleteAccount');
     }
 
+    /**
+     * Return the login view modal
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function loginView()
     {
         return response()
@@ -29,6 +34,12 @@ class AuthController extends Controller
             ->header('Content-Type', 'application/html');
     }
 
+    /**
+     * Login user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -42,6 +53,11 @@ class AuthController extends Controller
         return resJson(0, ['message' => __('auth.failed')]);
     }
 
+    /**
+     * Return the register view modal
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function registerView()
     {
         return response()
@@ -49,6 +65,12 @@ class AuthController extends Controller
             ->header('Content-Type', 'application/html');
     }
 
+    /**
+     * Register user
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
@@ -61,12 +83,23 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Profile page
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function profile()
     {
         $savedPosts = Post::savedPosts(['title', 'url', 'description', 'featured_image', 'posts.created_at', 'created_by_name']);
         return view('site.pages.profile', ['user' => auth()->user(), 'savedPosts' => $savedPosts]);
     }
 
+    /**
+     * Update user profile
+     *
+     * @param ProfileRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateProfile(ProfileRequest $request)
     {
         $user = User::find(auth()->id());
@@ -79,6 +112,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Delete user account
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteAccount()
     {
         $data = request()->only('reason');
