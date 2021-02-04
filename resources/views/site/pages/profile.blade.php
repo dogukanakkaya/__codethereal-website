@@ -28,7 +28,7 @@
                     <ul class="profile-actions">
                         <li><a href="#"><i class="bi bi-bookmark"></i> {{ __('site.auth.saved_posts') }}</a></li>
                         <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> {{ __('site.auth.logout') }}</li>
-                        <li><a href="#"><i class="bi bi-person-dash"></i> {{ __('site.auth.delete_account') }}</a></li>
+                        <li onclick="openModal('#delete-account-modal')"><i class="bi bi-person-dash"></i> {{ __('site.auth.delete_account') }}</li>
                     </ul>
                 </div>
             </div>
@@ -89,6 +89,7 @@
             </div>
         </div>
     </section>
+    @include('site.auth.delete-account-modal')
 @endsection
 
 @push('scripts')
@@ -100,6 +101,24 @@
             const alertEl = e.target.querySelector('.alert')
             if (status){
                 replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+            }else{
+                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+            }
+            alertEl.innerText = message
+        })
+
+        document.getElementById('delete-account-form').addEventListener('submit', async e => {
+            e.preventDefault()
+
+            const {data: { status, message }} = await request.post('{{ route('web.delete_account') }}', serialize(e.target, {hash: true, empty: true}))
+
+            const alertEl = e.target.querySelector('.alert')
+            if (status){
+                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                e.target.reset()
+                setTimeout(() => {
+                    location.href = appUrl()
+                }, 2000)
             }else{
                 replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
             }

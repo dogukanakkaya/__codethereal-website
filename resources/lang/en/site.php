@@ -49,6 +49,8 @@ return [
         'profile' => 'Profile',
         'saved_posts' => 'Saved Posts',
         'delete_account' => 'Delete Account',
+        'explain_delete_account' => 'Can you explain why do you want to delete your account?',
+        'delete_account_info' => 'Once you delete your account, you will not be able to sign in or sign up again. All your data on our servers will be deleted after 7 days',
         'profile_update_password_incorrect' => 'Your current password is not correct'
     ]
 ];

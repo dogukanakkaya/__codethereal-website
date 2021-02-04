@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,9 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('throttle:10,60')->only('login', 'register', 'updateProfile');
-        $this->middleware('authorize')->only('login', 'profile');
-        $this->middleware('guest')->except('profile', 'updateProfile');
-        $this->middleware('auth')->only('profile', 'updateProfile');
+        $this->middleware('authorize')->only('login', 'profile', 'updateProfile', 'deleteAccount');
+        $this->middleware('guest')->only('loginView', 'login', 'registerView', 'register');
+        $this->middleware('auth')->only('profile', 'updateProfile', 'deleteAccount');
     }
 
     public function loginView()
@@ -73,6 +74,29 @@ class AuthController extends Controller
             return resJson(User::where('id', auth()->id())->update($data));
         }else{
             return resJson(0, ['message' => __('site.auth.profile_update_password_incorrect')]);
+        }
+    }
+
+    public function deleteAccount()
+    {
+        $data = request()->only('reason');
+        $data['user_id'] = auth()->id();
+        $data['created_at'] = now();
+
+        DB::beginTransaction();
+        try {
+            DB::table('deleted_accounts')->insert($data);
+            User::destroy($data['user_id']);
+
+            auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            DB::commit();
+            return resJson(1);
+        }catch (\Exception){
+            DB::rollBack();
+            return resJson(0);
         }
     }
 }

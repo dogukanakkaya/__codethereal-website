@@ -1,7 +1,9 @@
 <template>
-    <button class="save-post" @click="!saved && save()">
-        <i v-bind:class="[saved ? 'bi bi-bookmark-fill' : 'bi bi-bookmark']"></i>
-    </button>
+    <li class="save-post">
+        <button @click="!saved && save()">
+            <i v-bind:class="[saved ? 'bi bi-bookmark-fill' : 'bi bi-bookmark']"></i>
+        </button>
+    </li>
 </template>
 
 <script>

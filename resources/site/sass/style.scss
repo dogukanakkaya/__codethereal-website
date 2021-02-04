@@ -958,7 +958,7 @@ aside {
     span{
         font-size: 15px;
     }
-    .up,.down{
+    button{
         background-color: transparent;
         border: none;
         outline: none;
@@ -966,9 +966,11 @@ aside {
 }
 
 .save-post{
-    background-color: transparent;
-    border: none;
-    outline: none!important;
+    button{
+        background-color: transparent;
+        border: none;
+        outline: none!important;
+    }
 }
 
 .comments {
@@ -1101,7 +1103,7 @@ aside {
         padding: .25rem 0;
         outline: none;
         font-size: 13px;
-        letter-spacing: 2.5px;
+        letter-spacing: 2px;
         transition: all .4s ease-in-out;
 
         &:focus {

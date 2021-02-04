@@ -71,3 +71,13 @@ label.required::after{
     white-space: pre-line;
     display: flex;
 }
+
+.modal-danger-info{
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
+    border-top: 1px solid #bfbfbf59;
+    border-bottom: 1px solid #bfbfbf59;
+    margin: 0;
+    padding: .5rem 0;
+}
