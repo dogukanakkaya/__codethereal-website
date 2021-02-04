@@ -31,15 +31,12 @@ mix.js('resources/js/app.js', 'public/js')
 mix.copyDirectory('resources/img', 'public/img');
 
 // Copy node modules
-// Tinymce
-mix.copyDirectory('node_modules/tinymce/icons', 'public/plugins/tinymce/icons');
-mix.copyDirectory('node_modules/tinymce/plugins', 'public/plugins/tinymce/plugins');
-mix.copyDirectory('node_modules/tinymce/skins', 'public/plugins/tinymce/skins');
-mix.copyDirectory('node_modules/tinymce/themes', 'public/plugins/tinymce/themes');
-mix.copy('node_modules/tinymce/tinymce.min.js', 'public/plugins/tinymce/tinymce.min.js');
-
-// Biconpicker
-mix.copy('node_modules/codethereal-iconpicker/dist/iconpicker.js', 'public/plugins/iconpicker');
+mix.copyDirectory('node_modules/tinymce/icons', 'public/plugins/tinymce/icons')
+    .copyDirectory('node_modules/tinymce/plugins', 'public/plugins/tinymce/plugins')
+    .copyDirectory('node_modules/tinymce/skins', 'public/plugins/tinymce/skins')
+    .copyDirectory('node_modules/tinymce/themes', 'public/plugins/tinymce/themes')
+    .copy('node_modules/tinymce/tinymce.min.js', 'public/plugins/tinymce/tinymce.min.js')
+    .copy('node_modules/codethereal-iconpicker/dist/iconpicker.js', 'public/plugins/iconpicker');
 
 
 // Site mix
@@ -49,7 +46,11 @@ mix.js('resources/site/js/app.js', `public/${sitePrefix}/js`)
 
 mix
     .sass('resources/site/sass/style.scss', `public/${sitePrefix}/css`)
-    .copy('resources/site/js/prism.js', 'public/site/js')
-    .copy('resources/site/css/prism.css', 'public/site/css')
+    .copy('resources/site/js/prism.js', `public/${sitePrefix}/js`)
+    .copy('resources/site/css/prism.css', `public/${sitePrefix}/css`)
     .copyDirectory('resources/site/img', `public/${sitePrefix}/img`)
     .copyDirectory('node_modules/bootstrap-icons/font', `public/${sitePrefix}/bootstrap-icons`)
+
+if (mix.inProduction()) {
+    mix.version();
+}

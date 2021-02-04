@@ -33,9 +33,9 @@
                                     </div>
                                     <div class="col-12">
                                         {{ Form::label("$language->code[icon]", __('menus.item.icon')) }}
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3 ce-iconpicker">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text h-100 selected-icon-{{ $language->code }}"><i class="bi bi-app"></i></span>
+                                                <span class="input-group-text h-100 selected-icon"><i class="bi bi-app"></i></span>
                                             </div>
                                             {{ Form::text("$language->code[icon]", '', ['class' => 'form-control', 'autocomplete' => 'off']) }}
                                         </div>

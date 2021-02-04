@@ -15,7 +15,7 @@
         "axios": "^0.21.1",
         "bootstrap": "^5.0.0-beta1",
         "bootstrap-icons": "^1.3.0",
-        "codethereal-iconpicker": "^1.1.2",
+        "codethereal-iconpicker": "^1.1.3",
         "cross-env": "^7.0.3",
         "datatables.net": "^1.10.23",
         "jquery": "^3.2",

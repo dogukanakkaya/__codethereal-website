@@ -63,6 +63,15 @@
 
         initializeSortables()
 
+        const iconpickers = []
+        document.querySelectorAll('.ce-iconpicker').forEach(iconpicker => {
+            iconpickers.push(new Iconpicker(iconpicker.querySelector('input'), {
+                showSelectedIn: iconpicker.querySelector('.selected-icon'),
+                fade: true
+            }))
+        })
+        const resetIconpickers = () => iconpickers.forEach(iconpicker => iconpicker.reset())
+
         const ajaxList = () => {
             request.get('{{ route('menu_items.ajax', ['groupId' => $groupId]) }}')
                 .then(response => {
@@ -77,6 +86,7 @@
                 closeModal(modal)
                 form.reset()
                 ajaxList()
+                resetIconpickers()
             }
             toggleBtnLoading()
         }
@@ -98,6 +108,7 @@
         const __create = () => {
             if (updateId > 0) {
                 form.reset()
+                resetIconpickers()
                 updateId = 0;
             }
             openModal(modal)
@@ -148,13 +159,5 @@
             request.put('{{ route('menu_items.save_sequence', ['groupId' => $groupId]) }}', nestedSortableSerialize(sortableRoot, sortableGroup))
                 .then(__onResponse)
         }
-
-        @foreach($languages as $language)
-            new Iconpicker(document.querySelector(`input[name="{{ $language->code }}[icon]"]`), {
-                showSelectedIn: document.querySelector('.selected-icon-{{ $language->code }}'),
-                fade: true
-            })
-        @endforeach
-
     </script>
 @endpush

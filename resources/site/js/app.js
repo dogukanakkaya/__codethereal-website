@@ -23,15 +23,12 @@ window.__login = async () => {
 
             const alertEl = e.target.querySelector('.alert')
             if (status){
-                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
                 e.target.reset()
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1500)
+                window.location.reload()
             }else{
                 replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+                alertEl.textContent = message
             }
-            alertEl.textContent = message
         })
     }
     openModal('#login-modal')

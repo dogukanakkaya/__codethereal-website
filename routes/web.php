@@ -32,6 +32,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => 'admin', 'middleware' => ['authorize', 'auth', 'verified', 'online', 'manager'], 'namespace' => 'App\Http\Controllers\Admin'], function () {
         Route::get('/', 'HomeController@index')->name('admin.home');
 
+        //Route::get('local/{folders}/{hash}.{extension}', 'HomeController@privateStorage')->where('hash', '[a-zA-Z0-9-.]+')->where('extension', '[css, js, jpg, jpeg, gif, png, mp4, bmp]+');
+
         // Only developer routes
         Route::group(['prefix' => 'dev', 'middleware' => 'dev', 'namespace' => 'Dev'], function () {
 
@@ -146,7 +148,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             });
         });
 
-        // Users page
+        // Posts page
         Route::prefix('posts')->group(function () {
             Route::get('/', 'PostController@index')->name('posts.index');
             Route::get('sort', 'PostController@sort')->name('posts.sort');
