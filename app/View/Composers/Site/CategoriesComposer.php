@@ -2,11 +2,16 @@
 
 namespace App\View\Composers\Site;
 
-use App\Models\Admin\Post\Post;
+use App\Models\Post\Post;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\View\View;
 
 class CategoriesComposer
 {
+    public function __construct(private PostRepositoryInterface $postRepository)
+    {
+
+    }
 
     /**
      * Bind data to the view.
@@ -17,7 +22,7 @@ class CategoriesComposer
     public function compose(View $view)
     {
         $view->with('categoryLinks',
-            Post::findSubPostsByLocale(config('site.categories'), ['posts.id', 'title', 'url'])
+            $this->postRepository->children(config('site.categories'), ['posts.id', 'title', 'url'])
         );
     }
 }

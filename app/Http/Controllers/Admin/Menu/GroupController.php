@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\GroupRequest;
-use App\Models\Admin\Menu\MenuGroup;
+use App\Models\Menu\MenuGroup;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
-use App\Models\Admin\Post\Post;
+use App\Models\Post\Post;
+use App\Repositories\Interfaces\PostRepositoryInterface;
+use App\Repositories\PostRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -12,6 +14,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PostController extends Controller
 {
+    public function __construct(private PostRepositoryInterface $postRepository){}
+
     public function index()
     {
         if (!Auth::user()->can('see_posts')) {
@@ -20,7 +24,7 @@ class PostController extends Controller
         $data = [
             'navigations' => [__('posts.self_plural')],
             'columns' => $this->columns(),
-            'posts' => Post::findAllByLocale('posts.id', 'title')->pluck('title', 'id')->toArray()
+            'posts' => $this->postRepository->selectables()
         ];
         return view('admin.posts.index', $data);
     }
@@ -30,19 +34,19 @@ class PostController extends Controller
         if (!Auth::user()->can('see_posts')) {
             return resJsonUnauthorized();
         }
-        $data = Post::findAllByLocale('posts.id', 'title', 'active', 'created_at');
+        $data = $this->postRepository->all(['posts.id', 'title', 'active', 'created_at']);
         return Datatables::of($data)
             ->editColumn('title', fn (Post $post) => '<a class="clickable" title="' . $post->id . '" onclick="__find(' . $post->id . ')">' . $post->title . '</a>')
             ->editColumn('created_at', fn (Post $post) => date("Y-m-d H:i:s", strtotime($post->created_at)))
             ->addColumn('check_all', fn (Post $post) => '<input type="checkbox" onclick="__onCheck()" value="' . $post->id . '" name="checked[]"/>')
             ->addColumn('file', function (Post $post) {
-                $file = Post::findFile($post->id);
+                $file = $this->postRepository->firstFile($post->id);
                 return isset($file->path) ? '<img src="' . asset('storage/' . $file->path) . '" class="table-img" alt="profile"/>' : '<div class="table-img"></div>';
             })
             //->addColumn('action', fn (Content $content) => view('admin.partials.dropdown', ['actions' => $this->actions($content->id)]))
             ->addColumn('action', fn (Post $post) => view('admin.partials.single-actions', ['actions' => $this->actions($post->id)]))
             ->addColumn('status', fn (Post $post) => statusBadge($post->active))
-            ->addColumn('parent', fn (Post $post) => implode(', ', Post::findParentsByLocale($post->id, 'title')->pluck('title')->toArray()))
+            ->addColumn('parent', fn (Post $post) => implode(', ', $this->postRepository->parents($post->id, ['title'])->pluck('title')->toArray()))
             ->rawColumns(['check_all', 'file', 'title', 'status', 'action'])
             ->make(true);
     }
@@ -60,10 +64,10 @@ class PostController extends Controller
 
         // Get and unset files and parents from post data
         $files = array_remove($postData, 'files');
-        $fileIds = $files !== '0' && $files !== null ? explode('|', $files) : [];
+        $fileIds = $files !== '0' && count($files) > 0 ? explode('|', $files) : [];
 
-        $parentIds = array_remove($postData, 'parents') ?? [];
-        $relationsIds = array_remove($postData, 'relations') ?? [];
+        $parentIds = array_remove($postData, 'parents');
+        $relationIds = array_remove($postData, 'relations');
 
         DB::beginTransaction();
         try {
@@ -71,38 +75,16 @@ class PostController extends Controller
             $post = Post::create($postData);
 
             // Create Post Parents
-            DB::table('post_parents')->insert($this->prepareParentsData($post->id, $parentIds));
+            $this->postRepository->insertParents($post->id, $parentIds);
 
             // Create Post Relations
-            DB::table('post_relations')->insert($this->prepareRelationsData($post->id, $relationsIds));
+            $this->postRepository->insertRelations($post->id, $relationIds);
 
             // Create Post Files
-            DB::table('post_files')->insert($this->prepareFilesData($post->id, $fileIds));
+            $this->postRepository->insertFiles($post->id, $fileIds);
 
-            // Find Post featured image to save database
-            $featuredImage = Post::findFile($post->id);
-
-            // Create Post Languages
-            $translationData = [];
-            foreach ($data as $language => $values) {
-                // If same named record exists add -id suffix to the url
-                $recordExists = DB::table('posts')
-                    ->where('language', $language)
-                    ->where('title', $values['title'])
-                    ->whereNull('deleted_at')
-                    ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
-                    ->exists();
-                $appendId = ($recordExists) ? '-'.$post->id : '';
-
-                $translationData[] = array_merge($values, [
-                    'language' => $language,
-                    'post_id' => $post->id,
-                    'url' => Str::slug($values['title']) . $appendId,
-                    'categories' => implode(', ', Post::findByLocaleInstance('title')->whereIn('posts.id', $parentIds)->get()->pluck('title')->toArray()),
-                    'featured_image' => $featuredImage->path ?? '',
-                ]);
-            }
-            DB::table('post_translations')->insert($translationData);
+            // Create Post Translations
+            $this->postRepository->insertTranslations($post->id, $data);
 
             DB::commit();
             return resJson(true);
@@ -134,7 +116,7 @@ class PostController extends Controller
             return resJsonUnauthorized();
         }
         // TODO: We'll check that for better way for multi language operations (without model relations)
-        $post = Post::select('searchable')->find($id);
+        $post = Post::find($id);
 
         $translations = DB::table('post_translations')
             ->select('title', 'description', 'full', 'active', 'meta_title', 'meta_description', 'meta_tags', 'language')
@@ -147,9 +129,9 @@ class PostController extends Controller
                 return $i;
             });
 
-        $files = Post::findFiles($id,'path', 'file_id')->pluck('path', 'file_id');
-        $parents = Post::findParentsByLocale($id, 'parent_id')->pluck('parent_id')->toArray();
-        $relations = Post::findRelationsByLocale($id, 'relation_id')->pluck('relation_id')->toArray();
+        $files = $this->postRepository->files($id, ['path', 'file_id'])->pluck('path', 'file_id');
+        $parents = $this->postRepository->parents($id, ['parent_id'])->pluck('parent_id')->toArray();
+        $relations = $this->postRepository->relations($id, ['relation_id'])->pluck('relation_id')->toArray();
 
         return response()->json([
             'post' => $post,
@@ -173,8 +155,8 @@ class PostController extends Controller
         $files = array_remove($postData, 'files');
         $fileIds = $files !== '0' && $files !== null ? explode('|', $files) : [];
 
-        $parentIds = array_remove($postData, 'parents') ?? [];
-        $relationIds = array_remove($postData, 'relations') ?? [];
+        $parentIds = array_remove($postData, 'parents');
+        $relationIds = array_remove($postData, 'relations');
 
         DB::beginTransaction();
         try {
@@ -182,40 +164,16 @@ class PostController extends Controller
             Post::where('id', $id)->update($postData);
 
             // Update Post Parents
-            DB::table('post_parents')->where('post_id', $id)->delete();
-            DB::table('post_parents')->insert($this->prepareParentsData($id, $parentIds));
+            $this->postRepository->updatePostParents($id, $parentIds);
 
             // Update Post Relations
-            DB::table('post_relations')->where('post_id', $id)->delete();
-            DB::table('post_relations')->insert($this->prepareRelationsData($id, $relationIds));
+            $this->postRepository->updatePostRelations($id, $relationIds);
 
             // Update Post Files
-            DB::table('post_files')->where('post_id', $id)->delete();
-            DB::table('post_files')->insert($this->prepareFilesData($id, $fileIds));
+            $this->postRepository->updatePostFiles($id, $fileIds);
 
-            // Find Post featured image to save database
-            $featuredImage = Post::findFile($id);
-
-            // Update Post Languages
-            foreach ($data as $language => $values) {
-                // If same named record exists add -id suffix to the url
-                $recordExists = DB::table('posts')
-                    ->where('posts.id', '!=', $id)
-                    ->where('language', $language)
-                    ->where('title', $values['title'])
-                    ->whereNull('deleted_at')
-                    ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
-                    ->exists();
-                $appendId = ($recordExists) ? '-'.$id : '';
-
-                $values['url'] = Str::slug($values['title']) . $appendId;
-                $values['featured_image'] = $featuredImage->path ?? '';
-                $values['categories'] = implode(', ', Post::findByLocaleInstance('title')->whereIn('posts.id', $parentIds)->get()->pluck('title')->toArray());
-                DB::table('post_translations')
-                    ->where('post_id', $id)
-                    ->where('language', $language)
-                    ->update($values);
-            }
+            // Update Post Translations
+            $this->postRepository->updateTranslations($id, $data);
 
             DB::commit();
             return resJson(true);
@@ -232,7 +190,7 @@ class PostController extends Controller
         }
         $data = [
             'navigations' => [route('posts.index') => __('posts.self_plural') ,__('posts.sort')],
-            'posts' => Post::findAllByLocale('posts.id', 'sequence', 'title')->sortBy('sequence')
+            'posts' => $this->postRepository->all(['posts.id', 'sequence', 'title'])->sortBy('sequence')
         ];
         return view('admin.posts.sort', $data);
     }
@@ -261,65 +219,6 @@ class PostController extends Controller
             DB::rollBack();
             return resJson(false);
         }
-    }
-
-    /**
-     * Collect file ids in 1 array and return it
-     *
-     * @param int $postId
-     * @param array $fileIds
-     * @return array
-     */
-    private function prepareFilesData(int $postId, array $fileIds): array
-    {
-        $filesData = [];
-        foreach ($fileIds as $fileId) {
-            $filesData[] = [
-                'post_id' => $postId,
-                'file_id' => $fileId
-            ];
-        }
-        return $filesData;
-    }
-
-    /**
-     * Collect parent ids in 1 array and return it
-     *
-     * @param int $postId
-     * @param array $parentIds
-     * @return array
-     */
-    private function prepareParentsData(int $postId, array $parentIds): array
-    {
-        $parentsData = [];
-        foreach ($parentIds as $parentId) {
-            if (empty($parentId)) continue;
-            $parentsData[] = [
-                'post_id' => $postId,
-                'parent_id' => $parentId
-            ];
-        }
-        return $parentsData;
-    }
-
-    /**
-     * Collect parent ids in 1 array and return it
-     *
-     * @param int $postId
-     * @param array $relationIds
-     * @return array
-     */
-    private function prepareRelationsData(int $postId, array $relationIds): array
-    {
-        $relationsData = [];
-        foreach ($relationIds as $relationId) {
-            if (empty($relationId)) continue;
-            $relationsData[] = [
-                'post_id' => $postId,
-                'relation_id' => $relationId
-            ];
-        }
-        return $relationsData;
     }
 
     /**

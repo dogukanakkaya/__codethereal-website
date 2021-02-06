@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin\Menu;
+namespace App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,7 +27,7 @@ class MenuGroup extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\Admin\Menu\MenuItem', 'group_id');
+        return $this->hasMany('App\Models\Menu\MenuItem', 'group_id');
     }
 
     /**

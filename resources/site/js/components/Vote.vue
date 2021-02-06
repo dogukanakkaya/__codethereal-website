@@ -1,11 +1,11 @@
 <template>
     <li class="vote">
         <button @click="voted === 0 && vote(1)">
-            <i v-bind:class="[voted === 1 ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up']"></i>
+            <i v-bind:class="[voted === 1 ? 'bi bi-caret-up-fill' : 'bi bi-caret-up']"></i>
         </button>
         <span>{{ this.newSum }}</span>
         <button @click="voted === 0 && vote(-1)">
-            <i v-bind:class="[voted === -1 ? 'bi bi-hand-thumbs-down-fill' : 'bi bi-hand-thumbs-down']"></i>
+            <i v-bind:class="[voted === -1 ? 'bi bi-caret-down-fill' : 'bi bi-caret-down']"></i>
         </button>
     </li>
 </template>

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Admin\Menu;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MenuItem extends Model
+class File extends Model
 {
     use SoftDeletes;
 
@@ -14,7 +14,7 @@ class MenuItem extends Model
      *
      * Table name of model
      */
-    protected $table = 'menu_items';
+    protected $table = 'files';
 
     /**
      * The attributes that are mass assignable.
@@ -22,14 +22,9 @@ class MenuItem extends Model
      * @var array
      */
     protected $fillable = [
-        'group_id',
-        'parent_id',
-        'sequence'
-    ];
-
-    protected $hidden = [
-        'updated_at',
-        'deleted_at',
-        'created_at'
+        'path',
+        'name',
+        'size',
+        'extension'
     ];
 }

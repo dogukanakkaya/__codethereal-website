@@ -2,7 +2,7 @@
 
 namespace App\View\Composers\Site;
 
-use App\Models\Admin\Menu\MenuGroup;
+use App\Models\Menu\MenuGroup;
 use Illuminate\View\View;
 
 class MenusComposer

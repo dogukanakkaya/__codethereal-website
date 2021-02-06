@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Admin\Post\Post;
+use App\Models\Post\Post;
 use App\Models\User;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -86,11 +87,12 @@ class AuthController extends Controller
     /**
      * Profile page
      *
+     * @param PostRepositoryInterface $postRepository
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function profile()
+    public function profile(PostRepositoryInterface $postRepository)
     {
-        $savedPosts = Post::savedPosts(['title', 'url', 'description', 'featured_image', 'posts.created_at', 'created_by_name']);
+        $savedPosts = $postRepository->savedPosts(['title', 'url', 'description', 'featured_image', 'posts.created_at', 'created_by_name']);
         return view('site.pages.profile', ['user' => auth()->user(), 'savedPosts' => $savedPosts]);
     }
 

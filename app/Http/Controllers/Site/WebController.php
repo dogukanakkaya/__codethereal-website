@@ -7,28 +7,31 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\VoteRequest;
 use App\Mail\ContactMail;
-use App\Models\Admin\Post\Post;
+use App\Models\Post\Post;
 use App\Models\Comment;
 use App\Models\User;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class WebController extends Controller
 {
+    public function __construct(private PostRepositoryInterface $postRepository){}
+
     public function index()
     {
-        $categories = Post::findSubPostsWithChildrenCountByLocale(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8);
+        $categories = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8);
         $categoryIds = $categories->pluck('id')->toArray();
         $data = [
-            'homeTop' => Post::findOneByLocale(config('site.home_top'), 'title', 'featured_image'),
-            'category' => Post::findOneByLocale(config('site.categories'), 'title', 'url'),
+            'homeTop' => $this->postRepository->find(config('site.home_top'), 'title', 'featured_image'),
+            'category' => $this->postRepository->find(config('site.categories'), 'title', 'url'),
             'categories' => $categories,
-            'cards' => Post::findSubPostsByLocale(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
+            'cards' => $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
             'userCount' => User::where('rank', config('user.rank.basic'))->count(),
-            'parallax' => Post::findOneByLocale(config('site.home_parallax'), 'title', 'description', 'featured_image')
+            'parallax' => $this->postRepository->find(config('site.home_parallax'), 'title', 'description', 'featured_image')
         ];
-        $data['featuredPosts'] = Post::findSubPostsByLocale($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name']);
+        $data['featuredPosts'] = $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name']);
         $data['categoryCount'] = $data['categories']->count();
         // Sum of sub posts of categories
         $data['categoryItemChildrenSum'] = $categories->sum('childrens_count');
@@ -44,7 +47,7 @@ class WebController extends Controller
      */
     public function resolve(string $url)
     {
-        $post = Post::findOneByLocaleWithUrl($url, 'posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags');
+        $post = $this->postRepository->findByUrl($url, 'posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags');
         if (!$post){
             return back();
         }
@@ -55,18 +58,18 @@ class WebController extends Controller
             'description' => $post->meta_description,
             'keywords' => $post->meta_tags
         ];
-        $data['parentTree'] = Post::parentTree($postId, ['posts.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
+        $data['parentTree'] = $this->postRepository->parentTree($postId, ['posts.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
 
         // If given url has sub posts then return list view, if not return detail view
-        if (Post::hasSubPosts($postId)){
+        if ($this->postRepository->hasChildren($postId)){
             $data['category'] = $post;
 
             if ($postId === config('site.categories')){
-                $data['categories'] = Post::findSubPostsWithChildrenCountByLocale(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image']);
+                $data['categories'] = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image']);
                 return view('site.category-list', $data);
             }else{
-                $data['posts'] = Post::findSubPostsByLocaleInstance($postId, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
-                $data['mostViewedPosts'] = Post::findMostViewedSubPosts($postId, ['title', 'url', 'featured_image', 'created_at'], 3);
+                $data['posts'] = $this->postRepository->childrenInstance($postId, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
+                $data['mostViewedPosts'] = $this->postRepository->mostViewedChildren($postId, ['title', 'url', 'featured_image', 'created_at'], 3);
                 return view('site.post-list', $data);
             }
         }else{
@@ -77,7 +80,7 @@ class WebController extends Controller
             }
 
             $data['post'] = $post;
-            $data['relationalPosts'] = Post::findRelationalPostsByLocale($postId, ['title', 'url', 'featured_image', 'created_at']);
+            $data['relationalPosts'] = $this->postRepository->relations($postId, ['title', 'url', 'featured_image', 'created_at']);
             $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('post_id', $postId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
             $data['vote'] = DB::table('votes')->where('post_id', $postId)->sum('vote');
             $data['comments'] = buildTree($comments, ['parentId' => 'parent_id']);
@@ -93,10 +96,10 @@ class WebController extends Controller
      */
     public function postList()
     {
-        $categories = Post::findSubPostsWithChildrenCountByLocale(config('site.categories'), ['posts.id']);
+        $categories = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id']);
         $categoryIds = $categories->pluck('id')->toArray();
-        $data['posts'] = Post::findSubPostsByLocaleInstance($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
-        $data['mostViewedPosts'] = Post::findMostViewedSubPosts($categoryIds, ['title', 'url', 'featured_image', 'created_at'], 3);
+        $data['posts'] = $this->postRepository->childrenInstance($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
+        $data['mostViewedPosts'] = $this->postRepository->mostViewedChildren($categoryIds, ['title', 'url', 'featured_image', 'created_at'], 3);
         $data['parentTree'] = [];
 
         return view('site.post-list', $data);
@@ -140,8 +143,8 @@ class WebController extends Controller
     {
         $data = [
             // TODO: mysql'e geçince değiştir (find_in_set sqlite ile çalışmıyor)
-            //'posts' => Post::findByLocaleInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->whereRaw('FIND_IN_SET(?, meta_tags)', [$tag])->paginate(15),
-            'posts' => Post::findByLocaleInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->where('meta_tags', 'like', '%'.$tag.'%')->paginate(15),
+            //'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->whereRaw('FIND_IN_SET(?, meta_tags)', [$tag])->paginate(15),
+            'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->where('meta_tags', 'like', '%'.$tag.'%')->paginate(15),
             'search' => $tag,
             '_meta' => [
                 'title' => $tag

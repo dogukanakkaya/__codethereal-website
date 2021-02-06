@@ -95,7 +95,7 @@ function isOnline(int $id): bool
  */
 function array_remove(array &$arr, $key): mixed
 {
-    $val = $arr[$key] ?? null;
+    $val = $arr[$key] ?? [];
     unset($arr[$key]);
     return $val;
 }
@@ -296,7 +296,7 @@ function resize(string $path, int|null $width = null, int|null $height = null, $
  */
 function resizeById(int $id, int|null $width = null, int|null $height = null, $aspectRatio = true, $upsize = false): string
 {
-    $file = \App\Models\Admin\File::select('path')->find($id);
+    $file = \App\Models\File::select('path')->find($id);
     return resize($file->path ?? '', $width, $height, $aspectRatio, $upsize);
 }
 

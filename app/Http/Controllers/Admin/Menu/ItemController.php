@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\ItemRequest;
-use App\Models\Admin\Menu\MenuGroup;
-use App\Models\Admin\Menu\MenuItem;
+use App\Models\Menu\MenuGroup;
+use App\Models\Menu\MenuItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
