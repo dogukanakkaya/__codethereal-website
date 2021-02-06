@@ -30,9 +30,7 @@ interface PostRepositoryInterface
 
     public function firstFile(int $id): mixed;
 
-    public function find(int $id, ...$select): mixed;
-
-    public function findByUrl(string $url, ...$select): mixed;
+    public function find(mixed $id, array $select = ['*'], string $col = 'posts.id'): mixed;
 
     public function all(array $select = ['*']): mixed;
 

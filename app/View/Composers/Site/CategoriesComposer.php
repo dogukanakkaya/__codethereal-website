@@ -8,10 +8,7 @@ use Illuminate\View\View;
 
 class CategoriesComposer
 {
-    public function __construct(private PostRepositoryInterface $postRepository)
-    {
-
-    }
+    public function __construct(private PostRepositoryInterface $postRepository){}
 
     /**
      * Bind data to the view.

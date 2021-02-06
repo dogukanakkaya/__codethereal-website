@@ -7,7 +7,6 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\VoteRequest;
 use App\Mail\ContactMail;
-use App\Models\Post\Post;
 use App\Models\Comment;
 use App\Models\User;
 use App\Repositories\Interfaces\PostRepositoryInterface;
@@ -24,12 +23,12 @@ class WebController extends Controller
         $categories = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8);
         $categoryIds = $categories->pluck('id')->toArray();
         $data = [
-            'homeTop' => $this->postRepository->find(config('site.home_top'), 'title', 'featured_image'),
-            'category' => $this->postRepository->find(config('site.categories'), 'title', 'url'),
+            'homeTop' => $this->postRepository->find(config('site.home_top'), ['title', 'featured_image']),
+            'category' => $this->postRepository->find(config('site.categories'), ['title', 'url']),
             'categories' => $categories,
             'cards' => $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
             'userCount' => User::where('rank', config('user.rank.basic'))->count(),
-            'parallax' => $this->postRepository->find(config('site.home_parallax'), 'title', 'description', 'featured_image')
+            'parallax' => $this->postRepository->find(config('site.home_parallax'), ['title', 'description', 'featured_image'])
         ];
         $data['featuredPosts'] = $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name']);
         $data['categoryCount'] = $data['categories']->count();
@@ -47,7 +46,7 @@ class WebController extends Controller
      */
     public function resolve(string $url)
     {
-        $post = $this->postRepository->findByUrl($url, 'posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags');
+        $post = $this->postRepository->find($url, ['posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags']);
         if (!$post){
             return back();
         }

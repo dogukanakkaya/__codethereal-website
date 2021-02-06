@@ -82,8 +82,6 @@ class UserController extends Controller
             DB::rollBack();
             return resJson(false);
         }
-
-
     }
 
     public function find(int $id)

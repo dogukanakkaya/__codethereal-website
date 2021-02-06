@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class PostRepository implements PostRepositoryInterface
 {
+    /*** ONLY ADMIN ***/
     /**
      * Insert parents
      *
@@ -181,6 +182,7 @@ class PostRepository implements PostRepositoryInterface
                 ->update($values);
         }
     }
+    /*** ONLY ADMIN ***/
 
     /**
      * Return the selectables that only contains title and id
@@ -266,23 +268,12 @@ class PostRepository implements PostRepositoryInterface
      *
      * @param int $id
      * @param mixed ...$select
+     * @param string $col
      * @return mixed
      */
-    public function find(int $id, ...$select): mixed
+    public function find(mixed $id, array $select = ['*'], string $col = 'posts.id'): mixed
     {
-        return $this->localeInstance(...$select)->where('posts.id', $id)->first();
-    }
-
-    /**
-     * Find one record by active locale with link
-     *
-     * @param string $url
-     * @param mixed ...$select
-     * @return mixed
-     */
-    public function findByUrl(string $url, ...$select): mixed
-    {
-        return $this->localeInstance(...$select)->where('url', $url)->first();
+        return $this->localeInstance(...$select)->where($col, $id)->first();
     }
 
     /**
