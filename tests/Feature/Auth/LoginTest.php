@@ -34,6 +34,7 @@ class LoginTest extends FeatureTestBase
         $password = '12345678';
         $user = User::factory()->create([
             'name' => 'Login Codethereal',
+            'name_code' => 'LC',
             'rank' => config('user.rank.admin'),
             'password' => Hash::make($password)
         ]);
@@ -49,6 +50,7 @@ class LoginTest extends FeatureTestBase
     {
         $user = User::factory()->create([
             'name' => 'Login Incorrect',
+            'name_code' => 'LI',
             'rank' => config('user.rank.admin')
         ]);
         $response = $this->from(route('login'))->post(route('login'), [

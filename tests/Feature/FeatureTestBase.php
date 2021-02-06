@@ -38,6 +38,7 @@ class FeatureTestBase extends TestCase
 
         $this->admin = User::factory()->create([
             'name' => 'Admin',
+            'name_code' => 'A',
             'rank' => config('user.rank.admin'),
             'image' => 0
         ]);
@@ -46,6 +47,7 @@ class FeatureTestBase extends TestCase
 
         $this->dev = User::factory()->create([
             'name' => 'Developer',
+            'name_code' => 'D',
             'rank' => config('user.rank.dev'),
             'image' => 0
         ]);
