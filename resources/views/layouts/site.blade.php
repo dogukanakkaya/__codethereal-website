@@ -17,12 +17,13 @@
                 <li><a href="{{ $settings['youtube'] ?? '#' }}"><i class="bi bi-youtube youtube"></i></a></li>
             </ul>
             <ul>
-                @if(!auth()->check())
+                @guest
                     <li onclick="__login()"><i class="bi bi-person"></i> {{ __('site.auth.login') }}</li>
                     <span class="bracket"></span>
                     <li onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.auth.register') }}</li>
                     <span class="bracket"></span>
-                @else
+                @endguest
+                @auth
                     <li onclick="location.href = '{{ route('web.profile') }}'"><i class="bi bi-person"></i> {{ __('site.auth.profile') }}</li>
                     <span class="bracket"></span>
                     <li onclick="document.getElementById('logout-form').submit();"><i class="bi bi-person-x"></i> {{ __('site.auth.logout') }}</li>
@@ -30,7 +31,7 @@
                         {{ csrf_field() }}
                     </form>
                     <span class="bracket"></span>
-                @endif
+                @endauth
                 @foreach($languages as $language)
                     @if(app()->getLocale() === $language->code)
                         @continue
