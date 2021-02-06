@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'home_top' => 1,
-    'categories' => 2,
+    'home_top' => 0,
+    'categories' => 1,
     'home_parallax' => 6,
     'header_menu' => 3,
     'category_links' => 4,

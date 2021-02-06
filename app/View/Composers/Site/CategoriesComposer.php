@@ -19,7 +19,9 @@ class CategoriesComposer
     public function compose(View $view)
     {
         $view->with('categoryLinks',
-            $this->postRepository->children(config('site.categories'), ['posts.id', 'title', 'url'])
+            cache()->remember('home-categories', 60 * 60 * 6, function () {
+                return $this->postRepository->children(config('site.categories'), ['posts.id', 'title', 'url']);
+            })
         );
     }
 }

@@ -20,20 +20,39 @@ class WebController extends Controller
 
     public function index()
     {
-        $categories = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8);
+        $category = cache()->remember('home-category', 60 * 60 * 6, fn () =>
+            $this->postRepository->find(config('site.categories'), ['title', 'url'])
+        );
+        $categories = cache()->remember('home-categories', 60 * 60 * 6, fn () =>
+            $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8)
+        );
+        $cards = cache()->remember('home-cards', 60 * 60 * 6, fn () =>
+            $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image'])
+        );
+        $homeTop = cache()->remember('home-top', 60 * 60 * 6, fn () =>
+            $this->postRepository->find(config('site.home_top'), ['title', 'featured_image'])
+        );
+        $parallax = cache()->remember('home-parallax', 60 * 60 * 6, fn () =>
+            $this->postRepository->find(config('site.home_parallax'), ['title', 'description', 'featured_image'])
+        );
+
         $categoryIds = $categories->pluck('id')->toArray();
+
+        $featuredPosts = cache()->remember('home-posts', 60 * 30, fn () =>
+            $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])
+        );
+
         $data = [
-            'homeTop' => $this->postRepository->find(config('site.home_top'), ['title', 'featured_image']),
-            'category' => $this->postRepository->find(config('site.categories'), ['title', 'url']),
+            'homeTop' => $homeTop,
+            'category' => $category,
             'categories' => $categories,
-            'cards' => $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image']),
+            'featuredPosts' => $featuredPosts,
+            'cards' => $cards,
+            'parallax' => $parallax,
+            'categoryCount' => $categories->count(),
+            'categoryItemChildrenSum' => $categories->sum('children_count'),
             'userCount' => User::where('rank', config('user.rank.basic'))->count(),
-            'parallax' => $this->postRepository->find(config('site.home_parallax'), ['title', 'description', 'featured_image'])
         ];
-        $data['featuredPosts'] = $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name']);
-        $data['categoryCount'] = $data['categories']->count();
-        // Sum of sub posts of categories
-        $data['categoryItemChildrenSum'] = $categories->sum('childrens_count');
 
         return view('site.index', $data);
     }

@@ -30,7 +30,7 @@
                                         <img src="{{ resize($category->featured_image, 150) }}" alt="">
                                         <h5>{{ $category->title }}</h5>
                                     </a>
-                                    <span>({{ $category->childrens_count }} {{ __('site.post') }})</span>
+                                    <span>({{ $category->children_count }} {{ __('site.post') }})</span>
                                 </div>
                             </div>
                         @endforeach

@@ -106,7 +106,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <h5><a href=""><i class="bi bi-list"></i> {{ __('site.categories') }}</a></h5>
+                    <h5><i class="bi bi-list"></i> {{ __('site.categories') }}</h5>
                     <ul>
                         @foreach($categoryLinks as $categoryLink)
                             <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $categoryLink->title }}</a></li>
@@ -114,7 +114,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <h5><a href=""><i class="bi bi-link-45deg"></i> {{ __('site.quick_links') }}</a></h5>
+                    <h5><i class="bi bi-link-45deg"></i> {{ __('site.quick_links') }}</h5>
                     <ul>
                         @foreach($quickLinks as $quickLink)
                             <li><a href="{{ url($quickLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $quickLink->title }}</a></li>
@@ -122,7 +122,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <h5><a href="{{ url('iletisim-sayfasi-route') }}"><i class="bi bi-cursor"></i> {{ __('site.contact_us') }}</a></h5>
+                    <h5><i class="bi bi-cursor"></i> {{ __('site.contact_us') }}</h5>
                     <ul>
                         <li><a href="tel:{{ $settings['phone'] ?? '' }}"><i class="bi bi-phone-vibrate"></i> {{ $settings['phone'] ?? '' }}</a></li>
                         <li><a href="mailto:{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email'] ?? '' }}</a></li>

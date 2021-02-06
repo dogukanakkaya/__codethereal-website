@@ -62,7 +62,7 @@ class PostController extends Controller
 
         // Get and unset files and parents from post data
         $files = array_remove($postData, 'files');
-        $fileIds = $files !== '0' && count($files) > 0 ? explode('|', $files) : [];
+        $fileIds = $files !== '0' ? explode('|', $files) : [];
 
         $parentIds = array_remove($postData, 'parents');
         $relationIds = array_remove($postData, 'relations');
