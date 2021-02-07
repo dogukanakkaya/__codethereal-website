@@ -51,7 +51,7 @@ class WebController extends Controller
             'parallax' => $parallax,
             'category_count' => $categories->count(),
             'category_children_sum' => $categories->sum('children_count'),
-            'user_count' => User::where('rank', config('user.rank.basic'))->count(),
+            'user_count' => User::where('rank', '!=', config('user.rank.dev'))->count(),
         ];
 
         return view('site.index', $data);

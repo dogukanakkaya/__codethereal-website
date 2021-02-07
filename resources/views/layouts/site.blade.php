@@ -92,14 +92,14 @@
         </div>
     </header>
     @yield('content')
-    <footer style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url(https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500) no-repeat;background-size: cover;">
+    <footer style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($footer->featured_image ?? '', null, 600) }});">
         <div class="container pt-5 pb-5">
             <div class="row gy-4 gy-lg-0">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="logo">
                         <a href="{{ route('web.index') }}"><img src="{{ asset('site/img/logo-light.svg') }}" alt=""></a>
                     </div>
-                    <p>{{ $footer->description ?? '' }}</p>
+                    <p>{{ $settings['description'] ?? '' }}</p>
                     <ul class="d-flex justify-content-center justify-content-md-start">
                         <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0"><i class="bi bi-linkedin"></i></a></li>
                         <li><a href="{{ $settings['github'] ?? '#' }}"><i class="bi bi-github"></i></a></li>

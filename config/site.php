@@ -8,6 +8,7 @@ return [
     'category_links' => 4,
     'quick_links' => 5,
     'cards' => 0,
+    'footer' => 0,
     'setting_names' => [
         'logo_light',
         'logo_dark',

@@ -26,16 +26,5 @@ class UserSeeder extends Seeder
         $userDev->markEmailAsVerified();
         $userDev->markAsAuthorized();
         $userDev->assignRole('developer');
-
-        $userAdmin = User::create([
-            'name' => 'Doğu Admin',
-            'name_code' => 'DA',
-            'email' => 'doguakkaya27@hotmail.com',
-            'password' => Hash::make('12345678'),
-            'position' => '',
-            'rank' => config('user.rank.admin')
-        ]);
-        $userAdmin->markEmailAsVerified();
-        $userAdmin->markAsAuthorized();
     }
 }

@@ -1,8 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-    <section class="page-breadcrumb"
-             style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url(https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);">
+    <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%);">
         <nav>
             <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
@@ -17,7 +16,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="{{ asset('img/profile.webp') }}" alt="Admin" class="rounded-circle" width="150">
+                            <img src="{{ asset('site/img/profile.webp') }}" alt="User" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>{{ $user->name }}</h4>
                                 <p class="text-secondary mb-1">{{ $user->email }}</p>

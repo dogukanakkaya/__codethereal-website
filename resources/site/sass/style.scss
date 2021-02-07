@@ -710,6 +710,10 @@ header {
 }
 
 footer {
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position: center!important;
+
     .logo {
         margin-bottom: 1rem;
 

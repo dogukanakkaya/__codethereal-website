@@ -23,12 +23,7 @@ class WebServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Site View Composers
-        view()->composer('site.*', 'App\View\Composers\Site\SettingsComposer'); // Settings composer
-
-        view()->composer('site.*', 'App\View\Composers\Site\MenusComposer'); // Header, footer menus composer
-
-        view()->composer(['site.*'], 'App\View\Composers\Site\CategoriesComposer'); // Categories composer
-        // /Site View Composers
+        // View Composers
+        view()->composer('site.*', 'App\View\Composers\WebComposer');
     }
 }
