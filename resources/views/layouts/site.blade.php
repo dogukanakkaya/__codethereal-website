@@ -30,12 +30,13 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
-                    <span class="bracket"></span>
                 @endauth
+                {{--
                 @foreach($languages as $language)
                     @if(app()->getLocale() === $language->code)
                         @continue
                     @endif
+                        <span class="bracket"></span>
                         <li>
                             <a href="{{ LaravelLocalization::getLocalizedURL($language->code) }}">
                                 <img src="{{ asset('img/flags') }}/{{ $language->code }}.svg" width="20" alt="{{ $language->name }}">
@@ -43,6 +44,7 @@
                             </a>
                         </li>
                 @endforeach
+                --}}
             </ul>
         </div>
     </div>

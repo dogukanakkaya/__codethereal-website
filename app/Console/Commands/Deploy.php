@@ -41,7 +41,9 @@ class Deploy extends Command
         $this->call('dev:reset');
         $this->call('storage:link');
         $this->call('test');
-        mkdir(base_path('storage/app/public/thumbs'));
+        if (!file_exists(base_path('storage/app/public/thumbs'))){
+            mkdir(base_path('storage/app/public/thumbs'));
+        }
         return 0;
     }
 }

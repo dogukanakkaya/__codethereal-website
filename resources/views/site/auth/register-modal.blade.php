@@ -17,7 +17,7 @@
                 </div>
                 <div class="ce-f-group mb-3">
                     {{ Form::label('phone', __('users.phone')) }}
-                    {{ Form::email('phone', '') }}
+                    {{ Form::text('phone', '') }}
                 </div>
                 <div class="ce-f-group mb-3">
                     {{ Form::label('password', __('users.password'), ['class' => 'required', 'minlength' => 8]) }}

@@ -15,10 +15,10 @@ class LanguageSeeder extends Seeder
     public function run()
     {
         DB::table('languages')->insert([
-            [
-                'name' => "Turkish",
-                'code' => "tr"
-            ],
+            //[
+                //'name' => "Turkish",
+                //'code' => "tr"
+            //],
             [
                 'name' => "English",
                 'code' => "en"

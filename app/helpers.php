@@ -234,7 +234,7 @@ function buildHtmlTree($items, array $htmlTags = [], array $dbCols = [], int $pa
 function createUrl(string $url = ''): string
 {
     return $url === '#' ? 'javascript:void(0);' : (
-        preg_match('@^(https://|http://)@', $url) ? $url : url(app()->getLocale() . "/" . $url)
+        preg_match('@^(https://|http://)@', $url) ? $url : url($url) //url(app()->getLocale() . "/" . $url)
     );
 }
 

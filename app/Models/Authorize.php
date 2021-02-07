@@ -54,7 +54,7 @@ class Authorize extends Model
         $info = self::getAuthorizeInformation();
 
         return self::where('user_id', Auth::id())
-            ->where('ip_address', $info['ip_address'])
+            //->where('ip_address', $info['ip_address'])
             ->where('platform', $info['platform'])
             ->where('browser', $info['browser'])
             ->where('device', $info['device'])

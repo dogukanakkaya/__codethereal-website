@@ -120,8 +120,8 @@ class WebController extends Controller
         $categories = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id']);
         $categoryIds = $categories->pluck('id')->toArray();
         $data['posts'] = $this->postRepository->childrenInstance($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
-        $data['mostViewedPosts'] = $this->postRepository->mostViewedChildren($categoryIds, ['title', 'url', 'featured_image', 'created_at'], 3);
-        $data['parentTree'] = [];
+        $data['most_viewed_posts'] = $this->postRepository->mostViewedChildren($categoryIds, ['title', 'url', 'featured_image', 'created_at'], 3);
+        $data['parent_tree'] = [];
 
         return view('site.post-list', $data);
     }

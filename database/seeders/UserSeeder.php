@@ -15,16 +15,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $userDev = User::create([
             'name' => 'Doğukan Akkaya',
             'name_code' => 'DA',
             'email' => 'doguakkaya27@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make(''),
             'position' => 'Software Developer',
             'rank' => config('user.rank.dev')
         ]);
         $userDev->markEmailAsVerified();
-        $userDev->markAsAuthorized();
         $userDev->assignRole('developer');
+        */
     }
 }

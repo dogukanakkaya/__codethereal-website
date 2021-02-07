@@ -80,8 +80,13 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+        return resJson(1, [
+            'message' => 'User registration is inactive for now, sorry. You can try again later :)'
+        ]);
+
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
+        $data['name_code'] = nameCode($data['name']);
 
         $user = User::create($data);
         $user->sendEmailVerificationNotification();

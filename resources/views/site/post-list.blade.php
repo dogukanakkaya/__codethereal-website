@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-    <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($wide_image, null, 600) }});">
+    <section class="page-breadcrumb" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%);">
         <nav>
             <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
