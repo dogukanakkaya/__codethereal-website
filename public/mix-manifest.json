@@ -6,6 +6,7 @@
     "/css/auth/base.css": "/css/auth/base.css",
     "/css/auth/login.css": "/css/auth/login.css",
     "/css/app.css": "/css/app.css",
+    "/site/css/maintenance.css": "/site/css/maintenance.css",
     "/site/css/style.css": "/site/css/style.css",
     "/css/ce/select2.css": "/css/ce/select2.css",
     "/css/ce/sortable.css": "/css/ce/sortable.css",
@@ -28,6 +29,5 @@
     "/site/img/profile.webp": "/site/img/profile.webp",
     "/site/bootstrap-icons/bootstrap-icons.css": "/site/bootstrap-icons/bootstrap-icons.css",
     "/site/bootstrap-icons/bootstrap-icons.json": "/site/bootstrap-icons/bootstrap-icons.json",
-    "/site/bootstrap-icons/index.html": "/site/bootstrap-icons/index.html",
-    "/site/css/maintenance.css": "/site/css/maintenance.css"
+    "/site/bootstrap-icons/index.html": "/site/bootstrap-icons/index.html"
 }
