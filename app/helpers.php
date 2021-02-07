@@ -279,7 +279,7 @@ function resize(string $path, int|null $width = null, int|null $height = null, $
     $filePath = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
 
     if (!file_exists(asset($filePath))) {
-        \Intervention\Image\Facades\Image::make(str_replace(url('') . '/', 'storage/', asset($path)))
+        \Intervention\Image\Facades\Image::make(public_path('storage/' . $path))
             ->encode('webp')
             ->resize($width, $height, function ($constraint) use ($aspectRatio, $upsize) {
                 if ($aspectRatio) $constraint->aspectRatio();
