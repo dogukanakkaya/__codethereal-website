@@ -47,6 +47,7 @@ mix.js('resources/site/js/app.js', `public/${sitePrefix}/js`)
 
 mix
     .sass('resources/site/sass/style.scss', `public/${sitePrefix}/css`)
+    .sass('resources/site/sass/maintenance.scss', `public/${sitePrefix}/css`)
     .copy('resources/site/js/prism.js', `public/${sitePrefix}/js`)
     .copy('resources/site/css/prism.css', `public/${sitePrefix}/css`)
     .copyDirectory('resources/site/img', `public/${sitePrefix}/img`)

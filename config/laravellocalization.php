@@ -57,4 +57,9 @@ return [
     // Defaults to []
     'urlsIgnored' => ['/skipped'],
 
+
+
+    // Codethereal
+    'url_prefix' => false
+
 ];

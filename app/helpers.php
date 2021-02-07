@@ -9,10 +9,13 @@
  */
 function isActive($url, $class = 'active'): mixed
 {
-    if (is_array($url)) {
-        $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);
-    } else {
-        $url = app()->getLocale() . "/" . $url;
+    if (config('laravellocalization.url_prefix')){
+        if (is_array($url)) {
+            $url = array_map(fn($url) => app()->getLocale() . "/" . $url, $url);
+        } else {
+            $url = app()->getLocale() . "/" . $url;
+        }
+        return request()->is($url) ? $class : '';
     }
     return request()->is($url) ? $class : '';
 }
@@ -233,9 +236,14 @@ function buildHtmlTree($items, array $htmlTags = [], array $dbCols = [], int $pa
  */
 function createUrl(string $url = ''): string
 {
-    return $url === '#' ? 'javascript:void(0);' : (
-        preg_match('@^(https://|http://)@', $url) ? $url : url($url) //url(app()->getLocale() . "/" . $url)
-    );
+    if ($url === '#'){
+        return 'javascript:void(0);';
+    }else if(preg_match('@^(https://|http://)@', $url)){
+        return $url;
+    }else if(config('laravellocalization.url_prefix')){
+        return url(app()->getLocale() . "/" . $url);
+    }
+    return url($url);
 }
 
 /**
