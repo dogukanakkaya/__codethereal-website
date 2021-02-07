@@ -72,12 +72,22 @@ label.required::after{
     display: flex;
 }
 
-.modal-danger-info{
+.modal-info{
     font-size: 12px;
-    color: red;
-    font-weight: bold;
     border-top: 1px solid #bfbfbf59;
     border-bottom: 1px solid #bfbfbf59;
     margin: 0;
     padding: .5rem 0;
+
+    &.secondary{
+        color: #838383;
+        span{
+            cursor: pointer;
+            color: #4679dd;
+        }
+    }
+
+    &.danger{
+        color: red;
+    }
 }

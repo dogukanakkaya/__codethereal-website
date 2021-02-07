@@ -11,7 +11,7 @@
                         <label for="reason">{{ __('site.auth.explain_delete_account') }}</label>
                         <textarea name="reason" id="reason" rows="6"></textarea>
                     </div>
-                    <p class="modal-danger-info">{{ __('site.auth.delete_account_info') }}</p>
+                    <p class="modal-info danger">{{ __('site.auth.delete_account_info') }}</p>
                     <div class="alert fade show d-none ce-alert" role="alert"></div>
                 </div>
                 <div class="modal-footer">

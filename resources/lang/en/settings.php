@@ -14,5 +14,6 @@ return [
     'email' => 'E-Mail',
     'address' => 'Address',
     'map_code' => 'Map Code',
-    'analytics' => 'Analytics'
+    'analytics' => 'Analytics',
+    'other' => 'Other'
 ];

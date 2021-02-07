@@ -27,8 +27,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/ce/dropzone.scss', 'public/css/ce')
     .sass('resources/sass/ce/select2.scss', 'public/css/ce')
 
-// Copy img directory
-mix.copyDirectory('resources/img', 'public/img');
+// Copy directories
+mix.copyDirectory('resources/img', 'public/img')
+    .copyDirectory('resources/fonts', 'public/fonts');
 
 // Copy node modules
 mix.copyDirectory('node_modules/tinymce/icons', 'public/plugins/tinymce/icons')

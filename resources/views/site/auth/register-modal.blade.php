@@ -31,6 +31,13 @@
                     {{ Form::checkbox('subscribe', 1, false, ['id' => 'subscribe']) }}
                     {{ Form::label('subscribe', __('auth.subscribe_accept_text')) }}
                 </div>
+                <p class="modal-info secondary">
+                    {!! __('site.auth.register_privacy_policy_info', [
+                        'app_name' => config('app.name'),
+                        'privacy' => '<span onclick="openModal(`#privacy-policy-modal`)">'.__('site.auth.privacy_policy').'</span>',
+                        'terms' => '<span onclick="openModal(`#terms-of-service-modal`)">'.__('site.auth.terms_of_service').'</span>'
+                    ]) !!}
+                </p>
                 <div class="alert fade show d-none ce-alert" role="alert"></div>
             </div>
             <div class="modal-footer">
@@ -40,3 +47,6 @@
         {{ Form::close() }}
     </div>
 </div>
+
+@include('site.auth.terms-of-service')
+@include('site.auth.privacy-policy')

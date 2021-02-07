@@ -14,6 +14,8 @@
                        aria-selected="false">{{ __('settings.contact') }}</a>
                     <a class="nav-link" data-bs-toggle="pill" href="#social" role="tab"
                        aria-selected="false">{{ __('settings.social') }}</a>
+                    <a class="nav-link" data-bs-toggle="pill" href="#other" role="tab"
+                       aria-selected="false">{{ __('settings.other') }}</a>
                 </div>
             </div>
             <div class="col-12">
@@ -135,6 +137,35 @@
                                                 </div>
                                             </div>
 
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="other" role="tabpanel">
+                            <div class="nav nav-pills mb-3 language-tab" role="tablist">
+                                @foreach($languages as $language)
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="pill" href="#other-{{ $language->code }}" role="tab" aria-selected="true">{{ strtoupper($language->code) }}</a>
+                                @endforeach
+                            </div>
+                            <div class="tab-content">
+                                @include('admin.partials.description', ['text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, itaque!'])
+
+                                @foreach($languages as $key => $language)
+                                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="other-{{ $language->code }}" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label("$language->code[terms_of_service]", 'Terms of service') }}
+                                                    <x-rich-editor :name="$language->code . '[terms_of_service]'" :basic="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label("$language->code[privacy_policy]", 'Privacy Policy') }}
+                                                    <x-rich-editor :name="$language->code . '[privacy_policy]'" :basic="true"/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

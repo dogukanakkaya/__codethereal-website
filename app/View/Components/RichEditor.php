@@ -10,8 +10,9 @@ class RichEditor extends Component
      * Create a new component instance.
      *
      * @param string $name
+     * @param bool $basic
      */
-    public function __construct(public string $name)
+    public function __construct(public string $name, public bool $basic = false)
     {
         //
     }

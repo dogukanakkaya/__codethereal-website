@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', config('app.name') . ' | Admin')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{--todo--}}
+    {{--todo: roboto zaten yüklü geliyor herhalde bir şey farkettirmiyor bu
+    <link rel="stylesheet" href="{{ asset('fonts/roboto-fonts/roboto.css') }}">
+    --}}
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/material-icons.css') }}">
+    {{--todo select2 jquerysiz kullanılamadığı için kaldırılacak--}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     @stack('styles')
 </head>

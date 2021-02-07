@@ -898,15 +898,17 @@ aside {
     }
 }
 
-.full-content {
+.full-content{
     overflow: scroll;
+}
 
+.customize-content {
     h3::before,
     h4::before {
         content: "#";
         font-weight: 400;
         position: absolute;
-        opacity: 0.6;
+        opacity: .7;
         color: $main-color;
     }
 
@@ -934,7 +936,7 @@ aside {
         font-weight: 400;
         position: absolute;
         color: #ff2d20;
-        opacity: .6;
+        opacity: .7;
     }
 }
 
@@ -1123,6 +1125,15 @@ aside {
         font-weight: 700;
         font-size: .75rem;
         margin-left: .5rem;
+    }
+}
+
+.register-condition-content{
+    padding: 0 1.5rem;
+
+    p{
+        color: #838383;
+        margin-bottom: .25rem;
     }
 }
 

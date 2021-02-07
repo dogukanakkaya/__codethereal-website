@@ -182,7 +182,6 @@ class PostRepository implements PostRepositoryInterface
                 ->update($values);
         }
     }
-    /*** ONLY ADMIN ***/
 
     /**
      * Return the selectables that only contains title and id
@@ -193,6 +192,7 @@ class PostRepository implements PostRepositoryInterface
     {
         return $this->localeInstance('posts.id', 'title')->pluck('title', 'id')->toArray();
     }
+    /*** ONLY ADMIN ***/
 
     /**
      * Return parents
@@ -402,6 +402,7 @@ class PostRepository implements PostRepositoryInterface
      */
     public function childrenWithChildrenCount(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
+        //$select[] = DB::raw('(select count(*) from "post_parents" where "posts"."id" = "post_parents"."parent_id") as "children_count"');
         return $this->childrenInstance($id, $select, $limit)->withCount('children')->get();
     }
 
@@ -413,6 +414,12 @@ class PostRepository implements PostRepositoryInterface
      */
     public function localeInstance(...$select): mixed
     {
+        /*
+        return DB::table('posts')
+            ->select($select)
+            ->where('language', app()->getLocale())
+            ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id');
+        */
         return Post::select($select)
             ->where('language', app()->getLocale())
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id');

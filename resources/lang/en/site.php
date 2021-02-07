@@ -50,7 +50,10 @@ return [
         'saved_posts' => 'Saved Posts',
         'delete_account' => 'Delete Account',
         'explain_delete_account' => 'Can you explain why do you want to delete your account?',
-        'delete_account_info' => 'Once you delete your account, you will not be able to sign in or sign up again. All your data on our servers will be deleted after 7 days',
-        'profile_update_password_incorrect' => 'Your current password is not correct'
+        'delete_account_info' => 'Once you delete your account, you will not be able to sign in or sign up again',
+        'profile_update_password_incorrect' => 'Your current password is not correct',
+        'register_privacy_policy_info' => 'By continuing, you indicate that you have read and agree to :app_name\'s :terms and :privacy',
+        'terms_of_service' => 'Terms of Service',
+        'privacy_policy' => 'Privacy Policy'
     ]
 ];

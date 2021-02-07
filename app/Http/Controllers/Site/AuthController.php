@@ -61,8 +61,14 @@ class AuthController extends Controller
      */
     public function registerView()
     {
+        $data['registerSettings'] = DB::table('settings')
+            ->where('language', app()->getLocale())
+            ->whereIn('name', ['terms_of_service', 'privacy_policy'])
+            ->get()
+            ->keyBy('name')
+            ->pluck('value', 'name');
         return response()
-            ->view('site.auth.register-modal')
+            ->view('site.auth.register-modal', $data)
             ->header('Content-Type', 'application/html');
     }
 

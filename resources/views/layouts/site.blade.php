@@ -135,7 +135,7 @@
     </footer>
 </div>
 <script>window.appUrl = (path = '') => `{{ url('') }}/${path}`</script>
-<script src="{{ asset('site/js/app.js') }}"></script>
+<script defer src="{{ asset('site/js/app.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

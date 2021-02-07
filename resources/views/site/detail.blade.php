@@ -40,7 +40,7 @@
                         @endauth
                     </div>
                 </div>
-                <div class="full-content">
+                <div class="full-content customize-content">
                     {!! $post->full !!}
                 </div>
                 <div class="content-tags">
