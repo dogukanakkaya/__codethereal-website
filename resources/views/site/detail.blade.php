@@ -9,8 +9,8 @@
         <nav>
             <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
-                @foreach($parentTree as $pTree)
-                    <li><a href="{{ createUrl($pTree['url']) }}">{{ $pTree['title'] }}</a></li>
+                @foreach($parent_tree as $item)
+                    <li><a href="{{ createUrl($item['url']) }}">{{ $item['title'] }}</a></li>
                 @endforeach
                 <li>{{ $post->title }}</li>
             </ul>
@@ -30,7 +30,7 @@
                                 <vote sum="{{ $vote }}" vote-route="{{ route('web.vote') }}" post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}"></vote>
                             @endauth
                             <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
-                            <li><span><i class="bi bi-chat-text"></i> {{ $commentCount }} {{ __('site.comment.self_plural') }}</span></li>
+                            <li><span><i class="bi bi-chat-text"></i> {{ $comment_count }} {{ __('site.comment.self_plural') }}</span></li>
                         </ul>
                         @auth
                             @php($isSaved = \Illuminate\Support\Facades\DB::table('saved_posts')->where('post_id', $post->id)->where('user_id', auth()->id())->exists())
@@ -69,7 +69,7 @@
 
                 </div>
                 <div class="comments">
-                    <h5>{{ __('site.comment.self_plural') }} ({{ $commentCount }})</h5>
+                    <h5>{{ __('site.comment.self_plural') }} ({{ $comment_count }})</h5>
                     <ul>
                         @each('site.partials.comment', $comments, 'comment')
                     </ul>
@@ -83,19 +83,19 @@
                     <div class="item">
                         <h4 class="title">{{ __('site.categories') }}</h4>
                         <ul>
-                            @foreach($categoryLinks as $categoryLink)
-                                <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-right"></i> {{ $categoryLink->title }}</a></li>
+                            @foreach($category_links as $category_link)
+                                <li><a href="{{ createUrl($category_link->url) }}"><i class="bi bi-chevron-right"></i> {{ $category_link->title }}</a></li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="item">
                         <h4 class="title">{{ __('site.relational_posts') }}</h4>
-                        @foreach($relationalPosts as $relationalPost)
+                        @foreach($relational_posts as $relational_post)
                             <div class="recent-post">
-                                <a href="{{ createUrl($relationalPost->url) }}"><img src="{{ resize($relationalPost->featured_image, 200) }}" alt=""></a>
+                                <a href="{{ createUrl($relational_post->url) }}"><img src="{{ resize($relational_post->featured_image, 200) }}" alt=""></a>
                                 <div class="info">
-                                    <h4><a href="{{ createUrl($relationalPost->url) }}">{{ $relationalPost->title }}</a></h4>
-                                    <span class="timestamp">{{ $relationalPost->created_at->diffForHumans() }}</span>
+                                    <h4><a href="{{ createUrl($relational_post->url) }}">{{ $relational_post->title }}</a></h4>
+                                    <span class="timestamp">{{ $relational_post->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                         @endforeach

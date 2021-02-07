@@ -255,6 +255,8 @@ header {
     position: relative;
     height: calc(#{$home-top-height} - #{$top-bar-height});
     top: calc(-1 * #{$header-height});
+    background-size: cover!important;
+    background-position: center!important;
 
     .center {
         position: relative;
@@ -747,8 +749,9 @@ footer {
 }
 
 .page-breadcrumb {
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+    background-position: center!important;
     position: relative;
     height: 300px;
     top: calc(-1 * #{$header-height});
@@ -763,10 +766,6 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    li{
-        font-family: cursive;
     }
 
     li:not(:last-child) a {

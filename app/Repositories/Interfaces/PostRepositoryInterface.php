@@ -22,13 +22,15 @@ interface PostRepositoryInterface
 
     public function selectables(): mixed;
 
-    public function parents(int $id, array $select = ['*']): mixed;
+    public function parents(int $id, array $select = ['*'], int|null $limit = null): mixed;
 
     public function relations(int $id, array $select = ['*'], int|null $limit = null): mixed;
 
     public function files(int $id, array $select = ['*']): mixed;
 
-    public function firstFile(int $id): mixed;
+    public function firstFile(int $id, array $select = ['path']): mixed;
+
+    public function wideFile(int $id, array $select = ['path']): mixed;
 
     public function find(mixed $id, array $select = ['*'], string $col = 'posts.id'): mixed;
 

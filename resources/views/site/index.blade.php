@@ -1,10 +1,10 @@
 @extends('layouts.site')
 
 @section('content')
-    <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($homeTop->featured_image ?? '', null, 1000) }}) no-repeat;background-size: cover;background-position: center;">
+    <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($home_top->featured_image ?? '', null, 1200) }}) no-repeat;">
         <div class="center container">
             <div>
-                <h3 class="slogan"><span>{{ $homeTop->title ?? '' }}</span></h3>
+                <h3 class="slogan"><span>{{ $home_top->title ?? '' }}</span></h3>
             </div>
             <div class="d-flex justify-content-center align-items-center flex-lg-row flex-column">
                 <search search-trans="{{ __('site.search') }}..." search-route="{{ route('web.search', ['q' => ':q']) }}" item-route="{{ createUrl() }}"></search>
@@ -60,25 +60,25 @@
             </div>
         </div>
         <div class="row">
-            @foreach($featuredPosts as $featuredPost)
+            @foreach($featured_posts as $featured_post)
                 <div class="col-md-4">
                     <div class="card">
-                        <span class="date">{{ $featuredPost->created_at->format('d') }} {{ __('date.'.$featuredPost->created_at->format('m')) }}</span>
+                        <span class="date">{{ $featured_post->created_at->format('d') }} {{ __('date.'.$featured_post->created_at->format('m')) }}</span>
                         <div class="image">
-                            <a href="{{ createUrl($featuredPost->url) }}">
-                                <img src="{{ resize($featuredPost->featured_image, 750) }}" alt="">
+                            <a href="{{ createUrl($featured_post->url) }}">
+                                <img src="{{ resize($featured_post->featured_image, 750) }}" alt="">
                             </a>
                             <div class="item-overlay">
-                                <a href="{{ createUrl($featuredPost->url) }}"> <i class="bi bi-link-45deg"></i></a>
+                                <a href="{{ createUrl($featured_post->url) }}"> <i class="bi bi-link-45deg"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{ createUrl($featuredPost->url) }}">{{ $featuredPost->title }}</a></h5>
-                            <p class="card-text">{!! $featuredPost->description !!}</p>
+                            <h5 class="card-title"><a href="{{ createUrl($featured_post->url) }}">{{ $featured_post->title }}</a></h5>
+                            <p class="card-text">{!! $featured_post->description !!}</p>
                             <hr>
                             <div class="d-flex justify-content-between align-items-center card-bottom">
-                                <span><i class="bi bi-pencil"></i> {{ $featuredPost->created_by_name }}</span>
-                                <a href="{{ createUrl($featuredPost->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
+                                <span><i class="bi bi-pencil"></i> {{ $featured_post->created_by_name }}</span>
+                                <a href="{{ createUrl($featured_post->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
                             </div>
                         </div>
                     </div>
@@ -92,17 +92,17 @@
             <ul class="d-flex justify-content-evenly w-100 counters">
                 <li>
                     <i class="bi bi-person-check"></i>
-                    <h4>{{ $userCount }}+</h4>
+                    <h4>{{ $user_count }}+</h4>
                     <h4>{{ __('site.user') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-bookmark-check"></i>
-                    <h4>{{ $categoryItemChildrenSum }}+</h4>
+                    <h4>{{ $category_children_sum }}+</h4>
                     <h4>{{ __('site.post') }}</h4>
                 </li>
                 <li>
                     <i class="bi bi-collection"></i>
-                    <h4>{{ $categoryCount }}+</h4>
+                    <h4>{{ $category_count }}+</h4>
                     <h4>{{ __('site.category') }}</h4>
                 </li>
                 <li>

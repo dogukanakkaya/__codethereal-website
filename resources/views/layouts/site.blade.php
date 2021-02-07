@@ -65,18 +65,18 @@
                     </a>
                 </div>
                 <ul class="menus">
-                    @foreach($headerMenus as $hMenu)
-                        @if(count($hMenu->children))
+                    @foreach($header_menus as $header_menu)
+                        @if(count($header_menu->children))
                             <li class="has-children">
-                                <a href="{{ createUrl($hMenu->url) }}">{{ $hMenu->title }}</a>
+                                <a href="{{ createUrl($header_menu->url) }}">{{ $header_menu->title }}</a>
                                 <ul class="sub-menus">
-                                    @foreach($hMenu->children as $cMenu)
-                                    <li><a href="{{ createUrl($cMenu->url) }}">{{ $cMenu->title }}</a></li>
+                                    @foreach($header_menu->children as $cMenu)
+                                    <li><a href="{{ createUrl($header_menu->url) }}">{{ $header_menu->title }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
                         @else
-                            <li><a href="{{ createUrl($hMenu->url) }}">{{ $hMenu->title }}</a></li>
+                            <li><a href="{{ createUrl($header_menu->url) }}">{{ $header_menu->title }}</a></li>
                         @endif
                     @endforeach
                     <li>
@@ -109,16 +109,16 @@
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <h5><i class="bi bi-list"></i> {{ __('site.categories') }}</h5>
                     <ul>
-                        @foreach($categoryLinks as $categoryLink)
-                            <li><a href="{{ createUrl($categoryLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $categoryLink->title }}</a></li>
+                        @foreach($category_links as $category_link)
+                            <li><a href="{{ createUrl($category_link->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $category_link->title }}</a></li>
                         @endforeach
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <h5><i class="bi bi-link-45deg"></i> {{ __('site.quick_links') }}</h5>
                     <ul>
-                        @foreach($quickLinks as $quickLink)
-                            <li><a href="{{ url($quickLink->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $quickLink->title }}</a></li>
+                        @foreach($quick_links as $quick_link)
+                            <li><a href="{{ url($quick_link->url) }}"><i class="bi bi-chevron-double-right"></i> {{ $quick_link->title }}</a></li>
                         @endforeach
                     </ul>
                 </div>

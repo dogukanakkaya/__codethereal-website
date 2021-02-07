@@ -43,15 +43,15 @@ class WebController extends Controller
         );
 
         $data = [
-            'homeTop' => $homeTop,
+            'home_top' => $homeTop,
             'category' => $category,
             'categories' => $categories,
-            'featuredPosts' => $featuredPosts,
+            'featured_posts' => $featuredPosts,
             'cards' => $cards,
             'parallax' => $parallax,
-            'categoryCount' => $categories->count(),
-            'categoryItemChildrenSum' => $categories->sum('children_count'),
-            'userCount' => User::where('rank', config('user.rank.basic'))->count(),
+            'category_count' => $categories->count(),
+            'category_children_sum' => $categories->sum('children_count'),
+            'user_count' => User::where('rank', config('user.rank.basic'))->count(),
         ];
 
         return view('site.index', $data);
@@ -76,18 +76,21 @@ class WebController extends Controller
             'description' => $post->meta_description,
             'keywords' => $post->meta_tags
         ];
-        $data['parentTree'] = $this->postRepository->parentTree($postId, ['posts.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
+        $data['parent_tree'] = $this->postRepository->parentTree($postId, ['posts.id', 'title', 'url']); // Find parent tree for breadcrumb navigation
 
         // If given url has sub posts then return list view, if not return detail view
         if ($this->postRepository->hasChildren($postId)){
             $data['category'] = $post;
+
+            $wideFile = $this->postRepository->wideFile($post->id);
+            $data['wide_image'] = $wideFile->path ?? '';
 
             if ($postId === config('site.categories')){
                 $data['categories'] = $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image']);
                 return view('site.category-list', $data);
             }else{
                 $data['posts'] = $this->postRepository->childrenInstance($postId, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])->paginate(6);
-                $data['mostViewedPosts'] = $this->postRepository->mostViewedChildren($postId, ['title', 'url', 'featured_image', 'created_at'], 3);
+                $data['most_viewed_posts'] = $this->postRepository->mostViewedChildren($postId, ['title', 'url', 'featured_image', 'created_at'], 3);
                 return view('site.post-list', $data);
             }
         }else{
@@ -98,11 +101,11 @@ class WebController extends Controller
             }
 
             $data['post'] = $post;
-            $data['relationalPosts'] = $this->postRepository->relations($postId, ['title', 'url', 'featured_image', 'created_at']);
-            $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('post_id', $postId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
+            $data['relational_posts'] = $this->postRepository->relations($postId, ['title', 'url', 'featured_image', 'created_at']);
             $data['vote'] = DB::table('votes')->where('post_id', $postId)->sum('vote');
+            $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('post_id', $postId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
             $data['comments'] = buildTree($comments, ['parentId' => 'parent_id']);
-            $data['commentCount'] = $comments->count();
+            $data['comment_count'] = $comments->count();
             return view('site.detail', $data);
         }
     }

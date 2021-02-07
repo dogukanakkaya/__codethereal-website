@@ -17,7 +17,7 @@ class MenusComposer
      */
     public function compose(View $view)
     {
-        $view->with('headerMenus',
+        $view->with('header_menus',
             buildTree(
                 cache()->remember('header-menu', 60 * 60 * 6, fn () =>
                     MenuGroup::itemsByLocale(config('site.header_menu'), 'item_id', 'parent_id', 'title', 'url')
@@ -25,7 +25,7 @@ class MenusComposer
             )
         );
 
-        $view->with('quickLinks',
+        $view->with('quick_links',
             cache()->remember('quick-links', 60 * 60 * 6, fn () =>
                 MenuGroup::itemsByLocale(config('site.quick_links'), 'item_id', 'title', 'url')
             )

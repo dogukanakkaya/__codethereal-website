@@ -287,7 +287,7 @@ function resize(string $path, int|null $width = null, int|null $height = null, $
 /**
  * Find the image path from id and resize the image by given width and height and encode to webp if browser is not safari
  *
- * @param string $id
+ * @param int $id
  * @param int|null $width
  * @param int|null $height
  * @param bool $aspectRatio

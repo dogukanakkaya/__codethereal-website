@@ -124,7 +124,7 @@ class PostRepository implements PostRepositoryInterface
      */
     public function insertTranslations(int $id, $data): bool
     {
-        // Find Post featured image to save database
+        // Find Post featured image and wide image to save database
         $featuredImage = $this->firstFile($id);
 
         $translationData = [];
@@ -143,7 +143,7 @@ class PostRepository implements PostRepositoryInterface
                 'post_id' => $id,
                 'url' => Str::slug($values['title']) . $appendId,
                 'categories' => implode(', ', $this->parents($id, ['title'])->pluck('title')->toArray()),
-                'featured_image' => $featuredImage->path ?? '',
+                'featured_image' => $featuredImage->path ?? ''
             ]);
         }
         return DB::table('post_translations')->insert($translationData);
@@ -157,7 +157,7 @@ class PostRepository implements PostRepositoryInterface
      */
     public function updateTranslations(int $id, $data): void
     {
-        // Find Post featured image to save database
+        // Find Post featured image and wide image to save database
         $featuredImage = $this->firstFile($id);
 
         foreach ($data as $language => $values) {
@@ -174,6 +174,7 @@ class PostRepository implements PostRepositoryInterface
             $values['url'] = Str::slug($values['title']) . $appendId;
 
             $values['featured_image'] = $featuredImage->path ?? '';
+
             $values['categories'] = implode(', ', $this->parents($id, ['title'])->pluck('title')->toArray());
 
             DB::table('post_translations')
@@ -199,13 +200,17 @@ class PostRepository implements PostRepositoryInterface
      *
      * @param int $id
      * @param mixed ...$select
+     * @param int|null $limit
      * @return mixed
      */
-    public function parents(int $id, array $select = ['*']): mixed
+    public function parents(int $id, array $select = ['*'], int|null $limit = null): mixed
     {
         return $this->localeInstance(...$select)
             ->where('post_parents.post_id', $id)
             ->leftJoin('post_parents', 'post_parents.parent_id', 'posts.id')
+            ->oldest('sequence')
+            ->latest()
+            ->take($limit)
             ->get();
     }
 
@@ -220,11 +225,11 @@ class PostRepository implements PostRepositoryInterface
     public function relations(int $id, array $select = ['*'], int|null $limit = null): mixed
     {
         return $this->localeInstance(...$select)
+            ->where('post_relations.post_id', $id)
             ->leftJoin('post_relations', 'post_relations.relation_id', 'posts.id')
             ->oldest('sequence')
             ->latest()
             ->take($limit)
-            ->where('post_relations.post_id', $id)
             ->get();
     }
 
@@ -248,16 +253,34 @@ class PostRepository implements PostRepositoryInterface
      * Return first file
      *
      * @param int $id
+     * @param array $select
      * @return mixed
      */
-    public function firstFile(int $id): mixed
+    public function firstFile(int $id, array $select = ['path']): mixed
     {
-        return Post::select('path')
+        return Post::select(...$select)
             ->where('posts.id', $id)
             // TODO: check this out, it's not working, it always returns the type 1
             ->where(function ($query) {
                 $query->where('files.type', 2)->orWhere('files.type', 1);
             })
+            ->leftJoin('post_files', 'post_files.post_id', '=', 'posts.id')
+            ->leftJoin('files', 'files.id', 'post_files.file_id')
+            ->first();
+    }
+
+    /**
+     * Return wide image file
+     *
+     * @param int $id
+     * @param array $select
+     * @return mixed
+     */
+    public function wideFile(int $id, array $select = ['path']): mixed
+    {
+        return Post::select(...$select)
+            ->where('posts.id', $id)
+            ->where('files.type', 3)
             ->leftJoin('post_files', 'post_files.post_id', '=', 'posts.id')
             ->leftJoin('files', 'files.id', 'post_files.file_id')
             ->first();
