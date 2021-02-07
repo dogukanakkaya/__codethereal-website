@@ -41,9 +41,9 @@
         <div class="overlay flex-column d-flex justify-content-center align-items-center p-3 text-center">
             <h3>{{ $parallax->title }}</h3>
             <p>{{ $parallax->description }}</p>
-            @if(!auth()->check())
+            @guest
                 <span class="ce-btn" onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.auth.register') }}</span>
-            @endif
+            @endguest
         </div>
     </section>
     @endisset

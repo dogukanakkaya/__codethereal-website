@@ -57,7 +57,7 @@ class PostController extends Controller
         $data = $request->validated();
         $postData = array_remove($data, 'post');
         $postData['created_by'] = Auth::id();
-        $postData['created_by_name'] = Auth::user()->name;
+        $postData['created_by_name'] = Auth::user()->isDev() ? config('app.name') : Auth::user()->name;
         $postData['updated_by'] = Auth::id();
 
         // Get and unset files and parents from post data

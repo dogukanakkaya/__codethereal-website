@@ -4,3 +4,9 @@ js/
 plugins/
 img/
 site/
+index.php
+.htaccess
+web.config
+favicon.ico
+robots.txt
+mix-manifest.json

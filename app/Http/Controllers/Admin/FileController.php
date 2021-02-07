@@ -25,8 +25,8 @@ class FileController extends Controller
     {
         /**
          * 1: Normal
-         * 2: Öne Çıkarılan
-         * 3: Geniş
+         * 2: Featured
+         * 3: Wide
          */
 
         $file = request()->file('file');
@@ -60,7 +60,7 @@ class FileController extends Controller
     public function download(int $id)
     {
         $file = File::find($id);
-        return response()->download("storage/" . $file->path);
+        return response()->download(str_replace(url('') . '/', 'storage/', asset($file->path)));
     }
 
     public function find(int $id)

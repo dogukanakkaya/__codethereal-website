@@ -18,7 +18,7 @@ class CreatePostTranslationsTable extends Migration
             $table->foreignId('post_id')->constrained('posts');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->string('full')->nullable();
+            $table->text('full')->nullable();
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->string('categories')->nullable();
