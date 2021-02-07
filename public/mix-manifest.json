@@ -28,5 +28,6 @@
     "/site/img/profile.webp": "/site/img/profile.webp",
     "/site/bootstrap-icons/bootstrap-icons.css": "/site/bootstrap-icons/bootstrap-icons.css",
     "/site/bootstrap-icons/bootstrap-icons.json": "/site/bootstrap-icons/bootstrap-icons.json",
-    "/site/bootstrap-icons/index.html": "/site/bootstrap-icons/index.html"
+    "/site/bootstrap-icons/index.html": "/site/bootstrap-icons/index.html",
+    "/site/css/maintenance.css": "/site/css/maintenance.css"
 }

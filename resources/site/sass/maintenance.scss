@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+.maintenance{
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1{
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        text-shadow: 2px 2px #fff;
+    }
+
+    p{
+        font-size: 21px;
+        color: #fff;
+    }
+}
