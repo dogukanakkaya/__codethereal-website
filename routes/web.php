@@ -64,6 +64,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::put('update', 'ConfigController@update')->name('config.update');
                 });
             });
+
+            // Dev/Artisan
+            Route::prefix('cli')->group(function () {
+                Route::get('/', 'CLIController@index')->name('cli.index');
+
+                Route::middleware('only.ajax')->group(function () {
+                    Route::post('run', 'CLIController@run')->name('cli.run');
+                });
+            });
         });
 
         // Files

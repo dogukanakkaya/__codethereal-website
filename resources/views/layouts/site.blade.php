@@ -4,6 +4,7 @@
     {!! meta($_meta ?? $settings) !!}
 
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    {{-- TODO: font-display:swap özelliğine bakılacak --}}
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
     @stack('styles')
 </head>

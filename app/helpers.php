@@ -276,20 +276,22 @@ function resize(string $path, int|null $width = null, int|null $height = null, $
     }
 
     // Thumb file path
-    $filePath = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
+    $fileThumb = 'storage/thumbs/DS' . $width . 'x' . $height . '_' . $file;
 
-    if (!file_exists(asset($filePath))) {
+    // Absolute path to save file
+    $savePath = public_path($fileThumb);
+    if (!file_exists($savePath)) {
         \Intervention\Image\Facades\Image::make(public_path('storage/' . $path))
             ->encode('webp')
             ->resize($width, $height, function ($constraint) use ($aspectRatio, $upsize) {
                 if ($aspectRatio) $constraint->aspectRatio();
                 if ($upsize) $constraint->upsize();
             })
-            ->save(str_replace(url('') . '/', '', asset($filePath)))
+            ->save($savePath)
             ->response();
     }
 
-    return asset($filePath);
+    return asset($fileThumb);
 }
 
 /**

@@ -67,6 +67,11 @@
                                class="{{ isActive('admin/dev/config') }}"><i class="material-icons-outlined md-18">lock_open</i>
                                 Config</a>
                         </li>
+                            <li>
+                                <a href="{{ route('cli.index') }}"
+                                   class="{{ isActive('admin/dev/cli') }}"><i class="material-icons-outlined md-18">keyboard</i>
+                                    CLI</a>
+                            </li>
                     @endif
                 </ul>
             </div>
