@@ -48,3 +48,19 @@
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/xml
 </IfModule>
+
+
+#Protect Directory
+AuthName "Dialog prompt"
+AuthType Basic
+AuthUserFile /home/codethereal/domains/dev.codethereal.com/public_html/.htpasswd
+Require valid-user
+
+# Secure only dev.codethereal.com
+SetEnvIf Host dev.codethereal.com secure_content
+
+Order Allow,Deny
+Allow from all
+Deny from env=secure_content
+
+Satisfy Any
