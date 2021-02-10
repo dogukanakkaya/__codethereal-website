@@ -36,7 +36,7 @@ class WebComposer
         $headerMenus = cache()->remember('header-menu', 60 * 60 * 6, fn () =>
             MenuGroup::itemsByLocale(config('site.header_menu'), 'item_id', 'parent_id', 'title', 'url')
         );
-        $view->with('header_menus', buildTree($headerMenus));
+        $view->with('header_menus', buildTree($headerMenus, ['id' => 'item_id', 'parentId' => 'parent_id']));
 
         $quickLinks = cache()->remember('quick-links', 60 * 60 * 6, fn () =>
             MenuGroup::itemsByLocale(config('site.quick_links'), 'item_id', 'title', 'url')
