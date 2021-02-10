@@ -13,9 +13,9 @@
     <div class="container">
         <div class="top-bar d-flex justify-content-between align-items-center">
             <ul>
-                <li><a href="{{ $settings['linkedin'] ?? '#' }}"><i class="bi bi-linkedin linkedin"></i></a></li>
-                <li><a href="{{ $settings['github'] ?? '#' }}"><i class="bi bi-github github"></i></a></li>
-                <li><a href="{{ $settings['youtube'] ?? '#' }}"><i class="bi bi-youtube youtube"></i></a></li>
+                <li><a href="{{ $settings['linkedin'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-linkedin linkedin"></i></a></li>
+                <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-github github"></i></a></li>
+                <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-youtube youtube"></i></a></li>
             </ul>
             <ul>
                 @guest
@@ -104,9 +104,9 @@
                     </div>
                     <p>{{ $settings['description'] ?? '' }}</p>
                     <ul class="d-flex justify-content-center justify-content-md-start">
-                        <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0" target="_blank"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank"><i class="bi bi-github"></i></a></li>
-                        <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank"><i class="bi bi-youtube"></i></a></li>
+                        <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a></li>
+                        <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-github"></i></a></li>
+                        <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
