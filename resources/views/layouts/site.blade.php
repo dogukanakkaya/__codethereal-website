@@ -104,9 +104,9 @@
                     </div>
                     <p>{{ $settings['description'] ?? '' }}</p>
                     <ul class="d-flex justify-content-center justify-content-md-start">
-                        <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="{{ $settings['github'] ?? '#' }}"><i class="bi bi-github"></i></a></li>
-                        <li><a href="{{ $settings['youtube'] ?? '#' }}"><i class="bi bi-youtube"></i></a></li>
+                        <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0" target="_blank"><i class="bi bi-linkedin"></i></a></li>
+                        <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank"><i class="bi bi-github"></i></a></li>
+                        <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank"><i class="bi bi-youtube"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
@@ -128,9 +128,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <h5><i class="bi bi-cursor"></i> {{ __('site.contact_us') }}</h5>
                     <ul>
-                        <li><a href="tel:{{ $settings['phone'] ?? '' }}"><i class="bi bi-phone-vibrate"></i> {{ $settings['phone'] ?? '' }}</a></li>
-                        <li><a href="mailto:{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email'] ?? '' }}</a></li>
-                        <li><a href="{{ $settings['address'] ?? '' }}"><i class="bi bi-geo-alt"></i> {{ $settings['address'] ?? '' }}</a></li>
+                        <li><a href="mailto:{{ $settings['email'] ?? '' }}"><i class="bi bi-envelope-open"></i> {{ $settings['email'] ?? '' }}</a></li>
+                        <li><a href="mailto:{{ $settings['email2'] ?? '' }}"><i class="bi bi-envelope"></i> {{ $settings['email2'] ?? '' }}</a></li>
                     </ul>
                 </div>
             </div>

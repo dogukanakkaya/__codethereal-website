@@ -85,14 +85,22 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mb-3">
-                                                    {{ Form::label("$language->code[phone]", __('settings.phone')) }}
-                                                    {{ Form::text("$language->code[phone]", $settings[$language->code]['phone'] ?? '', ['class' => 'form-control']) }}
+                                                    {{ Form::label("$language->code[email]", __('settings.email')) }}
+                                                    {{ Form::text("$language->code[email]", $settings[$language->code]['email'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="mb-3">
-                                                    {{ Form::label("$language->code[email]", __('settings.email')) }}
-                                                    {{ Form::text("$language->code[email]", $settings[$language->code]['email'] ?? '', ['class' => 'form-control']) }}
+                                                    {{ Form::label("$language->code[email2]", __('settings.email') . ' 2') }}
+                                                    {{ Form::text("$language->code[email2]", $settings[$language->code]['email2'] ?? '', ['class' => 'form-control']) }}
+                                                </div>
+                                            </div>
+
+                                            {{--
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label("$language->code[phone]", __('settings.phone')) }}
+                                                    {{ Form::text("$language->code[phone]", $settings[$language->code]['phone'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -107,6 +115,8 @@
                                                     {{ Form::text("$language->code[map_code]", $settings[$language->code]['map_code'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
+                                            --}}
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -136,7 +146,12 @@
                                                     {{ Form::text("$language->code[github]", $settings[$language->code]['github'] ?? '', ['class' => 'form-control']) }}
                                                 </div>
                                             </div>
-
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label("$language->code[youtube]", 'Youtube') }}
+                                                    {{ Form::text("$language->code[youtube]", $settings[$language->code]['youtube'] ?? '', ['class' => 'form-control']) }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

@@ -16,9 +16,9 @@ return [
         'description',
         'linkedin',
         'github',
-        'phone',
+        'youtube',
         'email',
-        'address'
+        'email2'
     ],
     'locale_names' => [
         'en' => 'English',
@@ -26,4 +26,4 @@ return [
     ],
 
     'browser' => null
-]; 
+];
