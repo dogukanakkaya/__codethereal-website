@@ -17,7 +17,7 @@ class Developer
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()->isDev()){
+        if (!auth()->user()->isDev()){
             return back();
         }
         return $next($request);
