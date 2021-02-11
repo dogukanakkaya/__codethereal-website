@@ -2,6 +2,9 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     {!! meta($_meta ?? $settings) !!}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('site/img/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('site/img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('site/img/favicon/favicon-16x16.png') }}">
 
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
     {{-- TODO: font-display:swap özelliğine bakılacak --}}
