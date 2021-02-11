@@ -18,9 +18,9 @@ class AuthorizeController extends Controller
     public function verify($token)
     {
         if (Authorize::validateToken($token)) {
-            return redirect()->route('admin.home');
+            return redirect()->to('/');
         }
-        return redirect()->route('login')->withErrors(['token' => __('auth.authorize_token_expired')]);
+        return redirect()->route('authorize')->withErrors(['status' => __('auth.authorize_token_expired')]);
     }
 
     /**

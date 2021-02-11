@@ -87,6 +87,8 @@ class AuthController extends Controller
         $data['name_code'] = nameCode($data['name']);
 
         $user = User::create($data);
+        // Make authorized at first register
+        $user->markAsAuthorized();
         $user->sendEmailVerificationNotification();
         return resJson($user, [
             'message' => __('auth.registered_needs_verification')

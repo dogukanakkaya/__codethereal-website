@@ -108,7 +108,7 @@ class Authorize extends Model
         );
     }
 
-    private static function getAuthorizeInformation()
+    public static function getAuthorizeInformation()
     {
         $ip = request()->ip();
         $userAgent = request()->server('HTTP_USER_AGENT');
