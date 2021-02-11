@@ -13,16 +13,20 @@
     <div class="container">
         <div class="top-bar d-flex justify-content-between align-items-center">
             <ul>
-                <li><a href="{{ $settings['linkedin'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-linkedin linkedin"></i></a></li>
-                <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-github github"></i></a></li>
-                <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-youtube youtube"></i></a></li>
+                <li><a href="{{ $settings['linkedin'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-linkedin linkedin"></i></a></li>
+                <li><a href="{{ $settings['github'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-github github"></i></a></li>
+                <li><a href="{{ $settings['youtube'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-youtube youtube"></i></a></li>
             </ul>
             <ul>
                 @guest
-                    <li onclick="__login()"><i class="bi bi-person"></i> {{ __('site.auth.login') }}</li>
+                    <li onclick="__login()">
+                        @if(session()->has('verified'))
+                        <span class="verified-success">{{ __('site.auth.account_verified_info') }}</span>
+                        @endif
+                        <i class="bi bi-person"></i> {{ __('site.auth.login') }}
+                    </li>
                     <span class="bracket"></span>
                     <li onclick="__register()"><i class="bi bi-person-plus"></i> {{ __('site.auth.register') }}</li>
-                    <span class="bracket"></span>
                 @endguest
                 @auth
                     <li onclick="location.href = '{{ route('web.profile') }}'"><i class="bi bi-person"></i> {{ __('site.auth.profile') }}</li>
@@ -104,9 +108,9 @@
                     </div>
                     <p>{{ $settings['description'] ?? '' }}</p>
                     <ul class="d-flex justify-content-center justify-content-md-start">
-                        <li><a href="{{ $settings['linkedin'] ?? '#' }}" class="ps-0" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="{{ $settings['github'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-github"></i></a></li>
-                        <li><a href="{{ $settings['youtube'] ?? '#' }}" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a></li>
+                        <li><a href="{{ $settings['linkedin'] ?? '' }}" class="ps-0" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a></li>
+                        <li><a href="{{ $settings['github'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-github"></i></a></li>
+                        <li><a href="{{ $settings['youtube'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">

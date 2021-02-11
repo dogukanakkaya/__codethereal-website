@@ -70,6 +70,7 @@
             padding: 1rem;
             color: #454b63;
             font-size: 14px;
+            position: relative;
             cursor: pointer;
             transition: all 0.25s ease-in-out;
 
@@ -81,6 +82,13 @@
                 padding-right: 0;
             }
         }
+    }
+
+    span.verified-success{
+        position: absolute;
+        left: -350px;
+        color: #ff4824;
+        width: 375px;
     }
 }
 
@@ -1295,6 +1303,17 @@ aside {
             .has-children > a::after {
                 top: 5px;
             }
+        }
+    }
+}
+
+@include mobile {
+    .top-bar{
+        span.verified-success{
+            left: -160px;
+            width: 310px;
+            top: 0;
+            font-size: 12px;
         }
     }
 }

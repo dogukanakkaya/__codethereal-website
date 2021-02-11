@@ -54,6 +54,7 @@ return [
         'profile_update_password_incorrect' => 'Your current password is not correct',
         'register_privacy_policy_info' => 'By continuing, you indicate that you have read and agree to :app_name\'s :terms and :privacy',
         'terms_of_service' => 'Terms of Service',
-        'privacy_policy' => 'Privacy Policy'
+        'privacy_policy' => 'Privacy Policy',
+        'account_verified_info' => 'Your account verified successfully, now you can login.'
     ]
 ];
