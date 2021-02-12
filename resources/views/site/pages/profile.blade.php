@@ -76,15 +76,14 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <div class="ce-f-group">
-                                        <input type="password" name="current_password">
+                                        <input type="password" name="current_password" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="text-end mb-3">
-                        <button class="ce-btn me-0" type="submit">{{ __('site.save') }} <i class="bi bi-save"></i>
-                        </button>
+                        <button class="ce-btn me-0" type="submit">{{ __('site.save') }} <i class="bi bi-save"></i></button>
                     </div>
                     <div class="alert fade show d-none ce-alert" role="alert"></div>
                 </form>
@@ -132,45 +131,37 @@
 
 @push('scripts')
     <script>
-        document.getElementById('profile-form').addEventListener('submit', async e => {
-            e.preventDefault()
-            const {
-                data: {
-                    status,
-                    message
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('profile-form').addEventListener('submit', async e => {
+                e.preventDefault()
+                const {data: {status, message}} = await request.post('{{ route('web.update_profile') }}', serialize(e.target, {hash: true, empty: true}))
+
+                const alertEl = e.target.querySelector('.alert')
+                if (status) {
+                    replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                } else {
+                    replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
                 }
-            } = await request.post('{{ route('web.update_profile') }}', serialize(e.target, {hash: true, empty: true}))
+                alertEl.innerText = message
+            })
 
-            const alertEl = e.target.querySelector('.alert')
-            if (status) {
-                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
-            } else {
-                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
-            }
-            alertEl.innerText = message
-        })
+            document.getElementById('delete-account-form').addEventListener('submit', async e => {
+                e.preventDefault()
 
-        document.getElementById('delete-account-form').addEventListener('submit', async e => {
-            e.preventDefault()
+                const {data: {status, message}} = await request.post('{{ route('web.delete_account') }}', serialize(e.target, {hash: true, empty: true}))
 
-            const {
-                data: {
-                    status,
-                    message
+                const alertEl = e.target.querySelector('.alert')
+                if (status) {
+                    replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                    e.target.reset()
+                    setTimeout(() => {
+                        location.href = appUrl()
+                    }, 2000)
+                } else {
+                    replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
                 }
-            } = await request.post('{{ route('web.delete_account') }}', serialize(e.target, {hash: true, empty: true}))
-
-            const alertEl = e.target.querySelector('.alert')
-            if (status) {
-                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
-                e.target.reset()
-                setTimeout(() => {
-                    location.href = appUrl()
-                }, 2000)
-            } else {
-                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
-            }
-            alertEl.innerText = message
+                alertEl.innerText = message
+            })
         })
     </script>
 @endpush
