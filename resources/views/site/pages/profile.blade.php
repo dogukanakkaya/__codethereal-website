@@ -88,7 +88,7 @@
                     </div>
                     <div class="alert fade show d-none ce-alert" role="alert"></div>
                 </form>
-                <div class="row gy-5 posts">
+                <div class="row gy-5 posts d-block">
                     <div class="col-12 section-title">
                         <h2>{{ __('site.saved_posts.self_singular') }}</h2>
                         <div class="line"></div>
