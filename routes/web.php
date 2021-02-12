@@ -206,7 +206,7 @@ Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], fun
     Route::get('contact', 'WebController@contactView');
     Route::post('contact', 'WebController@contact');
 
-    Route::middleware(['auth', 'authorized', 'throttle:10,10'])->group(function (){
+    Route::middleware(['auth', 'authorize', 'throttle:10,10'])->group(function (){
         Route::post('comment/send', 'WebController@comment')->name('web.comment');
         Route::post('vote', 'WebController@vote')->name('web.vote');
         Route::post('save-post', 'WebController@savePost')->name('web.save_post');
