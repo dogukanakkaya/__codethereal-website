@@ -84,6 +84,9 @@ class PostController extends Controller
             // Create Post Translations
             $this->postRepository->insertTranslations($post->id, $data);
 
+            // Remove the posts cache
+            cache()->forget('home-posts');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {
@@ -97,6 +100,9 @@ class PostController extends Controller
         if (!Auth::user()->can('delete_posts')) {
             return resJsonUnauthorized();
         }
+        // Remove the posts cache
+        cache()->forget('home-posts');
+
         return resJson(Post::destroy(explode(',', $id)));
     }
 
@@ -105,6 +111,9 @@ class PostController extends Controller
         if (!Auth::user()->can('delete_posts')) {
             return resJsonUnauthorized();
         }
+        // Remove the posts cache
+        cache()->forget('home-posts');
+
         return resJson(Post::withTrashed()->whereIn('id', explode(',', $id))->restore());
     }
 
@@ -173,6 +182,9 @@ class PostController extends Controller
             // Update Post Translations
             $this->postRepository->updateTranslations($id, $data);
 
+            // Remove the posts cache
+            cache()->forget('home-posts');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {
@@ -211,6 +223,9 @@ class PostController extends Controller
                     $id
                 ]);
             }
+            // Remove the posts cache
+            cache()->forget('home-posts');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {

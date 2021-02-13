@@ -440,10 +440,12 @@ class PostRepository implements PostRepositoryInterface
         /*
         return DB::table('posts')
             ->select($select)
+            ->where('active', 1)
             ->where('language', app()->getLocale())
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id');
         */
         return Post::select($select)
+            ->where('active', 1)
             ->where('language', app()->getLocale())
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id');
     }
