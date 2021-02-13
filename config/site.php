@@ -6,7 +6,7 @@ return [
     'home_parallax' => 7,
     'header_menu' => 3,
     'category_links' => 4,
-    'quick_links' => 5,
+    'quick_links' => 4,
     'cards' => 0,
     'footer' => 11,
     'setting_names' => [
