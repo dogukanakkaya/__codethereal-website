@@ -179,7 +179,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     });
 
     // Website routes with locale prefix
-    Route::group(['prefix' => '/', 'namespace' => 'App\Http\Controllers\Site'], function () {
+    Route::group(['prefix' => '/', 'middleware' => ['online'], 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
 
         Route::get(LaravelLocalization::transRoute('routes.posts'), 'WebController@postList');
@@ -212,6 +212,6 @@ Route::group(['prefix' => '/_', 'namespace' => 'App\Http\Controllers\Site'], fun
         Route::post('save-post', 'WebController@savePost')->name('web.save_post');
     });
 
-    Route::get('search/{q?}', 'WebController@search')->name('web.search');
+    Route::get('search/{q?}', 'WebController@search')->name('web.search')->middleware('only.ajax');
 
 });
