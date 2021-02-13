@@ -65,7 +65,7 @@ class SettingController extends Controller
             // TODO: change updateOrInsert with upsert to make faster queries
             //DB::upsert($upsertData, ['name', 'language'], ['value']);
 
-            // Remove the posts cache
+            // Remove the settings cache
             cache()->forget('settings');
 
             DB::commit();

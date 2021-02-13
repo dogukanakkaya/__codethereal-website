@@ -20,25 +20,26 @@ class WebController extends Controller
 
     public function index()
     {
-        $category = cache()->remember('home-category', 60 * 60 * 6, fn () =>
+        $cacheTimestamp = config('site.default_cache_timestamp');
+        $category = cache()->remember('home-category', $cacheTimestamp, fn () =>
             $this->postRepository->find(config('site.categories'), ['title', 'url'])
         );
-        $categories = cache()->remember('home-categories', 60 * 60 * 6, fn () =>
+        $categories = cache()->remember('home-categories', $cacheTimestamp, fn () =>
             $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8)
         );
-        $cards = cache()->remember('home-cards', 60 * 60 * 6, fn () =>
+        $cards = cache()->remember('home-cards', $cacheTimestamp, fn () =>
             $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image'])
         );
-        $homeTop = cache()->remember('home-top', 60 * 60 * 6, fn () =>
+        $homeTop = cache()->remember('home-top', $cacheTimestamp, fn () =>
             $this->postRepository->find(config('site.home_top'), ['title', 'featured_image'])
         );
-        $parallax = cache()->remember('home-parallax', 60 * 60 * 6, fn () =>
+        $parallax = cache()->remember('home-parallax', $cacheTimestamp, fn () =>
             $this->postRepository->find(config('site.home_parallax'), ['title', 'description', 'featured_image'])
         );
 
         $categoryIds = $categories->pluck('id')->toArray();
 
-        $featuredPosts = cache()->remember('home-posts', 60 * 30, fn () =>
+        $featuredPosts = cache()->remember('home-posts', $cacheTimestamp, fn () =>
             $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])
         );
 

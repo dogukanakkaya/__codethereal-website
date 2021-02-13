@@ -16,6 +16,7 @@ return [
     'sort' => 'Sort',
     'created_at' => 'Created At',
     'relations' => 'Relations',
+    'views' => 'Views',
     'seo' => [
         'self_singular' => 'Seo',
         'title' => 'Meta Title',

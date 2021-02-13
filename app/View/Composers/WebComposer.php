@@ -20,8 +20,9 @@ class WebComposer
      */
     public function compose(View $view)
     {
+        $cacheTimestamp = config('site.default_cache_timestamp');
         // Settings Composer
-        $settings =  cache()->remember('settings', 60 * 60 * 24, fn () =>
+        $settings =  cache()->remember('settings', $cacheTimestamp, fn () =>
             DB::table('settings')
                 ->where('language', app()->getLocale())
                 ->whereIn('name', config('site.setting_names'))
@@ -33,25 +34,25 @@ class WebComposer
         $view->with('settings', $settings);
 
         // Menus Composer
-        $headerMenus = cache()->remember('header-menu', 60 * 60 * 6, fn () =>
+        $headerMenus = cache()->remember('header-menu', $cacheTimestamp, fn () =>
             MenuGroup::itemsByLocale(config('site.header_menu'), 'item_id', 'parent_id', 'title', 'url')
         );
         $view->with('header_menus', buildTree($headerMenus, ['id' => 'item_id', 'parentId' => 'parent_id']));
 
-        $quickLinks = cache()->remember('quick-links', 60 * 60 * 6, fn () =>
+        $quickLinks = cache()->remember('quick-links', $cacheTimestamp, fn () =>
             MenuGroup::itemsByLocale(config('site.quick_links'), 'item_id', 'title', 'url')
         );
         $view->with('quick_links', $quickLinks);
 
 
         // Categories Composer
-        $categories =  cache()->remember('home-categories', 60 * 60 * 6, fn () =>
+        $categories =  cache()->remember('home-categories', $cacheTimestamp, fn () =>
             $this->postRepository->children(config('site.categories'), ['posts.id', 'title', 'url'])
         );
         $view->with('category_links', $categories);
 
         // Footer Composer
-        $footer =  cache()->remember('footer', 60 * 60 * 6, fn () =>
+        $footer =  cache()->remember('footer', $cacheTimestamp, fn () =>
             $this->postRepository->find(config('site.footer'), ['featured_image'])
         );
         $view->with('footer', $footer);

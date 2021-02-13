@@ -78,6 +78,10 @@ class ItemController extends Controller
             }
             DB::table('menu_item_translations')->insert($translationData);
 
+            // Remove the menu items cache
+            cache()->forget('header-menu');
+            cache()->forget('quick-links');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {
@@ -133,6 +137,10 @@ class ItemController extends Controller
                     ->update($values);
             }
 
+            // Remove the menu items cache
+            cache()->forget('header-menu');
+            cache()->forget('quick-links');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {
@@ -146,6 +154,10 @@ class ItemController extends Controller
         if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
+        // Remove the menu items cache
+        cache()->forget('header-menu');
+        cache()->forget('quick-links');
+
         return resJson(MenuItem::destroy($itemId));
     }
 
@@ -154,6 +166,10 @@ class ItemController extends Controller
         if (!Auth::user()->can('delete_menus')) {
             return resJsonUnauthorized();
         }
+        // Remove the menu items cache
+        cache()->forget('header-menu');
+        cache()->forget('quick-links');
+
         return resJson(MenuItem::withTrashed()->find($itemId)->restore());
     }
 
@@ -175,6 +191,10 @@ class ItemController extends Controller
                     $datum['id']
                 ]);
             }
+            // Remove the menu items cache
+            cache()->forget('header-menu');
+            cache()->forget('quick-links');
+
             DB::commit();
             return resJson(true);
         } catch (\Exception) {

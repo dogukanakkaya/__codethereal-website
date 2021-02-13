@@ -32,10 +32,11 @@ class PostController extends Controller
         if (!Auth::user()->can('see_posts')) {
             return resJsonUnauthorized();
         }
-        $data = $this->postRepository->all(['posts.id', 'title', 'active', 'created_at']);
+        $data = $this->postRepository->all(['posts.id', 'title', 'active', 'views', 'created_at']);
         return Datatables::of($data)
             ->editColumn('title', fn (Post $post) => '<a class="clickable" title="' . $post->id . '" onclick="__find(' . $post->id . ')">' . $post->title . '</a>')
             ->editColumn('created_at', fn (Post $post) => date("Y-m-d H:i:s", strtotime($post->created_at)))
+            ->editColumn('views', fn (Post $post) => '<i class="material-icons-outlined md-18">remove_red_eye</i> ' . $post->views)
             ->addColumn('check_all', fn (Post $post) => '<input type="checkbox" onclick="__onCheck()" value="' . $post->id . '" name="checked[]"/>')
             ->addColumn('file', function (Post $post) {
                 $file = $this->postRepository->firstFile($post->id);
@@ -45,7 +46,7 @@ class PostController extends Controller
             ->addColumn('action', fn (Post $post) => view('admin.partials.single-actions', ['actions' => $this->actions($post->id)]))
             ->addColumn('status', fn (Post $post) => statusBadge($post->active))
             ->addColumn('parent', fn (Post $post) => implode(', ', $this->postRepository->parents($post->id, ['title'])->pluck('title')->toArray()))
-            ->rawColumns(['check_all', 'file', 'title', 'status', 'action'])
+            ->rawColumns(['check_all', 'file', 'title', 'status', 'views', 'action'])
             ->make(true);
     }
 
@@ -266,6 +267,7 @@ class PostController extends Controller
             ['data' => 'title', 'name' => 'title', 'title' => __('posts.title')],
             ['data' => 'status', 'name' => 'status', 'title' => __('posts.status'), 'searchable' => false],
             ['data' => 'parent', 'name' => 'parent', 'title' => __('posts.parents'), 'searchable' => false],
+            ['data' => 'views', 'name' => 'views', 'title' => __('posts.views'), 'searchable' => false],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => __('posts.created_at'), 'searchable' => false],
             ['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false, 'className' => 'dt-actions'],
         ];
