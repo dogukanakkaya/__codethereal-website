@@ -336,7 +336,8 @@ function nameCode(string $name): string
         $last = substr(end($exploded), 0, 1);
     }
 
-    $first = str_replace(['Ş', 'ş', 'Ç', 'ç'], ['S', 's', 'C', 'c']);
+    $first = mb_convert_encoding($first, 'UTF-8', 'auto');
+    $last = mb_convert_encoding($last, 'UTF-8', 'auto');
     return $first . $last;
 }
 

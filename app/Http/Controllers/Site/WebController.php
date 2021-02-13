@@ -164,9 +164,8 @@ class WebController extends Controller
     public function searchTag($tag)
     {
         $data = [
-            // TODO: mysql'e geçince değiştir (find_in_set sqlite ile çalışmıyor)
-            //'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->whereRaw('FIND_IN_SET(?, meta_tags)', [$tag])->paginate(15),
-            'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->where('meta_tags', 'like', '%'.$tag.'%')->paginate(15),
+            'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->whereRaw('FIND_IN_SET(?, meta_tags)', [$tag])->paginate(15),
+            //'posts' => $this->postRepository->localeInstance('title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name')->where('meta_tags', 'like', '%'.$tag.'%')->paginate(15), // Sqlite
             'search' => $tag,
             '_meta' => [
                 'title' => $tag
