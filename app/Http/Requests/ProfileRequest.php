@@ -28,6 +28,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required|max:255|min:3',
             'phone' => 'nullable|max:255|min:8',
+            'password' => 'nullable|max:255|min:8|confirmed',
             'current_password' => 'required'
         ];
     }
@@ -42,6 +43,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => __('users.fullname'),
             'phone' => __('users.phone'),
+            'password' => __('users.password'),
             'current_password' => __('users.current_password'),
         ];
     }

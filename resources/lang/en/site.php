@@ -39,8 +39,7 @@ return [
         'already_voted' => 'You voted this post already'
     ],
     'saved_posts' => [
-        'self_singular' => 'Saved Posts',
-        'already_saved' => 'You saved this post already'
+        'self_singular' => 'Saved Posts'
     ],
     'auth' => [
         'login' => 'Login',
@@ -55,6 +54,7 @@ return [
         'register_privacy_policy_info' => 'By continuing, you indicate that you have read and agree to :app_name\'s :terms and :privacy',
         'terms_of_service' => 'Terms of Service',
         'privacy_policy' => 'Privacy Policy',
-        'account_verified_info' => 'Your account verified successfully, now you can login.'
+        'account_verified_info' => 'Your account verified successfully, now you can login.',
+        'forgot_password' => 'Forgot Password'
     ]
 ];

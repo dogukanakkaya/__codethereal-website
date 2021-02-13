@@ -84,11 +84,9 @@
         }
     }
 
-    span.verified-success{
-        position: absolute;
-        left: -350px;
+    span.msg--success{
         color: #ff4824;
-        width: 375px;
+        font-size: 12px;
     }
 }
 
@@ -1308,12 +1306,5 @@ aside {
 }
 
 @include mobile {
-    .top-bar{
-        span.verified-success{
-            left: -160px;
-            width: 310px;
-            top: 0;
-            font-size: 12px;
-        }
-    }
+
 }

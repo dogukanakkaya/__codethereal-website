@@ -19,6 +19,7 @@
                     {{ Form::checkbox('remember_me', 1, false, ['id' => 'remember_me']) }}
                     {{ Form::label('remember_me', __('auth.remember_me')) }}
                 </div>
+                <a href="{{ route('password.request') }}"><small>{{ __('site.auth.forgot_password') }}?</small></a>
                 <div class="alert fade show d-none ce-alert" role="alert"></div>
             </div>
             <div class="modal-footer">

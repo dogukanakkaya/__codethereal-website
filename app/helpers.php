@@ -335,6 +335,8 @@ function nameCode(string $name): string
     if (count($exploded) !== 1) {
         $last = substr(end($exploded), 0, 1);
     }
+
+    $first = str_replace(['Ş', 'ş', 'Ç', 'ç'], ['S', 's', 'C', 'c']);
     return $first . $last;
 }
 

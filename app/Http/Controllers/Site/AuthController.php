@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('throttle:10,60')->only('login', 'register', 'updateProfile');
+        $this->middleware('throttle:10,30')->only('login', 'register', 'updateProfile');
         $this->middleware('authorize')->only('login', 'profile', 'updateProfile', 'deleteAccount');
         $this->middleware('guest')->only('loginView', 'login', 'registerView', 'register');
         $this->middleware('auth')->only('profile', 'updateProfile', 'deleteAccount');
@@ -81,7 +81,6 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         //return resJson(1, ['message' => 'User registration is inactive for now, sorry. You can try again later :)']);
-
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $data['name_code'] = nameCode($data['name']);
@@ -117,6 +116,7 @@ class AuthController extends Controller
     {
         $user = User::find(auth()->id());
         $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
         $currentPassword = array_remove($data, 'current_password');
         if (Hash::check($currentPassword, $user->password)){
             return resJson(User::where('id', auth()->id())->update($data));

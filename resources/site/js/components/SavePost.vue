@@ -1,6 +1,6 @@
 <template>
     <li class="save-post">
-        <button @click="!saved && save()">
+        <button @click="save()">
             <i v-bind:class="[saved ? 'bi bi-bookmark-fill' : 'bi bi-bookmark']"></i>
         </button>
     </li>
@@ -33,7 +33,7 @@
             async save() {
                 const {data} = await axios.post(this.savePostRoute, {post_id: this.postId})
                 if(data.status){
-                    this.saved = true
+                    this.saved = !this.saved
                 }
             }
         }

@@ -21,11 +21,13 @@
                 <li><a href="{{ $settings['youtube'] ?? '' }}" target="_blank" rel="noopener"><i class="bi bi-youtube youtube"></i></a></li>
             </ul>
             <ul>
+                @if(session()->has('verified'))
+                    <span class="msg--success">{{ __('site.auth.account_verified_info') }}</span>
+                @elseif(session()->has('status'))
+                    <span class="msg--success">{{ session('status') }}</span>
+                @endif
                 @guest
                     <li onclick="__login()">
-                        @if(session()->has('verified'))
-                        <span class="verified-success">{{ __('site.auth.account_verified_info') }}</span>
-                        @endif
                         <i class="bi bi-person"></i> {{ __('site.auth.login') }}
                     </li>
                     <span class="bracket"></span>

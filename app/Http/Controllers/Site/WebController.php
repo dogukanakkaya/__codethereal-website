@@ -235,11 +235,11 @@ class WebController extends Controller
         // If user saved this post already
         $postSavedAlready = DB::table('saved_posts')->where('post_id', $data['post_id'])->where('user_id', $data['user_id'])->exists();
         if ($postSavedAlready){
-            return resJson(0, ['message' => __('site.saved_posts.already_saved')]);
+            return resJson(DB::table('saved_posts')->where('user_id', $data['user_id'])->where('post_id', $data['post_id'])->delete());
+        }else{
+            $data['created_at'] = now();
+            return resJson(DB::table('saved_posts')->insert($data));
         }
-        $data['created_at'] = now();
-
-        return resJson(DB::table('saved_posts')->insert($data));
     }
 
     /**

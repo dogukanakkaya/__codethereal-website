@@ -25,5 +25,6 @@ return [
         'tr' => 'Turkish'
     ],
 
-    'browser' => null
+    'browser' => null,
+    'default_cache_timestamp' => 60 * 60 * 24 * 7
 ];

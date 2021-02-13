@@ -26,6 +26,6 @@ class ForgotPasswordController extends Controller
     {
         return $request->wantsJson()
             ? new JsonResponse(['message' => trans($response)], 200)
-            : redirect()->route('login')->with('status', trans($response));
+            : redirect()->to('/')->with('status', trans($response));
     }
 }

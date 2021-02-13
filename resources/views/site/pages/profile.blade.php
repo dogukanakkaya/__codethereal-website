@@ -72,6 +72,28 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <h6 class="mb-0">{{ __('users.password') }}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="ce-f-group">
+                                        <input type="password" name="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">{{ __('users.confirm_password') }}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="ce-f-group">
+                                        <input type="password" name="password_confirmation">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="height: 2px;">
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <h6 class="mb-0">{{ __('users.current_password') }}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
@@ -87,7 +109,7 @@
                     </div>
                     <div class="alert fade show d-none ce-alert" role="alert"></div>
                 </form>
-                <div class="row gy-5 posts d-block">
+                <div class="row gy-5 posts d-block mt-1">
                     <div class="col-12 section-title">
                         <h2>{{ __('site.saved_posts.self_singular') }}</h2>
                         <div class="line"></div>
