@@ -107,6 +107,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('site/js/prism.js') }}"></script>
     <script>
         @if(auth()->check())
         let replyTo = 0
