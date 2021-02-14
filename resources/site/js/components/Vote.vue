@@ -30,20 +30,29 @@
             isVoted: {
                 required: true,
                 type: Number
+            },
+            authenticated: {
+                required: true,
+                type: Boolean
             }
         },
         data: function() {
             return {
                 newSum: this.sum,
                 voted: this.isVoted,
+                auth: this.authenticated
             }
         },
         methods: {
             async vote(vote) {
-                const {data} = await axios.post(this.voteRoute, {post_id: this.postId, vote})
-                if (data.status){
-                    this.newSum = Number(this.newSum) + Number(vote)
-                    this.voted = vote
+                if (this.auth){
+                    const {data} = await axios.post(this.voteRoute, {post_id: this.postId, vote})
+                    if (data.status){
+                        this.newSum = Number(this.newSum) + Number(vote)
+                        this.voted = vote
+                    }
+                }else{
+                    this.register()
                 }
             }
         }

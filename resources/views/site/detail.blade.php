@@ -25,19 +25,16 @@
                     <div class="content-info">
                         <ul class="d-flex">
                             {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}
-                            @auth
-                                @php($voted = \Illuminate\Support\Facades\DB::table('votes')->where('post_id', $post->id)->where('user_id', auth()->id())->first())
-                                <vote sum="{{ $vote }}" vote-route="{{ route('web.vote') }}" post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}"></vote>
-                            @endauth
+                            @php($voted = auth()->check() ? \Illuminate\Support\Facades\DB::table('votes')->where('post_id', $post->id)->where('user_id', auth()->id())->first() : false)
+                            <vote :sum="{{ $vote }}" vote-route="{{ route('web.vote') }}" :post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></vote>
+
                             <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
                             <li><span><i class="bi bi-chat-text"></i> {{ $comment_count }} {{ __('site.comment.self_plural') }}</span></li>
                         </ul>
-                        @auth
-                            @php($isSaved = \Illuminate\Support\Facades\DB::table('saved_posts')->where('post_id', $post->id)->where('user_id', auth()->id())->exists())
-                            <ul class="d-flex">
-                                <save-post save-post-route="{{ route('web.save_post') }}" post-id="{{ $post->id }}" :is-saved="{{ $isSaved ? 'true' : 'false' }}"></save-post>
-                            </ul>
-                        @endauth
+                        @php($isSaved = auth()->check() ? \Illuminate\Support\Facades\DB::table('saved_posts')->where('post_id', $post->id)->where('user_id', auth()->id())->exists() : false)
+                        <ul class="d-flex">
+                            <save-post save-post-route="{{ route('web.save_post') }}" :post-id="{{ $post->id }}" :is-saved="{{ $isSaved ? 'true' : 'false' }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></save-post>
+                        </ul>
                     </div>
                 </div>
                 <div class="full-content customize-content">

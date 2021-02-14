@@ -22,18 +22,27 @@
             isSaved: {
                 required: true,
                 type: Boolean
+            },
+            authenticated: {
+                required: true,
+                type: Boolean
             }
         },
         data: function() {
             return {
                 saved: this.isSaved,
+                auth: this.authenticated
             }
         },
         methods: {
             async save() {
-                const {data} = await axios.post(this.savePostRoute, {post_id: this.postId})
-                if(data.status){
-                    this.saved = !this.saved
+                if (this.auth) {
+                    const {data} = await axios.post(this.savePostRoute, {post_id: this.postId})
+                    if (data.status) {
+                        this.saved = !this.saved
+                    }
+                }else{
+                    this.register()
                 }
             }
         }

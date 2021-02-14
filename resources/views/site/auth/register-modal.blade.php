@@ -40,7 +40,8 @@
                 </p>
                 <div class="alert fade show d-none ce-alert" role="alert"></div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-between">
+                <span class="small-link" onclick="closeModal('#register-modal');__login()">{{ __('site.auth.already_have_an_account') }}?</span>
                 <button type="submit" class="ce-btn me-0">{{ __('auth.register') }} <i class="bi bi-person-plus"></i></button>
             </div>
         </div>

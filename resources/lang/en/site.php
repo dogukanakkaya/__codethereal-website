@@ -55,6 +55,7 @@ return [
         'terms_of_service' => 'Terms of Service',
         'privacy_policy' => 'Privacy Policy',
         'account_verified_info' => 'Your account verified successfully, now you can login.',
-        'forgot_password' => 'Forgot Password'
+        'forgot_password' => 'Forgot Password',
+        'already_have_an_account' => 'Already have an account'
     ]
 ];

@@ -1,4 +1,5 @@
 import '../../js/common'
+
 window.bootstrap = require('bootstrap')
 
 window.addEventListener('DOMContentLoaded', e => {
@@ -87,14 +88,20 @@ document.addEventListener('click', e => {
     }
 });
 
+
 import { createApp } from 'vue';
 import Vote from './components/Vote'
 import Search from './components/Search'
 import SavePost from './components/SavePost'
-createApp({
+const app = createApp({
     components: {
         Vote,
         Search,
         SavePost
     }
-}).mount('#app')
+})
+
+// Global functions for vue
+app.config.globalProperties.register = __register
+
+app.mount('#app')
