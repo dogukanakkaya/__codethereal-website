@@ -58,7 +58,7 @@ class SitemapGenerator extends Command
             $xml .= '
                 <url>
                     <loc>'.createUrl($category->url).'</loc>
-                    <lastmod>'.$category->updated_at.'</lastmod>
+                    <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($category->updated_at)).'</lastmod>
                     <priority>0.8</priority>
                 </url>
             ';
@@ -68,7 +68,7 @@ class SitemapGenerator extends Command
             $xml .= '
                 <url>
                     <loc>'.createUrl($post->url).'</loc>
-                    <lastmod>'.$post->updated_at.'</lastmod>
+                    <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($post->updated_at)).'</lastmod>
                     <priority>0.9</priority>
                 </url>
             ';
