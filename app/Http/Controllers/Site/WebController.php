@@ -306,7 +306,7 @@ class WebController extends Controller
             </urlset>
         ';
 
-        echo $fullXml;
+        file_put_contents('sitemap.xml', $fullXml);
         exit;
     }
 }
