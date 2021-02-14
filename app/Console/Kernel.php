@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command(SitemapGenerator::class)->everyMinute()->sendOutputTo(base_path('sitemap.xml'))->emailOutputTo('doguakkaya27@gmail.com');
+        //$schedule->command(SitemapGenerator::class)->daily()->sendOutputTo(base_path('sitemap.xml'));
     }
 
     /**
