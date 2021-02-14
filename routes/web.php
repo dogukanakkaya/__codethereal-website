@@ -182,8 +182,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => '/', 'middleware' => ['online'], 'namespace' => 'App\Http\Controllers\Site'], function () {
         Route::get('/', 'WebController@index')->name('web.index');
 
-        Route::get('sitemap', 'WebController@sitemap');
-
         Route::get(LaravelLocalization::transRoute('routes.posts'), 'WebController@postList');
         Route::get(LaravelLocalization::transRoute('routes.profile'), 'AuthController@profile')->name('web.profile');
 
