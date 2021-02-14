@@ -40,7 +40,7 @@ class WebController extends Controller
         $categoryIds = $categories->pluck('id')->toArray();
 
         $featuredPosts = cache()->remember('home-posts', $cacheTimestamp, fn () =>
-            $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'])
+            $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'], 12)
         );
 
         $data = [
@@ -261,5 +261,52 @@ class WebController extends Controller
     public function contact(ContactRequest $request)
     {
         Mail::to(env('APP_CONTACT', 'doguakkaya27@gmail.com'))->send(new ContactMail($request->validated()));
+    }
+
+    public function sitemap()
+    {
+        $categories = $this->postRepository->children(config('site.categories'), ['title', 'url', 'updated_at']);
+        $posts = DB::table('posts')
+            ->select('title', 'url', 'updated_at')
+            ->whereNull('deleted_at')
+            ->where('language', app()->getLocale())
+            ->where('searchable', 1)
+            ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
+            ->get();
+
+        $xml = '';
+        foreach ($categories as $category) {
+            $xml .= '
+                <url>
+                    <loc>'.createUrl($category->url).'</loc>
+                    <lastmod>'.$category->updated_at.'</lastmod>
+                    <priority>0.8</priority>
+                </url>
+            ';
+        }
+
+        foreach ($posts as $post) {
+            $xml .= '
+                <url>
+                    <loc>'.createUrl($post->url).'</loc>
+                    <lastmod>'.$post->updated_at.'</lastmod>
+                    <priority>0.9</priority>
+                </url>
+            ';
+        }
+
+        $fullXml = '<?xml version="1.0" encoding="UTF-8"?>
+            <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+                <url>
+                    <loc>'.url('').'</loc>
+                    <lastmod>'.date("Y-m-d").'</lastmod>
+                    <priority>1.0</priority>
+                </url>
+                '.$xml.'
+            </urlset>
+        ';
+
+        echo $fullXml;
+        exit;
     }
 }
