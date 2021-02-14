@@ -85,7 +85,7 @@ class SitemapGenerator extends Command
             </urlset>
         ';
 
-        file_put_contents('sitemap.xml', $fullXml);
+        echo $fullXml;
 
         return 0;
     }
