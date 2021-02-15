@@ -20,7 +20,7 @@
                     images_upload_handler: function (blobInfo, success, failure) {
                         const tinymceImageFormData = new FormData();
                         tinymceImageFormData.append('file', blobInfo.blob(), blobInfo.filename());
-                        tinymceImageFormData.append('folder', 'tinymce')
+                        tinymceImageFormData.append('folder', 're')
                         tinymceImageFormData.append('_token', '{{ csrf_token() }}')
                         request.post('{{ route('files.upload') }}', tinymceImageFormData)
                             .then(function (response) {
