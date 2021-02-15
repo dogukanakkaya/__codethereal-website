@@ -52,7 +52,7 @@ class WebController extends Controller
             'parallax' => $parallax,
             'category_count' => $categories->count(),
             'category_children_sum' => $categories->sum('children_count'),
-            'user_count' => User::where('rank', '!=', config('user.rank.dev'))->count(),
+            'user_count' => User::whereNotNull('email_verified_at')->where('rank', '!=', config('user.rank.dev'))->count(),
         ];
 
         return view('site.index', $data);
