@@ -32,7 +32,12 @@ class PostController extends Controller
         if (!Auth::user()->can('see_posts')) {
             return resJsonUnauthorized();
         }
-        $data = $this->postRepository->all(['posts.id', 'title', 'active', 'views', 'created_at']);
+        $data = Post::select('posts.id', 'title', 'active', 'views', 'created_at')
+            ->where('language', app()->getLocale())
+            ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
+            ->latest()
+            ->get();
+
         return Datatables::of($data)
             ->editColumn('title', fn (Post $post) => '<a class="clickable" title="' . $post->id . '" onclick="__find(' . $post->id . ')">' . $post->title . '</a>')
             ->editColumn('created_at', fn (Post $post) => date("Y-m-d H:i:s", strtotime($post->created_at)))
@@ -85,8 +90,9 @@ class PostController extends Controller
             // Create Post Translations
             $this->postRepository->insertTranslations($post->id, $data);
 
-            // Remove the posts cache
+            // Remove the home posts and home categories cache
             cache()->forget('home-posts');
+            cache()->forget('home-categories');
 
             DB::commit();
             return resJson(true);
@@ -112,8 +118,9 @@ class PostController extends Controller
         if (!Auth::user()->can('delete_posts')) {
             return resJsonUnauthorized();
         }
-        // Remove the posts cache
+        // Remove the home posts and home categories cache
         cache()->forget('home-posts');
+        cache()->forget('home-categories');
 
         return resJson(Post::withTrashed()->whereIn('id', explode(',', $id))->restore());
     }
@@ -183,8 +190,9 @@ class PostController extends Controller
             // Update Post Translations
             $this->postRepository->updateTranslations($id, $data);
 
-            // Remove the posts cache
+            // Remove the home posts and home categories cache
             cache()->forget('home-posts');
+            cache()->forget('home-categories');
 
             DB::commit();
             return resJson(true);
@@ -224,8 +232,9 @@ class PostController extends Controller
                     $id
                 ]);
             }
-            // Remove the posts cache
+            // Remove the home posts and home categories cache
             cache()->forget('home-posts');
+            cache()->forget('home-categories');
 
             DB::commit();
             return resJson(true);

@@ -20,7 +20,7 @@
                 <a href="{{ createUrl($category->url) }}" class="ce-btn"><i class="bi bi-list"></i> {{ __('site.show_all') }}</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-around">
             @foreach($categories as $category)
                 <div class="col-md-3">
                     <div class="item">
