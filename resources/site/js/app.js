@@ -103,5 +103,6 @@ const app = createApp({
 
 // Global functions for vue
 app.config.globalProperties.register = __register
+app.config.globalProperties.request = request
 
 app.mount('#app')

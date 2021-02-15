@@ -7,8 +7,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         props: {
             postId: {
@@ -37,7 +35,7 @@
         methods: {
             async save() {
                 if (this.auth) {
-                    const {data} = await axios.post(this.savePostRoute, {post_id: this.postId})
+                    const {data} = await request.post(this.savePostRoute, {post_id: this.postId})
                     if (data.status) {
                         this.saved = !this.saved
                     }

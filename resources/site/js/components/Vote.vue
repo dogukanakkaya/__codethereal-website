@@ -11,8 +11,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         props: {
             postId: {
@@ -46,7 +44,7 @@
         methods: {
             async vote(vote) {
                 if (this.auth){
-                    const {data} = await axios.post(this.voteRoute, {post_id: this.postId, vote})
+                    const {data} = await request.post(this.voteRoute, {post_id: this.postId, vote})
                     if (data.status){
                         this.newSum = Number(this.newSum) + Number(vote)
                         this.voted = vote

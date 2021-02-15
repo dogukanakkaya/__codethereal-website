@@ -955,6 +955,10 @@ aside {
         margin-bottom: 1.5rem;
         color: #2b2e38;
     }
+
+    p:last-child{
+        margin-bottom: 0;
+    }
 }
 
 .content-tags {

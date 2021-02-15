@@ -11,8 +11,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         props: {
             searchTrans: {
@@ -35,7 +33,7 @@
         },
         methods: {
             async search() {
-                const response = await axios.get(this.searchRoute.replace(':q', this.q))
+                const response = await request.get(this.searchRoute.replace(':q', this.q))
                 this.items = response.data.items
             },
         }
