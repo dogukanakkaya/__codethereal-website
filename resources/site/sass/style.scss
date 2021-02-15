@@ -420,6 +420,7 @@ header {
     .card-title {
         margin-bottom: 0.5rem;
         font-weight: 600;
+        font-size: 18px;
 
         a {
             color: inherit;
@@ -959,6 +960,17 @@ aside {
     p:last-child{
         margin-bottom: 0;
     }
+
+    ul{
+        padding-left: 3rem;
+        list-style: disc;
+        padding-bottom: 1.5rem;
+    }
+
+    img{
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 .content-tags {
@@ -1295,6 +1307,28 @@ aside {
 
         .slogan {
             @include font-size(1rem);
+        }
+    }
+
+    .customize-content {
+        pre[class^=" language-"], pre[class^="language-"] {
+            padding: .5rem;
+            margin: .25rem 0 1rem;
+        }
+
+        blockquote::before{
+            margin-left: -15px;
+            font-size: 17px;
+            content: "!";
+            font-weight: 400;
+            position: absolute;
+            color: #ff2d20;
+            opacity: .7;
+        }
+
+        p{
+            margin-bottom: .5rem;
+            font-size: 15px;
         }
     }
 }
