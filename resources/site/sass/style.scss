@@ -936,6 +936,8 @@ aside {
         background: #fbfbfd;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
         font-size: 0.8rem;
+        padding: .75rem;
+        margin: .5rem 0 1.5rem;
     }
 
     blockquote::before{
@@ -946,6 +948,12 @@ aside {
         position: absolute;
         color: #ff2d20;
         opacity: .7;
+    }
+
+    p{
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        color: #2b2e38;
     }
 }
 
@@ -1227,7 +1235,7 @@ aside {
     }
 
     .full-content {
-        padding-left: 1.5rem;
+        padding: 0 1rem;
     }
 
     .comments {
