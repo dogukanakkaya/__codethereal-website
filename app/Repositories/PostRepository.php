@@ -412,7 +412,7 @@ class PostRepository implements PostRepositoryInterface
      */
     public function children(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
-        return $this->childrenInstance($id, $select, $limit)->get();
+        return $this->childrenInstance($id, $select, $limit)->distinct()->get();
     }
 
     /**

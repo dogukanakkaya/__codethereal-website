@@ -59,7 +59,7 @@ class SitemapGenerator extends Command
                 <url>
                     <loc>'.createUrl($category->url).'</loc>
                     <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($category->updated_at)).'</lastmod>
-                    <priority>0.8</priority>
+                    <priority>0.7</priority>
                 </url>
             ';
         }
