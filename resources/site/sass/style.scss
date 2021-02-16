@@ -781,23 +781,35 @@ footer {
 
     li:not(:last-child) a {
         transition: all 0.4s ease-in-out;
+        font-size: 15px;
 
         &:hover {
-            text-shadow: 0 0 4px #000, 0 0 5px #fff;
+            text-shadow: 0 0 1px #ffffff, 0 0 1px #fff;
         }
+    }
 
+    li:not(:last-child) a:not(:last-child){
+        &::after {
+            content: "&";
+            display: inline-block;
+            font-size: 10px;
+            margin: 0 .5rem;
+        }
+    }
+
+    li:not(:last-child){
         &::after {
             content: "\f285";
             display: inline-block;
             font-family: bootstrap-icons !important;
-            font-size: 12px;
+            font-size: 11px;
             margin: 0 1rem;
         }
     }
 
     li:last-child {
-        font-size: 18px;
-        text-shadow: 0 0 1px #000, 0 0 1px $main-color;
+        font-size: 17px;
+        font-weight: 500;
     }
 
     li, a {
@@ -1268,7 +1280,7 @@ aside {
         ul {
             flex-direction: column;
         }
-        li:not(:last-child) a{
+        li:not(:last-child){
             padding-bottom: .5rem;
             &::after{
                 content: unset;

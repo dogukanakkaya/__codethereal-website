@@ -348,15 +348,20 @@ class PostRepository implements PostRepositoryInterface
     public function parentTree(int $id, $select = ['*']): array
     {
         $tree = [];
-        while($post = $this->localeInstance(...$select)
+        while($posts = $this->localeInstance(...$select)
             ->where('post_parents.post_id', $id)
             ->leftJoin('post_parents', 'post_parents.parent_id', 'posts.id')
-            ->first()){
-            $tree[$id] = [
-                'title' => $post->title,
-                'url' => $post->url
-            ];
-            $id = $post->id;
+            ->get()){
+            foreach ($posts as $post) {
+                $tree[$id][] = [
+                    'title' => $post->title,
+                    'url' => $post->url
+                ];
+            }
+            if (!$posts->count()){
+                break;
+            }
+            $id = $posts->first()->id;
         }
         return array_reverse($tree);
     }
