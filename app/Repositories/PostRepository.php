@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Post\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -431,7 +432,12 @@ class PostRepository implements PostRepositoryInterface
     public function childrenWithChildrenCount(int|array $id, array $select = ['*'], int|null $limit = null): mixed
     {
         //$select[] = DB::raw('(select count(*) from "post_parents" where "posts"."id" = "post_parents"."parent_id") as "children_count"');
-        return $this->childrenInstance($id, $select, $limit)->withCount('children')->get();
+        return $this->childrenInstance($id, $select, $limit)->withCount(['children' => function (Builder $query) {
+            // Count only active children
+            $query->where('language', app()->getLocale())
+                ->where('active', 1)
+                ->leftJoin('post_translations', 'post_translations.post_id', 'post_parents.post_id');
+        }])->get();
     }
 
     /**

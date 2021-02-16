@@ -5,8 +5,12 @@
         <nav>
             <ul>
                 <li><a href="{{ route('web.index') }}">{{ __('site.home') }}</a></li>
-                @foreach($parent_tree as $item)
-                    <li><a href="{{ createUrl($item['url']) }}">{{ $item['title'] }}</a></li>
+                @foreach($parent_tree as $tree_items)
+                    <li>
+                        @foreach($tree_items as $item)
+                            <a href="{{ createUrl($item['url']) }}">{{ $item['title'] }}</a>
+                        @endforeach
+                    </li>
                 @endforeach
                 <li>{{ $category->title }}</li>
             </ul>
