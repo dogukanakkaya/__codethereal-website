@@ -42,6 +42,7 @@ class SitemapGenerator extends Command
             ->select('title', 'url', 'updated_at')
             ->where('post_parents.parent_id', config('site.categories'))
             ->whereNull('deleted_at')
+            ->where('active', 1)
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
             ->leftJoin('post_parents', 'post_parents.post_id', 'posts.id')
             ->get();
@@ -50,6 +51,7 @@ class SitemapGenerator extends Command
             ->select('title', 'url', 'updated_at')
             ->whereNull('deleted_at')
             ->where('searchable', 1)
+            ->where('active', 1)
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id')
             ->get();
 
