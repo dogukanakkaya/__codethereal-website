@@ -10,16 +10,16 @@
     "require": {
         "php": "^8.0",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "intervention/image": "^2.5",
-        "jenssegers/agent": "^2.6",
-        "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5",
+        "fruitcake/laravel-cors": "^2.0.3",
+        "guzzlehttp/guzzle": "^7.2.0",
+        "intervention/image": "^2.5.1",
+        "jenssegers/agent": "^2.6.4",
+        "laravel/framework": "^8.28.1",
+        "laravel/tinker": "^2.6.0",
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
         "mcamara/laravel-localization": "^1.6",
-        "spatie/laravel-permission": "^3.18",
+        "spatie/laravel-permission": "^4.0.0",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {

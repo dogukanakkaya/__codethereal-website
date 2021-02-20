@@ -10,6 +10,18 @@
     {{-- TODO: font-display:swap özelliğine bakılacak --}}
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
     @stack('styles')
+
+    @if (config('app.env') === 'production')
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3JD3ENKSS9"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-3JD3ENKSS9');
+        </script>
+    @endif
 </head>
 <body>
 <div id="app">
