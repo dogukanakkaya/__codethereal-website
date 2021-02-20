@@ -40,7 +40,7 @@ class WebController extends Controller
         $categoryIds = $categories->pluck('id')->toArray();
 
         $featuredPosts = cache()->remember('home-posts', $cacheTimestamp, fn () =>
-            $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'created_at', 'created_by_name'], 12)
+            $this->postRepository->children($categoryIds, ['title', 'url', 'description', 'featured_image', 'views', 'created_at', 'created_by_name'], 12)
         );
 
         $data = [
@@ -103,10 +103,15 @@ class WebController extends Controller
 
             $data['post'] = $post;
             $data['relational_posts'] = $this->postRepository->relations($postId, ['title', 'url', 'featured_image', 'created_at']);
-            $data['vote'] = DB::table('votes')->where('post_id', $postId)->sum('vote');
-            $comments = Comment::select('comments.id', 'comment', 'name', 'name_code', 'parent_id', 'comments.created_at', 'comments.user_id')->where('post_id', $postId)->leftJoin('users', 'users.id', 'comments.user_id')->get();
-            $data['comments'] = buildTree($comments, ['parentId' => 'parent_id']);
-            $data['comment_count'] = $comments->count();
+            $data['vote_sum'] = DB::table('votes')->where('post_id', $postId)->sum('vote');
+
+            $data['comments'] = buildTree($post->comments, ['parentId' => 'parent_id']);
+            $data['comment_count'] = $post->comments->count();
+
+            // Check if user already voted and saved this post
+            $data['saved'] = $this->postRepository->isSaved($postId);
+            $data['voted'] = DB::table('votes')->where('post_id', $post->id)->where('user_id', auth()->id())->first();
+
             return view('site.detail', $data);
         }
     }

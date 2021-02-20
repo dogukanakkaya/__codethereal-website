@@ -460,4 +460,20 @@ class PostRepository implements PostRepositoryInterface
             ->where('language', app()->getLocale())
             ->leftJoin('post_translations', 'post_translations.post_id', 'posts.id');
     }
+
+    /**
+     * Return if given userId || authenticated user id saved given post id or not
+     *
+     * @param $id
+     * @param null $userId
+     * @return bool
+     */
+    public function isSaved($id, $userId = null)
+    {
+        $userId = $userId ?? auth()->id();
+        return DB::table('saved_posts')
+            ->where('post_id', $id)
+            ->where('user_id', $userId)
+            ->exists();
+    }
 }

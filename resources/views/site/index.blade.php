@@ -78,7 +78,7 @@
                             <hr>
                             <div class="d-flex justify-content-between align-items-center card-bottom">
                                 <span><i class="bi bi-pencil"></i> {{ $featured_post->created_by_name }}</span>
-                                <a href="{{ createUrl($featured_post->url) }}"><i class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
+                                <span><i class="bi bi-eye"></i> {{ $featured_post->views }}</span>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('site/img/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('site/img/favicon/favicon-16x16.png') }}">
 
-    <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.1') }}">
     {{-- TODO: font-display:swap özelliğine bakılacak --}}
     <link rel="stylesheet" href="{{ asset('site/bootstrap-icons/bootstrap-icons.css') }}">
     @stack('styles')
@@ -158,7 +158,7 @@
     </footer>
 </div>
 <script>window.appUrl = (path = '') => `{{ url('') }}/${path}`</script>
-<script defer src="{{ asset('site/js/app.js') }}"></script>
+<script defer src="{{ asset('site/js/app.js?v=0.0.1') }}"></script>
 @stack('scripts')
 </body>
 </html>

@@ -102,8 +102,8 @@ class AuthController extends Controller
      */
     public function profile(PostRepositoryInterface $postRepository)
     {
-        $savedPosts = $postRepository->savedPosts(['title', 'url', 'description', 'featured_image', 'posts.created_at', 'created_by_name']);
-        return view('site.pages.profile', ['user' => auth()->user(), 'savedPosts' => $savedPosts]);
+        $savedPosts = $postRepository->savedPosts(['title', 'url', 'description', 'featured_image', 'views', 'posts.created_at', 'created_by_name']);
+        return view('site.pages.profile', ['user' => auth()->user(), 'saved_posts' => $savedPosts]);
     }
 
     /**

@@ -28,16 +28,15 @@
                     <img src="{{ resize($post->featured_image, 1200) }}" class="w-100" alt="">
                     <div class="content-info">
                         <ul class="d-flex">
-                            {{--<li><a href="#"><i class="bi bi-pencil"></i> {{ $content->created_by_name }}</a></li>--}}
-                            @php($voted = auth()->check() ? \Illuminate\Support\Facades\DB::table('votes')->where('post_id', $post->id)->where('user_id', auth()->id())->first() : false)
-                            <vote :sum="{{ $vote }}" vote-route="{{ route('web.vote') }}" :post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></vote>
+                            <vote :sum="{{ $vote_sum }}" vote-route="{{ route('web.vote') }}" :post-id="{{ $post->id }}" :is-voted="{{ $voted ? $voted->vote : 0 }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></vote>
 
                             <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
-                            <li><span><i class="bi bi-chat-text"></i> {{ $comment_count }} {{ __('site.comment.self_plural') }}</span></li>
+                            <li onclick="document.querySelector('.write-comment').scrollIntoView()" class="c-pointer">
+                                <span><i class="bi bi-chat-text"></i> {{ $comment_count }} {{ __('site.comment.self_plural') }}</span>
+                            </li>
                         </ul>
-                        @php($isSaved = auth()->check() ? \Illuminate\Support\Facades\DB::table('saved_posts')->where('post_id', $post->id)->where('user_id', auth()->id())->exists() : false)
                         <ul class="d-flex">
-                            <save-post save-post-route="{{ route('web.save_post') }}" :post-id="{{ $post->id }}" :is-saved="{{ $isSaved ? 'true' : 'false' }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></save-post>
+                            <save-post save-post-route="{{ route('web.save_post') }}" :post-id="{{ $post->id }}" :is-saved="{{ $saved ? 'true' : 'false' }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></save-post>
                         </ul>
                     </div>
                 </div>
@@ -54,19 +53,20 @@
                     <button type="button" class="btn-close" aria-label="Close" onclick="replyTo = 0;this.closest('.comment-alert').classList.add('d-none')"></button>
                 </div>
                 <div class="write-comment">
-                    @if(auth()->check())
+                    @auth
                     <h5>
                         {{ __('site.comment.leave_a_comment') }}
                     </h5>
-                    {{ Form::open(['id' => 'comment-form', 'class' => 'd-flex']) }}
-                    {{ Form::textarea('comment', '', ['rows' => 4, 'placeholder' => __('site.comment.enter_comment'), 'required' => true]) }}
-                    <button class="ce-btn me-0" type="submit">Send <i class="bi bi-check-all"></i></button>
-                    {{ Form::close() }}
-                    @else
+                    <form id="comment-form" class="d-flex">
+                        <textarea name="comment" rows="4" placeholder="{{ __('site.comment.enter_comment') }}" required></textarea>
+                        <button class="ce-btn me-0" type="submit">Send <i class="bi bi-check-all"></i></button>
+                    </form>
+                    @endauth
+                    @guest
                         <h6>
                             {!! __('site.comment.must_login') !!}
                         </h6>
-                    @endif
+                    @endguest
 
                 </div>
                 <div class="comments">
@@ -110,25 +110,27 @@
 @push('scripts')
     <script src="{{ asset('site/js/prism.js') }}"></script>
     <script>
-        @if(auth()->check())
+        @auth
         let replyTo = 0
 
-        document.getElementById('comment-form').addEventListener('submit', async e => {
-            e.preventDefault()
-            const data = serialize(e.target, {hash: true, empty: true})
-            data.post_id = {{ $post->id }}
-            data.parent_id = replyTo
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('comment-form').addEventListener('submit', async e => {
+                e.preventDefault()
+                const data = serialize(e.target, {hash: true, empty: true})
+                data.post_id = {{ $post->id }}
+                    data.parent_id = replyTo
 
-            const {data: {status, message}} = await request.post('{{ route('web.comment') }}', data)
+                const {data: {status, message}} = await request.post('{{ route('web.comment') }}', data)
 
-            const alertEl = document.querySelector('.comment-alert')
-            if (status){
-                replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
-                e.target.reset()
-            }else{
-                replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
-            }
-            alertEl.querySelector('span').textContent = message
+                const alertEl = document.querySelector('.comment-alert')
+                if (status){
+                    replaceClasses(alertEl, ['d-none', 'alert-danger'], ['alert-success'])
+                    e.target.reset()
+                }else{
+                    replaceClasses(alertEl, ['d-none', 'alert-success'], ['alert-danger'])
+                }
+                alertEl.querySelector('span').textContent = message
+            })
         })
 
         const __replyTo = (id, name) => {
@@ -137,6 +139,6 @@
             replaceClasses(alertEl, ['d-none', 'alert-danger', 'alert-success'], ['alert-primary'])
             alertEl.querySelector('span').textContent = '{{ __('site.comment.reply_to', ['name' => ':name']) }}'.replace(':name', name)
         }
-        @endif
+        @endauth
     </script>
 @endpush

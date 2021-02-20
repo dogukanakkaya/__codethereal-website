@@ -2,6 +2,7 @@
 
 namespace App\Models\Post;
 
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +42,11 @@ class Post extends Model
     public function children()
     {
         return $this->hasMany(PostParent::class, 'parent_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id')->leftJoin('users', 'users.id', 'comments.user_id');
     }
 
     /*

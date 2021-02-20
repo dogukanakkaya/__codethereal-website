@@ -114,28 +114,28 @@
                         <h2>{{ __('site.saved_posts.self_singular') }}</h2>
                         <div class="line"></div>
                     </div>
-                    @foreach($savedPosts as $post)
+                    @foreach($saved_posts as $saved_post)
                         <div class="col-md-6">
                             <div class="card">
                                 <span
-                                    class="date">{{ $post->created_at->format('d') }} {{ __('date.'.$post->created_at->format('m')) }}</span>
+                                    class="date">{{ $saved_post->created_at->format('d') }} {{ __('date.'.$saved_post->created_at->format('m')) }}</span>
                                 <div class="image">
-                                    <a href="{{ createUrl($post->url) }}">
-                                        <img src="{{ resize($post->featured_image, 750) }}" alt="">
+                                    <a href="{{ createUrl($saved_post->url) }}">
+                                        <img src="{{ resize($saved_post->featured_image, 750) }}" alt="">
                                     </a>
                                     <div class="item-overlay">
-                                        <a href="{{ createUrl($post->url) }}"> <i class="bi bi-link-45deg"></i></a>
+                                        <a href="{{ createUrl($saved_post->url) }}"> <i class="bi bi-link-45deg"></i></a>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><a
-                                            href="{{ createUrl($post->url) }}">{{ $post->title }}</a></h5>
-                                    <p class="card-text">{!! $post->description !!}</p>
+                                            href="{{ createUrl($saved_post->url) }}">{{ $saved_post->title }}</a></h5>
+                                    <p class="card-text">{!! $saved_post->description !!}</p>
                                     <hr>
                                     <div class="d-flex justify-content-between align-items-center card-bottom">
-                                        <span><i class="bi bi-pencil"></i> {{ $post->created_by_name }}</span>
-                                        <a href="{{ createUrl($post->url) }}"><i
-                                                class="bi bi-chevron-double-right"> {{ __('site.read_more') }}</i></a>
+                                        <span><i class="bi bi-pencil"></i> {{ $saved_post->created_by_name }}</span>
+                                        <a href="{{ createUrl($saved_post->url) }}"><i
+                                                class="bi bi-eye"></i> {{ $saved_post->views }}</a>
                                     </div>
                                 </div>
                             </div>
