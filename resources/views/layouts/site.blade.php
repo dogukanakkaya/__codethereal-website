@@ -77,7 +77,7 @@
     <header>
         <div class="container">
             <input type="checkbox" id="menu-toggle"/>
-            <nav class="d-flex justify-content-between">
+            <nav class="d-flex justify-content-between align-items-center">
                 <div class="logo logo-white">
                     <a href="{{ route('web.index') }}">
                         <img src="{{ asset('site/img/logo-light.svg') }}" alt="">
