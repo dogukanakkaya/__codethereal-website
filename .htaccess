@@ -64,3 +64,5 @@ Allow from all
 Deny from env=secure_content
 
 Satisfy Any
+
+Header always unset X-Powered-By
