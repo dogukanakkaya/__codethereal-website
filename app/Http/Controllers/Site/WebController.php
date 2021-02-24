@@ -66,7 +66,7 @@ class WebController extends Controller
      */
     public function resolve(string $url)
     {
-        $post = $this->postRepository->find($url, ['posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags'], 'url');
+        $post = $this->postRepository->find($url, ['posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'views', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags'], 'url');
         if (!$post){
             return back();
         }

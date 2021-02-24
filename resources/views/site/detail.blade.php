@@ -32,8 +32,9 @@
 
                             <li><span><i class="bi bi-clock"></i> {{ $post->created_at->diffForHumans() }}</span></li>
                             <li onclick="document.querySelector('.write-comment').scrollIntoView()" class="c-pointer">
-                                <span><i class="bi bi-chat-text"></i> {{ $comment_count }} {{ __('site.comment.self_plural') }}</span>
+                                <span><i class="bi bi-chat-text"></i> {{ $comment_count }}</span>
                             </li>
+                            <li><span><i class="bi bi-eye"></i> {{ $post->views }}</span></li>
                         </ul>
                         <ul class="d-flex">
                             <save-post save-post-route="{{ route('web.save_post') }}" :post-id="{{ $post->id }}" :is-saved="{{ $saved ? 'true' : 'false' }}" :authenticated="{{ auth()->check() ? 'true' : 'false' }}"></save-post>
