@@ -21,6 +21,8 @@
 
             gtag('config', 'G-3JD3ENKSS9');
         </script>
+
+        <script data-ad-client="ca-pub-1502591029525199" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     @endif
 </head>
 <body>
