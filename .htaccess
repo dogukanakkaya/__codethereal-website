@@ -49,6 +49,7 @@
   AddOutputFilterByType DEFLATE text/xml
 </IfModule>
 
+Redirect 301 /bootstrap-5-iconpicker /bootstrap-iconpicker
 
 #Protect Directory
 AuthName "Dialog prompt"
