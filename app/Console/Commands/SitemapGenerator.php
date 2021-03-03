@@ -56,22 +56,23 @@ class SitemapGenerator extends Command
             ->get();
 
         $xml = '';
-        foreach ($categories as $category) {
-            $xml .= '
-                <url>
-                    <loc>'.createUrl($category->url).'</loc>
-                    <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($category->updated_at)).'</lastmod>
-                    <priority>0.7</priority>
-                </url>
-            ';
-        }
 
         foreach ($posts as $post) {
             $xml .= '
                 <url>
                     <loc>'.createUrl($post->url).'</loc>
                     <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($post->updated_at)).'</lastmod>
-                    <priority>0.9</priority>
+                    <priority>1.0</priority>
+                </url>
+            ';
+        }
+
+        foreach ($categories as $category) {
+            $xml .= '
+                <url>
+                    <loc>'.createUrl($category->url).'</loc>
+                    <lastmod>'.date("Y-m-d\TH:i:sP", strtotime($category->updated_at)).'</lastmod>
+                    <priority>0.6</priority>
                 </url>
             ';
         }
