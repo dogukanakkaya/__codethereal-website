@@ -27,7 +27,7 @@ class WebController extends Controller
         $categories = cache()->remember('home-categories', $cacheTimestamp, fn () =>
             $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8)
         );
-        $cards = cache()->remember('home-cards', $cacheTimestamp, fn () =>
+        $articles = cache()->remember('home-articles', $cacheTimestamp, fn () =>
             $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image'])
         );
         $homeTop = cache()->remember('home-top', $cacheTimestamp, fn () =>

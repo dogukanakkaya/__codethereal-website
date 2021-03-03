@@ -116,19 +116,19 @@
 
     <section class="container mb-5">
         <div class="row">
-            @foreach($cards as $card)
+            @foreach($articles as $article)
                 <div class="col-md-4">
                     <div class="ce-card">
                         <div class="face face1">
                             <div class="content">
-                                <img src="{{ resize($card->featured_image, 200) }}" alt="{{ $card->title }}">
-                                <h3>{{ $card->title }}</h3>
+                                <img src="{{ resize($article->featured_image, 200) }}" alt="{{ $article->title }}">
+                                <h3>{{ $article->title }}</h3>
                             </div>
                         </div>
                         <div class="face face2">
                             <div class="content">
-                                <p>{{ $card->description }}</p>
-                                <a href="{{ createUrl($card->url) }}" class="ce-btn">{{ __('site.read_more') }}</a>
+                                <p>{{ $article->description }}</p>
+                                <a href="{{ createUrl($article->url) }}" class="ce-btn">{{ __('site.read_more') }}</a>
                             </div>
                         </div>
                     </div>

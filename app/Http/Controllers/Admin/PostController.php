@@ -90,8 +90,9 @@ class PostController extends Controller
             // Create Post Translations
             $this->postRepository->insertTranslations($post->id, $data);
 
-            // Remove the home posts and home categories cache
+            // Clear cache for some
             cache()->forget('home-posts');
+            cache()->forget('home-articles');
             cache()->forget('home-categories');
 
             DB::commit();
@@ -190,8 +191,9 @@ class PostController extends Controller
             // Update Post Translations
             $this->postRepository->updateTranslations($id, $data);
 
-            // Remove the home posts and home categories cache
+            // Clear cache for some
             cache()->forget('home-posts');
+            cache()->forget('home-articles');
             cache()->forget('home-categories');
 
             DB::commit();
