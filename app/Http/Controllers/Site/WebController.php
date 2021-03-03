@@ -28,7 +28,7 @@ class WebController extends Controller
             $this->postRepository->childrenWithChildrenCount(config('site.categories'), ['posts.id', 'title', 'url', 'featured_image'], 8)
         );
         $articles = cache()->remember('home-articles', $cacheTimestamp, fn () =>
-            $this->postRepository->children(config('site.cards'), ['title', 'url', 'description', 'featured_image'])
+            $this->postRepository->children(config('site.articles'), ['title', 'url', 'description', 'featured_image'])
         );
         $homeTop = cache()->remember('home-top', $cacheTimestamp, fn () =>
             $this->postRepository->find(config('site.home_top'), ['title', 'featured_image'])
@@ -49,6 +49,7 @@ class WebController extends Controller
             'categories' => $categories,
             'featured_posts' => $featuredPosts,
             'articles' => $articles,
+            'article_count' => $articles->count(),
             'parallax' => $parallax,
             'category_count' => $categories->count(),
             'category_children_sum' => $categories->sum('children_count'),

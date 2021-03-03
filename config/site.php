@@ -7,7 +7,7 @@ return [
     'header_menu' => 3,
     'category_links' => 4,
     'quick_links' => 4,
-    'cards' => 21,
+    'articles' => 21,
     'footer' => 11,
     'setting_names' => [
         'logo_light',

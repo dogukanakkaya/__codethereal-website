@@ -4,6 +4,7 @@ return [
     'featured_posts' => 'Featured Posts',
     'relational_posts' => 'Relational Posts',
     'post' => 'Post',
+    'article' => 'Article',
     'user' => 'User',
     'category' => 'Category',
     'show_all' => 'Show All',

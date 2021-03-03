@@ -101,14 +101,14 @@
                     <h4>{{ __('site.post') }}</h4>
                 </li>
                 <li>
+                    <i class="bi bi-book"></i>
+                    <h4>{{ $article_count }}+</h4>
+                    <h4>{{ __('site.article') }}</h4>
+                </li>
+                <li>
                     <i class="bi bi-collection"></i>
                     <h4>{{ $category_count }}+</h4>
                     <h4>{{ __('site.category') }}</h4>
-                </li>
-                <li>
-                    <i class="bi bi-question-diamond"></i>
-                    <h4>?+</h4>
-                    <h4>Codethereal</h4>
                 </li>
             </ul>
         </div>
