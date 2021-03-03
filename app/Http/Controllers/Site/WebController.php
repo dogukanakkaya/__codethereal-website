@@ -48,7 +48,7 @@ class WebController extends Controller
             'category' => $category,
             'categories' => $categories,
             'featured_posts' => $featuredPosts,
-            'cards' => $cards,
+            'articles' => $articles,
             'parallax' => $parallax,
             'category_count' => $categories->count(),
             'category_children_sum' => $categories->sum('children_count'),
