@@ -69,6 +69,11 @@ class WebController extends Controller
     {
         $post = $this->postRepository->find($url, ['posts.id', 'title', 'url', 'description', 'full', 'featured_image', 'views', 'created_at', 'created_by_name', 'meta_title', 'meta_description', 'meta_tags'], 'url');
         if (!$post){
+            // If post is not found check for given url in redirects table and redirect if exists
+            $redirect = DB::table('redirects')->where('from', $url)->first();
+            if ($redirect){
+                return redirect($redirect->to, $redirect->code);
+            }
             return back();
         }
         $postId = $post->id ?? 0;

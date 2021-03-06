@@ -176,7 +176,29 @@ class PostRepository implements PostRepositoryInterface
 
             $values['featured_image'] = $featuredImage->path ?? '';
 
+            // Implode categories with commas and save it as text
             $values['categories'] = implode(', ', $this->parents($id, ['title'])->pluck('title')->toArray());
+
+            // Get previous data of active language and post id
+            $oldData = DB::table('post_translations')
+                ->where('post_id', $id)
+                ->where('language', $language)
+                ->first();
+            // If title has changed, means url has changed so save it to redirects table with 301 code.
+            if ($oldData?->url !== $values['url']){
+                // Update old redirects to new redirects to prevent so many redirections
+                DB::table('redirects')
+                    ->where('to', $oldData->url)
+                    ->update([
+                        'to' => $values['url']
+                    ]);
+                // Save to redirects table
+                DB::table('redirects')->insert([
+                    'from' => $oldData->url,
+                    'to' => $values['url'],
+                    'code' => 301
+                ]);
+            }
 
             DB::table('post_translations')
                 ->where('post_id', $id)
