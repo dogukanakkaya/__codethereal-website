@@ -49,5 +49,5 @@
     </div>
 </div>
 
-@include('site.auth.terms-of-service')
-@include('site.auth.privacy-policy')
+@include('site.auth.terms-of-service-modal')
+@include('site.auth.privacy-policy-modal')

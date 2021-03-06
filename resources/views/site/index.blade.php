@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('site.layout')
 
 @section('content')
     <section class="home-top" style="background: linear-gradient(to right,rgba(12, 41, 116, 0.84) 0%,rgba(35, 107, 237, 0.84) 48%), url({{ resize($home_top->featured_image ?? '', null, 1200) }}) no-repeat;">

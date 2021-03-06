@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('site.layout')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('site/css/prism.css') }}">
