@@ -80,9 +80,6 @@
             <div class="col-lg-3">
                 <aside>
                     <div class="item">
-                        <input type="search" placeholder="Search...">
-                    </div>
-                    <div class="item">
                         <h4 class="title">{{ __('site.categories') }}</h4>
                         <ul>
                             @foreach($category_links as $category_link)

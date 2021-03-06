@@ -27,7 +27,7 @@ class GroupController extends Controller
         if (!Auth::user()->can('see_menus')) {
             return resJsonUnauthorized();
         }
-        $data = MenuGroup::latest()->withCount('items')->get();
+        $data = MenuGroup::withCount('items')->latest()->get();
         return Datatables::of($data)
             ->editColumn('title', fn (MenuGroup $group) => '<a class="clickable" title="' . $group->id . '" onclick="window.location.href = `' . route('menu_items.index', ['groupId' => $group->id]) . '`">' . $group->title . '</a>')
             ->editColumn('created_at', fn (MenuGroup $group) => date("Y-m-d H:i:s", strtotime($group->created_at)))

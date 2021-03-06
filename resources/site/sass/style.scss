@@ -218,7 +218,7 @@ header {
                 color: #000;
                 padding: 0.3rem;
                 transition: all 0.4s ease-in-out;
-                display: inline-block;
+                display: block;
 
                 &:hover {
                     padding-left: 1rem;
@@ -230,8 +230,9 @@ header {
         a {
             color: #fff;
             padding: 0 1rem;
-            display: inline-block;
+            display: block;
             position: relative;
+            font-size: calc(.75rem + .2vw);
 
             &:hover {
                 color: $main-color-hover;
@@ -245,6 +246,7 @@ header {
             border: 2px solid $main-color;
             @include padding(0.4rem 1.25rem);
             color: #fff;
+            font-size: calc(.75rem + .2vw);
 
             &:focus {
                 outline: none;
@@ -275,6 +277,7 @@ header {
         font-weight: normal;
         display: flex;
         justify-content: center;
+        font-size: calc(1rem + .9vw);
 
         span {
             background-color: rgba(0, 0, 0, 0.2);
@@ -372,7 +375,7 @@ header {
         }
 
         h5 {
-            font-size: 18px;
+            font-size: calc(1rem + .1vw);
             margin-top: 0.5rem;
             display: block;
         }
@@ -380,7 +383,7 @@ header {
         span {
             color: $main-color;
             font-weight: bold;
-            font-size: 11px;
+            font-size: calc(.65rem + .1vw);
         }
     }
 }
@@ -415,13 +418,13 @@ header {
         align-items: center;
         top: 10px;
         color: #fff;
-        font-size: 13px;
+        font-size: calc(.75rem + .1vw);
     }
 
     .card-title {
         margin-bottom: 0.5rem;
         font-weight: 600;
-        font-size: 18px;
+        font-size: calc(.8rem + .3vw);
 
         a {
             color: inherit;
@@ -439,7 +442,7 @@ header {
 
     .card-bottom {
         a, span {
-            font-size: 12px;
+            font-size: calc(.6rem + .1vw);
             transition: 0.4s ease-in-out;
             color: $main-color;
 
@@ -496,7 +499,7 @@ header {
     );
 
     a {
-        font-size: 60px;
+        font-size: calc(3rem + 1vw);
         color: #fff;
         transition: transform 0.8s ease-in-out;
     }
@@ -527,11 +530,11 @@ header {
             }
 
             h3 {
-                margin: 10px 0 0;
+                margin-top: .5rem;
                 padding: 0;
                 color: #fff;
                 text-align: center;
-                font-size: 1.5em;
+                font-size: calc(1.25rem + .25vw)m;
             }
         }
     }
@@ -542,11 +545,11 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 20px;
+        padding: 1.5rem;
         box-sizing: border-box;
         box-shadow: 0 5px 15px rgb(0 0 0 / 20%);
         transform: translateY(-100px);
-        
+
         .content {
             p {
                 margin: 0;
@@ -707,7 +710,7 @@ header {
 
     p {
         color: $gray-color;
-        font-size: 13px;
+        font-size: calc(.6rem + .25vw);
     }
 
     .line {
@@ -732,7 +735,7 @@ footer {
 
         & + p {
             color: #fff;
-            font-size: 13px;
+            font-size: calc(.6rem + .25vw);
             margin-bottom: 0.25rem;
         }
     }
@@ -751,7 +754,7 @@ footer {
             color: #fff;
             padding: 0.5rem;
             display: block;
-            font-size: 14px;
+            font-size: calc(.75rem + .25vw);
             transition: color 0.4s ease-in-out;
 
             &:hover {
@@ -783,7 +786,7 @@ footer {
 
     li:not(:last-child) a {
         transition: all 0.4s ease-in-out;
-        font-size: 15px;
+        font-size: calc(.75rem + .25vw);
 
         &:hover {
             text-shadow: 0 0 1px #ffffff, 0 0 1px #fff;
@@ -810,7 +813,7 @@ footer {
     }
 
     li:last-child {
-        font-size: 17px;
+        font-size: calc(.9rem + .25vw);
         font-weight: 500;
     }
 
@@ -828,16 +831,6 @@ aside {
         margin-bottom: 2rem;
     }
 
-    input[type="search"] {
-        width: 100%;
-        padding: 0.75rem 1.25rem;
-        font-size: 13px;
-        margin: 0;
-        border: 2px solid #e8ecec;
-        outline: none;
-        border-radius: 8px;
-    }
-
     h4.title {
         color: $gray-color;
         font-size: 18px;
@@ -847,7 +840,7 @@ aside {
         padding-left: 0.5rem;
 
         a {
-            font-size: 13px;
+            font-size: calc(.75rem + .1vw);
             color: $main-color;
             transition: all 0.25s ease-in-out;
             padding: 0.4rem 0;
@@ -876,7 +869,7 @@ aside {
         }
 
         h4 {
-            font-size: 15px;
+            font-size: calc(.75rem + .25vw);
             margin-bottom: 0;
 
             a {
@@ -942,7 +935,7 @@ aside {
     }
 
     h4::before {
-        margin-top: 5px;
+        margin-top: 4px;
         margin-left: -18px;
         font-size: 17px;
     }
@@ -969,6 +962,7 @@ aside {
         line-height: 1.8;
         margin-bottom: 1.25rem;
         color: #2b2e38;
+        font-size: calc(.75rem + .25vw);
     }
 
     p:last-child{
@@ -1184,6 +1178,23 @@ aside {
     }
 }
 
+.profile-actions{
+    li{
+        display: block;
+        padding: .5rem .75rem;
+        border-bottom: 1px solid #e3e3e3;
+        font-size: calc(.7rem + .2vw);
+        cursor: pointer;
+        &, a{
+            transition: .25s ease-in;
+            color: $main-color;
+            &:hover{
+                color: $main-color-hover;
+            }
+        }
+    }
+}
+
 @include mobile {
     #menu-toggle:checked {
         & + nav {
@@ -1192,14 +1203,17 @@ aside {
                 position: absolute;
                 right: 0;
                 background: #fff;
-                min-height: calc(#{$home-top-height} - #{$top-bar-height} - #{$header-height});;
+                max-height: calc(#{$home-top-height} - #{$top-bar-height} - #{$header-height});
+                overflow-y: scroll;
                 top: $header-height;
-                width: 100%;
+                width: 75%;
                 text-align: center;
+                box-shadow: 0 0 28px rgb(0 0 0 / 7%);
+                padding: 1rem;
 
                 a {
                     color: #000;
-                    padding: .75rem;
+                    padding: .5rem;
                 }
             }
         }
@@ -1291,23 +1305,6 @@ aside {
     }
 }
 
-.profile-actions{
-    li{
-        display: block;
-        padding: .5rem .75rem;
-        border-bottom: 1px solid #e3e3e3;
-        font-size: 14px;
-        cursor: pointer;
-        &, a{
-            transition: .25s ease-in;
-            color: $main-color;
-            &:hover{
-                color: $main-color-hover;
-            }
-        }
-    }
-}
-
 @include mobile-and-tablet {
     .home-top {
         .search {
@@ -1318,10 +1315,6 @@ aside {
         .center {
             top: 20%;
         }
-
-        .slogan {
-            @include font-size(1rem);
-        }
     }
 
     .customize-content {
@@ -1330,19 +1323,8 @@ aside {
             margin: .25rem 0 1rem;
         }
 
-        blockquote::before{
-            margin-left: -15px;
-            font-size: 17px;
-            content: "!";
-            font-weight: 400;
-            position: absolute;
-            color: #ff2d20;
-            opacity: .7;
-        }
-
         p{
             margin-bottom: .5rem;
-            font-size: 15px;
         }
     }
 }
@@ -1350,14 +1332,6 @@ aside {
 @include only-tablet {
     nav {
         .menus {
-            a {
-                font-size: 11px;
-            }
-
-            button {
-                font-size: 11px;
-            }
-
             .has-children > a::after {
                 top: 5px;
             }

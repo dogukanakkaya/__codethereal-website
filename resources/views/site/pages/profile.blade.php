@@ -142,7 +142,7 @@
                         </div>
                     @endforeach
                     <div class="col-md-12 mb-5">
-                        {{ $savedPosts->links('site.partials.pagination') }}
+                        {{ $saved_posts->links('site.partials.pagination') }}
                     </div>
                 </div>
             </div>
